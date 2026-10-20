@@ -1,0 +1,19 @@
+<div class="social-login-buttons flex items-center gap-4">
+  <app-button class="min-h-12 w-full" customClass="w-full min-h-12 text-lg" variant="outlined" severity="secondary"
+    [iconOnly]="true" icon="svglGoogle" [ariaLabel]="'auth.socialLogin.google' | translate"
+    [loading]="loadingProvider() === 'Google'" [disabled]="loadingProvider() !== null"
+    (pressed)="signInWithProvider('Google')"></app-button>
+  <app-button class="min-h-12 w-full" customClass="w-full min-h-12 text-lg" variant="outlined" severity="secondary"
+    [iconOnly]="true" icon="svglMicrosoft" [ariaLabel]="'auth.socialLogin.microsoft' | translate"
+    [loading]="loadingProvider() === 'Apple'" [disabled]="loadingProvider() !== null"
+    (pressed)="signInWithProvider('Apple')"></app-button>
+  <app-button class="min-h-12 w-full" customClass="w-full min-h-12 text-lg" variant="outlined" severity="secondary"
+    [iconOnly]="true" icon="svglFacebook" [ariaLabel]="'auth.socialLogin.facebook' | translate"
+    [loading]="loadingProvider() === 'Facebook'" [disabled]="loadingProvider() !== null"
+    (pressed)="signInWithProvider('Facebook')"></app-button>
+</div>
+@if (loadingProvider(); as provider) {
+<p class="mt-3 text-sm text-muted-foreground" role="status" aria-live="polite">
+  {{ 'auth.socialLogin.redirecting' | translate: { provider: provider } }}
+</p>
+}

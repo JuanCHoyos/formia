@@ -1,0 +1,34 @@
+<section class="flex min-h-screen flex-col bg-white px-5 py-7 sm:px-10 lg:px-20 lg:py-10">
+  <div class="mx-auto flex w-full max-w-107.5 flex-1 flex-col justify-center py-12">
+    <app-auth-header [eyebrow]="'auth.login.eyebrow' | translate" [title]="'auth.login.title' | translate"
+      [description]="'auth.login.description' | translate" icon="lucideLock"></app-auth-header>
+    <app-social-login-buttons></app-social-login-buttons>
+
+    <p-divider align="center" type="solid" class="my-7 text-xs text-muted-foreground">
+      {{ 'auth.login.continueWithEmail' | translate }}
+    </p-divider>
+
+    <form class="flex flex-col gap-4 mb-8" novalidate (submit)="onSubmit($event)">
+      <div class="flex flex-col gap-2">
+        <label for="email" class="text-sm font-medium">{{ 'auth.login.email.label' | translate }}</label>
+        <input id="email" type="email" [placeholder]="'auth.login.email.placeholder' | translate"
+          autocomplete="new-password" [formField]="loginForm.email" class="w-full min-h-12" pInputText />
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="password" class="text-sm font-medium">{{ 'auth.login.password.label' | translate }}</label>
+        <app-password inputId="password" [placeholder]="'auth.login.password.placeholder' | translate"
+          customClass="w-full min-h-12" [formField]="loginForm.password"></app-password>
+      </div>
+      <a routerLink="/auth/forgot-password" class="text-xs text-end font-medium text-primary hover:underline">{{
+        'auth.login.forgotPassword' | translate }}</a>
+      <app-button type="submit" class="w-full" customClass="w-full min-h-12" [disabled]="loginForm().invalid()"
+        [loading]="isSubmitting()">
+        <span aria-live="polite">{{ (isSubmitting() ? 'auth.login.submitting' : 'auth.login.submit') | translate
+          }}</span>
+      </app-button>
+    </form>
+    <p class="flex items-center justify-center gap-1 text-sm text-muted-foreground">{{ 'auth.login.noAccount' |
+      translate }} <a routerLink="/auth/register" class="font-semibold text-primary hover:underline">{{
+        'auth.login.registerLink' | translate }}</a></p>
+  </div>
+</section>

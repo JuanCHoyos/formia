@@ -1,0 +1,45 @@
+<section class="flex min-h-screen flex-col bg-white px-5 py-7 sm:px-10 lg:px-20 lg:py-10">
+    <div class="mx-auto flex w-full max-w-107.5 flex-1 flex-col justify-center py-12">
+        <app-auth-header [eyebrow]="'auth.register.eyebrow' | translate" [title]="'auth.register.title' | translate"
+            [description]="'auth.register.description' | translate" icon="lucideLock"></app-auth-header>
+        <form class="flex flex-col gap-4 mb-8" novalidate (submit)="onSubmit($event)">
+
+            <div class="flex flex-col gap-2">
+                <label for="fullName" class="text-sm font-medium">{{ 'auth.register.fullName.label' | translate
+                    }}</label>
+                <input id="fullName" type="text" [placeholder]="'auth.register.fullName.placeholder' | translate"
+                    autocomplete="name" [formField]="registerForm.name" class="w-full min-h-12" pInputText />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label for="email" class="text-sm font-medium">{{ 'auth.register.email.label' | translate }}</label>
+                <input id="email" type="email" [placeholder]="'auth.register.email.placeholder' | translate"
+                    autocomplete="email" [formField]="registerForm.email" class="w-full min-h-12" pInputText />
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="password" class="text-sm font-medium">{{ 'auth.register.password.label' | translate
+                    }}</label>
+                <app-password inputId="password" [placeholder]="'auth.register.password.placeholder' | translate"
+                    customClass="w-full min-h-12" [formField]="registerForm.password"></app-password>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="confirmPassword" class="text-sm font-medium">{{ 'auth.register.confirmPassword.label' |
+                    translate
+                    }}</label>
+                <app-password inputId="confirmPassword"
+                    [placeholder]="'auth.register.confirmPassword.placeholder' | translate"
+                    customClass="w-full min-h-12" [formField]="registerForm.confirmPassword"></app-password>
+            </div>
+
+            <app-button type="submit" class="w-full" customClass="w-full min-h-12" [disabled]="registerForm().invalid()"
+                [loading]="isSubmitting()">
+                <span aria-live="polite">{{ (isSubmitting() ? 'auth.register.submitting' : 'auth.register.submit') |
+                    translate }}</span>
+            </app-button>
+        </form>
+        <p class="flex items-center justify-center gap-1 text-sm text-muted-foreground">{{ 'auth.register.hasAccount' |
+            translate }} <a routerLink="/auth/login" class="font-semibold text-primary hover:underline">{{
+                'auth.register.loginLink' | translate }}</a></p>
+    </div>
+</section>
