@@ -1,0 +1,220 @@
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+@import './styles/ngx-editor.scss';
+@import './styles/primeng.scss';
+
+
+@theme {
+  --color-background: light-dark(var(--p-surface-0),
+      var(--p-surface-900));
+  --color-success: var(--p-button-success-background);
+
+  --color-warn: var(--p-button-warn-background);
+
+  --color-danger: var(--p-button-danger-background);
+
+}
+
+.p-tabs {
+  --p-tabs-tabpanel-padding: 1rem 0 0 0;
+  --p-tabs-tab-padding: 0.5rem;
+  --p-tabs-tab-font-weight: 600;
+  --p-tabs-tab-font-size: 0.75rem;
+  --p-tabs-tab-border-width: 0;
+
+
+  .p-tab {
+    flex: 1;
+    min-width: fit-content;
+    display: grid;
+    place-content: center;
+    z-index: 10;
+  }
+
+
+}
+
+.p-accordion {
+  --p-accordion-content-padding: 0.25rem 0;
+
+  .p-accordionheader {
+    --p-accordion-header-padding: 1rem 0;
+  }
+}
+
+:root {
+  color-scheme: light;
+}
+
+.p-button-text.p-button-fill {
+
+  background: var(--p-button-text-primary-hover-background);
+  color: var(--p-button-text-primary-color);
+
+
+  &.p-button-danger {
+    background: var(--p-button-text-danger-hover-background);
+    color: var(--p-button-text-danger-color);
+  }
+
+  &.p-button-contrast {
+    background: var(--p-button-text-contrast-hover-background);
+    color: var(--p-button-text-contrast-color);
+  }
+
+  &.p-button-secondary {
+    background: var(--p-button-text-secondary-hover-background);
+    color: var(--p-button-text-secondary-color);
+  }
+
+
+  &.p-button-warn {
+    background: var(--p-button-text-warn-hover-background);
+    color: var(--p-button-text-warn-color);
+  }
+
+  &.p-button-help {
+    background: var(--p-button-text-help-hover-background);
+    color: var(--p-button-text-help-color);
+  }
+
+  &.p-button-info {
+    background: var(--p-button-text-info-hover-background);
+    color: var(--p-button-text-info-color);
+  }
+
+  &.p-button-success {
+    background: var(--p-button-text-success-hover-background);
+    color: var(--p-button-text-success-color);
+  }
+}
+
+.p-rating-option svg,
+.p-rating-option i {
+  --p-rating-icon-size: 32px;
+
+  &:hover {
+    --tw-scale-x: 105%;
+    --tw-scale-y: 105%;
+    --tw-scale-z: 105%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
+}
+
+
+
+
+
+@utility bg-highlight {
+  --bg-color: var(--color-indigo-50);
+  --border-color: var(--color-indigo-500);
+  background-color: var(--bg-color) !important;
+  border: 1px solid var(--border-color);
+
+  &:hover {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+  }
+}
+
+@utility bg-highlight {
+  --bg-color: var(--color-indigo-50);
+  --border-color: var(--color-indigo-500);
+  background-color: var(--bg-color) !important;
+  border: 1px solid var(--border-color);
+
+  &:hover {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+  }
+}
+
+@utility surface-default {
+  background-color: var(--color-slate-50);
+  border: 1px solid var(--color-slate-200);
+}
+
+@utility border-default {
+  border: 1px solid var(--color-slate-200);
+}
+
+@utility surface-highlight {
+  background-color: var(--color-indigo-50);
+  border: 1px solid var(--color-indigo-500);
+}
+
+
+@utility border-highlight {
+  border: 1px solid var(--color-indigo-500);
+}
+
+
+@utility border-highlight-medium {
+  border: 1px solid var(--color-indigo-200);
+}
+
+@utility surface-hover {
+  &:hover {
+    background-color: var(--color-slate-50);
+  }
+}
+
+@utility surface-highlight-hover {
+  &:hover {
+    background-color: var(--color-indigo-100);
+    border-color: var(--color-indigo-600);
+  }
+}
+
+@utility input-disabled-background {
+  background-color: var(--p-inputtext-disabled-background);
+}
+
+.cdk-drag-preview {
+  opacity: 0.8;
+}
+
+
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 150ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drag-animating {
+  transition: transform 150ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.drag-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3px;
+  width: 100%;
+  background-color: var(--p-primary-500);
+  position: relative;
+}
+
+.drag-placeholder::before {
+  opacity: 1;
+  content: var(--placeholder-text, 'Drag it here');
+  position: absolute;
+  background-color: var(--p-primary-500);
+  color: var(--p-primary-contrast-color);
+  padding: 0.25rem 1rem;
+  border-radius: 1rem;
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-bold);
+}
+
+[data-sorting-disabled='true'] {
+  .drag-placeholder {
+    position: absolute;
+    visibility: hidden;
+    display: none;
+    height: 0;
+
+    &::before {
+      content: '';
+      padding: 0;
+    }
+  }
+}

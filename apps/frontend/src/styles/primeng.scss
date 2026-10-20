@@ -1,0 +1,26 @@
+p-radiobutton {
+  --size: 1.25rem;
+  --p-radiobutton-width: var(--size);
+  --p-radiobutton-height: var(--size);
+  .p-radiobutton-box {
+    background-color: transparent;
+  }
+
+
+  .p-radiobutton-box .p-radiobutton-icon {
+    width: 0;
+    height: 0;
+  }
+
+  &.p-radiobutton-checked .p-radiobutton-box .p-radiobutton-icon {
+    background-color: var(--p-radiobutton-checked-background);
+    width: var(--p-radiobutton-icon-size);
+    height: var(--p-radiobutton-icon-size);
+  }
+}
+
+p-checkbox {
+  --size: 1.25rem;
+  --p-checkbox-width: var(--size);
+  --p-checkbox-height: var(--size);
+}
