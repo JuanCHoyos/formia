@@ -1,0 +1,707 @@
+{
+  "common": {
+    "actions": {
+      "accept": "Aceptar",
+      "back": "Volver",
+      "cancel": "Cancelar",
+      "close": "Cerrar",
+      "copy": "Copiar {{label}}",
+      "move": "Mover {{label}}",
+      "delete": "Eliminar",
+      "deleteItem": "Eliminar {{label}}",
+      "next": "Siguiente",
+      "previous": "Anterior",
+      "save": "Guardar",
+      "submit": "Enviar",
+      "drag": "Arrastrar",
+      "dragPlaceholder": "Suelta aquí"
+    },
+    "status": {
+      "complete": "Completado",
+      "draft": "Borrador",
+      "error": "Error",
+      "pending": "Pendiente",
+      "published": "Publicado",
+      "saved": "Guardado"
+    }
+  },
+  "auth": {
+    "passwordStrength": {
+      "title": "Requisitos de la contraseña",
+      "levels": {
+        "tooWeak": "Muy débil",
+        "weak": "Débil",
+        "fair": "Regular",
+        "strong": "Fuerte",
+        "veryStrong": "Muy fuerte"
+      },
+      "rules": {
+        "minLength": "Al menos 8 caracteres",
+        "maxLength": "Como máximo 256 caracteres",
+        "lowercase": "Al menos una letra minúscula",
+        "uppercase": "Al menos una letra mayúscula",
+        "number": "Al menos un número",
+        "symbol": "Al menos un carácter especial",
+        "noWhitespace": "No debe contener espacios"
+      }
+    },
+    "login": {
+      "eyebrow": "Bienvenido de nuevo",
+      "title": "Entra a tu espacio.",
+      "description": "Accede a tu cuenta para crear, editar y compartir tus formularios.",
+      "continueWithEmail": "o continúa con tu correo",
+      "email": {
+        "label": "Correo electrónico",
+        "placeholder": "tu@correo.com"
+      },
+      "password": {
+        "label": "Contraseña",
+        "placeholder": "Mínimo 8 caracteres"
+      },
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "submit": "Iniciar sesión",
+      "submitting": "Iniciando sesión…",
+      "noAccount": "¿No tienes una cuenta?",
+      "registerLink": "Regístrate aquí"
+    },
+    "register": {
+      "eyebrow": "Crea tu cuenta",
+      "title": "Empieza con Formia.",
+      "description": "Crea una cuenta para diseñar, editar y compartir tus formularios.",
+      "continueWithEmail": "o continúa con tu correo",
+      "fullName": {
+        "label": "Nombre completo",
+        "placeholder": "Tu nombre completo"
+      },
+      "email": {
+        "label": "Correo electrónico",
+        "placeholder": "tu@correo.com"
+      },
+      "role": {
+        "label": "¿Cómo quieres usar el sistema?",
+        "placeholder": "Selecciona un rol"
+      },
+      "roleCreator": "Constructor",
+      "roleParticipant": "Participante",
+      "password": {
+        "label": "Contraseña",
+        "placeholder": "Mínimo 8 caracteres"
+      },
+      "confirmPassword": {
+        "label": "Confirmar contraseña",
+        "placeholder": "Vuelve a escribir tu contraseña"
+      },
+      "acceptTerms": "Acepto los términos y condiciones y la política de privacidad.",
+      "termsRequired": "Debes aceptar los términos para continuar.",
+      "submit": "Registrarse",
+      "submitting": "Creando cuenta…",
+      "error": "No se pudo completar el registro. Inténtalo de nuevo.",
+      "success": "Tu cuenta fue creada. Revisa tu correo para verificarla.",
+      "hasAccount": "¿Ya tienes una cuenta?",
+      "loginLink": "Inicia sesión"
+    },
+    "completeRegister": {
+      "eyebrow": "Un último paso",
+      "title": "Completa tu perfil.",
+      "description": "Elige cómo usarás Formia y acepta los términos para continuar.",
+      "submit": "Completar registro",
+      "submitting": "Guardando tus datos…",
+      "successTitle": "Registro completado",
+      "success": "Tu perfil ya está listo.",
+      "errorTitle": "No se pudo completar el registro",
+      "error": "Inténtalo de nuevo en unos momentos.",
+      "verificationErrorTitle": "No se pudo verificar tu perfil",
+      "verificationError": "No fue posible consultar tu usuario. Inténtalo de nuevo."
+    },
+    "confirmSignup": {
+      "eyebrow": "Verificación segura",
+      "title": "Confirma tu código.",
+      "description": "Escribe el código de 6 dígitos que enviamos a tu correo electrónico.",
+      "code": {
+        "label": "Código de verificación de 6 dígitos"
+      },
+      "codeNotReceived": "¿No recibiste el código?",
+      "resend": "Reenviar",
+      "submit": "Enviar código",
+      "submitting": "Verificando código…",
+      "hasAccount": "¿Ya tienes una cuenta?",
+      "loginLink": "Inicia sesión"
+    },
+    "forgotPassword": {
+      "eyebrow": "Recupera el acceso",
+      "title": "¿Olvidaste tu contraseña?",
+      "description": "Te enviaremos un código para que puedas restablecerla de forma segura.",
+      "resetDescription": "Ingresa el código y establece una nueva contraseña.",
+      "email": {
+        "label": "Correo electrónico",
+        "placeholder": "tu@correo.com"
+      },
+      "code": {
+        "label": "Código de verificación de 6 dígitos"
+      },
+      "password": {
+        "label": "Nueva contraseña",
+        "placeholder": "Ingresa tu nueva contraseña"
+      },
+      "confirmPassword": {
+        "label": "Confirmar contraseña",
+        "placeholder": "Vuelve a escribir tu contraseña"
+      },
+      "submit": "Enviar código",
+      "requesting": "Enviando código…",
+      "resetSubmit": "Restablecer contraseña",
+      "resetting": "Restableciendo contraseña…",
+      "hasAccount": "¿Ya tienes una cuenta?",
+      "loginLink": "Inicia sesión"
+    },
+    "notifications": {
+      "signedIn": {
+        "title": "Sesión iniciada",
+        "detail": "Has iniciado sesión correctamente."
+      },
+      "confirmationRequired": {
+        "title": "Confirma tu cuenta",
+        "detail": "Verifica tu correo para poder iniciar sesión."
+      },
+      "confirmationCodeSent": {
+        "title": "Cuenta creada",
+        "detail": "Te enviamos un código de verificación a tu correo."
+      },
+      "accountCreated": {
+        "title": "Cuenta creada",
+        "detail": "Tu cuenta está lista. Ya puedes iniciar sesión."
+      },
+      "accountConfirmed": {
+        "title": "Cuenta confirmada",
+        "detail": "Tu correo se verificó correctamente. Ya puedes iniciar sesión."
+      },
+      "resetCodeSent": {
+        "title": "Código enviado",
+        "detail": "Revisa tu correo para continuar con el restablecimiento."
+      },
+      "passwordReset": {
+        "title": "Contraseña actualizada",
+        "detail": "Tu contraseña se restableció correctamente."
+      }
+    },
+    "cognitoErrors": {
+      "title": "No se pudo completar la solicitud",
+      "generic": "Inténtalo de nuevo. Si el problema continúa, contacta con soporte.",
+      "invalidCredentials": "El correo o la contraseña no son correctos.",
+      "passwordAttemptsExceeded": "Se superó el número de intentos de contraseña. Espera un momento antes de volver a intentarlo.",
+      "passwordRecoveryFailed": "No se pudo completar la recuperación. Verifica los datos e inténtalo de nuevo.",
+      "userNotConfirmed": "Confirma tu correo electrónico antes de iniciar sesión.",
+      "emailAlreadyRegistered": "Ya existe una cuenta con ese correo electrónico.",
+      "invalidPassword": "La contraseña no cumple los requisitos establecidos.",
+      "codeMismatch": "El código ingresado no es válido.",
+      "expiredCode": "El código venció. Solicita uno nuevo.",
+      "tooManyRequests": "Hiciste demasiados intentos. Espera un momento y vuelve a intentarlo.",
+      "passwordResetRequired": "Debes restablecer tu contraseña antes de iniciar sesión.",
+      "codeDeliveryFailed": "No pudimos enviar el código. Inténtalo de nuevo.",
+      "alreadyConfirmed": "Esta cuenta ya está confirmada. Puedes iniciar sesión.",
+      "invalidRequest": "Verifica los datos e inténtalo de nuevo."
+    },
+    "validation": {
+      "invalidForm": {
+        "title": "Revisa el formulario",
+        "detail": "Completa los campos correctamente y verifica la política de contraseña."
+      },
+      "passwordPolicy": "La contraseña debe cumplir la política indicada.",
+      "passwordsDoNotMatch": "Las contraseñas no coinciden.",
+      "codeLength": "El código debe tener 6 dígitos."
+    },
+    "socialLogin": {
+      "google": "Continuar con Google",
+      "microsoft": "Continuar con Microsoft",
+      "facebook": "Continuar con Facebook",
+      "providerError": "No se pudo iniciar sesión con este proveedor. Inténtalo de nuevo.",
+      "redirecting": "Conectando con {{provider}}…",
+      "completing": "Estamos verificando tu cuenta...",
+      "callbackError": "No se pudo completar el inicio de sesión social. Inténtalo de nuevo."
+    },
+    "layout": {
+      "tagline": "Formularios que se adaptan a ti",
+      "headline": "Convierte tus ideas en formularios dinámicos.",
+      "description": "Diseña flujos personalizados, agrega los campos que necesitas y comparte formularios listos para recibir respuestas.",
+      "security": "Tus formularios y respuestas, siempre protegidos",
+      "copyright": "© 2026 Formia. Diseñado para avanzar."
+    }
+  },
+  "formBuilder": {
+    "header": {
+      "ariaLabel": "Encabezado del constructor de formularios",
+      "myForms": "Mis formularios",
+      "editTitle": "Editar el título del formulario",
+      "saveTitle": "Guardar título",
+      "preview": "Vista previa",
+      "backToEditor": "Volver al editor",
+      "publish": "Publicar",
+      "settings": "Configuración",
+      "elementCount": {
+        "one": "{{count}} elemento",
+        "other": "{{count}} elementos"
+      },
+      "undo": "Deshacer",
+      "redo": "Rehacer",
+      "saveState": {
+        "idle": "",
+        "saving": "Guardando borrador…",
+        "saved": "Borrador guardado",
+        "error": "No se pudo guardar el borrador"
+      },
+      "titleTooShort": "El título debe tener al menos {{min}} caracteres."
+    },
+    "history": {
+      "ariaLabel": "Historial de versiones del formulario",
+      "open": "Ver historial de versiones",
+      "title": "Historial de versiones",
+      "searchPlaceholder": "Buscar versiones",
+      "searchAriaLabel": "Buscar versiones del formulario",
+      "version": "Versión {{number}}",
+      "current": "Actual",
+      "noResults": "No se encontraron versiones."
+    },
+    "sidebar": {
+      "fieldsAriaLabel": "Campos del formulario",
+      "build": "CONSTRUIR",
+      "close": "Cerrar el panel izquierdo",
+      "open": "Abrir el panel izquierdo",
+      "components": "Componentes",
+      "tree": "Vista de árbol",
+      "searchPlaceholder": "Buscar componente",
+      "searchAriaLabel": "Buscar componentes por nombre o tipo",
+      "noComponents": "No se encontraron componentes."
+    },
+    "properties": {
+      "ariaLabel": "Propiedades del campo",
+      "title": "PROPIEDADES",
+      "close": "Cerrar el panel derecho",
+      "editing": "Campo de edición",
+      "emptySelection": "Selecciona un campo para editar sus propiedades.",
+      "sections": {
+        "general": {
+          "title": "Información básica",
+          "description": "Configura los datos principales y la disponibilidad del campo."
+        },
+        "preferences": {
+          "title": "Preferencias",
+          "description": "Define opciones adicionales de funcionamiento."
+        },
+        "options": {
+          "title": "Opciones",
+          "description": "Administra las opciones disponibles para quienes respondan."
+        }
+      },
+      "common": {
+        "label": "Etiqueta",
+        "description": "Descripción",
+        "required": {
+          "label": "Requerido",
+          "description": "Habilite esta opción para que el campo sea obligatorio."
+        },
+        "disabled": {
+          "label": "Deshabilitado",
+          "description": "Habilite esta opción para deshabilitar el campo."
+        },
+        "placeholder": "Placeholder",
+        "min": "Mínimo de caracteres",
+        "max": "Máximo de caracteres"
+      },
+      "text": {
+        "patternEnabled": "Activar validación por patrón",
+        "pattern": "Expresión regular",
+        "patternInvalid": "La expresión regular no es válida."
+      },
+      "textarea": {
+        "placeholder": "Placeholder",
+        "autoResize": {
+          "label": "Redimensionamiento automático",
+          "description": "Ajusta automáticamente la altura del área de texto para que se ajuste a su contenido."
+        },
+        "unlimitedMax": "Sin límite máximo",
+        "maxMinError": "El máximo debe ser mayor o igual que el mínimo."
+      },
+      "select": {
+        "multiple": {
+          "label": "Selección múltiple",
+          "description": "Permite seleccionar más de una opción."
+        },
+        "group": {
+          "label": "Agrupar opciones",
+          "description": "Organiza las opciones en grupos."
+        },
+        "showClear": {
+          "label": "Mostrar botón para limpiar",
+          "description": "Muestra un botón para borrar la selección actual."
+        },
+        "filter": {
+          "label": "Habilitar filtro",
+          "description": "Permite buscar opciones por texto."
+        },
+        "options": "Opciones",
+        "optionLabel": "Etiqueta",
+        "optionValue": "Valor",
+        "addOption": "Agregar opción",
+        "groupLabel": "Etiqueta del grupo",
+        "addGroup": "Agregar grupo",
+        "newGroup": "Nuevo grupo"
+      },
+      "alert": {
+        "text": "Texto del aviso",
+        "severity": {
+          "label": "Severidad",
+          "success": "Éxito",
+          "info": "Información",
+          "warn": "Advertencia",
+          "error": "Error"
+        },
+        "size": {
+          "label": "Tamaño",
+          "default": "Predeterminado",
+          "small": "Pequeño",
+          "large": "Grande"
+        },
+        "variant": {
+          "label": "Estilo",
+          "outlined": "Contorneado",
+          "text": "Texto",
+          "simple": "Simple"
+        },
+        "closable": {
+          "label": "Permitir cerrar el aviso",
+          "description": "Muestra un botón para cerrar el aviso."
+        }
+      },
+      "matrix": {
+        "questions": "Preguntas",
+        "answers": "Respuestas",
+        "selectionMode": {
+          "label": "Modo de selección",
+          "single": "Una respuesta por pregunta",
+          "multiple": "Varias respuestas por pregunta"
+        }
+      },
+      "rating": {
+        "type": {
+          "label": "Tipo de calificación",
+          "star": "Estrellas",
+          "number": "Números",
+          "icon": "Iconos"
+        },
+        "stars": "Número de niveles",
+        "allowHalf": {
+          "label": "Permitir medias estrellas",
+          "description": "Permite seleccionar incrementos de media estrella."
+        },
+        "icon": "Icono",
+        "lowLabel": "Etiqueta de valor mínimo",
+        "highLabel": "Etiqueta de valor máximo"
+      },
+      "heading": {
+        "text": "Texto del encabezado",
+        "level": "Nivel del encabezado",
+        "alignment": "Alineación",
+        "alignmentStart": "Inicio",
+        "alignmentCenter": "Centro",
+        "alignmentEnd": "Final",
+        "subheading": "Subtítulo"
+      },
+      "paragraph": {
+        "text": "Texto del párrafo"
+      },
+      "image": {
+        "src": "URL de la imagen",
+        "alt": "Texto alternativo"
+      },
+      "divider": {
+        "text": "Texto del separador",
+        "layout": {
+          "label": "Orientación",
+          "horizontal": "Horizontal",
+          "vertical": "Vertical"
+        },
+        "alignment": {
+          "label": "Alineación",
+          "left": "Izquierda",
+          "center": "Centro",
+          "right": "Derecha",
+          "top": "Arriba",
+          "bottom": "Abajo"
+        },
+        "lineType": {
+          "label": "Estilo de línea",
+          "solid": "Sólida",
+          "dashed": "Discontinua",
+          "dotted": "Punteada"
+        }
+      },
+      "container": {
+        "label": "Etiqueta del contenedor",
+        "columns": "Número de columnas"
+      },
+      "messages": {
+        "form": {
+          "error": "No se guardarán los cambios hasta que corrijas los campos con errores. Revisa los mensajes de validación e inténtalo de nuevo."
+        }
+      }
+    },
+    "workspace": {
+      "ariaLabel": "Área de trabajo del formulario",
+      "canvasAriaLabel": "Lienzo del formulario",
+      "structure": "ESTRUCTURA DEL FORMULARIO",
+      "displayMode": "Elige cómo quieres mostrarlo",
+      "pagination": "PAGINACIÓN",
+      "stepCounter": "Paso {{current}} de {{total}}",
+      "addComponent": "Agregar componente",
+      "searchComponents": "Buscar componente",
+      "preview": "Vista previa del formulario",
+      "previewSubmitNotice": "La vista previa es solo una simulación. No se envió ninguna respuesta.",
+      "dragFieldsHere": "Arrastra campos desde el panel izquierdo",
+      "reorderField": "Arrastrar para reordenar",
+      "copyField": "Duplicar campo",
+      "moveOrCopyField": "Mover o copiar campo",
+      "deleteField": "Eliminar campo",
+      "unknownFieldType": "Tipo de campo desconocido"
+    },
+    "transfer": {
+      "title": "Mover o copiar campo",
+      "action": "Acción",
+      "move": "Mover",
+      "copy": "Copiar",
+      "destination": "Destino",
+      "endOfPage": "Al final de la página: {{page}}",
+      "before": "Antes de «{{field}}» en {{parent}}",
+      "after": "Después de «{{field}}» en {{parent}}",
+      "insideContainer": "Dentro de «{{container}}» en {{page}}",
+      "noDestinations": "No hay ubicaciones disponibles para este campo.",
+      "unnamed": "Sin nombre"
+    },
+    "pages": {
+      "add": "Agregar página",
+      "createTitle": "Crear página",
+      "name": "Nombre de la página",
+      "namePlaceholder": "Escribe el nombre de la página"
+    },
+    "defaults": {
+      "pageLabel": "Encuesta",
+      "container": "Contenedor",
+      "optionOne": "Opción 1",
+      "optionTwo": "Opción 2",
+      "paragraph": "Agrega aquí una descripción para el formulario.",
+      "alert": "Ejemplo sencillo",
+      "formTitle": "Formulario sin título"
+    },
+    "views": {
+      "placeholder": "Vista",
+      "steps": "Multipaso",
+      "scroll": "Todo en uno",
+      "tabs": "Pestañas"
+    },
+    "messages": {
+      "cannotNestContainer": {
+        "title": "No se pudo agregar el campo",
+        "detail": "No es posible agregar un contenedor dentro de otro contenedor."
+      },
+      "fieldMoveFailed": {
+        "title": "No se pudo mover el campo",
+        "detail": "El campo o el grupo de destino ya no está disponible."
+      },
+      "cannotDeleteLastPage": {
+        "title": "No se pudo eliminar la página",
+        "detail": "El formulario debe tener al menos una página."
+      },
+      "fieldDeleted": {
+        "title": "Elemento eliminado",
+        "detail": "El elemento se eliminó correctamente."
+      }
+    },
+    "confirmations": {
+      "deleteField": {
+        "title": "Confirmar eliminación",
+        "message": "¿Seguro que quieres eliminar este elemento? Esta acción no se puede deshacer."
+      }
+    },
+    "navigation": {
+      "stepCounter": "Paso {{current}} de {{total}}"
+    },
+    "matrix": {
+      "question": "Pregunta"
+    },
+    "rating": {
+      "low": "Malo",
+      "high": "Bueno"
+    },
+    "iconSelector": {
+      "selectIcon": "Seleccionar icono",
+      "selectIcons": "Seleccionar iconos",
+      "dialogTitle": "Seleccionar icono",
+      "sectionAriaLabel": "Selector de iconos",
+      "searchPlaceholder": "Buscar iconos",
+      "searchAriaLabel": "Buscar iconos",
+      "availableIcons": "Iconos disponibles",
+      "noIcons": "No se encontraron iconos.",
+      "selectNamedIcon": "Seleccionar {{name}}"
+    },
+    "validation": {
+      "maxMustBeGreaterThanMin": "Max debe ser mayor o igual que min"
+    },
+    "page": {
+      "loading": "Cargando formulario…",
+      "error": "No pudimos abrir este formulario",
+      "retry": "Reintentar"
+    },
+    "publish": {
+      "successTitle": "Formulario publicado",
+      "success": "La versión publicada ya está actualizada.",
+      "errorTitle": "No se pudo publicar",
+      "error": "Tu borrador se conserva. Intenta publicar de nuevo."
+    },
+    "fieldWrapper": {
+      "required": "Obligatorio"
+    },
+    "settings": {
+      "title": "Configuración del formulario",
+      "ariaLabel": "Configuración del formulario",
+      "isPublic": {
+        "label": "Formulario público",
+        "description": "Cualquiera con el enlace puede responder sin iniciar sesión."
+      },
+      "allowMultiple": {
+        "label": "Permitir varias respuestas",
+        "description": "Permite que un mismo usuario envíe el formulario más de una vez."
+      },
+      "maxPerUser": {
+        "label": "Respuestas por usuario",
+        "description": "Número máximo de respuestas que puede enviar cada usuario."
+      }
+    },
+    "versions": {
+      "ariaLabel": "Versiones publicadas",
+      "open": "Versiones publicadas",
+      "title": "Versiones publicadas",
+      "limitNotice": "Solo se conservan las {{count}} versiones anteriores. Las más antiguas se eliminan automáticamente.",
+      "version": "Versión {{number}}",
+      "restore": "Restaurar",
+      "empty": "Aún no hay versiones anteriores."
+    }
+  },
+  "fieldPalette": {
+    "categories": {
+      "basic": "Básico",
+      "advanced": "Avanzados",
+      "structure": "Estructura"
+    },
+    "fields": {
+      "shortText": {
+        "label": "Texto corto",
+        "description": "Campo de una sola línea para respuestas breves."
+      },
+      "longText": {
+        "label": "Texto largo",
+        "description": "Área de varias líneas para respuestas extensas."
+      },
+      "checkbox": {
+        "label": "Casilla",
+        "description": "Permite marcar o desmarcar una opción."
+      },
+      "date": {
+        "label": "Fecha",
+        "description": "Permite seleccionar una fecha del calendario."
+      },
+      "dropdown": {
+        "label": "Lista desplegable",
+        "description": "Permite elegir una o varias opciones de una lista."
+      },
+      "singleChoice": {
+        "label": "Opción única",
+        "description": "Permite seleccionar una opción entre varias."
+      },
+      "multipleChoice": {
+        "label": "Selección múltiple",
+        "description": "Permite seleccionar varias opciones a la vez."
+      },
+      "matrix": {
+        "label": "Matriz",
+        "description": "Organiza preguntas y respuestas en filas y columnas."
+      },
+      "imageChoice": {
+        "label": "Selección con imágenes",
+        "description": "Permite elegir una opción representada por una imagen."
+      },
+      "rating": {
+        "label": "Calificación",
+        "description": "Permite valorar mediante estrellas, números o iconos."
+      },
+      "heading": {
+        "label": "Encabezado",
+        "description": "Agrega un título para organizar el contenido del formulario."
+      },
+      "paragraph": {
+        "label": "Párrafo",
+        "description": "Muestra texto informativo dentro del formulario."
+      },
+      "image": {
+        "label": "Imagen",
+        "description": "Muestra una imagen en el formulario."
+      },
+      "alert": {
+        "label": "Alerta",
+        "description": "Destaca un aviso o mensaje importante."
+      },
+      "divider": {
+        "label": "Separador",
+        "description": "Agrega una línea para separar secciones."
+      },
+      "container": {
+        "label": "Contenedor",
+        "description": "Agrupa campos relacionados en una sección."
+      }
+    }
+  },
+  "fileUploader": {
+    "open": "Abrir el selector de archivos",
+    "sectionAriaLabel": "Subir archivos",
+    "title": "Sube tus archivos",
+    "subtitle": "Para usar en el proyecto",
+    "dropFiles": "Arrastra y suelta tus archivos aquí o",
+    "selectFiles": "Selecciona archivos",
+    "maxPerFile": "Máximo {{size}} por archivo",
+    "errors": {
+      "allowedTypes": "Tipos permitidos: {{types}}.",
+      "maxFileSize": "El tamaño máximo por archivo es {{size}}.",
+      "missingUploadUrl": "Configura la URL de carga para iniciar la carga.",
+      "httpFailure": "La carga falló (HTTP {{status}}).",
+      "uploadFailure": "No se pudo completar la carga."
+    }
+  },
+  "dashboard": {
+    "title": "Mis formularios",
+    "description": "Revisa y abre los formularios que has creado.",
+    "loading": "Cargando tus formularios…",
+    "error": {
+      "title": "No pudimos cargar tus formularios",
+      "detail": "Revisa tu conexión e inténtalo de nuevo.",
+      "retry": "Reintentar"
+    },
+    "empty": {
+      "title": "Aún no tienes formularios",
+      "detail": "Los formularios que crees aparecerán aquí."
+    },
+    "visibility": {
+      "public": "Público",
+      "private": "Privado"
+    },
+    "nav": {
+      "forms": "Mis formularios",
+      "toggleSidebar": "Mostrar u ocultar el panel lateral"
+    },
+    "create": "Crear formulario",
+    "table": {
+      "title": "Título",
+      "visibility": "Visibilidad",
+      "createdAt": "Creado",
+      "actions": "Acciones",
+      "open": "Abrir en el constructor"
+    }
+  }
+}

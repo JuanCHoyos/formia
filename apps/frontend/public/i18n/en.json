@@ -1,0 +1,707 @@
+{
+  "common": {
+    "actions": {
+      "accept": "Accept",
+      "back": "Back",
+      "cancel": "Cancel",
+      "close": "Close",
+      "copy": "Copy {{label}}",
+      "move": "Move {{label}}",
+      "delete": "Delete",
+      "deleteItem": "Delete {{label}}",
+      "next": "Next",
+      "previous": "Previous",
+      "save": "Save",
+      "submit": "Submit",
+      "drag": "Drag",
+      "dragPlaceholder": "Drag it here"
+    },
+    "status": {
+      "complete": "Complete",
+      "draft": "Draft",
+      "error": "Error",
+      "pending": "Pending",
+      "published": "Published",
+      "saved": "Saved"
+    }
+  },
+  "auth": {
+    "passwordStrength": {
+      "title": "Password requirements",
+      "levels": {
+        "tooWeak": "Too weak",
+        "weak": "Weak",
+        "fair": "Fair",
+        "strong": "Strong",
+        "veryStrong": "Very strong"
+      },
+      "rules": {
+        "minLength": "At least 8 characters",
+        "maxLength": "No more than 256 characters",
+        "lowercase": "At least one lowercase letter",
+        "uppercase": "At least one uppercase letter",
+        "number": "At least one number",
+        "symbol": "At least one special character",
+        "noWhitespace": "Must not contain spaces"
+      }
+    },
+    "login": {
+      "eyebrow": "Welcome back",
+      "title": "Step into your workspace.",
+      "description": "Sign in to create, edit, and share your forms.",
+      "continueWithEmail": "or continue with your email",
+      "email": {
+        "label": "Email address",
+        "placeholder": "you@example.com"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "At least 8 characters"
+      },
+      "forgotPassword": "Forgot your password?",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "noAccount": "Don't have an account?",
+      "registerLink": "Sign up here"
+    },
+    "register": {
+      "eyebrow": "Welcome",
+      "title": "Create your account.",
+      "description": "Sign up to create, edit, and share your forms.",
+      "continueWithEmail": "or continue with your email",
+      "fullName": {
+        "label": "Full name",
+        "placeholder": "Your full name"
+      },
+      "email": {
+        "label": "Email address",
+        "placeholder": "you@example.com"
+      },
+      "role": {
+        "label": "How would you like to use the system?",
+        "placeholder": "Select a role"
+      },
+      "roleCreator": "Builder",
+      "roleParticipant": "Participant",
+      "password": {
+        "label": "Password",
+        "placeholder": "At least 8 characters"
+      },
+      "confirmPassword": {
+        "label": "Confirm password",
+        "placeholder": "Enter your password again"
+      },
+      "acceptTerms": "I agree to the terms and conditions and privacy policy.",
+      "termsRequired": "You must accept the terms to continue.",
+      "submit": "Sign up",
+      "submitting": "Creating account…",
+      "error": "We couldn't complete your registration. Please try again.",
+      "success": "Your account was created. Check your email to verify it.",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Sign in"
+    },
+    "completeRegister": {
+      "eyebrow": "One last step",
+      "title": "Complete your profile.",
+      "description": "Choose how you will use Formia and accept the terms to continue.",
+      "submit": "Complete registration",
+      "submitting": "Saving your details…",
+      "successTitle": "Registration complete",
+      "success": "Your profile is ready.",
+      "errorTitle": "Registration could not be completed",
+      "error": "Please try again in a few moments.",
+      "verificationErrorTitle": "Your profile could not be verified",
+      "verificationError": "We couldn't check your user. Please try again."
+    },
+    "confirmSignup": {
+      "eyebrow": "Secure verification",
+      "title": "Confirm your code.",
+      "description": "Enter the 6-digit code we sent to your email address.",
+      "code": {
+        "label": "6-digit verification code"
+      },
+      "codeNotReceived": "Didn't receive the code?",
+      "resend": "Resend",
+      "submit": "Submit code",
+      "submitting": "Verifying code…",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Sign in"
+    },
+    "forgotPassword": {
+      "eyebrow": "Recover access",
+      "title": "Forgot your password?",
+      "description": "We'll send you a code so you can reset it securely.",
+      "resetDescription": "Enter the code and set a new password.",
+      "email": {
+        "label": "Email address",
+        "placeholder": "you@example.com"
+      },
+      "code": {
+        "label": "6-digit verification code"
+      },
+      "password": {
+        "label": "New password",
+        "placeholder": "Enter your new password"
+      },
+      "confirmPassword": {
+        "label": "Confirm password",
+        "placeholder": "Enter your password again"
+      },
+      "submit": "Send code",
+      "requesting": "Sending code…",
+      "resetSubmit": "Reset password",
+      "resetting": "Resetting password…",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Sign in"
+    },
+    "notifications": {
+      "signedIn": {
+        "title": "Signed in",
+        "detail": "You have signed in successfully."
+      },
+      "confirmationRequired": {
+        "title": "Confirm your account",
+        "detail": "Verify your email address before signing in."
+      },
+      "confirmationCodeSent": {
+        "title": "Account created",
+        "detail": "We sent a verification code to your email."
+      },
+      "accountCreated": {
+        "title": "Account created",
+        "detail": "Your account is ready. You can now sign in."
+      },
+      "accountConfirmed": {
+        "title": "Account confirmed",
+        "detail": "Your email was verified successfully. You can now sign in."
+      },
+      "resetCodeSent": {
+        "title": "Code sent",
+        "detail": "Check your email to continue resetting your password."
+      },
+      "passwordReset": {
+        "title": "Password updated",
+        "detail": "Your password was reset successfully."
+      }
+    },
+    "cognitoErrors": {
+      "title": "The request could not be completed",
+      "generic": "Please try again. If the problem continues, contact support.",
+      "invalidCredentials": "The email or password is incorrect.",
+      "passwordAttemptsExceeded": "Too many password attempts. Wait a while before trying again.",
+      "passwordRecoveryFailed": "We couldn't complete password recovery. Check your information and try again.",
+      "userNotConfirmed": "Confirm your email address before signing in.",
+      "emailAlreadyRegistered": "An account with this email address already exists.",
+      "invalidPassword": "The password does not meet the required criteria.",
+      "codeMismatch": "The code you entered is invalid.",
+      "expiredCode": "The code has expired. Request a new one.",
+      "tooManyRequests": "Too many attempts. Please wait a moment and try again.",
+      "passwordResetRequired": "You must reset your password before signing in.",
+      "codeDeliveryFailed": "We couldn't send the code. Please try again.",
+      "alreadyConfirmed": "This account is already confirmed. You can sign in.",
+      "invalidRequest": "Check your information and try again."
+    },
+    "validation": {
+      "invalidForm": {
+        "title": "Check the form",
+        "detail": "Complete the fields correctly and verify the password policy."
+      },
+      "passwordPolicy": "The password must meet the stated policy.",
+      "passwordsDoNotMatch": "The passwords do not match.",
+      "codeLength": "The code must contain 6 digits."
+    },
+    "socialLogin": {
+      "google": "Continue with Google",
+      "microsoft": "Continue with Microsoft",
+      "facebook": "Continue with Facebook",
+      "providerError": "Couldn't sign in with this provider. Please try again.",
+      "redirecting": "Connecting to {{provider}}…",
+      "completing": "Checking your account...",
+      "callbackError": "We couldn't complete social sign-in. Please try again."
+    },
+    "layout": {
+      "tagline": "Forms that adapt to you",
+      "headline": "Turn your ideas into dynamic forms.",
+      "description": "Design custom workflows, add the fields you need, and share forms ready to collect responses.",
+      "security": "Your forms and responses, always protected",
+      "copyright": "© 2026 Formia. Designed to help you move forward."
+    }
+  },
+  "formBuilder": {
+    "header": {
+      "ariaLabel": "Form builder header",
+      "myForms": "My forms",
+      "editTitle": "Edit form title",
+      "saveTitle": "Save title",
+      "preview": "Preview",
+      "backToEditor": "Back to editor",
+      "publish": "Publish",
+      "settings": "Settings",
+      "elementCount": {
+        "one": "{{count}} element",
+        "other": "{{count}} elements"
+      },
+      "undo": "Undo",
+      "redo": "Redo",
+      "saveState": {
+        "idle": "",
+        "saving": "Saving draft…",
+        "saved": "Draft saved",
+        "error": "Couldn't save the draft"
+      },
+      "titleTooShort": "The title must be at least {{min}} characters."
+    },
+    "history": {
+      "ariaLabel": "Form version history",
+      "open": "View version history",
+      "title": "Version history",
+      "searchPlaceholder": "Search versions",
+      "searchAriaLabel": "Search form versions",
+      "version": "Version {{number}}",
+      "current": "Current",
+      "noResults": "No versions found."
+    },
+    "sidebar": {
+      "fieldsAriaLabel": "Form fields",
+      "build": "BUILD",
+      "close": "Close left panel",
+      "open": "Open left panel",
+      "components": "Components",
+      "tree": "Tree view",
+      "searchPlaceholder": "Search components",
+      "searchAriaLabel": "Search components by name or type",
+      "noComponents": "No components found."
+    },
+    "properties": {
+      "ariaLabel": "Field properties",
+      "title": "PROPERTIES",
+      "close": "Close right panel",
+      "editing": "Editing field",
+      "emptySelection": "Select a field to edit its properties.",
+      "sections": {
+        "general": {
+          "title": "Basic information",
+          "description": "Configure the field's main details and availability."
+        },
+        "preferences": {
+          "title": "Preferences",
+          "description": "Set additional options for how it works."
+        },
+        "options": {
+          "title": "Options",
+          "description": "Manage the options available to respondents."
+        }
+      },
+      "common": {
+        "label": "Label",
+        "description": "Description",
+        "required": {
+          "label": "Required",
+          "description": "Enable this option to make the field required."
+        },
+        "disabled": {
+          "label": "Disabled",
+          "description": "Enable this option to disable the field."
+        },
+        "placeholder": "Placeholder",
+        "min": "Minimum characters",
+        "max": "Maximum characters"
+      },
+      "text": {
+        "patternEnabled": "Enable pattern validation",
+        "pattern": "Regular expression",
+        "patternInvalid": "The regular expression is invalid."
+      },
+      "textarea": {
+        "placeholder": "Placeholder",
+        "autoResize": {
+          "label": "Auto resize",
+          "description": "Automatically adjusts the text area's height to fit its content."
+        },
+        "unlimitedMax": "No maximum limit",
+        "maxMinError": "Maximum must be greater than or equal to minimum."
+      },
+      "select": {
+        "multiple": {
+          "label": "Multiple selection",
+          "description": "Allows selecting more than one option."
+        },
+        "group": {
+          "label": "Group options",
+          "description": "Organizes options into groups."
+        },
+        "showClear": {
+          "label": "Show clear button",
+          "description": "Displays a button to clear the current selection."
+        },
+        "filter": {
+          "label": "Enable filtering",
+          "description": "Allows searching options by text."
+        },
+        "options": "Options",
+        "optionLabel": "Label",
+        "optionValue": "Value",
+        "addOption": "Add option",
+        "groupLabel": "Group label",
+        "addGroup": "Add group",
+        "newGroup": "New group"
+      },
+      "alert": {
+        "text": "Alert text",
+        "severity": {
+          "label": "Severity",
+          "success": "Success",
+          "info": "Information",
+          "warn": "Warning",
+          "error": "Error"
+        },
+        "size": {
+          "label": "Size",
+          "default": "Default",
+          "small": "Small",
+          "large": "Large"
+        },
+        "variant": {
+          "label": "Style",
+          "outlined": "Outlined",
+          "text": "Text",
+          "simple": "Simple"
+        },
+        "closable": {
+          "label": "Allow dismissing the alert",
+          "description": "Shows a button to dismiss the alert."
+        }
+      },
+      "matrix": {
+        "questions": "Questions",
+        "answers": "Answers",
+        "selectionMode": {
+          "label": "Selection mode",
+          "single": "One answer per question",
+          "multiple": "Multiple answers per question"
+        }
+      },
+      "rating": {
+        "type": {
+          "label": "Rating type",
+          "star": "Stars",
+          "number": "Numbers",
+          "icon": "Icons"
+        },
+        "stars": "Number of levels",
+        "allowHalf": {
+          "label": "Allow half stars",
+          "description": "Allows selecting half-star increments."
+        },
+        "icon": "Icon",
+        "lowLabel": "Minimum value label",
+        "highLabel": "Maximum value label"
+      },
+      "heading": {
+        "text": "Heading text",
+        "level": "Heading level",
+        "alignment": "Alignment",
+        "alignmentStart": "Start",
+        "alignmentCenter": "Center",
+        "alignmentEnd": "End",
+        "subheading": "Subheading"
+      },
+      "paragraph": {
+        "text": "Paragraph text"
+      },
+      "image": {
+        "src": "Image URL",
+        "alt": "Alternative text"
+      },
+      "divider": {
+        "text": "Divider text",
+        "layout": {
+          "label": "Orientation",
+          "horizontal": "Horizontal",
+          "vertical": "Vertical"
+        },
+        "alignment": {
+          "label": "Alignment",
+          "left": "Left",
+          "center": "Center",
+          "right": "Right",
+          "top": "Top",
+          "bottom": "Bottom"
+        },
+        "lineType": {
+          "label": "Line style",
+          "solid": "Solid",
+          "dashed": "Dashed",
+          "dotted": "Dotted"
+        }
+      },
+      "container": {
+        "label": "Container label",
+        "columns": "Number of columns"
+      },
+      "messages": {
+        "form": {
+          "error": "Changes won't be saved until you fix the fields with errors. Check the validation messages and try again."
+        }
+      }
+    },
+    "workspace": {
+      "ariaLabel": "Form workspace",
+      "canvasAriaLabel": "Form canvas",
+      "structure": "FORM STRUCTURE",
+      "displayMode": "Choose how to display it",
+      "pagination": "PAGINATION",
+      "stepCounter": "Step {{current}} of {{total}}",
+      "addComponent": "Add component",
+      "searchComponents": "Search components",
+      "preview": "Form preview",
+      "previewSubmitNotice": "This preview is a simulation. No response was submitted.",
+      "dragFieldsHere": "Drag fields from the left panel",
+      "reorderField": "Drag to reorder",
+      "copyField": "Duplicate field",
+      "moveOrCopyField": "Move or copy field",
+      "deleteField": "Delete field",
+      "unknownFieldType": "Unknown field type"
+    },
+    "transfer": {
+      "title": "Move or copy field",
+      "action": "Action",
+      "move": "Move",
+      "copy": "Copy",
+      "destination": "Destination",
+      "endOfPage": "At the end of page: {{page}}",
+      "before": "Before “{{field}}” in {{parent}}",
+      "after": "After “{{field}}” in {{parent}}",
+      "insideContainer": "Inside “{{container}}” in {{page}}",
+      "noDestinations": "There are no available locations for this field.",
+      "unnamed": "Unnamed"
+    },
+    "pages": {
+      "add": "Add page",
+      "createTitle": "Create page",
+      "name": "Page name",
+      "namePlaceholder": "Enter a page name"
+    },
+    "defaults": {
+      "pageLabel": "Survey",
+      "container": "Container",
+      "optionOne": "Option 1",
+      "optionTwo": "Option 2",
+      "paragraph": "Add a description for the form here.",
+      "alert": "Simple example",
+      "formTitle": "Untitled form"
+    },
+    "views": {
+      "placeholder": "View",
+      "steps": "Multi-step",
+      "scroll": "All in one",
+      "tabs": "Tabs"
+    },
+    "messages": {
+      "cannotNestContainer": {
+        "title": "Unable to add field",
+        "detail": "A container cannot be added inside another container."
+      },
+      "fieldMoveFailed": {
+        "title": "Unable to move field",
+        "detail": "The field or destination group is no longer available."
+      },
+      "cannotDeleteLastPage": {
+        "title": "Unable to delete page",
+        "detail": "The form must have at least one page."
+      },
+      "fieldDeleted": {
+        "title": "Item deleted",
+        "detail": "The item was deleted successfully."
+      }
+    },
+    "confirmations": {
+      "deleteField": {
+        "title": "Confirm deletion",
+        "message": "Are you sure you want to delete this item? This action cannot be undone."
+      }
+    },
+    "navigation": {
+      "stepCounter": "Step {{current}} of {{total}}"
+    },
+    "matrix": {
+      "question": "Question"
+    },
+    "rating": {
+      "low": "Poor",
+      "high": "Good"
+    },
+    "iconSelector": {
+      "selectIcon": "Select icon",
+      "selectIcons": "Select icons",
+      "dialogTitle": "Select icon",
+      "sectionAriaLabel": "Icon selector",
+      "searchPlaceholder": "Search icons",
+      "searchAriaLabel": "Search icons",
+      "availableIcons": "Available icons",
+      "noIcons": "No icons found.",
+      "selectNamedIcon": "Select {{name}}"
+    },
+    "validation": {
+      "maxMustBeGreaterThanMin": "Max must be greater than or equal to min"
+    },
+    "page": {
+      "loading": "Loading form…",
+      "error": "We couldn't open this form",
+      "retry": "Try again"
+    },
+    "publish": {
+      "successTitle": "Form published",
+      "success": "The published version is now up to date.",
+      "errorTitle": "Couldn't publish",
+      "error": "Your draft is kept. Try publishing again."
+    },
+    "fieldWrapper": {
+      "required": "Required"
+    },
+    "settings": {
+      "title": "Form settings",
+      "ariaLabel": "Form settings",
+      "isPublic": {
+        "label": "Public form",
+        "description": "Anyone with the link can answer without signing in."
+      },
+      "allowMultiple": {
+        "label": "Allow multiple responses",
+        "description": "Let the same user submit this form more than once."
+      },
+      "maxPerUser": {
+        "label": "Responses per user",
+        "description": "Maximum number of responses each user can submit."
+      }
+    },
+    "versions": {
+      "ariaLabel": "Published versions",
+      "open": "Published versions",
+      "title": "Published versions",
+      "limitNotice": "Only the last {{count}} previous versions are kept. Older ones are deleted automatically.",
+      "version": "Version {{number}}",
+      "restore": "Restore",
+      "empty": "No previous versions yet."
+    }
+  },
+  "fieldPalette": {
+    "categories": {
+      "basic": "Basic",
+      "advanced": "Advanced",
+      "structure": "Structure"
+    },
+    "fields": {
+      "shortText": {
+        "label": "Short text",
+        "description": "Single-line field for brief answers."
+      },
+      "longText": {
+        "label": "Long text",
+        "description": "Multi-line area for longer answers."
+      },
+      "checkbox": {
+        "label": "Checkbox",
+        "description": "Lets you check or uncheck an option."
+      },
+      "date": {
+        "label": "Date",
+        "description": "Lets you select a date from the calendar."
+      },
+      "dropdown": {
+        "label": "Dropdown",
+        "description": "Lets you choose one or more options from a list."
+      },
+      "singleChoice": {
+        "label": "Single choice",
+        "description": "Lets you select one option from several."
+      },
+      "multipleChoice": {
+        "label": "Multiple choice",
+        "description": "Lets you select multiple options at once."
+      },
+      "matrix": {
+        "label": "Matrix",
+        "description": "Organizes questions and answers into rows and columns."
+      },
+      "imageChoice": {
+        "label": "Image choice",
+        "description": "Lets you choose an option represented by an image."
+      },
+      "rating": {
+        "label": "Rating",
+        "description": "Lets you rate using stars, numbers, or icons."
+      },
+      "heading": {
+        "label": "Heading",
+        "description": "Adds a title to organize the form content."
+      },
+      "paragraph": {
+        "label": "Paragraph",
+        "description": "Displays informational text in the form."
+      },
+      "image": {
+        "label": "Image",
+        "description": "Displays an image in the form."
+      },
+      "alert": {
+        "label": "Alert",
+        "description": "Highlights an important notice or message."
+      },
+      "divider": {
+        "label": "Divider",
+        "description": "Adds a line to separate sections."
+      },
+      "container": {
+        "label": "Container",
+        "description": "Groups related fields into a section."
+      }
+    }
+  },
+  "fileUploader": {
+    "open": "Open file picker",
+    "sectionAriaLabel": "Upload files",
+    "title": "Upload your files",
+    "subtitle": "For use in the project",
+    "dropFiles": "Drag and drop your files here or",
+    "selectFiles": "Select files",
+    "maxPerFile": "Maximum {{size}} per file",
+    "errors": {
+      "allowedTypes": "Allowed types: {{types}}.",
+      "maxFileSize": "The maximum file size is {{size}}.",
+      "missingUploadUrl": "Configure the upload URL to start uploading.",
+      "httpFailure": "Upload failed (HTTP {{status}}).",
+      "uploadFailure": "The upload could not be completed."
+    }
+  },
+  "dashboard": {
+    "title": "My forms",
+    "description": "Review and open the forms you have created.",
+    "loading": "Loading your forms…",
+    "error": {
+      "title": "We couldn't load your forms",
+      "detail": "Check your connection and try again.",
+      "retry": "Try again"
+    },
+    "empty": {
+      "title": "You don't have any forms yet",
+      "detail": "The forms you create will show up here."
+    },
+    "visibility": {
+      "public": "Public",
+      "private": "Private"
+    },
+    "nav": {
+      "forms": "My forms",
+      "toggleSidebar": "Toggle sidebar"
+    },
+    "create": "Create form",
+    "table": {
+      "title": "Title",
+      "visibility": "Visibility",
+      "createdAt": "Created",
+      "actions": "Actions",
+      "open": "Open in builder"
+    }
+  }
+}
