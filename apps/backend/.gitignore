@@ -1,0 +1,25 @@
+# Backend (Elysia): build output and local files.
+
+# Dependencies
+/node_modules
+
+# Build output
+/dist
+*.tsbuildinfo
+
+# Testing
+/coverage
+
+# Environment and secrets (resources are linked by SST)
+.env
+.env.*
+!.env.example
+*.pem
+
+# Logs and OS files
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store

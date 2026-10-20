@@ -1,0 +1,38 @@
+# Root: monorepo tooling, infrastructure and machine-local files.
+# Each package has its own .gitignore for its build output.
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# SST
+.sst/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# AWS CLI installer
+awscliv2.zip
+aws/
+
+# Agent tooling (reinstallable from skills-lock.json) and local settings
+.agents/
+.claude/skills/
+.claude/settings.local.json
+
+# Editors
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*

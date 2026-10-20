@@ -1,0 +1,8 @@
+# Core (shared schemas and data models): build output only.
+
+/node_modules
+/dist
+*.tsbuildinfo
+
+*.log
+.DS_Store

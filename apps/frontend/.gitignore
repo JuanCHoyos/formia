@@ -1,0 +1,58 @@
+# Frontend (Angular): build output, caches and local files.
+
+# Build output
+/dist
+/out-tsc
+/tmp
+/bazel-out
+
+# Angular and tool caches
+/.angular
+/.sass-cache
+/.qodo
+/coverage
+__screenshots__/
+testem.log
+/connect.lock
+/libpeerconnection.log
+/typings
+
+# Dependencies
+/node_modules
+
+# Environment (injected by SST as NG_APP_* variables)
+.env
+.env.*
+!.env.example
+
+# Agent tooling (reinstallable from skills-lock.json)
+/.agents/
+
+# Editors (shared settings are tracked)
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/mcp.json
+.history/*
+
+# Package manager (the monorepo uses pnpm)
+package-lock.json
+yarn.lock
+
+# Logs and OS files
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db
