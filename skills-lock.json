@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "angular-primeng": {
+      "source": "seikaikyo/dash-skills",
+      "sourceType": "github",
+      "skillPath": "skills/angular-primeng/SKILL.md",
+      "computedHash": "c5ac27b94d98208bd4bc3db736ca481a8c8254ed321b603ded9c6d51225578ab"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "computedHash": "b146008599c31057cef1c145774cea5d5afb30e8f43fa802e47a4b461419aaaf"
+    },
+    "primeng-developer": {
+      "source": "mofirojean/angular-ui-skills",
+      "sourceType": "github",
+      "skillPath": "skills/primeng-developer/SKILL.md",
+      "computedHash": "09231b1f7adca6c416b69640205c23afd64a49e35d099094fb96d66fdbc4165d"
+    }
+  }
+}
