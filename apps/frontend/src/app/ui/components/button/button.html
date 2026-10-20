@@ -1,0 +1,19 @@
+<button pButton (click)="onPressed($event)" [type]="type()" [class]="customClass()" [variant]="variant()"
+  [size]="size()" [severity]="severity()" [rounded]="rounded()" [raised]="raised()" [iconOnly]="iconOnly()"
+  [disabled]="disabled() || loading()" [class.p-button-fill]="fill() && variant() == 'text'"
+  [attr.aria-label]="ariaLabel()">
+  <span class="flex items-center gap-2">
+    @if (icon() || loading()) {
+    @if (loading()) {
+    <svg data-p-icon="spinner" class="animate-spin" [ngClass]="{ 'order-2': iconPosition() === 'right' }"></svg>
+    } @else {
+    <ng-icon [name]="icon()" [ngClass]="{ 'order-2': iconPosition() === 'right' }" />
+    }
+    }
+    @if (!iconOnly()) {
+    <span class="order-1">
+      <ng-content></ng-content>
+    </span>
+    }
+  </span>
+</button>

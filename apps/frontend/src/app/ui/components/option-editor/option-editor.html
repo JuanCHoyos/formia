@@ -1,0 +1,78 @@
+<div class="flex flex-col gap-3" >
+  <div
+    class="grid items-center gap-2"
+    [ngClass]="{ 'grid-cols-[auto_1fr_1fr_auto]': sort(), 'grid-cols-[1fr_1fr_auto]': !sort() }"
+  >
+    @if (sort()) {
+      <div class="min-w-6"></div>
+    }
+    <span class="text-xs font-bold">
+      {{ 'formBuilder.properties.select.optionLabel' | translate }}
+    </span>
+    <span class="text-xs font-bold">
+      {{ 'formBuilder.properties.select.optionValue' | translate }}
+    </span>
+  </div>
+  <div
+    cdkDropList
+    [cdkDropListDisabled]="!sort()"
+    (cdkDropListDropped)="drop($event)"
+    class="flex flex-col gap-2"
+  >
+    @for (option of optionEditorForm; track $index) {
+      @let labelInputId = inputId() + '-label-' + $index;
+      @let valueInputId = inputId() + '-value-' + $index;
+      <div
+        class="grid items-center gap-2"
+        [ngClass]="{ 'grid-cols-[auto_1fr_1fr_auto]': sort(), 'grid-cols-[1fr_1fr_auto]': !sort() }"
+        cdkDrag
+      >
+        @if (sort()) {
+          <div class="text-slate-400 min-w-6 cursor-grab" cdkDragHandle>
+            <ng-icon name="lucideGripVertical"></ng-icon>
+          </div>
+        }
+        <div>
+          <label class="sr-only" [for]="labelInputId">
+            {{ 'formBuilder.properties.select.optionLabel' | translate }} {{ $index + 1 }}
+          </label>
+          <input
+            [id]="labelInputId"
+            class="w-full"
+            [placeholder]="'formBuilder.properties.select.optionLabel' | translate"
+            [formField]="option.label"
+            pInputText
+          />
+        </div>
+
+        <div>
+          <label class="sr-only" [for]="valueInputId">
+            {{ 'formBuilder.properties.select.optionValue' | translate }} {{ $index + 1 }}
+          </label>
+          <input
+            [id]="valueInputId"
+            class="w-full"
+            [placeholder]="'formBuilder.properties.select.optionValue' | translate"
+            [formField]="option.value"
+            pInputText
+          />
+        </div>
+
+        @if ($count !== 1) {
+          <app-button
+            icon="lucideTrash2"
+            severity="danger"
+            variant="text"
+            [iconOnly]="true"
+            size="small"
+            (pressed)="removeOption($index)"
+          />
+        }
+      </div>
+    }
+  </div>
+
+  <app-button icon="lucidePlus" severity="primary" variant="text" (pressed)="addOption()">
+    {{ 'formBuilder.properties.select.addOption' | translate }}
+  </app-button>
+</div>

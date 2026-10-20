@@ -1,0 +1,20 @@
+<label
+  for="{{ inputId() }}"
+  class="w-full flex items-center gap-4 select-none surface-default hover:surface-highlight px-4 py-2 rounded-lg cursor-pointer"
+  [class.surface-highlight]="checkboxForm().value()"
+>
+  <p-checkbox
+    [formField]="checkboxForm"
+    [binary]="true"
+    [inputId]="inputId()"
+    [disabled]="disabled()"
+    (onChange)="markAsTouched()"
+    (onBlur)="markAsTouched()"
+  />
+  <div class="flex flex-col gap-1">
+    <span pLabel class="text-sm font-bold">{{ label() }}</span>
+    @if (description()) {
+      <small class="text-xs text-muted-color">{{ description() }}</small>
+    }
+  </div>
+</label>

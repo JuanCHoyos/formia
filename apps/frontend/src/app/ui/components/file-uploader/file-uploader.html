@@ -1,0 +1,161 @@
+<app-button
+  type="button"
+  variant="outlined"
+  severity="primary"
+  [iconOnly]="true"
+  icon="lucideImagePlus"
+  [disabled]="disabled()"
+  customClass="w-full"
+  (pressed)="showDialog.set(true)"
+>
+</app-button>
+
+<p-dialog
+  [visible]="showDialog()"
+  [closable]="true"
+  [closeOnEscape]="true"
+  [modal]="true"
+  [style]="{ width: '25rem', maxWidth: '90vw' }"
+  (visibleChange)="showDialog.set($event)"
+>
+  <section
+    class="flex flex-col gap-4"
+    [attr.aria-label]="'fileUploader.sectionAriaLabel' | translate"
+  >
+    <div class="flex flex-col gap-1">
+      <h3 class="text-xl font-bold text-center">{{ 'fileUploader.title' | translate }}</h3>
+      <span class="text-sm text-muted-color text-center">
+        {{ 'fileUploader.subtitle' | translate }}
+      </span>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <div
+        class="h-36 flex flex-col justify-center items-center border border-dashed border-gray-300 rounded-lg bg-primary/10"
+        appFileDropZone
+        [fileDropDisabled]="disabled()"
+        (filesDropped)="onFilesDropped($event)"
+        (dragActiveChange)="setDragActive($event)"
+        [class.border-primary]="dragActive()"
+        [class.bg-primary/20]="dragActive()"
+      >
+        <div class="w-20 p-2 rounded-full bg-primary/10 flex items-center justify-center">
+          <img src="assets/images/upload.png" alt="" class="w-full" />
+        </div>
+        <input
+          type="file"
+          id="fileInput"
+          [accept]="accept().join(',')"
+          [multiple]="multiple()"
+          [disabled]="disabled()"
+          hidden
+          (change)="selectFiles($event)"
+        />
+        <span class="text-sm font-semibold">
+          {{ 'fileUploader.dropFiles' | translate }}
+          <label for="fileInput" class="text-primary/80 hover:text-primary cursor-pointer">
+            {{ 'fileUploader.selectFiles' | translate }}
+          </label>
+        </span>
+        <span class="text-xs text-muted-color">
+          {{
+            'fileUploader.maxPerFile' | translate: { size: formatBytes(maxSizeMb() * 1024 * 1024) }
+          }}
+        </span>
+      </div>
+
+      @if (errorMessage()) {
+        <p class="text-sm text-danger" role="alert">{{ errorMessage() }}</p>
+      }
+    </div>
+
+    @if (uploads().length) {
+      <div class="flex flex-col gap-2 max-h-64 overflow-y-auto">
+        @for (item of uploads(); track item.id) {
+          <div class="flex items-center gap-2 p-2 border border-gray-300 rounded-lg">
+            @if (item.previewUrl) {
+              <img
+                [src]="item.previewUrl"
+                [alt]="item.file.name"
+                class="w-10 h-10 rounded-lg object-cover shrink-0"
+              />
+            } @else {
+              <div class="flex items-center justify-center bg-primary/80 text-white p-2 rounded-lg">
+                <ng-icon name="lucideImage" class="text-2xl"></ng-icon>
+              </div>
+            }
+
+            <div class="flex flex-col gap-1 w-full min-w-0">
+              <div class="text-xs font-bold truncate">{{ item.file.name }}</div>
+
+              <div class="flex items-center gap-2 divide-x">
+                <span class="text-xs text-muted-color pr-2">
+                  <span [class.hidden]="item.status !== 'uploading'"
+                    >{{ formatBytes(item.loaded) }} /
+                  </span>
+                  <span>{{ formatBytes(item.file.size) }}</span>
+                </span>
+                <span class="text-xs text-muted-color flex items-center gap-1">
+                  <span
+                    class="block size-1.5 rounded-full animate-pulse"
+                    [ngClass]="{
+                      'bg-success': item.status === 'complete',
+                      'bg-danger': item.status === 'error',
+                      'bg-warn': item.status === 'queued',
+                    }"
+                  ></span>
+                  {{
+                    item.status === 'error'
+                      ? ('common.status.error' | translate)
+                      : item.status === 'complete'
+                        ? ('common.status.complete' | translate)
+                        : ('common.status.pending' | translate)
+                  }}</span
+                >
+              </div>
+              <p-progressbar
+                [value]="item.file.size ? (item.loaded / item.file.size) * 100 : 0"
+                [showValue]="false"
+                [style]="{ height: '4px' }"
+              />
+            </div>
+
+            <app-button
+              type="button"
+              severity="danger"
+              [iconOnly]="true"
+              size="small"
+              variant="text"
+              class="min-w-fit"
+              [disabled]="item.status === 'uploading'"
+              (pressed)="removeFile(item.id)"
+              [attr.aria-label]="'common.actions.deleteItem' | translate: { label: item.file.name }"
+            >
+              <ng-icon name="lucideTrash2" class="text-lg"></ng-icon>
+            </app-button>
+          </div>
+        }
+      </div>
+    }
+
+    <div class="flex items-center gap-2 justify-end">
+      <app-button
+        type="button"
+        variant="outlined"
+        severity="secondary"
+        (pressed)="showDialog.set(false)"
+      >
+        {{ 'common.actions.cancel' | translate }}
+      </app-button>
+      <app-button
+        type="button"
+        [disabled]="
+          disabled() || !uploads().length || uploads().some((item) => item.status === 'uploading')
+        "
+        (pressed)="uploadFiles()"
+      >
+        {{ 'common.actions.accept' | translate }}
+      </app-button>
+    </div>
+  </section>
+</p-dialog>

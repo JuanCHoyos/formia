@@ -1,0 +1,74 @@
+<div
+  class="flex items-center justify-between gap-1 py-1 px-2 border rounded-lg cursor-pointer"
+  [style.paddingLeft]="paddingLeft()"
+  [ngClass]="{
+    'surface-highlight': selectedItem() === item().value,
+    'border-transparent hover:surface-highlight': selectedItem() !== item().value,
+  }"
+  (click)="selectItem()"
+  (keyup.enter)="selectItem()"
+  cdkDrag
+  [cdkDragDisabled]="!sort()"
+  [cdkDragData]="{ id: item().id, isPrincipal: rootIndex() === 0 }"
+>
+  <div class="h-8 rounded-lg surface-highlight border-dashed!" *cdkDragPlaceholder></div>
+  <span class="flex items-center gap-2 w-full overflow-hidden">
+    @if (item().type === 'Group') {
+      <button
+        pButton
+        iconOnly
+        size="small"
+        variant="text"
+        (click)="toggleSubItems($event)"
+        class="text-base w-6 min-w-6 h-6 p-1 relative -left-1"
+      >
+        <ng-icon [name]="item().showItems ? 'lucideChevronDown' : 'lucideChevronRight'"></ng-icon>
+      </button>
+    }
+    <span
+      class="max-h-5"
+      [ngClass]="{
+        'text-amber-500 ': item().type === 'Group',
+        'text-slate-400': item().type === 'Field',
+      }"
+      ><ng-icon [name]="item().icon"></ng-icon
+    ></span>
+    <span class="text-sm truncate" pTooltip="{{ item().label }}">{{ item().label }}</span>
+  </span>
+  <span
+    class="font-bold text-[10px] px-2 py-1 rounded-lg max-h-fit uppercase"
+    [ngClass]="{
+      'bg-amber-100 text-amber-700': item().type === 'Group',
+      'bg-slate-100 text-slate-500': item().type === 'Field',
+    }"
+    >{{ item().type }}</span
+  >
+</div>
+
+@if (item().showItems && item().type === 'Group') {
+  <div
+    class="min-h-4"
+    [attr.data-field-parent-id]="item().id"
+    cdkDropList
+    [cdkDropListData]="item().id"
+    [cdkDropListConnectedTo]="dropListIds()"
+    [cdkDropListEnterPredicate]="canDrop"
+    [cdkDropListDisabled]="!sort()"
+    (cdkDropListDropped)="drop($event)"
+    [id]="'tree-list-' + item().id"
+  >
+    @for (field of item().items; track $index) {
+      <app-tree-selector-item
+        [attr.data-field-id]="field.id"
+        [attr.data-field-parent-id]="item().id"
+        [sort]="sort()"
+        [dropListIds]="dropListIds()"
+        [item]="field"
+        [rootIndex]="rootIndex() + 1"
+        (sortedItems)="sortedItems.emit($event)"
+        [(selectedItem)]="selectedItem"
+      >
+      </app-tree-selector-item>
+    }
+  </div>
+}

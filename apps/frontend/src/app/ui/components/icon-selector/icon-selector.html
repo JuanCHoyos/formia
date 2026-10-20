@@ -1,0 +1,98 @@
+<button
+  pButton
+  type="button"
+  variant="outlined"
+  severity="primary"
+  [disabled]="disabled()"
+  [fluid]="true"
+  (click)="openDialog()"
+  class="justify-normal"
+>
+  @if (selectionIconLabel().length > 0) {
+    <span class="flex flex-wrap items-center divide-x divide-surface-300">
+      @for (selection of selectionIconLabel(); track selection.icon) {
+        <span class="inline-flex items-center gap-1.5 px-2 py-1 text-sm">
+          <ng-icon [name]="selection.icon" aria-hidden="true" />
+          <span>{{ selection.label }}</span>
+        </span>
+      }
+    </span>
+  } @else {
+    <span>
+      {{
+        multiple()
+          ? ('formBuilder.iconSelector.selectIcons' | translate)
+          : ('formBuilder.iconSelector.selectIcon' | translate)
+      }}
+    </span>
+  }
+</button>
+
+<p-dialog
+  [visible]="showDialog()"
+  [closeOnEscape]="true"
+  [modal]="true"
+  [header]="'formBuilder.iconSelector.dialogTitle' | translate"
+  [style]="{ width: '25rem', maxWidth: '90vw' }"
+>
+  <section
+    class="flex flex-col gap-4"
+    [attr.aria-label]="'formBuilder.iconSelector.sectionAriaLabel' | translate"
+  >
+    <input
+      pInputText
+      type="search"
+      variant="filled"
+      [placeholder]="'formBuilder.iconSelector.searchPlaceholder' | translate"
+      [attr.aria-label]="'formBuilder.iconSelector.searchAriaLabel' | translate"
+      [disabled]="disabled()"
+      [value]="searchTerm()"
+      (input)="updateSearch($event)"
+    />
+
+    <div class="max-h-64 overflow-y-auto">
+      <fieldset class="grid grid-cols-[repeat(auto-fill,minmax(2rem,1fr))] gap-2">
+        <legend class="sr-only">
+          {{ 'formBuilder.iconSelector.availableIcons' | translate }}
+        </legend>
+        @for (icon of filteredIcons(); track icon) {
+          <button
+            pButton
+            type="button"
+            [iconOnly]="true"
+            [disabled]="disabled()"
+            [severity]="draftIcons().includes(icon) ? 'primary' : 'secondary'"
+            [variant]="draftIcons().includes(icon) ? undefined : 'outlined'"
+            [attr.aria-label]="
+              'formBuilder.iconSelector.selectNamedIcon' | translate: { name: iconLabel(icon) }
+            "
+            [attr.aria-pressed]="draftIcons().includes(icon)"
+            class="w-full"
+            [title]="iconLabel(icon)"
+            (click)="toggleIcon(icon)"
+          >
+            <ng-icon [name]="icon" aria-hidden="true" />
+          </button>
+        } @empty {
+          <p class="col-span-full py-2 text-sm text-muted-color">
+            {{ 'formBuilder.iconSelector.noIcons' | translate }}
+          </p>
+        }
+      </fieldset>
+    </div>
+    <div class="flex items-center gap-2 justify-end">
+      <button
+        pButton
+        type="button"
+        variant="outlined"
+        severity="secondary"
+        (click)="setDialogVisibility(false)"
+      >
+        {{ 'common.actions.cancel' | translate }}
+      </button>
+      <button pButton type="button" [disabled]="disabled()" (click)="saveSelectedIcons()">
+        {{ 'common.actions.accept' | translate }}
+      </button>
+    </div>
+  </section>
+</p-dialog>
