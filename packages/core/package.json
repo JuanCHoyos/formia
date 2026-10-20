@@ -1,0 +1,39 @@
+{
+  "name": "@formly/core",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev:workspace": "tsc -p tsconfig.json --watch",
+    "watch:workspace": "tsc -p tsconfig.json --watch"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./auth": "./src/auth/index.ts",
+    "./data/models/*": "./src/data/models/*.ts",
+    "./schemas": {
+      "types": "./dist/schemas/index.d.ts",
+      "import": "./dist/schemas/index.js"
+    },
+    "./schemas/*": {
+      "types": "./dist/schemas/*.d.ts",
+      "import": "./dist/schemas/*.js"
+    }
+  },
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.1152.0",
+    "@aws-sdk/client-dynamodb": "^3.1152.0",
+    "@aws-sdk/lib-dynamodb": "^3.1152.0",
+    "aws-jwt-verify": "^5.2.1",
+    "dynamodb-toolbox": "^2.11.0",
+    "neverthrow": "^8.2.0",
+    "sst": "catalog:",
+    "ulid": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
+}
