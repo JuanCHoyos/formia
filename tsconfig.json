@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [],
+  "compilerOptions": {
+    "composite": false,
+    "noEmit": true,
+    "paths": {
+      "@/": ["./"],
+      "@packages/": ["./packages/"],
+      "@infra/": ["./infra/"],
+      "@apps/": ["./apps/"]
+    }
+  },
+  "include": ["infra/*/*.ts", "eslint.config.ts", ".prettierrc.mjs"],
+  "exclude": ["node_modules", "packages", "apps", ".sst"]
+}
