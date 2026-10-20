@@ -1,0 +1,11 @@
+<p-message
+  [severity]="props.severity"
+  [closable]="props.closable ?? false"
+  [variant]="props.variant"
+  [size]="props.size"
+>
+  <ng-template #icon>
+    <ng-icon [name]="currentIcon()" class="p-message-text min-w-fit"></ng-icon>
+  </ng-template>
+  <span class="ms-2">{{ props.text }}</span>
+</p-message>

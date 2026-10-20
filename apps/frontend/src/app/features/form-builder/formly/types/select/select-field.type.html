@@ -1,0 +1,15 @@
+<p-select
+  [id]="field.id"
+  [inputId]="field.id"
+  [options]="props.options"
+  [formControl]="formControl"
+  [invalid]="formControl.invalid && formControl.touched"
+  [multiple]="props.multiple"
+  [showClear]="props.showClear"
+  [filter]="props.filter"
+  filterBy="label"
+  optionLabel="label"
+  optionValue="value"
+  [placeholder]="props.placeholder"
+  class="w-full"
+/>

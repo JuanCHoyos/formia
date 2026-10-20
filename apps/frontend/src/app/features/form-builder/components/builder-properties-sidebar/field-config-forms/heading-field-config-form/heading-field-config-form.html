@@ -1,0 +1,82 @@
+<p-accordion [value]="['0', '1']" [multiple]="true" class="w-full">
+  <p-accordion-panel value="0">
+    <p-accordion-header>
+      <div class="flex flex-col gap-1">
+        <p class="text-sm font-bold">
+          {{ 'formBuilder.properties.sections.general.title' | translate }}
+        </p>
+        <small class="text-xs text-muted-color">
+          {{ 'formBuilder.properties.sections.general.description' | translate }}
+        </small>
+      </div>
+    </p-accordion-header>
+    <p-accordion-content>
+      <div class="flex flex-col gap-3">
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-semibold text-muted-color" for="heading-text">
+            {{ 'formBuilder.properties.heading.text' | translate }}
+          </label>
+          <input id="heading-text" pInputText [formField]="headingFieldSettingsForm.text" />
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-semibold text-muted-color" for="heading-subheading">
+            {{ 'formBuilder.properties.heading.subheading' | translate }}
+          </label>
+          <app-text-editor
+            [formField]="headingFieldSettingsForm.subheading"
+            inputId="heading-subheading"
+          ></app-text-editor>
+        </div>
+      </div>
+    </p-accordion-content>
+  </p-accordion-panel>
+  <p-accordion-panel value="1">
+    <p-accordion-header>
+      <div class="flex flex-col gap-1">
+        <p class="text-sm font-bold">
+          {{ 'formBuilder.properties.sections.preferences.title' | translate }}
+        </p>
+        <small class="text-xs text-muted-color">
+          {{ 'formBuilder.properties.sections.preferences.description' | translate }}
+        </small>
+      </div>
+    </p-accordion-header>
+    <p-accordion-content>
+      <div class="flex flex-col gap-3">
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-semibold text-muted-color" for="heading-level">
+            {{ 'formBuilder.properties.heading.level' | translate }}
+          </label>
+          <p-select
+            inputId="heading-level"
+            [options]="levelOptions()"
+            optionLabel="label"
+            optionValue="value"
+            [formField]="headingFieldSettingsForm.level"
+            class="w-full"
+          />
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-semibold text-muted-color" for="heading-alignment">
+            {{ 'formBuilder.properties.heading.alignment' | translate }}
+          </label>
+          <p-select
+            inputId="heading-alignment"
+            [options]="alignmentOptions()"
+            optionLabel="label"
+            optionValue="value"
+            [formField]="headingFieldSettingsForm.alignment"
+            class="w-full"
+          >
+            <ng-template let-option #item>
+              {{ option.label | translate }}
+            </ng-template>
+            <ng-template let-option #selectedItem>
+              {{ option.label | translate }}
+            </ng-template>
+          </p-select>
+        </div>
+      </div>
+    </p-accordion-content>
+  </p-accordion-panel>
+</p-accordion>

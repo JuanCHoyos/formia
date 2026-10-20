@@ -1,0 +1,21 @@
+.field-header {
+  container: field-header / inline-size;
+}
+
+.actions-inline {
+  display: flex;
+}
+
+.actions-menu {
+  display: none;
+}
+
+@container field-header (max-width: 250px) {
+  .actions-inline {
+    display: none;
+  }
+
+  .actions-menu {
+    display: flex;
+  }
+}

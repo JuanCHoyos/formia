@@ -1,0 +1,18 @@
+<p-datepicker
+  [inputId]="field.id"
+  [placeholder]="props.placeholder"
+  [selectionMode]="props.selection"
+  [readonlyInput]="true"
+  [showIcon]="props.showIcon"
+  [showButtonBar]="props.showButtonBar"
+  [showTime]="props.showTime"
+  [hourFormat]="props.hourFormat ?? '12'"
+  [numberOfMonths]="props.numberOfMonths ?? 1"
+  [view]="props.view"
+  [dateFormat]="props.format"
+  [timeOnly]="props.timeOnly"
+  [formControl]="formControl"
+  [invalid]="formControl.invalid && formControl.touched"
+  class="w-full"
+>
+</p-datepicker>

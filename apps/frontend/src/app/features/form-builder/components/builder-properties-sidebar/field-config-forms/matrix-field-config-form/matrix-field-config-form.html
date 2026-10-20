@@ -1,0 +1,86 @@
+<p-accordion [value]="['0', '1', '2']" [multiple]="true" class="w-full">
+  <p-accordion-panel value="0">
+    <p-accordion-header>
+      <div class="flex flex-col gap-1">
+        <p class="text-sm font-bold">
+          {{ 'formBuilder.properties.sections.general.title' | translate }}
+        </p>
+        <small class="text-xs text-muted-color">
+          {{ 'formBuilder.properties.sections.general.description' | translate }}
+        </small>
+      </div>
+    </p-accordion-header>
+    <p-accordion-content>
+      <app-common-field-config-form
+        [commonFieldConfigForm]="{
+          label: matrixFieldSettingsForm.label,
+          description: matrixFieldSettingsForm.description,
+          required: matrixFieldSettingsForm.required,
+          disabled: matrixFieldSettingsForm.disabled,
+        }"
+      />
+    </p-accordion-content>
+  </p-accordion-panel>
+  <p-accordion-panel value="1">
+    <p-accordion-header>
+      <div class="flex flex-col gap-1">
+        <p class="text-sm font-bold">
+          {{ 'formBuilder.properties.sections.preferences.title' | translate }}
+        </p>
+        <small class="text-xs text-muted-color">
+          {{ 'formBuilder.properties.sections.preferences.description' | translate }}
+        </small>
+      </div>
+    </p-accordion-header>
+    <p-accordion-content>
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-semibold text-muted-color" for="matrix-selection-mode">
+          {{ 'formBuilder.properties.matrix.selectionMode.label' | translate }}
+        </label>
+        <p-select
+          inputId="matrix-selection-mode"
+          [options]="selectionModeOptions()"
+          optionLabel="label"
+          optionValue="value"
+          [formField]="matrixFieldSettingsForm.selectionMode"
+          class="w-full"
+        >
+          <ng-template let-option #item>
+            {{ option.label | translate }}
+          </ng-template>
+          <ng-template let-option #selectedItem>
+            {{ option.label | translate }}
+          </ng-template>
+        </p-select>
+      </div>
+    </p-accordion-content>
+  </p-accordion-panel>
+  <p-accordion-panel value="2">
+    <p-accordion-header>
+      <div class="flex flex-col gap-1">
+        <p class="text-sm font-bold">
+          {{ 'formBuilder.properties.sections.options.title' | translate }}
+        </p>
+        <small class="text-xs text-muted-color">
+          {{ 'formBuilder.properties.sections.options.description' | translate }}
+        </small>
+      </div>
+    </p-accordion-header>
+    <p-accordion-content>
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-2">
+          <h3 class="text-xs font-bold">
+            {{ 'formBuilder.properties.matrix.questions' | translate }}
+          </h3>
+          <app-option-editor [formField]="matrixFieldSettingsForm.questions" [sort]="true" />
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-xs font-bold">
+            {{ 'formBuilder.properties.matrix.answers' | translate }}
+          </h3>
+          <app-option-editor [formField]="matrixFieldSettingsForm.answers" [sort]="true" />
+        </div>
+      </div>
+    </p-accordion-content>
+  </p-accordion-panel>
+</p-accordion>

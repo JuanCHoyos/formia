@@ -1,0 +1,55 @@
+<app-button
+  icon="lucideHistory"
+  variant="text"
+  [iconOnly]="true"
+  [disabled]="!formBuilderStore.formTreeHistory.hasChanges()"
+  [ariaLabel]="'formBuilder.history.open' | translate"
+  (pressed)="historyPopover.toggle($event)"
+/>
+
+<p-popover #historyPopover [dismissable]="true">
+  <section class="w-72" [attr.aria-label]="'formBuilder.history.ariaLabel' | translate">
+    <h2 class="mb-3 text-sm font-semibold">
+      {{ 'formBuilder.history.title' | translate }}
+    </h2>
+
+    <input
+      pInputText
+      type="search"
+      class="mb-3 w-full"
+      variant="filled"
+      [placeholder]="'formBuilder.history.searchPlaceholder' | translate"
+      [attr.aria-label]="'formBuilder.history.searchAriaLabel' | translate"
+      [ngModel]="searchQuery()"
+      (ngModelChange)="searchQuery.set($event)"
+    />
+
+    <ul class="flex flex-col gap-1 m-0 max-h-64 list-none overflow-y-auto p-0">
+      @for (version of visibleVersions(); track version.id) {
+        <li>
+          <button
+            type="button"
+            class="flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2 text-left border border-transparent hover:surface-highlight cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2"
+            [class.surface-highlight]="version.isCurrent"
+            [attr.aria-pressed]="version.isCurrent"
+            (click)="formBuilderStore.formTreeHistory.restore(version.id); historyPopover.hide()"
+          >
+            <span class="min-w-0">
+              <span class="block truncate text-sm font-medium">{{ version.versionLabel }}</span>
+              <span class="block text-xs text-muted-color">{{ version.dateLabel }}</span>
+            </span>
+            @if (version.isCurrent) {
+              <span class="shrink-0 text-xs text-primary">
+                {{ 'formBuilder.history.current' | translate }}
+              </span>
+            }
+          </button>
+        </li>
+      } @empty {
+        <li class="px-3 py-4 text-center text-sm text-muted-color">
+          {{ 'formBuilder.history.noResults' | translate }}
+        </li>
+      }
+    </ul>
+  </section>
+</p-popover>

@@ -1,0 +1,102 @@
+<p-stepper [value]="navigation.activeStep()" (valueChange)="navigation.navigateTo($event)">
+  <p-step-list class="w-full flex items-baseline">
+    @for (step of field.fieldGroup; track $index) {
+      <p-step
+        [value]="$index"
+        [disabled]="!navigation.canNavigateTo($index)"
+        class="md:block w-full"
+        [class.hidden]="$index !== navigation.activeStep()"
+        [class.block]="$index === navigation.activeStep()"
+      >
+        <ng-template #content let-activateCallback="activateCallback" let-value="value">
+          <div class="w-full flex flex-col gap-2">
+            <div class="flex items-center gap-2 md:flex-col md:items-start">
+              <div class="md:grid md:w-full md:grid-cols-[auto_1fr] md:items-center md:gap-2">
+                <div
+                  class="size-8 flex items-center justify-center rounded-full text-white text-base cursor-pointer hover:scale-105 active:scale-100 transition-transform duration-100"
+                  [ngClass]="{
+                    'ring-2 ring-primary-500 ring-inset ring-offset-2':
+                      value === navigation.activeStep(),
+                    'bg-primary/80': value > navigation.activeStep(),
+                    'bg-success': value < navigation.activeStep(),
+                    'bg-primary': value === navigation.activeStep(),
+                  }"
+                  (click)="activateCallback()"
+                  (keyup.enter)="activateCallback()"
+                >
+                  @if (value < navigation.activeStep()) {
+                    <ng-icon name="lucideCheck"></ng-icon>
+                  } @else {
+                    <span>{{ value + 1 }}</span>
+                  }
+                </div>
+                <div
+                  class="hidden w-full h-0.5 md:block"
+                  [ngClass]="{
+                    'bg-primary/80': value > navigation.activeStep(),
+                    'bg-success': value < navigation.activeStep(),
+                    'bg-primary': value === navigation.activeStep(),
+                  }"
+                ></div>
+              </div>
+              <span class="flex flex-col gap-1 md:max-w-20">
+                <span class="md:hidden font-bold block text-muted-color text-[10px]">
+                  {{
+                    'formBuilder.navigation.stepCounter'
+                      | translate
+                        : {
+                            current: navigation.activeStep() + 1,
+                            total: navigation.stepCount(),
+                          }
+                  }}
+                </span>
+                <span class="font-bold block text-xs"> {{ step.props?.label }}</span>
+              </span>
+            </div>
+            <div
+              class="w-full h-0.5 md:hidden"
+              [ngClass]="{
+                'bg-primary/80': value > navigation.activeStep(),
+                'bg-success': value < navigation.activeStep(),
+                'bg-primary': value === navigation.activeStep(),
+              }"
+            ></div>
+          </div>
+        </ng-template>
+      </p-step>
+    }
+  </p-step-list>
+  <p-step-panels>
+    @for (group of field.fieldGroup; track $index) {
+      <p-step-panel [value]="$index">
+        <ng-template #content let-activateCallback="activateCallback">
+          <formly-field [field]="group" />
+        </ng-template>
+      </p-step-panel>
+    }
+  </p-step-panels>
+</p-stepper>
+<div class="flex justify-between mt-4">
+  <app-button
+    severity="secondary"
+    icon="lucideArrowLeft"
+    [disabled]="navigation.isFirstStep()"
+    (pressed)="navigation.previous()"
+  >
+    {{ 'common.actions.back' | translate }}
+  </app-button>
+
+  <app-button
+    [type]="navigation.isLastStep() ? 'submit' : 'button'"
+    [disabled]="!navigation.canProceedFromCurrent()"
+    icon="lucideArrowRight"
+    iconPosition="right"
+    (pressed)="navigation.next()"
+  >
+    {{
+      navigation.isLastStep()
+        ? ('common.actions.submit' | translate)
+        : ('common.actions.next' | translate)
+    }}
+  </app-button>
+</div>

@@ -1,0 +1,8 @@
+<div
+  class="grid gap-6"
+  [style.grid-template-columns]="'repeat(' + props.cols + ', minmax(0, 1fr))'"
+>
+  @for (field of field.fieldGroup; track $index) {
+    <formly-field [field]="field" />
+  }
+</div>

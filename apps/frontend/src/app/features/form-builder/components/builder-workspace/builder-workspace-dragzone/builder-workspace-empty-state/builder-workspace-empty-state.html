@@ -1,0 +1,12 @@
+<div
+  appDragDropZone
+  class="dropzone-spacer relative flex h-full place-content-center items-center justify-center rounded-lg text-sm text-muted-color transition-colors"
+>
+  <div class="absolute text-center">
+    <h3 class="flex flex-col gap-1 text-lg font-bold">
+      <span class="text-xl text-primary"><ng-icon name="lucideCopy" /></span>
+      {{ 'formBuilder.workspace.preview' | translate }}
+    </h3>
+    <span class="text-sm">{{ dragAndDropMessage() | translate }}</span>
+  </div>
+</div>

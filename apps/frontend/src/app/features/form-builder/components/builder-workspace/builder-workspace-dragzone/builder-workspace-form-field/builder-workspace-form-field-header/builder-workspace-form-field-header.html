@@ -1,0 +1,77 @@
+<header class="field-header flex items-center justify-between gap-4 select-none">
+  <span class="flex items-center gap-2 text-muted-color">
+    <div class="min-w-8 min-h-8 grid place-content-center surface-highlight border-highlight-medium rounded-lg text-primary">
+      <ng-icon class="text-base" [name]="currentFieldIconLabel().icon" />
+    </div>
+
+    <span class="text-xs text-primary font-semibold uppercase">
+      {{ currentFieldIconLabel().label | translate }}
+    </span>
+  </span>
+
+  <div
+    class="flex items-center gap-1 overflow-hidden max-w-fit"
+    [class.invisible]="!isFieldHighlighted()"
+    [class.visible]="isFieldHighlighted()"
+  >
+    <app-button
+      class="drag-handle cursor-grab touch-none select-none"
+      icon="lucideGripVertical"
+      variant="text"
+      severity="contrast"
+      [iconOnly]="true"
+      [preventEventBubbling]="true"
+      customClass="text-slate-500"
+      cdkDragHandle
+    />
+
+    <div class="actions-inline">
+      @for (item of menuActionItems(); track item) {
+        <app-button
+          [icon]="item.icon"
+          variant="text"
+          [severity]="item.severity"
+          [iconOnly]="true"
+          [preventEventBubbling]="true"
+          (pressed)="item.command()"
+          [customClass]="item.customClass"
+        />
+      }
+    </div>
+
+    <div class="actions-menu">
+      <p-menu
+        [model]="menuActionItems()"
+        class="flex justify-center"
+        [popup]="true"
+        [appendTo]="'body'"
+        styleClass="w-52"
+        #FieldHeaderMenu
+      >
+        <ng-template #item let-item>
+          <div
+            class="flex items-center gap-2 px-2 py-1 cursor-pointer"
+            [ngClass]="item.customClass"
+            (click)="item.command()"
+            (keyup.enter)="item.command()"
+          >
+            <ng-icon [name]="item.icon"></ng-icon>
+
+            <span class="text-sm">
+              {{ item.label | translate }}
+            </span>
+          </div>
+        </ng-template>
+      </p-menu>
+      <app-button
+        icon="lucideEllipsis"
+        variant="text"
+        severity="contrast"
+        [iconOnly]="true"
+        [preventEventBubbling]="true"
+        customClass="text-slate-500"
+        (pressed)="$event.stopPropagation(); FieldHeaderMenu.toggle($event)"
+      />
+    </div>
+  </div>
+</header>

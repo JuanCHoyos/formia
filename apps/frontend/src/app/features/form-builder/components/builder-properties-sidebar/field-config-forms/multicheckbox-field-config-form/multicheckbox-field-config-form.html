@@ -1,0 +1,39 @@
+<p-accordion [value]="['0', '1']" [multiple]="true" class="w-full">
+  <p-accordion-panel value="0">
+    <p-accordion-header>
+      <div class="flex flex-col gap-1">
+        <p class="text-sm font-bold">
+          {{ 'formBuilder.properties.sections.general.title' | translate }}
+        </p>
+        <small class="text-xs text-muted-color">
+          {{ 'formBuilder.properties.sections.general.description' | translate }}
+        </small>
+      </div>
+    </p-accordion-header>
+    <p-accordion-content>
+      <app-common-field-config-form
+        [commonFieldConfigForm]="{
+          label: multicheckboxFieldSettingsForm.label,
+          description: multicheckboxFieldSettingsForm.description,
+          required: multicheckboxFieldSettingsForm.required,
+          disabled: multicheckboxFieldSettingsForm.disabled,
+        }"
+      />
+    </p-accordion-content>
+  </p-accordion-panel>
+  <p-accordion-panel value="1">
+    <p-accordion-header>
+      <div class="flex flex-col gap-1">
+        <p class="text-sm font-bold">
+          {{ 'formBuilder.properties.sections.options.title' | translate }}
+        </p>
+        <small class="text-xs text-muted-color">
+          {{ 'formBuilder.properties.sections.options.description' | translate }}
+        </small>
+      </div>
+    </p-accordion-header>
+    <p-accordion-content>
+      <app-option-editor [formField]="multicheckboxFieldSettingsForm.options" [sort]="true" />
+    </p-accordion-content>
+  </p-accordion-panel>
+</p-accordion>

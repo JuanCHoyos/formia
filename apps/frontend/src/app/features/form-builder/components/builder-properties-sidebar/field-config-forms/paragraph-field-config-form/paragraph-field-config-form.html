@@ -1,0 +1,26 @@
+<p-accordion [value]="['0']" [multiple]="true" class="w-full">
+  <p-accordion-panel value="0">
+    <p-accordion-header>
+      <div class="flex flex-col gap-1">
+        <p class="text-sm font-bold">
+          {{ 'formBuilder.properties.sections.general.title' | translate }}
+        </p>
+        <small class="text-xs text-muted-color">
+          {{ 'formBuilder.properties.sections.general.description' | translate }}
+        </small>
+      </div>
+    </p-accordion-header>
+    <p-accordion-content>
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-bold" for="paragraph-text">
+          {{ 'formBuilder.properties.paragraph.text' | translate }}
+        </label>
+
+        <app-text-editor
+          [formField]="paragraphFieldSettingsForm.text"
+          inputId="paragraph-text"
+        ></app-text-editor>
+      </div>
+    </p-accordion-content>
+  </p-accordion-panel>
+</p-accordion>

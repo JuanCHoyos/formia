@@ -1,0 +1,24 @@
+<p-accordion [value]="['0']" [multiple]="true" class="w-full">
+  <p-accordion-panel value="0">
+    <p-accordion-header>
+      <div class="flex flex-col gap-1">
+        <p class="text-sm font-bold">
+          {{ 'formBuilder.properties.sections.general.title' | translate }}
+        </p>
+        <small class="text-xs text-muted-color">
+          {{ 'formBuilder.properties.sections.general.description' | translate }}
+        </small>
+      </div>
+    </p-accordion-header>
+    <p-accordion-content>
+      <app-common-field-config-form
+        [commonFieldConfigForm]="{
+          label: checkboxFieldSettingsForm.label,
+          description: checkboxFieldSettingsForm.description,
+          required: checkboxFieldSettingsForm.required,
+          disabled: checkboxFieldSettingsForm.disabled,
+        }"
+      ></app-common-field-config-form>
+    </p-accordion-content>
+  </p-accordion-panel>
+</p-accordion>

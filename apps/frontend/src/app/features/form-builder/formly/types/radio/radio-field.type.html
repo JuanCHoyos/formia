@@ -1,0 +1,29 @@
+<div class="flex flex-col gap-2">
+  @for (option of props.options; track option.value) {
+    @let inputId = field.id + '-' + $index;
+    <label
+      [for]="inputId"
+      class="flex items-center justify-between gap-2 p-4 rounded-lg cursor-pointer"
+      [ngClass]="{
+        'surface-highlight': option.value === formControl.value && !props.disabled,
+        'border-default': option.value !== formControl.value,
+        'hover:surface-highlight': option.value !== formControl.value && !props.disabled,
+        'input-disabled-background cursor-default': props.disabled,
+        'cursor-pointer': !props.disabled,
+      }"
+    >
+      <div class="flex items-center gap-2">
+        <p-radiobutton
+          [inputId]="inputId"
+          [name]="field.key"
+          [value]="option.value"
+          [formControl]="formControl"
+        />
+        <span class="text-sm">{{ option.label }}</span>
+      </div>
+      @if (option.value === formControl.value) {
+        <span class="text-primary max-h-4 max-w-fit"><ng-icon name="lucideCheck"></ng-icon></span>
+      }
+    </label>
+  }
+</div>

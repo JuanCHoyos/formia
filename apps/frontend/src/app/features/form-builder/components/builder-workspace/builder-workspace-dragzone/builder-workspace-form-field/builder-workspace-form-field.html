@@ -1,0 +1,57 @@
+<article
+  data-builder-form-field
+  class="flex flex-col gap-2 rounded-xl border px-4 pl-8 py-4 relative transition bg-white"
+  [class]="
+    isFieldHighlighted()
+      ? 'border-highlight-medium'
+      : 'border-default shadow-[0_6px_18px_rgba(35,42,70,0.04)]'
+  "
+  (click)="edit($event)"
+  (keyup.enter)="edit($event)"
+  (hovered)="isHovered.set($event)"
+  appHoverState
+>
+  <app-builder-workspace-form-field-header
+    [field]="field()"
+    [isFieldHighlighted]="isFieldHighlighted()"
+  ></app-builder-workspace-form-field-header>
+
+  @if (isContainerGroup()) {
+    <div class="flex flex-col gap-2 border rounded-lg border-gray-300 p-2">
+      <div
+        cdkDropListOrientation="mixed"
+        [id]="field().id"
+        class="grid grid-cols-2 h-full min-h-32 gap-4 relative"
+        cdkDropList
+        [cdkDropListConnectedTo]="formBuilderStore.dropListIds()"
+        [cdkDropListData]="fieldGroup()"
+        (cdkDropListDropped)="dropEmit.emit($event)"
+        [ngClass]="{
+          'justify-center items-center flex-row min-h-16 h-full': fieldGroup().length === 0,
+        }"
+      >
+        @for (field of fieldGroup(); track field) {
+          <app-builder-workspace-form-field
+            [field]="field"
+            cdkDrag
+            [cdkDragData]="field"
+            (dropEmit)="dropEmit.emit($event)"
+          />
+        } @empty {
+          <app-builder-workspace-empty-state class="block w-full h-full absolute top-0" />
+        }
+      </div>
+      <app-builder-workspace-field-selector
+        (fieldSelected)="addNewField($event.type, $event.label)"
+      ></app-builder-workspace-field-selector>
+    </div>
+  } @else {
+    <formly-form [fields]="[field()]" class="pointer-events-none select-none" />
+  }
+</article>
+
+<div
+  class="drag-placeholder"
+  *cdkDragPlaceholder
+  [style.--placeholder-text]="'common.actions.dragPlaceholder' | translate | json"
+></div>

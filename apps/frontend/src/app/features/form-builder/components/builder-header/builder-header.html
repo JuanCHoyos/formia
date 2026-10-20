@@ -1,0 +1,27 @@
+<header
+  [attr.aria-label]="'formBuilder.header.ariaLabel' | translate"
+  class="h-full flex items-center justify-between"
+>
+  <div class="flex items-center gap-4">
+    <app-button icon="lucideArrowLeft" variant="text" size="small" (pressed)="goToForms()">
+      {{ 'formBuilder.header.myForms' | translate }}
+    </app-button>
+    <div class="border-l pl-4 border-gray-300">
+      <app-form-title-editor />
+    </div>
+  </div>
+
+  <div class="flex items-center gap-2">
+    <span class="text-xs text-muted-color" role="status">{{ saveStateKey() | translate }}</span>
+    <app-button
+      [icon]="formPreviewState.previewIcon()"
+      variant="outlined"
+      (pressed)="formPreviewState.togglePreviewMode()"
+    >
+      {{ formPreviewState.previewText() | translate }}
+    </app-button>
+    <app-published-versions-menu />
+    <app-button icon="lucideRocket" [loading]="sync.publishing()" (pressed)="sync.publish()">{{ 'formBuilder.header.publish' | translate }}</app-button>
+    <app-form-settings-popover />
+  </div>
+</header>

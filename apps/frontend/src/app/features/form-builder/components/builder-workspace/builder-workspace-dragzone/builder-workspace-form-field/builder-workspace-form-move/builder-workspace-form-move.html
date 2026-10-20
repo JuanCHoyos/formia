@@ -1,0 +1,17 @@
+<article class="mb-4">
+  <app-tree-selector
+    [items]="items()"
+    [search]="true"
+    [sort]="false"
+    [isPrincipalItemDisabled]="true"
+    (selectedItemChange)="selectedItem($event)"
+    [maxContentHeight]="'256px'"
+  ></app-tree-selector>
+</article>
+<footer class="w-full flex justify-end gap-2">
+  <app-button severity="secondary" variant="outlined" (pressed)="dialogRef.close()">
+    {{ 'common.actions.cancel' | translate }}
+  </app-button>
+
+  <app-button> {{ 'common.actions.accept' | translate }} </app-button>
+</footer>

@@ -1,0 +1,42 @@
+<app-button
+  icon="lucideHistory"
+  variant="outlined"
+  [iconOnly]="true"
+  [ariaLabel]="'formBuilder.versions.open' | translate"
+  (pressed)="versionsPopover.toggle($event)"
+/>
+
+<p-popover #versionsPopover [dismissable]="true">
+  <section class="w-80" [attr.aria-label]="'formBuilder.versions.ariaLabel' | translate">
+    <h2 class="mb-1 text-sm font-semibold">{{ 'formBuilder.versions.title' | translate }}</h2>
+    <p class="mb-3 text-xs text-muted-color">
+      {{ 'formBuilder.versions.limitNotice' | translate: { count: maxPreviousVersions } }}
+    </p>
+
+    <ul class="m-0 flex max-h-64 list-none flex-col gap-1 overflow-y-auto p-0">
+      @for (version of versions(); track version.version) {
+        <li class="flex items-center justify-between gap-3 rounded-lg px-3 py-2">
+          <span class="min-w-0">
+            <span class="block truncate text-sm font-medium">
+              {{ 'formBuilder.versions.version' | translate: { number: version.version } }}
+            </span>
+            <span class="block text-xs text-muted-color">
+              {{ version.publishedAt | date: 'medium' }}
+            </span>
+          </span>
+          <app-button
+            variant="outlined"
+            size="small"
+            (pressed)="restore(version); versionsPopover.hide()"
+          >
+            {{ 'formBuilder.versions.restore' | translate }}
+          </app-button>
+        </li>
+      } @empty {
+        <li class="px-3 py-4 text-center text-sm text-muted-color">
+          {{ 'formBuilder.versions.empty' | translate }}
+        </li>
+      }
+    </ul>
+  </section>
+</p-popover>

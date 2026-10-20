@@ -1,0 +1,44 @@
+<aside
+  [attr.aria-label]="'formBuilder.sidebar.fieldsAriaLabel' | translate"
+  class="flex h-full min-h-0 flex-col overflow-hidden py-4"
+>
+  <header
+    class="flex shrink-0 items-center justify-between mb-4 pb-2 px-4 border-b border-gray-300"
+  >
+    <h3 class="text-xs font-bold text-muted-color">
+      {{ 'formBuilder.sidebar.build' | translate }}
+    </h3>
+    <app-button
+      icon="lucidePanelLeftClose"
+      variant="text"
+      [iconOnly]="true"
+      severity="secondary"
+      [ariaLabel]="'formBuilder.sidebar.close' | translate"
+      customClass="p-0 max-w-fit text-lg"
+      (pressed)="menuState.toggleLeftMenu()"
+    ></app-button>
+  </header>
+  <section class="px-4 w-full h-full overflow-y-auto">
+    <p-tabs value="components">
+      <p-tablist>
+        <p-tab value="components">{{ 'formBuilder.sidebar.components' | translate }}</p-tab>
+        <p-tab value="tree">{{ 'formBuilder.sidebar.tree' | translate }}</p-tab>
+      </p-tablist>
+      <p-tabpanels>
+        <p-tabpanel value="components">
+          <app-builder-sidebar-components />
+        </p-tabpanel>
+        <p-tabpanel value="tree">
+          <app-tree-selector
+            [items]="items()"
+            [search]="true"
+            [sort]="true"
+            (sortedItems)="onSort($event)"
+            [selectedItem]="formBuilderStore.selectedField()"
+            (selectedItemChange)="edit($event)"
+          ></app-tree-selector>
+        </p-tabpanel>
+      </p-tabpanels>
+    </p-tabs>
+  </section>
+</aside>

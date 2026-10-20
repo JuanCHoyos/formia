@@ -1,0 +1,19 @@
+<div
+  [cdkDragData]="item()"
+  cdkDrag
+  class="flex items-center border-default rounded-lg p-2 select-none cursor-grab hover:surface-highlight"
+>
+  <div
+    class="grid place-items-center text-lg size-8 min-w-8 rounded-lg mr-2"
+    [ngClass]="[item().bgIcon || 'bg-primary/10', item().colorIcon || 'text-primary']"
+  >
+    <ng-icon [name]="item().icon"></ng-icon>
+  </div>
+  <h4 class="flex flex-col gap-1">
+    <span class="text-xs font-bold">{{ item().label | translate }}</span>
+    <span class="text-xs text-gray-500">{{ item().description | translate }}</span>
+  </h4>
+  <div class="ml-auto text-gray-500">
+    <ng-icon name="lucideGripVertical"></ng-icon>
+  </div>
+</div>

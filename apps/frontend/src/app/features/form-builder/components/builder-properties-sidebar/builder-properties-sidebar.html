@@ -1,0 +1,135 @@
+<aside
+  [attr.aria-label]="'formBuilder.properties.ariaLabel' | translate"
+  class="flex h-full w-full flex-col"
+>
+  <header class="flex items-center justify-between border-b border-gray-300 px-4 py-3">
+    <h3 class="text-xs font-bold text-muted-color">
+      {{ 'formBuilder.properties.title' | translate }}
+    </h3>
+    <app-button
+      icon="lucidePanelRightClose"
+      variant="text"
+      [iconOnly]="true"
+      severity="secondary"
+      [ariaLabel]="'formBuilder.properties.close' | translate"
+      customClass="p-0 max-w-fit text-lg"
+      (pressed)="menuState.toggleRightMenu()"
+    ></app-button>
+  </header>
+  <div class="flex flex-1 flex-col gap-4 p-4 overflow-y-auto">
+    @if (formBuilderStore.selectedField(); as field) {
+      <div class="flex items-center gap-4 surface-default p-2 rounded-lg">
+        <div
+          class="min-w-8 min-h-8 w-8 h-8 grid place-content-center rounded-lg surface-highlight border-highlight-medium text-primary"
+        >
+          <ng-icon [name]="selectedFieldProperties().icon"> </ng-icon>
+        </div>
+        <p class="flex flex-col gap-1">
+          <span class="text-muted-color text-xs font-bold capitalize">
+            {{ 'formBuilder.properties.editing' | translate }}
+          </span>
+          <span class="font-bold text-sm">{{ selectedFieldProperties().label }}</span>
+        </p>
+      </div>
+
+      @if (formBuilderStore.selectedField(); as configurableField) {
+        @switch (configurableField.type) {
+          @case ('heading') {
+            <app-heading-field-config-form
+              [headingFieldProps]="configurableField.props"
+              (propsChange)="onHeadingPropsChange($event)"
+            />
+          }
+          @case ('paragraph') {
+            <app-paragraph-field-config-form
+              [paragraphFieldProps]="configurableField.props"
+              (propsChange)="onParagraphPropsChange($event)"
+            />
+          }
+          @case ('image') {
+            <app-image-field-config-form
+              [imageFieldProps]="configurableField.props"
+              (propsChange)="onImagePropsChange($event)"
+            />
+          }
+          @case ('divider') {
+            <app-divider-field-config-form
+              [dividerFieldProps]="configurableField.props"
+              (propsChange)="onDividerPropsChange($event)"
+            />
+          }
+          @case ('container-group') {
+            <app-container-field-config-form
+              [containerFieldProps]="configurableField.props"
+              (propsChange)="onContainerPropsChange($event)"
+            />
+          }
+          @case ('alert') {
+            <app-alert-field-config-form
+              [alertFieldProps]="configurableField.props"
+              (propsChange)="onAlertPropsChange($event)"
+            />
+          }
+          @case ('text') {
+            <app-text-field-config-form
+              [textFieldProps]="configurableField.props"
+              (propsChange)="onTextPropsChange($event)"
+            />
+          }
+          @case ('textarea') {
+            <app-textarea-field-config-form
+              [textareaFieldProps]="configurableField.props"
+              (propsChange)="onTextareaPropsChange($event)"
+            />
+          }
+          @case ('checkbox') {
+            <app-checkbox-field-config-form
+              [checkboxFieldProps]="configurableField.props"
+              (propsChange)="onCheckboxPropsChange($event)"
+            />
+          }
+          @case ('select') {
+            <app-select-field-config-form
+              [selectFieldProps]="configurableField.props"
+              (propsChange)="onSelectPropsChange($event)"
+            />
+          }
+          @case ('radio') {
+            <app-radio-field-config-form
+              [radioFieldProps]="configurableField.props"
+              (propsChange)="onRadioPropsChange($event)"
+            />
+          }
+          @case ('radio-image') {
+            <app-radio-image-field-config-form
+              [radioImageFieldProps]="configurableField.props"
+              (propsChange)="onRadioImagePropsChange($event)"
+            />
+          }
+          @case ('multicheckbox') {
+            <app-multicheckbox-field-config-form
+              [multicheckboxFieldProps]="configurableField.props"
+              (propsChange)="onMultiCheckboxPropsChange($event)"
+            />
+          }
+          @case ('matrix') {
+            <app-matrix-field-config-form
+              [matrixFieldProps]="configurableField.props"
+              (propsChange)="onMatrixPropsChange($event)"
+            />
+          }
+          @case ('rating') {
+            <app-rating-field-config-form
+              [ratingFieldProps]="configurableField.props"
+              (propsChange)="onRatingPropsChange($event)"
+            />
+          }
+        }
+      }
+    } @else {
+      <p class="text-sm text-muted-color">
+        {{ 'formBuilder.properties.emptySelection' | translate }}
+      </p>
+    }
+  </div>
+</aside>

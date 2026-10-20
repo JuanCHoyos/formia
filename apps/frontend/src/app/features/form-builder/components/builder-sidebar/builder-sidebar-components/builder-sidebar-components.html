@@ -1,0 +1,55 @@
+<div class="flex flex-col gap-2">
+  <p-iconfield>
+    <input
+      id=""
+      pInputText
+      [ngModel]="searchTerm()"
+      (ngModelChange)="searchTerm.set($event)"
+      variant="filled"
+      [placeholder]="'formBuilder.sidebar.searchPlaceholder' | translate"
+      [attr.aria-label]="'formBuilder.sidebar.searchAriaLabel' | translate"
+      class="w-full"
+    />
+
+    <p-inputicon style="cursor: pointer">
+      <svg data-p-icon="search"></svg>
+    </p-inputicon>
+  </p-iconfield>
+
+  @if (filteredGroups().length > 0) {
+    <p-accordion
+      class="w-full [&_.p-motion]:overflow-hidden"
+      [value]="accordionValue()"
+      (valueChange)="value.set($event)"
+      [multiple]="true"
+    >
+      @for (group of filteredGroups(); track group.value) {
+        <p-accordion-panel [value]="group.value">
+          <p-accordion-header>
+            {{ group.label | translate }}
+          </p-accordion-header>
+          <p-accordion-content>
+            <div
+              class="flex flex-col gap-2"
+              cdkDropList
+              [cdkDropListData]="group.items"
+              [cdkDropListConnectedTo]="formBuilderStore.dropListIds()"
+              cdkDropListSortingDisabled
+              cdkDropListHasAnchor
+              class="flex flex-col gap-2"
+              [attr.data-sorting-disabled]="true"
+            >
+              @for (field of group.items; track field.label) {
+                <app-builder-sidebar-component-item
+                  [item]="field"
+                ></app-builder-sidebar-component-item>
+              }
+            </div>
+          </p-accordion-content>
+        </p-accordion-panel>
+      }
+    </p-accordion>
+  } @else {
+    <p class="text-sm text-gray-500">{{ 'formBuilder.sidebar.noComponents' | translate }}</p>
+  }
+</div>

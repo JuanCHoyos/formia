@@ -1,0 +1,43 @@
+<footer class="w-full h-full">
+  <p-progressbar
+    [value]="formBuilderStore.percentageOfCurrentPage()"
+    [showValue]="false"
+    [style]="{ height: '4px' }"
+  />
+  <div class="w-full h-full flex items-center justify-between px-4">
+    <span class="flex flex-col gap-1 text-sm font-bold">
+      <span class="text-muted-color text-xs">
+        {{ 'formBuilder.workspace.pagination' | translate }}
+      </span>
+      <span class="font-bold">
+        {{
+          'formBuilder.workspace.stepCounter'
+            | translate
+              : {
+                  current: formBuilderStore.currentFormPage() + 1,
+                  total: formBuilderStore.totalPageCount(),
+                }
+        }}
+      </span>
+    </span>
+
+    <div class="flex items-center gap-2">
+      <app-button
+        severity="secondary"
+        [disabled]="formBuilderStore.currentFormPage() === 0"
+        (pressed)="updateFormPage(-1)"
+        >{{ 'common.actions.previous' | translate }}</app-button
+      >
+      <span class="text-sm text-muted-color font-bold"
+        >{{ formBuilderStore.currentFormPage() + 1 }} /
+        {{ formBuilderStore.totalPageCount() }}</span
+      >
+      <app-button
+        severity="secondary"
+        [disabled]="formBuilderStore.currentFormPage() + 1 === formBuilderStore.totalPageCount()"
+        (pressed)="updateFormPage(1)"
+        >{{ 'common.actions.next' | translate }}</app-button
+      >
+    </div>
+  </div>
+</footer>

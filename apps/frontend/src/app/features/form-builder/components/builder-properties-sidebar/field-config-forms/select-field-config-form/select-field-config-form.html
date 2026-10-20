@@ -1,0 +1,103 @@
+@if (selectFieldSettingsForm().invalid()) {
+  <p-message severity="error" class="mb-4">
+    <span class="text-xs font-bold">{{
+      'formBuilder.properties.messages.form.error' | translate
+    }}</span>
+  </p-message>
+}
+<p-accordion
+  [value]="['0', '1', '2']"
+  [multiple]="true"
+  class="w-full"
+>
+  <p-accordion-panel value="0">
+    <p-accordion-header>
+      <div class="flex flex-col gap-1">
+        <p class="text-sm font-bold">
+          {{ 'formBuilder.properties.sections.general.title' | translate }}
+        </p>
+        <small class="text-xs text-muted-color">
+          {{ 'formBuilder.properties.sections.general.description' | translate }}
+        </small>
+      </div>
+    </p-accordion-header>
+    <p-accordion-content>
+      <app-common-field-config-form
+        [commonFieldConfigForm]="{
+          label: selectFieldSettingsForm.label,
+          description: selectFieldSettingsForm.description,
+          required: selectFieldSettingsForm.required,
+          disabled: selectFieldSettingsForm.disabled,
+        }"
+      >
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-semibold text-muted-color" for="text-placeholder">
+            {{ 'formBuilder.properties.common.placeholder' | translate }}
+          </label>
+          <input
+            id="text-placeholder"
+            pInputText
+            [formField]="selectFieldSettingsForm.placeholder"
+            class="w-full"
+          />
+        </div>
+      </app-common-field-config-form>
+    </p-accordion-content>
+  </p-accordion-panel>
+  <p-accordion-panel value="1">
+    <p-accordion-header>
+      <div class="flex flex-col gap-1">
+        <p class="text-sm font-bold">
+          {{ 'formBuilder.properties.sections.preferences.title' | translate }}
+        </p>
+        <small class="text-xs text-muted-color">
+          {{ 'formBuilder.properties.sections.preferences.description' | translate }}
+        </small>
+      </div>
+    </p-accordion-header>
+    <p-accordion-content>
+      <div class="flex flex-col gap-2">
+        <app-checkbox
+          [formField]="selectFieldSettingsForm.filter"
+          [label]="'formBuilder.properties.select.filter.label' | translate"
+          [description]="'formBuilder.properties.select.filter.description' | translate"
+        ></app-checkbox>
+
+        <app-checkbox
+          [formField]="selectFieldSettingsForm.multiple"
+          [label]="'formBuilder.properties.select.multiple.label' | translate"
+          [description]="'formBuilder.properties.select.multiple.description' | translate"
+        ></app-checkbox>
+
+        <app-checkbox
+          [formField]="selectFieldSettingsForm.showClear"
+          [label]="'formBuilder.properties.select.showClear.label' | translate"
+          [description]="'formBuilder.properties.select.showClear.description' | translate"
+        ></app-checkbox>
+      </div>
+    </p-accordion-content>
+  </p-accordion-panel>
+  <p-accordion-panel value="2">
+    <p-accordion-header>
+      <div class="flex flex-col gap-1">
+        <p class="text-sm font-bold">
+          {{ 'formBuilder.properties.sections.options.title' | translate }}
+        </p>
+        <small class="text-xs text-muted-color">
+          {{ 'formBuilder.properties.sections.options.description' | translate }}
+        </small>
+      </div>
+    </p-accordion-header>
+    <p-accordion-content>
+      <app-option-editor
+        [formField]="selectFieldSettingsForm.options"
+        [sort]="true"
+      ></app-option-editor>
+      @if (selectFieldSettingsForm.options().invalid()) {
+        <small class="text-sm text-red-500">
+          {{ selectFieldSettingsForm.options().errors()[0].message }}
+        </small>
+      }
+    </p-accordion-content>
+  </p-accordion-panel>
+</p-accordion>
