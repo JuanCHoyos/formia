@@ -15,7 +15,7 @@ pre-commit:
 commit-msg:
   jobs:
     - name: conventional-commit
-      run: node scripts/validate-commit-message.mjs {1}
+      run: pnpm exec commitlint --edit {1}
 
 pre-push:
   jobs:

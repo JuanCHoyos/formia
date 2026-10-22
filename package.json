@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "pnpm --filter @formly/core build && pnpm sst dev --stage dev",
-    "dev:secrets": "pnpm sst secrets load --stage dev",
+    "dev:secrets": "pnpm sst secret load .env --stage dev",
     "test": "pnpm -r --if-present test",
     "test:unit": "vitest run",
     "lint": "eslint .",
@@ -16,8 +16,9 @@
     "sst": "catalog:"
   },
   "devDependencies": {
+    "@commitlint/cli": "21.2.4",
+    "@commitlint/config-conventional": "21.2.4",
     "@eslint/js": "10.0.1",
-    "@types/aws-lambda": "catalog:",
     "angular-eslint": "22.6.0",
     "eslint": "10.13.0",
     "eslint-plugin-perfectionist": "5.13.0",
