@@ -1,16 +1,30 @@
 import { Elysia } from 'elysia';
 
-import { CreateUserProfileSchema } from '@formly/core/schemas';
+import { CreateUserProfileSchema, UpdateUserProfileSchema } from '@formly/core/schemas';
 
-import { ok } from '../../http/responses';
+import { fail, ok } from '../../http/responses';
 import { authenticatedWithUser, authenticatedWithCognito } from '../../middleware/authenticated';
-import { createUser, toUserProfile } from './users.service';
+import { canEditFullName, createUser, toUserProfile, updateUserProfile } from './users.service';
 
 export const usersRouter = new Elysia({ prefix: '/users' })
   .use(
     new Elysia()
       .use(authenticatedWithUser)
-      .get('/me', ({ user }) => ok('User retrieved successfully', toUserProfile(user))),
+      .get('/me', ({ user }) => ok('User retrieved successfully', toUserProfile(user)))
+      .patch(
+        '/me',
+        async ({ body, status, user }) => {
+          if (body.fullName !== undefined && !canEditFullName(user)) {
+            return status(
+              422,
+              fail('VALIDATION_ERROR', 'The name is managed by the identity provider'),
+            );
+          }
+
+          return status(200, ok('User updated successfully', await updateUserProfile(user, body)));
+        },
+        { body: UpdateUserProfileSchema },
+      ),
   )
   .use(
     new Elysia().use(authenticatedWithCognito).post(

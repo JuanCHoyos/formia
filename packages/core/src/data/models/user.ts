@@ -44,6 +44,8 @@ export const userEntity = new Entity({
 
 export const UserModel = createModel(table, userEntity);
 
+export { $set as replaceValue } from 'dynamodb-toolbox/entity/actions/update';
+
 export type UserTable = typeof table;
 
 export type UserEntity = typeof userEntity;

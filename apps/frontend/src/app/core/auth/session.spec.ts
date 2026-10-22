@@ -15,6 +15,7 @@ const user: UserProfile = {
   fullName: 'Ada Lovelace',
   email: 'ada@example.com',
   roles: ['FORM_CREATOR'],
+  authProvider: 'SYSTEM',
 };
 
 const jsonResponse = (body: unknown, status = 200) =>

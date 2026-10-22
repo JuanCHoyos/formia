@@ -8,6 +8,7 @@ const profile = (fullName: string): UserProfile => ({
   fullName,
   email: 'ada@example.com',
   roles: ['FORM_CREATOR'],
+  authProvider: 'SYSTEM',
 });
 
 describe('UserStore', () => {

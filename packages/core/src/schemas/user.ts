@@ -29,7 +29,18 @@ export const UserProfileSchema = z.object({
   fullName: userFields.fullName,
   email: userFields.email,
   roles: userFields.roles,
+  authProvider: AuthProviderSchema,
 });
+
+export const UpdateUserProfileSchema = z
+  .object({
+    fullName: userFields.fullName.optional(),
+    roles: userFields.roles.optional(),
+  })
+  .strict()
+  .refine((value) => Object.values(value).some((field) => field !== undefined), {
+    error: 'At least one field must be provided.',
+  });
 
 export const UpdateUserSchema = z
   .object({
@@ -46,3 +57,4 @@ export type CreateUserInput = z.infer<typeof CreateUserSchema>;
 export type CreateUserProfileInput = z.infer<typeof CreateUserProfileSchema>;
 export type UserProfile = z.infer<typeof UserProfileSchema>;
 export type UpdateUserInput = z.infer<typeof UpdateUserSchema>;
+export type UpdateUserProfileInput = z.infer<typeof UpdateUserProfileSchema>;
