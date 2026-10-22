@@ -1,5 +1,4 @@
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
 import { Component, input, model, output } from '@angular/core';
 import { form, FormField, disabled as disableField, FieldTree } from '@angular/forms/signals';
 
@@ -10,13 +9,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ulid } from 'ulid';
 
 import { APP_ICONS } from '../../constants/icons';
+import type { SelectOption } from '../../types/select-option';
 import { Button } from '../button/button';
-
-export type SelectOption = { label: string; value: string };
 
 @Component({
   imports: [
-    CommonModule,
     TranslatePipe,
     Button,
     InputTextModule,

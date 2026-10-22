@@ -9,9 +9,8 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { APP_ICONS } from '../../constants/icons';
+import type { IconSelectorValue } from '../../types/icon-selector-value';
 import type { AppIcon } from '../../types/icons';
-
-export type IconSelectorValue = AppIcon | AppIcon[] | null;
 
 @Component({
   selector: 'app-icon-selector',

@@ -3,7 +3,7 @@ import { Directive, ElementRef, effect, inject, input, Renderer2 } from '@angula
 @Directive({
   selector: '[appDragDropZone]',
   host: {
-    class: 'border-2 border-dashed border-primary/30 transition-colors',
+    class: 'border-2 border-dashed border-border-strong transition-colors',
     '(dragenter)': 'handleDragEnter($event)',
     '(dragover)': 'handleDragOver($event)',
     '(dragleave)': 'handleDragLeave($event)',
@@ -58,14 +58,14 @@ export class DragDropZoneDirective {
     this.isActive = isActive;
 
     if (isActive) {
-      this.renderer.removeClass(this.element.nativeElement, 'border-primary/30');
-      this.renderer.addClass(this.element.nativeElement, 'border-primary');
-      this.renderer.addClass(this.element.nativeElement, 'bg-primary/10');
+      this.renderer.removeClass(this.element.nativeElement, 'border-border-strong');
+      this.renderer.addClass(this.element.nativeElement, 'border-brand');
+      this.renderer.addClass(this.element.nativeElement, 'bg-brand-soft');
       return;
     }
 
-    this.renderer.removeClass(this.element.nativeElement, 'border-primary');
-    this.renderer.removeClass(this.element.nativeElement, 'bg-primary/10');
-    this.renderer.addClass(this.element.nativeElement, 'border-primary/30');
+    this.renderer.removeClass(this.element.nativeElement, 'border-brand');
+    this.renderer.removeClass(this.element.nativeElement, 'bg-brand-soft');
+    this.renderer.addClass(this.element.nativeElement, 'border-border-strong');
   }
 }

@@ -1,13 +1,14 @@
-import { CommonModule } from '@angular/common';
 import { Component, input, model, OnDestroy, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { form, FormField, disabled as disableField } from '@angular/forms/signals';
+
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { Editor, NgxEditorComponent, NgxEditorMenuComponent, Toolbar } from 'ngx-editor';
 import { ulid } from 'ulid';
 
 @Component({
-  imports: [CommonModule, NgxEditorComponent, NgxEditorMenuComponent, FormField, FormsModule],
+  imports: [NgxEditorComponent, NgxEditorMenuComponent, FormField, FormsModule, TranslatePipe],
   selector: 'app-text-editor',
   templateUrl: './text-editor.html',
 })

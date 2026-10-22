@@ -9,7 +9,7 @@
   class="justify-normal"
 >
   @if (selectionIconLabel().length > 0) {
-    <span class="flex flex-wrap items-center divide-x divide-surface-300">
+    <span class="flex flex-wrap items-center divide-x divide-border">
       @for (selection of selectionIconLabel(); track selection.icon) {
         <span class="inline-flex items-center gap-1.5 px-2 py-1 text-sm">
           <ng-icon [name]="selection.icon" aria-hidden="true" />
@@ -74,7 +74,7 @@
             <ng-icon [name]="icon" aria-hidden="true" />
           </button>
         } @empty {
-          <p class="col-span-full py-2 text-sm text-muted-color">
+          <p class="col-span-full py-2 text-sm text-text-3">
             {{ 'formBuilder.iconSelector.noIcons' | translate }}
           </p>
         }

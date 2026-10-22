@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { booleanAttribute, Component, input, output } from '@angular/core';
 
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -7,11 +6,10 @@ import { Spinner } from '@primeicons/angular/spinner';
 import { ButtonModule, ButtonSeverity, ButtonSize, ButtonVariant } from 'primeng/button';
 
 import { APP_ICONS } from '../../constants/icons';
+import type { IconPosition } from '../../types/icon-position';
 import { AppIcon } from '../../types/icons';
-export type IconPosition = 'left' | 'right';
-
 @Component({
-  imports: [CommonModule, ButtonModule, NgIcon, Spinner],
+  imports: [ButtonModule, NgIcon, Spinner],
   providers: [provideIcons(APP_ICONS)],
   selector: 'app-button',
   templateUrl: './button.html',

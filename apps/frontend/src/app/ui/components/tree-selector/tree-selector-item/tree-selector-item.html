@@ -1,10 +1,12 @@
 <div
-  class="flex items-center justify-between gap-1 py-1 px-2 border rounded-lg cursor-pointer"
+  class="flex cursor-pointer items-center justify-between gap-1 rounded-control border px-2 py-1 transition-colors focus-visible:focus-ring"
   [style.paddingLeft]="paddingLeft()"
-  [ngClass]="{
-    'surface-highlight': selectedItem() === item().value,
-    'border-transparent hover:surface-highlight': selectedItem() !== item().value,
-  }"
+  [class]="
+    selectedItem() === item().value
+      ? 'border-brand-bd bg-brand-soft text-brand-text'
+      : 'border-transparent text-text hover:bg-hover'
+  "
+  [attr.aria-current]="selectedItem() === item().value ? 'true' : null"
   tabindex="0"
   (click)="selectItem()"
   (keydown.enter)="$event.target === $event.currentTarget && selectItem()"
@@ -12,7 +14,10 @@
   [cdkDragDisabled]="!sort()"
   [cdkDragData]="{ id: item().id, isPrincipal: rootIndex() === 0 }"
 >
-  <div class="h-8 rounded-lg surface-highlight border-dashed!" *cdkDragPlaceholder></div>
+  <div
+    class="h-8 rounded-control border border-dashed border-brand-bd bg-brand-soft"
+    *cdkDragPlaceholder
+  ></div>
   <span class="flex items-center gap-2 w-full overflow-hidden">
     @if (item().type === 'Group') {
       <button
@@ -20,28 +25,33 @@
         iconOnly
         size="small"
         variant="text"
+        class="relative -left-1 h-6 w-6 min-w-6 p-1 text-base"
+        [attr.aria-label]="
+          (item().showItems ? 'common.actions.collapse' : 'common.actions.expand')
+            | translate: { label: item().label }
+        "
+        [attr.aria-expanded]="item().showItems"
         (click)="toggleSubItems($event)"
-        class="text-base w-6 min-w-6 h-6 p-1 relative -left-1"
       >
-        <ng-icon [name]="item().showItems ? 'lucideChevronDown' : 'lucideChevronRight'"></ng-icon>
+        <ng-icon
+          [name]="item().showItems ? 'lucideChevronDown' : 'lucideChevronRight'"
+          aria-hidden="true"
+        />
       </button>
     }
     <span
       class="max-h-5"
-      [ngClass]="{
-        'text-amber-500 ': item().type === 'Group',
-        'text-slate-400': item().type === 'Field',
-      }"
-      ><ng-icon [name]="item().icon"></ng-icon
-    ></span>
+      [class]="item().type === 'Group' ? 'text-warn-text' : 'text-text-3'"
+      aria-hidden="true"
+      ><ng-icon [name]="item().icon"
+    /></span>
     <span class="text-sm truncate" pTooltip="{{ item().label }}">{{ item().label }}</span>
   </span>
   <span
-    class="font-bold text-[10px] px-2 py-1 rounded-lg max-h-fit uppercase"
-    [ngClass]="{
-      'bg-amber-100 text-amber-700': item().type === 'Group',
-      'bg-slate-100 text-slate-500': item().type === 'Field',
-    }"
+    class="max-h-fit rounded-full px-2 py-0.5 text-[10px] font-semibold tracking-[0.04em] uppercase"
+    [class]="
+      item().type === 'Group' ? 'bg-warn-bg text-warn-text' : 'bg-surface-sunken text-text-3'
+    "
     >{{ item().type }}</span
   >
 </div>

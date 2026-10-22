@@ -8,13 +8,10 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { ulid } from 'ulid';
 
-import type { RadioImageOption } from '@/app/features/form-builder/formly/interfaces/field-types';
-
 import { APP_ICONS } from '../../constants/icons';
+import type { SelectOptionImage } from '../../types/select-option';
 import { Button } from '../button/button';
 import { FileUploader } from '../file-uploader/file-uploader';
-export type SelectOptionImage = RadioImageOption;
-
 @Component({
   imports: [
     TranslatePipe,

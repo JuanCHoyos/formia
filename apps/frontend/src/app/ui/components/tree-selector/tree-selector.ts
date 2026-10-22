@@ -1,5 +1,4 @@
 import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
 import { Component, computed, input, model, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -13,15 +12,11 @@ import { z } from 'zod';
 
 import { normalizeSearchText } from '@/app/ui/utils/search.utils';
 
+import type { TreeDragData, TreeItem, TreeSortableItem } from '../../types/tree';
 import { TreeSelectorItem } from './tree-selector-item/tree-selector-item';
 
 export const TREE_ROOT_PARENT_ID = '__tree_root__';
 export const TREE_ROOT_DROP_LIST_ID = 'tree-root-drop-list';
-
-export interface TreeDragData {
-  id: string;
-  isPrincipal: boolean;
-}
 
 export const TreeSortableItemSchema = z.object({
   from: z.string(),
@@ -32,30 +27,10 @@ export const TreeSortableItemSchema = z.object({
   isPrincipal: z.boolean().optional(),
 });
 
-export interface TreeItem<T> {
-  id: string;
-  label: string;
-  icon: string;
-  type: 'Field' | 'Group';
-  items: TreeItem<T>[];
-  showItems?: boolean;
-  value: T;
-}
-
-export interface TreeSortableItem<_T> {
-  from: string;
-  to: string;
-  itemId: string;
-  oldIndex: number;
-  newIndex: number;
-  isPrincipal?: boolean;
-}
-
 @Component({
   selector: 'app-tree-selector',
   templateUrl: './tree-selector.html',
   imports: [
-    CommonModule,
     FormsModule,
     TreeSelectorItem,
     InputTextModule,

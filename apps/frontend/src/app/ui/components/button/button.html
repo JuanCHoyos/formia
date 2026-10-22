@@ -19,10 +19,11 @@
         <svg
           data-p-icon="spinner"
           class="animate-spin"
-          [ngClass]="{ 'order-2': iconPosition() === 'right' }"
+          aria-hidden="true"
+          [class.order-2]="iconPosition() === 'right'"
         ></svg>
       } @else {
-        <ng-icon [name]="icon()" [ngClass]="{ 'order-2': iconPosition() === 'right' }" />
+        <ng-icon [name]="icon()" aria-hidden="true" [class.order-2]="iconPosition() === 'right'" />
       }
     }
     @if (!iconOnly()) {

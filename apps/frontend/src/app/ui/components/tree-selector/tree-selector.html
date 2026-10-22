@@ -1,9 +1,8 @@
 <p-iconfield class="mb-4 block">
   <input
-    id=""
     pInputText
+    type="search"
     [ngModel]="searchTerm()"
-    (ngModelChange)="searchTerm.set($event)"
     (ngModelChange)="searchTerm.set($event)"
     variant="filled"
     [placeholder]="'formBuilder.sidebar.searchPlaceholder' | translate"
@@ -11,14 +10,14 @@
     class="w-full"
   />
 
-  <p-inputicon style="cursor: pointer">
-    <svg data-p-icon="search"></svg>
+  <p-inputicon>
+    <svg data-p-icon="search" aria-hidden="true"></svg>
   </p-inputicon>
 </p-iconfield>
 
 <div cdkDropListGroup>
   <div
-    class="overflow-y-auto example-list"
+    class="overflow-y-auto"
     [style.maxHeight]="maxContentHeight()"
     cdkDropList
     [id]="rootDropListId"
@@ -40,7 +39,7 @@
         [attr.data-field-id]="item.id"
       ></app-tree-selector-item>
     } @empty {
-      <p class="text-sm text-gray-500">{{ 'formBuilder.sidebar.noComponents' | translate }}</p>
+      <p class="py-2 text-sm text-text-3">{{ 'formBuilder.sidebar.noComponents' | translate }}</p>
     }
   </div>
 </div>

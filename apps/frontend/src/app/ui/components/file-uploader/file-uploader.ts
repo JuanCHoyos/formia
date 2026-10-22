@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, forwardRef, inject, input, model, OnDestroy, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -12,28 +11,13 @@ import type { AcceptedFileType } from '@/app/ui/types/accepted-file-type';
 
 import { APP_ICONS } from '../../constants/icons';
 import { FileDropZoneDirective } from '../../directives/file-drop-zone';
+import type { UploadItem } from '../../types/upload-item';
 import { Button } from '../button/button';
-
-interface UploadItem {
-  id: number;
-  file: File;
-  previewUrl: string | null;
-  loaded: number;
-  status: 'complete' | 'error' | 'queued' | 'uploading';
-}
 
 @Component({
   selector: 'app-file-uploader',
   templateUrl: './file-uploader.html',
-  imports: [
-    CommonModule,
-    DialogModule,
-    Button,
-    ProgressBarModule,
-    NgIcon,
-    FileDropZoneDirective,
-    TranslatePipe,
-  ],
+  imports: [DialogModule, Button, ProgressBarModule, NgIcon, FileDropZoneDirective, TranslatePipe],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

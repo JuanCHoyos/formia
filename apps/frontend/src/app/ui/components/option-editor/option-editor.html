@@ -1,15 +1,15 @@
 <div class="flex flex-col gap-3">
   <div
     class="grid items-center gap-2"
-    [ngClass]="{ 'grid-cols-[auto_1fr_1fr_auto]': sort(), 'grid-cols-[1fr_1fr_auto]': !sort() }"
+    [class]="sort() ? 'grid-cols-[auto_1fr_1fr_auto]' : 'grid-cols-[1fr_1fr_auto]'"
   >
     @if (sort()) {
       <div class="min-w-6"></div>
     }
-    <span class="text-xs font-bold">
+    <span class="text-xs font-semibold text-text-2">
       {{ 'formBuilder.properties.select.optionLabel' | translate }}
     </span>
-    <span class="text-xs font-bold">
+    <span class="text-xs font-semibold text-text-2">
       {{ 'formBuilder.properties.select.optionValue' | translate }}
     </span>
   </div>
@@ -24,12 +24,16 @@
       @let valueInputId = inputId() + '-value-' + $index;
       <div
         class="grid items-center gap-2"
-        [ngClass]="{ 'grid-cols-[auto_1fr_1fr_auto]': sort(), 'grid-cols-[1fr_1fr_auto]': !sort() }"
+        [class]="sort() ? 'grid-cols-[auto_1fr_1fr_auto]' : 'grid-cols-[1fr_1fr_auto]'"
         cdkDrag
       >
         @if (sort()) {
-          <div class="text-slate-400 min-w-6 cursor-grab" cdkDragHandle>
-            <ng-icon name="lucideGripVertical"></ng-icon>
+          <div
+            class="grid min-w-6 cursor-grab place-items-center text-text-3 hover:text-text-2"
+            cdkDragHandle
+            [attr.aria-label]="'common.actions.drag' | translate"
+          >
+            <ng-icon name="lucideGripVertical" aria-hidden="true" />
           </div>
         }
         <div>
@@ -65,6 +69,7 @@
             variant="text"
             [iconOnly]="true"
             size="small"
+            [ariaLabel]="'common.actions.deleteItem' | translate: { label: value()[$index].label }"
             (pressed)="removeOption($index)"
           />
         }
