@@ -2,13 +2,14 @@ import { Elysia } from 'elysia';
 import { bearer } from '@elysiajs/bearer';
 import { getUsersByEmail } from '../modules/users/users.service';
 import { verifyAccessTokenUser, verifyIdTokenUser } from '@formly/core/auth';
+import { fail } from '../http/responses';
 
 
 
 const validateBearerToken = async (token: string | null | undefined, idToken: string | null | undefined) => {
     if (!token || !idToken) {
         return {
-            success: false,
+            success: false as const,
             message: 'A valid bearer token and ID token are required',
         };
     }
@@ -17,7 +18,7 @@ const validateBearerToken = async (token: string | null | undefined, idToken: st
         await verifyAccessTokenUser(token);
     } catch {
         return {
-            success: false,
+            success: false as const,
             message: "Invalid or expired token",
         };
     }
@@ -25,12 +26,12 @@ const validateBearerToken = async (token: string | null | undefined, idToken: st
     try {
         const cognitoIdTokenPayload = await verifyIdTokenUser(idToken);
         return {
-            success: true,
+            success: true as const,
             data: cognitoIdTokenPayload,
         };
     } catch {
         return {
-            success: false,
+            success: false as const,
             message: "Invalid or expired token",
         };
     }
@@ -44,21 +45,15 @@ export const authenticatedWithUser = new Elysia({ name: 'authenticated-with-user
         const idToken = headers["x-id-token"];
         const validationResult = await validateBearerToken(token, idToken);
 
-        if (!validationResult.success || !validationResult.data) {
-            return status(401, {
-                success: false,
-                message: validationResult.message,
-            });
+        if (!validationResult.success) {
+            return status(401, fail('UNAUTHORIZED', validationResult.message));
         }
 
         const email = validationResult.data.email;
 
         const [user] = await getUsersByEmail(email);
         if (!user) {
-            return status(404, {
-                success: false,
-                message: "User not found",
-            });
+            return status(404, fail('USER_NOT_FOUND', 'User not found'));
         }
 
         return { user };
@@ -70,20 +65,14 @@ export const authenticatedWithCognito = new Elysia({ name: 'authenticated-with-c
         const idToken = headers["x-id-token"];
         const validationResult = await validateBearerToken(token, idToken);
 
-        if (!validationResult.success || !validationResult.data) {
-            return status(401, {
-                success: false,
-                message: validationResult.message,
-            });
+        if (!validationResult.success) {
+            return status(401, fail('UNAUTHORIZED', validationResult.message));
         }
 
         const email = validationResult.data.email;
         const [user] = await getUsersByEmail(email);
         if (user) {
-            return status(409, {
-                success: false,
-                message: "User already exist",
-            });
+            return status(409, fail('USER_ALREADY_EXISTS', 'User already exists'));
         }
 
         return { cognito: validationResult.data };

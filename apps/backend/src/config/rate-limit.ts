@@ -7,6 +7,7 @@ export const rateLimiter = rateLimit({
     errorResponse: new Response(
         JSON.stringify({
             success: false,
+            code: 'RATE_LIMITED',
             message: 'Too many requests. Please try again later.',
         }),
         {
