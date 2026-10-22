@@ -19,10 +19,12 @@ export class ConfirmSignup {
   private readonly authApi = inject(AuthApi);
   private readonly router = inject(Router);
   private readonly notifications = inject(Notifications);
+
   email = input.required<string>();
 
   readonly isSubmitting = signal(false);
   code = signal<string>('');
+
   codeForm = form(this.code, (path) => {
     required(path);
     minLength(path, 6);
@@ -30,15 +32,13 @@ export class ConfirmSignup {
 
   async submit(event: Event): Promise<void> {
     event.preventDefault();
-    if (this.isSubmitting()) {
-      return;
-    }
+    if (this.isSubmitting()) return;
+  
     if (this.codeForm().invalid()) {
-      this.notifications.error(
+      return this.notifications.error(
         'auth.validation.invalidForm.title',
         'auth.validation.invalidForm.detail',
       );
-      return;
     }
 
     this.isSubmitting.set(true);
