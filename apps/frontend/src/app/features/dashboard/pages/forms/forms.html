@@ -1,94 +1,136 @@
-<main class="flex-1 bg-[#f8fafc] px-5 py-10 text-[#17273a] sm:px-10 lg:px-16">
-  <section class="mx-auto w-full max-w-5xl">
-    <header class="mb-8">
-      <h1 class="text-2xl font-semibold tracking-[-0.02em]">{{ 'dashboard.title' | translate }}</h1>
-      <p class="mt-1 text-sm text-muted-color">{{ 'dashboard.description' | translate }}</p>
-    </header>
+<main class="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
+  <header class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <p class="text-eyebrow">{{ 'dashboard.eyebrow' | translate }}</p>
+      <h1 class="mt-2 text-h1 sm:text-display">{{ 'dashboard.title' | translate }}</h1>
+      <p class="mt-1 text-sm text-text-2">{{ 'dashboard.description' | translate }}</p>
+    </div>
+    <app-button
+      icon="lucidePlus"
+      class="w-full sm:w-auto"
+      customClass="w-full justify-center sm:w-auto"
+      (pressed)="createForm()"
+    >
+      {{ 'dashboard.create' | translate }}
+    </app-button>
+  </header>
 
-    @if (formsResource.isLoading()) {
-      <div role="status" [attr.aria-busy]="true">
-        <span class="sr-only">{{ 'dashboard.loading' | translate }}</span>
-        <div class="mb-4 flex justify-end">
-          <p-skeleton width="9rem" height="2.5rem" borderRadius="0.5rem" />
+  @if (formsResource.isLoading()) {
+    <div class="mt-8 flex flex-col gap-6" role="status" [attr.aria-busy]="true">
+      <span class="sr-only">{{ 'dashboard.loading' | translate }}</span>
+      <div class="grid grid-cols-2 gap-3 lg:grid-cols-4" aria-hidden="true">
+        @for (tile of [0, 1, 2, 3]; track tile) {
+          <p-skeleton height="6.5rem" borderRadius="12px" />
+        }
+      </div>
+      <div
+        class="flex flex-col gap-4 rounded-panel border border-border bg-surface p-4"
+        aria-hidden="true"
+      >
+        @for (row of skeletonRows; track row) {
+          <div class="flex items-center gap-3">
+            <p-skeleton size="2.25rem" borderRadius="8px" class="hidden sm:block" />
+            <div class="flex flex-1 flex-col gap-1.5">
+              <p-skeleton width="60%" height="0.875rem" />
+              <p-skeleton width="30%" height="0.75rem" />
+            </div>
+            <p-skeleton width="5rem" height="1.5rem" borderRadius="999px" />
+          </div>
+        }
+      </div>
+    </div>
+  } @else if (formsResource.error()) {
+    <div
+      role="alert"
+      class="mt-8 flex flex-col items-center gap-4 rounded-panel border border-border bg-surface px-6 py-12 text-center"
+    >
+      <span
+        class="flex size-11 items-center justify-center rounded-full bg-danger-bg text-danger-text"
+        aria-hidden="true"
+      >
+        <ng-icon name="lucideAlertTriangle" size="1.25rem" />
+      </span>
+      <div>
+        <h2 class="text-h2">{{ 'dashboard.error.title' | translate }}</h2>
+        <p class="mt-1 text-sm text-text-2">{{ 'dashboard.error.detail' | translate }}</p>
+      </div>
+      <app-button variant="outlined" severity="secondary" (pressed)="formsResource.reload()">
+        {{ 'dashboard.error.retry' | translate }}
+      </app-button>
+    </div>
+  } @else if (forms().length === 0) {
+    <div
+      class="mt-8 flex flex-col items-center gap-4 rounded-panel border border-dashed border-border-strong bg-surface px-6 py-14 text-center"
+    >
+      <span
+        class="flex size-12 items-center justify-center rounded-full bg-brand-soft text-brand-text"
+        aria-hidden="true"
+      >
+        <ng-icon name="lucideFileText" size="1.375rem" />
+      </span>
+      <div class="max-w-sm">
+        <h2 class="text-h2">{{ 'dashboard.empty.title' | translate }}</h2>
+        <p class="mt-1 text-sm text-text-2">{{ 'dashboard.empty.detail' | translate }}</p>
+      </div>
+      <app-button icon="lucidePlus" (pressed)="createForm()">
+        {{ 'dashboard.create' | translate }}
+      </app-button>
+    </div>
+  } @else {
+    <section class="mt-8" [attr.aria-label]="'dashboard.stats.label' | translate">
+      <app-forms-stats [forms]="forms()" />
+    </section>
+
+    <section class="mt-8" aria-labelledby="forms-list-title">
+      <div class="mb-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <h2 id="forms-list-title" class="text-h2">{{ 'dashboard.list.title' | translate }}</h2>
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+          <p-iconfield class="w-full sm:w-64">
+            <p-inputicon>
+              <ng-icon name="lucideSearch" size="1rem" aria-hidden="true" />
+            </p-inputicon>
+            <input
+              pInputText
+              type="search"
+              class="w-full"
+              [value]="search()"
+              [placeholder]="'dashboard.filter.search' | translate"
+              [attr.aria-label]="'dashboard.filter.search' | translate"
+              (input)="updateSearch($event)"
+            />
+          </p-iconfield>
+          <app-segmented-control
+            [options]="statusOptions"
+            [(value)]="statusFilter"
+            [ariaLabel]="'dashboard.filter.status' | translate"
+          />
         </div>
+      </div>
+
+      <div class="overflow-hidden rounded-panel border border-border bg-surface shadow-1">
         <div
-          class="flex flex-col gap-3 rounded-xl border border-surface-200 bg-white p-4"
+          class="hidden grid-cols-[minmax(0,1fr)_7.5rem_7.5rem_8rem_1.5rem] gap-4 border-b border-border bg-surface-2 px-4 py-2.5 text-overline md:grid"
           aria-hidden="true"
         >
-          @for (row of skeletonRows; track row) {
-            <div class="flex items-center gap-4">
-              <p-skeleton class="flex-1" height="1.25rem" />
-              <p-skeleton width="6rem" height="1.25rem" />
-              <p-skeleton width="7rem" height="1.25rem" />
-              <p-skeleton width="4rem" height="1.25rem" />
-            </div>
-          }
+          <span>{{ 'dashboard.table.title' | translate }}</span>
+          <span>{{ 'dashboard.table.status' | translate }}</span>
+          <span>{{ 'dashboard.table.visibility' | translate }}</span>
+          <span>{{ 'dashboard.table.createdAt' | translate }}</span>
+          <span></span>
         </div>
-      </div>
-    } @else if (formsResource.error()) {
-      <div
-        role="alert"
-        class="flex flex-col items-start gap-3 rounded-xl border border-surface-200 bg-white p-6"
-      >
-        <div>
-          <h2 class="font-medium">{{ 'dashboard.error.title' | translate }}</h2>
-          <p class="text-sm text-muted-color">{{ 'dashboard.error.detail' | translate }}</p>
-        </div>
-        <app-button variant="outlined" (pressed)="formsResource.reload()">
-          {{ 'dashboard.error.retry' | translate }}
-        </app-button>
-      </div>
-    } @else if (forms().length === 0) {
-      <div
-        class="flex flex-col items-center gap-4 rounded-xl border border-dashed border-surface-300 bg-white p-10 text-center"
-      >
-        <div>
-          <h2 class="font-medium">{{ 'dashboard.empty.title' | translate }}</h2>
-          <p class="mt-1 text-sm text-muted-color">{{ 'dashboard.empty.detail' | translate }}</p>
-        </div>
-        <app-button icon="lucidePlus" (pressed)="createForm()">
-          {{ 'dashboard.create' | translate }}
-        </app-button>
-      </div>
-    } @else {
-      <div class="mb-4 flex justify-end">
-        <app-button icon="lucidePlus" (pressed)="createForm()">
-          {{ 'dashboard.create' | translate }}
-        </app-button>
-      </div>
 
-      <p-table [value]="forms()" dataKey="id" [paginator]="forms().length > 10" [rows]="10">
-        <ng-template #header>
-          <tr>
-            <th scope="col">{{ 'dashboard.table.title' | translate }}</th>
-            <th scope="col">{{ 'dashboard.table.visibility' | translate }}</th>
-            <th scope="col">{{ 'dashboard.table.createdAt' | translate }}</th>
-            <th scope="col">
-              <span class="sr-only">{{ 'dashboard.table.actions' | translate }}</span>
-            </th>
-          </tr>
-        </ng-template>
-        <ng-template #body let-form>
-          <tr>
-            <td class="font-medium">{{ form.title }}</td>
-            <td>
-              {{
-                (form.isPublic ? 'dashboard.visibility.public' : 'dashboard.visibility.private')
-                  | translate
-              }}
-            </td>
-            <td>{{ form.createdAt | date: 'mediumDate' }}</td>
-            <td class="text-right">
-              <a
-                [routerLink]="['/form/builder', form.id]"
-                class="text-primary hover:underline focus-visible:outline-2 focus-visible:outline-primary"
-              >
-                {{ 'dashboard.table.open' | translate }}
-              </a>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-    }
-  </section>
+        @if (visibleForms().length) {
+          <ul class="divide-y divide-border">
+            @for (form of visibleForms(); track form.id) {
+              <li><app-form-list-item [form]="form" /></li>
+            }
+          </ul>
+        } @else {
+          <p class="px-4 py-12 text-center text-sm text-text-2" role="status">
+            {{ 'dashboard.filter.noResults' | translate }}
+          </p>
+        }
+      </div>
+    </section>
+  }
 </main>

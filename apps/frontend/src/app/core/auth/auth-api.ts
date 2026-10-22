@@ -5,8 +5,10 @@ import {
   signUp,
   signIn,
   confirmSignUp,
+  resendSignUpCode,
   resetPassword,
   confirmResetPassword,
+  signOut,
 } from 'aws-amplify/auth';
 
 import type {
@@ -29,6 +31,10 @@ export class AuthApi {
       username: signInInput.email,
       password: signInInput.password,
     });
+  }
+
+  async signOut() {
+    await signOut();
   }
 
   async signInWithProvider(provider: ExternalAuthProvider) {
@@ -54,6 +60,10 @@ export class AuthApi {
       username: input.email,
       confirmationCode: input.code,
     });
+  }
+
+  async resendSignUpCode(email: string) {
+    return resendSignUpCode({ username: email });
   }
 
   async forgotPassword(input: ForgotPasswordInput) {

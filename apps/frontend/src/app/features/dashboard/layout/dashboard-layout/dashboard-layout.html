@@ -1,62 +1,99 @@
-<p-sidebar-layout class="min-h-screen">
+<p-sidebar-layout class="min-h-dvh">
   @if (isMobile() && open()) {
     <p-sidebar-backdrop />
   }
   <p-sidebar
     id="main-sidebar"
     [collapsible]="isMobile() ? 'offcanvas' : 'icon'"
+    iconWidth="3.5rem"
     [overlay]="isMobile()"
     [(open)]="open"
   >
     <p-sidebar-spacer />
     <p-sidebar-aside>
-      <p-sidebar-panel>
+      <p-sidebar-panel class="border-r border-border">
         <p-sidebar-header>
           <p-sidebar-menu>
             <p-sidebar-menu-item>
-              <a pSidebarMenuButton routerLink="/dashboard/forms" class="p-1!">
-                <span
-                  class="flex size-6 shrink-0 items-center justify-center rounded-md bg-primary text-xs font-bold leading-none text-white"
-                  >F</span
-                >
-                <span class="text-sm font-semibold">Formia</span>
+              <a
+                pSidebarMenuButton
+                routerLink="/dashboard/forms"
+                class="h-10! p-0.5!"
+                (click)="closeOnMobile()"
+              >
+                <app-brand-logo [wordmark]="false" class="shrink-0" />
+                <span class="text-[15px] font-semibold tracking-[-0.01em] text-text">Pliego</span>
               </a>
             </p-sidebar-menu-item>
           </p-sidebar-menu>
         </p-sidebar-header>
 
         <p-sidebar-content>
-          <p-sidebar-group>
-            <p-sidebar-group-content>
-              <p-sidebar-menu>
-                <p-sidebar-menu-item>
-                  <a
-                    pSidebarMenuButton
-                    routerLink="/dashboard/forms"
-                    routerLinkActive
-                    #dashboardLink="routerLinkActive"
-                    [isActive]="dashboardLink.isActive"
-                  >
-                    <svg data-p-icon="home" aria-hidden="true"></svg>
-                    <span>{{ 'dashboard.nav.forms' | translate }}</span>
-                  </a>
-                </p-sidebar-menu-item>
-              </p-sidebar-menu>
-            </p-sidebar-group-content>
-          </p-sidebar-group>
+          @for (group of navGroups; track group.labelKey) {
+            <p-sidebar-group>
+              <p-sidebar-group-label>{{ group.labelKey | translate }}</p-sidebar-group-label>
+              <p-sidebar-group-content>
+                <p-sidebar-menu>
+                  @for (item of group.items; track item.labelKey) {
+                    <p-sidebar-menu-item>
+                      @if (item.route) {
+                        <a
+                          pSidebarMenuButton
+                          [routerLink]="item.route"
+                          routerLinkActive
+                          #link="routerLinkActive"
+                          [isActive]="link.isActive"
+                          [attr.aria-current]="link.isActive ? 'page' : null"
+                          [pTooltip]="isCollapsed() ? (item.labelKey | translate) : undefined"
+                          tooltipPosition="right"
+                          (click)="closeOnMobile()"
+                        >
+                          <ng-icon
+                            [name]="item.icon"
+                            size="1.125rem"
+                            class="shrink-0"
+                            aria-hidden="true"
+                          />
+                          <span class="truncate">{{ item.labelKey | translate }}</span>
+                        </a>
+                      } @else {
+                        <span
+                          pSidebarMenuButton
+                          aria-disabled="true"
+                          class="opacity-60"
+                          [pTooltip]="
+                            isCollapsed()
+                              ? (item.labelKey | translate) +
+                                ' · ' +
+                                ('dashboard.nav.soon' | translate)
+                              : undefined
+                          "
+                          tooltipPosition="right"
+                        >
+                          <ng-icon
+                            [name]="item.icon"
+                            size="1.125rem"
+                            class="shrink-0"
+                            aria-hidden="true"
+                          />
+                          <span class="truncate">{{ item.labelKey | translate }}</span>
+                        </span>
+                        <p-sidebar-menu-badge>{{
+                          'dashboard.nav.soon' | translate
+                        }}</p-sidebar-menu-badge>
+                      }
+                    </p-sidebar-menu-item>
+                  }
+                </p-sidebar-menu>
+              </p-sidebar-group-content>
+            </p-sidebar-group>
+          }
         </p-sidebar-content>
 
-        <p-sidebar-footer>
+        <p-sidebar-footer class="border-t border-border">
           <p-sidebar-menu>
             <p-sidebar-menu-item>
-              <button pSidebarMenuButton type="button" class="p-1!">
-                <p-avatar
-                  [label]="userStore.initials()"
-                  shape="circle"
-                  class="size-6 shrink-0 text-xs"
-                />
-                <span class="truncate">{{ userStore.user()?.fullName }}</span>
-              </button>
+              <app-user-menu (navigated)="closeOnMobile()" />
             </p-sidebar-menu-item>
           </p-sidebar-menu>
         </p-sidebar-footer>
@@ -69,8 +106,10 @@
     </p-sidebar-aside>
   </p-sidebar>
 
-  <p-sidebar-main>
-    <header class="flex h-12 items-center gap-2 border-b border-surface-200 px-4">
+  <p-sidebar-main class="min-w-0">
+    <header
+      class="sticky top-0 z-10 flex h-14 items-center gap-2 border-b border-border bg-bg/85 px-4 backdrop-blur-md sm:px-6"
+    >
       <button
         pButton
         pSidebarTrigger
@@ -80,9 +119,13 @@
         text
         size="small"
         [attr.aria-label]="'dashboard.nav.toggleSidebar' | translate"
+        [attr.aria-expanded]="open()"
+        aria-controls="main-sidebar"
       >
         <svg data-p-icon="sidebar" aria-hidden="true"></svg>
       </button>
+      <span class="h-5 w-px bg-border" aria-hidden="true"></span>
+      <span class="text-sm font-semibold text-text lg:hidden">Pliego</span>
     </header>
     <router-outlet />
   </p-sidebar-main>

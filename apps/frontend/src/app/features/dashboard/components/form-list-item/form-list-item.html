@@ -1,0 +1,54 @@
+<a
+  [routerLink]="['/form/builder', form().id]"
+  class="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-2 px-4 py-3.5 transition-colors hover:bg-hover focus-visible:relative focus-visible:focus-ring md:grid-cols-[minmax(0,1fr)_7.5rem_7.5rem_8rem_1.5rem] md:gap-4"
+>
+  <span class="flex min-w-0 items-center gap-3">
+    <span
+      class="hidden size-9 shrink-0 items-center justify-center rounded-lg border border-border bg-surface-2 text-text-3 sm:flex"
+      aria-hidden="true"
+    >
+      <ng-icon name="lucideFileText" size="1.125rem" />
+    </span>
+    <span class="flex min-w-0 flex-col">
+      <span class="truncate text-sm font-semibold text-text">{{ form().title }}</span>
+      <span class="text-xs text-text-3">
+        {{ 'dashboard.list.version' | translate: { version: form().version } }}
+        <span class="md:hidden">· {{ form().createdAt | date: 'mediumDate' }}</span>
+      </span>
+    </span>
+  </span>
+
+  <span class="justify-self-end md:justify-self-start">
+    <p-tag
+      [severity]="form().status === 'published' ? 'success' : 'warn'"
+      [value]="
+        (form().status === 'published' ? 'common.status.published' : 'common.status.draft')
+          | translate
+      "
+      rounded
+    />
+  </span>
+
+  <span class="col-span-2 flex items-center gap-1.5 text-xs text-text-2 md:col-span-1">
+    <ng-icon
+      [name]="form().isPublic ? 'lucideEye' : 'lucideLock'"
+      size="0.875rem"
+      aria-hidden="true"
+    />
+    {{
+      (form().isPublic ? 'dashboard.visibility.public' : 'dashboard.visibility.private') | translate
+    }}
+  </span>
+
+  <span class="hidden text-xs text-text-2 md:block">{{
+    form().createdAt | date: 'mediumDate'
+  }}</span>
+
+  <ng-icon
+    name="lucideChevronRight"
+    size="1rem"
+    class="hidden text-text-3 transition-transform group-hover:translate-x-0.5 md:block"
+    aria-hidden="true"
+  />
+  <span class="sr-only">{{ 'dashboard.table.open' | translate }}</span>
+</a>

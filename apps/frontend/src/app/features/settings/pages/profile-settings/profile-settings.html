@@ -1,0 +1,122 @@
+<form class="flex flex-col gap-6" (submit)="save($event)">
+  <app-settings-section
+    [heading]="'settings.profile.title' | translate"
+    [description]="'settings.profile.description' | translate"
+  >
+    <div class="flex flex-col gap-6">
+      <div class="flex items-center gap-4">
+        <p-avatar
+          [label]="userStore.initials()"
+          shape="circle"
+          class="size-16 shrink-0 bg-brand-soft text-xl font-semibold text-brand-text ring-4 ring-surface-2"
+        />
+        <div class="min-w-0 flex-1">
+          <p class="text-h3">{{ 'settings.profile.photo.label' | translate }}</p>
+          @if (isManagedByProvider()) {
+            <p class="mt-0.5 flex items-center gap-1.5 text-xs text-text-3">
+              <ng-icon name="lucideLock" size="0.75rem" aria-hidden="true" />
+              {{ 'settings.profile.managedBy' | translate: { provider: provider() } }}
+            </p>
+          } @else {
+            <p class="mt-0.5 text-xs text-text-3">
+              {{ 'settings.profile.photo.soon' | translate }}
+            </p>
+          }
+        </div>
+        @if (!isManagedByProvider()) {
+          <app-button
+            size="small"
+            variant="outlined"
+            severity="secondary"
+            icon="lucideCamera"
+            [disabled]="true"
+          >
+            <span class="hidden sm:inline">{{ 'settings.profile.photo.change' | translate }}</span>
+          </app-button>
+        }
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-2">
+        <div class="flex flex-col gap-1.5">
+          <label for="profile-name" class="text-sm font-medium">
+            {{ 'settings.profile.name.label' | translate }}
+          </label>
+          <input
+            pInputText
+            id="profile-name"
+            autocomplete="name"
+            [formField]="profileForm.fullName"
+            aria-describedby="profile-name-hint"
+          />
+          <p id="profile-name-hint" class="flex items-center gap-1.5 text-xs text-text-3">
+            @if (isManagedByProvider()) {
+              <ng-icon name="lucideLock" size="0.75rem" aria-hidden="true" />
+              {{ 'settings.profile.managedBy' | translate: { provider: provider() } }}
+            } @else {
+              {{ 'settings.profile.name.hint' | translate }}
+            }
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label for="profile-email" class="text-sm font-medium">
+            {{ 'settings.profile.email.label' | translate }}
+          </label>
+          <input
+            pInputText
+            id="profile-email"
+            type="email"
+            readonly
+            [value]="userStore.user()?.email ?? ''"
+            aria-describedby="profile-email-hint"
+            class="bg-surface-sunken! text-text-2!"
+          />
+          <p id="profile-email-hint" class="text-xs text-text-3">
+            {{ 'settings.profile.email.hint' | translate }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </app-settings-section>
+
+  <app-settings-section
+    [heading]="'settings.profile.roles.title' | translate"
+    [description]="'settings.profile.roles.description' | translate"
+  >
+    <app-option-card-selector
+      [options]="roleOptions"
+      [formField]="profileForm.roles"
+      [ariaLabel]="'settings.profile.roles.title' | translate"
+    />
+    @if (profileForm.roles().invalid()) {
+      <p class="mt-3 text-xs text-danger-text" role="alert">
+        {{ 'roles.required' | translate }}
+      </p>
+    }
+  </app-settings-section>
+
+  <div class="flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-end">
+    @if (hasChanges()) {
+      <p class="text-xs text-text-3 sm:mr-auto" role="status">
+        {{ 'settings.profile.unsaved' | translate }}
+      </p>
+    }
+    <app-button
+      variant="outlined"
+      severity="secondary"
+      customClass="w-full justify-center sm:w-auto"
+      [disabled]="!hasChanges() || isSaving()"
+      (pressed)="discard()"
+    >
+      {{ 'common.actions.cancel' | translate }}
+    </app-button>
+    <app-button
+      type="submit"
+      customClass="w-full justify-center sm:w-auto"
+      [disabled]="!canSave()"
+      [loading]="isSaving()"
+    >
+      {{ 'settings.profile.save' | translate }}
+    </app-button>
+  </div>
+</form>

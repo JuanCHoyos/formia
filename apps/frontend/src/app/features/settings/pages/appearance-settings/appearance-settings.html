@@ -1,0 +1,31 @@
+<div class="flex flex-col gap-6">
+  <app-settings-section
+    [heading]="'settings.appearance.mode.title' | translate"
+    [description]="'settings.appearance.mode.description' | translate"
+  >
+    <app-theme-mode-picker [value]="theme.mode()" (selectionChange)="setMode($event)" />
+  </app-settings-section>
+
+  <app-settings-section
+    [heading]="'settings.appearance.brand.title' | translate"
+    [description]="'settings.appearance.brand.description' | translate"
+  >
+    <app-brand-color-picker [value]="theme.brand()" (selectionChange)="setBrand($event)" />
+
+    <div class="mt-6 rounded-menu border border-dashed border-border-strong bg-surface-2 p-4">
+      <p class="text-overline">{{ 'settings.appearance.preview.title' | translate }}</p>
+      <div class="mt-3 flex flex-wrap items-center gap-3">
+        <app-button size="small">{{
+          'settings.appearance.preview.primary' | translate
+        }}</app-button>
+        <app-button size="small" variant="outlined">
+          {{ 'settings.appearance.preview.secondary' | translate }}
+        </app-button>
+        <p-tag [value]="'common.status.published' | translate" severity="success" rounded />
+        <span class="text-sm font-medium text-brand-text">
+          {{ 'settings.appearance.preview.link' | translate }}
+        </span>
+      </div>
+    </div>
+  </app-settings-section>
+</div>

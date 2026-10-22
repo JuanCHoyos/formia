@@ -16,10 +16,16 @@ export const routes: Routes = [
   {
     path: 'complete-register',
     canActivate: [unregisteredGuard],
-    loadComponent: () =>
-      import('./features/auth/pages/complete-register/complete-register').then(
-        (m) => m.CompleteRegister,
-      ),
+    loadComponent: () => import('./features/auth/layout/auth-layout').then((m) => m.AuthLayout),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./features/auth/pages/complete-register/complete-register').then(
+            (m) => m.CompleteRegister,
+          ),
+      },
+    ],
   },
   {
     path: 'dashboard',
@@ -32,6 +38,11 @@ export const routes: Routes = [
       {
         path: 'forms',
         loadComponent: () => import('./features/dashboard/pages/forms/forms').then((m) => m.Forms),
+      },
+      {
+        path: 'settings',
+        loadChildren: () =>
+          import('./features/settings/settings.routes').then((m) => m.SETTINGS_ROUTES),
       },
     ],
   },
