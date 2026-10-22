@@ -48,6 +48,9 @@ export const formVersionEntity = new Entity({
 
 export const FormVersionModel = createModel(table, formVersionEntity);
 
+
+export { $set as replaceValue } from "dynamodb-toolbox/entity/actions/update";
+
 export type FormVersionTable = typeof table;
 
 export type FormVersionEntity = typeof formVersionEntity;

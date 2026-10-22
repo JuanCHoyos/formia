@@ -1,6 +1,9 @@
+import { isDeepStrictEqual } from "node:util";
+
 import { FormModel, type Form } from "@formly/core/data/models/form";
 import {
   FormVersionModel,
+  replaceValue,
   type FormVersion,
 } from "@formly/core/data/models/form-version";
 import {
@@ -136,12 +139,47 @@ async function getOrCreateDraft(form: Form): Promise<FormVersion> {
   });
 }
 
+type FormDetail = Awaited<ReturnType<typeof getFormDetail>>;
+
+const CONTENT_KEYS = [
+  "title",
+  "isPublic",
+  "allowMultipleSubmissions",
+  "maxSubmissionsPerUser",
+  "schema",
+] as const;
+
+const hasSameContent = (a: FormVersion, b: FormVersion) =>
+  CONTENT_KEYS.every((key) => isDeepStrictEqual(a[key], b[key]));
+
+/** Deletes the draft; the form keeps its published version untouched. */
+async function dropDraft(detail: FormDetail): Promise<FormDetail> {
+  if (!detail.draft) {
+    return detail;
+  }
+
+  await FormVersionModel.delete(
+    { id: detail.draft.id },
+    { condition: { attr: "status", eq: "draft" } },
+  );
+  return { ...detail, draft: null };
+}
+
+/** Throws away the unpublished changes. A form that was never published keeps its only draft. */
+export async function discardDraft(form: Form) {
+  const detail = await getFormDetail(form);
+  return detail.published ? dropDraft(detail) : detail;
+}
+
 export async function updateForm(form: Form, input: UpdateFormInput) {
   const draft = await getOrCreateDraft(form);
 
+  const { schema, ...fields } = input;
+
   await FormVersionModel.update(
     {
-      ...input,
+      ...fields,
+      ...(schema ? { schema: replaceValue(schema) } : {}),
       id: draft.id,
       _action: "UPDATE",
       _updatedAt: new Date(),
@@ -149,7 +187,11 @@ export async function updateForm(form: Form, input: UpdateFormInput) {
     { condition: { attr: "status", eq: "draft" } },
   );
 
-  return getFormDetail(form);
+  // A draft that went back to the published content is not a change: drop it.
+  const detail = await getFormDetail(form);
+  return detail.draft && detail.published && hasSameContent(detail.draft, detail.published)
+    ? dropDraft(detail)
+    : detail;
 }
 
 /** Publishes the draft: it becomes immutable and the form points to it. */
