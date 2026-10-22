@@ -14,7 +14,9 @@
       "save": "Guardar",
       "submit": "Enviar",
       "drag": "Arrastrar",
-      "dragPlaceholder": "Suelta aquí"
+      "dragPlaceholder": "Suelta aquí",
+      "expand": "Expandir {{label}}",
+      "collapse": "Contraer {{label}}"
     },
     "status": {
       "complete": "Completado",
@@ -23,6 +25,9 @@
       "pending": "Pendiente",
       "published": "Publicado",
       "saved": "Guardado"
+    },
+    "editor": {
+      "placeholder": "Escribe aquí…"
     }
   },
   "auth": {
@@ -43,7 +48,8 @@
         "number": "Al menos un número",
         "symbol": "Al menos un carácter especial",
         "noWhitespace": "No debe contener espacios"
-      }
+      },
+      "hint": "Usa 8 o más caracteres con mayúsculas, minúsculas, números y símbolos."
     },
     "login": {
       "eyebrow": "Bienvenido de nuevo",
@@ -66,7 +72,7 @@
     },
     "register": {
       "eyebrow": "Crea tu cuenta",
-      "title": "Empieza con Formia.",
+      "title": "Empieza con Pliego.",
       "description": "Crea una cuenta para diseñar, editar y compartir tus formularios.",
       "continueWithEmail": "o continúa con tu correo",
       "fullName": {
@@ -101,28 +107,29 @@
       "loginLink": "Inicia sesión"
     },
     "completeRegister": {
-      "eyebrow": "Un último paso",
-      "title": "Completa tu perfil.",
-      "description": "Elige cómo usarás Formia y acepta los términos para continuar.",
-      "submit": "Completar registro",
+      "eyebrow": "Bienvenido a Pliego",
+      "title": "Empecemos por lo esencial.",
+      "description": "Selecciona cómo usarás Pliego. Puedes elegir una o ambas opciones.",
+      "submit": "Continuar",
       "submitting": "Guardando tus datos…",
       "successTitle": "Registro completado",
       "success": "Tu perfil ya está listo.",
       "errorTitle": "No se pudo completar el registro",
       "error": "Inténtalo de nuevo en unos momentos.",
       "verificationErrorTitle": "No se pudo verificar tu perfil",
-      "verificationError": "No fue posible consultar tu usuario. Inténtalo de nuevo."
+      "verificationError": "No fue posible consultar tu usuario. Inténtalo de nuevo.",
+      "laterHint": "Podrás cambiar tus preferencias después, en Configuración."
     },
     "confirmSignup": {
       "eyebrow": "Verificación segura",
       "title": "Confirma tu código.",
-      "description": "Escribe el código de 6 dígitos que enviamos a tu correo electrónico.",
+      "description": "Escribe el código de 6 dígitos que enviamos a",
       "code": {
         "label": "Código de verificación de 6 dígitos"
       },
       "codeNotReceived": "¿No recibiste el código?",
       "resend": "Reenviar",
-      "submit": "Enviar código",
+      "submit": "Verificar código",
       "submitting": "Verificando código…",
       "hasAccount": "¿Ya tienes una cuenta?",
       "loginLink": "Inicia sesión"
@@ -131,7 +138,7 @@
       "eyebrow": "Recupera el acceso",
       "title": "¿Olvidaste tu contraseña?",
       "description": "Te enviaremos un código para que puedas restablecerla de forma segura.",
-      "resetDescription": "Ingresa el código y establece una nueva contraseña.",
+      "resetDescription": "Ingresa el código que enviamos y establece una nueva contraseña para",
       "email": {
         "label": "Correo electrónico",
         "placeholder": "tu@correo.com"
@@ -152,7 +159,8 @@
       "resetSubmit": "Restablecer contraseña",
       "resetting": "Restableciendo contraseña…",
       "hasAccount": "¿Ya tienes una cuenta?",
-      "loginLink": "Inicia sesión"
+      "loginLink": "Inicia sesión",
+      "resetTitle": "Crea una nueva contraseña."
     },
     "notifications": {
       "signedIn": {
@@ -206,9 +214,16 @@
         "title": "Revisa el formulario",
         "detail": "Completa los campos correctamente y verifica la política de contraseña."
       },
-      "passwordPolicy": "La contraseña debe cumplir la política indicada.",
+      "passwordPolicy": "La contraseña no cumple los requisitos de seguridad.",
       "passwordsDoNotMatch": "Las contraseñas no coinciden.",
-      "codeLength": "El código debe tener 6 dígitos."
+      "codeLength": "El código debe tener 6 dígitos.",
+      "emailRequired": "Escribe tu correo electrónico.",
+      "emailInvalid": "Ingresa un correo válido, por ejemplo nombre@correo.com.",
+      "passwordRequired": "Escribe tu contraseña.",
+      "nameRequired": "Escribe tu nombre.",
+      "nameTooShort": "El nombre debe tener al menos 3 caracteres.",
+      "confirmPasswordRequired": "Vuelve a escribir tu contraseña.",
+      "passwordsMatch": "Las contraseñas coinciden"
     },
     "socialLogin": {
       "google": "Continuar con Google",
@@ -224,7 +239,37 @@
       "headline": "Convierte tus ideas en formularios dinámicos.",
       "description": "Diseña flujos personalizados, agrega los campos que necesitas y comparte formularios listos para recibir respuestas.",
       "security": "Tus formularios y respuestas, siempre protegidos",
-      "copyright": "© 2026 Formia. Diseñado para avanzar."
+      "copyright": "© 2026 Pliego",
+      "preview": {
+        "singleChoice": "Opción única",
+        "question": "¿Cómo nos conociste?",
+        "optionA": "Recomendación de un colega",
+        "optionB": "Búsqueda en Google",
+        "responses": "Respuestas · 30 días",
+        "newResponse": "Nueva respuesta",
+        "newResponseDetail": "Registro de clientes · hace 1 min"
+      }
+    },
+    "steps": {
+      "progress": "Paso {{current}} de {{total}}",
+      "createAccount": "Crea tu cuenta",
+      "verifyEmail": "Verifica tu correo",
+      "completeProfile": "Completa tu perfil",
+      "requestCode": "Solicita el código",
+      "newPassword": "Nueva contraseña"
+    },
+    "password": {
+      "show": "Mostrar contraseña",
+      "hide": "Ocultar contraseña"
+    },
+    "resendCode": {
+      "prompt": "¿No recibiste el código?",
+      "wait": "Reenviar en {{time}}",
+      "action": "Reenviar código",
+      "sending": "Enviando…"
+    },
+    "code": {
+      "pasteHint": "Puedes pegar el código completo."
     }
   },
   "formBuilder": {
@@ -712,7 +757,13 @@
     },
     "nav": {
       "forms": "Mis formularios",
-      "toggleSidebar": "Mostrar u ocultar el panel lateral"
+      "toggleSidebar": "Mostrar u ocultar el panel lateral",
+      "workspace": "Espacio de trabajo",
+      "responses": "Respuestas",
+      "analytics": "Analíticas",
+      "participation": "Participación",
+      "answered": "Encuestas respondidas",
+      "soon": "Pronto"
     },
     "create": "Crear formulario",
     "table": {
@@ -720,7 +771,126 @@
       "visibility": "Visibilidad",
       "createdAt": "Creado",
       "actions": "Acciones",
-      "open": "Abrir en el constructor"
+      "open": "Abrir en el constructor",
+      "status": "Estado"
+    },
+    "eyebrow": "Espacio de trabajo",
+    "stats": {
+      "label": "Resumen de tus formularios",
+      "total": "Formularios",
+      "published": "Publicados",
+      "drafts": "Borradores",
+      "public": "Públicos"
+    },
+    "list": {
+      "title": "Todos los formularios",
+      "version": "Versión {{version}}"
+    },
+    "filter": {
+      "all": "Todos",
+      "search": "Buscar formularios",
+      "status": "Filtrar por estado",
+      "noResults": "Ningún formulario coincide con tu búsqueda."
+    }
+  },
+  "userMenu": {
+    "label": "Menú de la cuenta",
+    "account": "Cuenta",
+    "profile": "Perfil",
+    "appearance": "Apariencia",
+    "signOut": "Cerrar sesión",
+    "signOutError": {
+      "title": "No pudimos cerrar tu sesión",
+      "detail": "Inténtalo de nuevo en unos segundos."
+    },
+    "signOutConfirm": {
+      "title": "¿Cerrar sesión?",
+      "message": "Tendrás que volver a iniciar sesión para acceder a tus formularios."
+    }
+  },
+  "appearance": {
+    "mode": {
+      "label": "Tema",
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Sistema"
+    },
+    "brand": {
+      "label": "Color principal",
+      "teal": "Turquesa",
+      "blue": "Azul",
+      "indigo": "Índigo",
+      "violet": "Violeta",
+      "rose": "Rosa"
+    }
+  },
+  "settings": {
+    "title": "Configuración",
+    "description": "Administra tu perfil y cómo se ve Pliego.",
+    "nav": {
+      "label": "Secciones de configuración",
+      "profile": "Perfil",
+      "appearance": "Apariencia"
+    },
+    "profile": {
+      "title": "Información personal",
+      "description": "Así te verán las personas con las que compartes formularios.",
+      "photo": {
+        "label": "Foto de perfil",
+        "soon": "Pronto podrás subir tu propia foto.",
+        "change": "Cambiar foto"
+      },
+      "managedBy": "Sincronizado con tu cuenta de {{provider}}",
+      "name": {
+        "label": "Nombre completo",
+        "hint": "Usa el nombre con el que te reconocen."
+      },
+      "email": {
+        "label": "Correo electrónico",
+        "hint": "El correo de inicio de sesión no se puede cambiar."
+      },
+      "roles": {
+        "title": "Rol",
+        "description": "Elige cómo usas Pliego. Puedes tener ambos roles."
+      },
+      "unsaved": "Tienes cambios sin guardar.",
+      "save": "Guardar cambios",
+      "saved": {
+        "title": "Perfil actualizado",
+        "detail": "Tus cambios se guardaron correctamente."
+      },
+      "error": {
+        "title": "No pudimos guardar tu perfil",
+        "detail": "Revisa tu conexión e inténtalo de nuevo."
+      }
+    },
+    "appearance": {
+      "mode": {
+        "title": "Tema",
+        "description": "Elige un tema claro u oscuro, o deja que siga la configuración de tu dispositivo."
+      },
+      "brand": {
+        "title": "Color principal",
+        "description": "Se aplica a botones, enlaces y elementos seleccionados."
+      },
+      "preview": {
+        "title": "Vista previa",
+        "primary": "Botón principal",
+        "secondary": "Secundario",
+        "link": "Enlace destacado"
+      }
+    }
+  },
+  "roles": {
+    "label": "Cómo usarás Pliego",
+    "required": "Selecciona al menos una opción.",
+    "creator": {
+      "label": "Crear formularios",
+      "description": "Diseña formularios para recopilar respuestas."
+    },
+    "respondent": {
+      "label": "Responder formularios",
+      "description": "Contesta formularios compartidos contigo."
     }
   }
 }

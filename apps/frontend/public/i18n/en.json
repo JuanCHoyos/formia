@@ -14,7 +14,9 @@
       "save": "Save",
       "submit": "Submit",
       "drag": "Drag",
-      "dragPlaceholder": "Drag it here"
+      "dragPlaceholder": "Drag it here",
+      "expand": "Expand {{label}}",
+      "collapse": "Collapse {{label}}"
     },
     "status": {
       "complete": "Complete",
@@ -23,6 +25,9 @@
       "pending": "Pending",
       "published": "Published",
       "saved": "Saved"
+    },
+    "editor": {
+      "placeholder": "Type here…"
     }
   },
   "auth": {
@@ -43,7 +48,8 @@
         "number": "At least one number",
         "symbol": "At least one special character",
         "noWhitespace": "Must not contain spaces"
-      }
+      },
+      "hint": "Use 8 or more characters with upper and lower case letters, numbers and symbols."
     },
     "login": {
       "eyebrow": "Welcome back",
@@ -66,7 +72,7 @@
     },
     "register": {
       "eyebrow": "Welcome",
-      "title": "Create your account.",
+      "title": "Get started with Pliego.",
       "description": "Sign up to create, edit, and share your forms.",
       "continueWithEmail": "or continue with your email",
       "fullName": {
@@ -101,28 +107,29 @@
       "loginLink": "Sign in"
     },
     "completeRegister": {
-      "eyebrow": "One last step",
-      "title": "Complete your profile.",
-      "description": "Choose how you will use Formia and accept the terms to continue.",
-      "submit": "Complete registration",
+      "eyebrow": "Welcome to Pliego",
+      "title": "Let's start with the essentials.",
+      "description": "Choose how you'll use Pliego. You can pick one or both.",
+      "submit": "Continue",
       "submitting": "Saving your details…",
       "successTitle": "Registration complete",
       "success": "Your profile is ready.",
       "errorTitle": "Registration could not be completed",
       "error": "Please try again in a few moments.",
       "verificationErrorTitle": "Your profile could not be verified",
-      "verificationError": "We couldn't check your user. Please try again."
+      "verificationError": "We couldn't check your user. Please try again.",
+      "laterHint": "You can change your preferences later in Settings."
     },
     "confirmSignup": {
       "eyebrow": "Secure verification",
       "title": "Confirm your code.",
-      "description": "Enter the 6-digit code we sent to your email address.",
+      "description": "Enter the 6-digit code we sent to",
       "code": {
         "label": "6-digit verification code"
       },
       "codeNotReceived": "Didn't receive the code?",
       "resend": "Resend",
-      "submit": "Submit code",
+      "submit": "Verify code",
       "submitting": "Verifying code…",
       "hasAccount": "Already have an account?",
       "loginLink": "Sign in"
@@ -131,7 +138,7 @@
       "eyebrow": "Recover access",
       "title": "Forgot your password?",
       "description": "We'll send you a code so you can reset it securely.",
-      "resetDescription": "Enter the code and set a new password.",
+      "resetDescription": "Enter the code we sent and set a new password for",
       "email": {
         "label": "Email address",
         "placeholder": "you@example.com"
@@ -152,7 +159,8 @@
       "resetSubmit": "Reset password",
       "resetting": "Resetting password…",
       "hasAccount": "Already have an account?",
-      "loginLink": "Sign in"
+      "loginLink": "Sign in",
+      "resetTitle": "Create a new password."
     },
     "notifications": {
       "signedIn": {
@@ -206,9 +214,16 @@
         "title": "Check the form",
         "detail": "Complete the fields correctly and verify the password policy."
       },
-      "passwordPolicy": "The password must meet the stated policy.",
+      "passwordPolicy": "The password doesn't meet the security requirements.",
       "passwordsDoNotMatch": "The passwords do not match.",
-      "codeLength": "The code must contain 6 digits."
+      "codeLength": "The code must contain 6 digits.",
+      "emailRequired": "Enter your email.",
+      "emailInvalid": "Enter a valid email, for example name@email.com.",
+      "passwordRequired": "Enter your password.",
+      "nameRequired": "Enter your name.",
+      "nameTooShort": "Your name must have at least 3 characters.",
+      "confirmPasswordRequired": "Type your password again.",
+      "passwordsMatch": "Passwords match"
     },
     "socialLogin": {
       "google": "Continue with Google",
@@ -224,7 +239,37 @@
       "headline": "Turn your ideas into dynamic forms.",
       "description": "Design custom workflows, add the fields you need, and share forms ready to collect responses.",
       "security": "Your forms and responses, always protected",
-      "copyright": "© 2026 Formia. Designed to help you move forward."
+      "copyright": "© 2026 Pliego",
+      "preview": {
+        "singleChoice": "Single choice",
+        "question": "How did you hear about us?",
+        "optionA": "A colleague's recommendation",
+        "optionB": "Google search",
+        "responses": "Responses · 30 days",
+        "newResponse": "New response",
+        "newResponseDetail": "Customer sign-up · 1 min ago"
+      }
+    },
+    "steps": {
+      "progress": "Step {{current}} of {{total}}",
+      "createAccount": "Create your account",
+      "verifyEmail": "Verify your email",
+      "completeProfile": "Complete your profile",
+      "requestCode": "Request the code",
+      "newPassword": "New password"
+    },
+    "password": {
+      "show": "Show password",
+      "hide": "Hide password"
+    },
+    "resendCode": {
+      "prompt": "Didn't get the code?",
+      "wait": "Resend in {{time}}",
+      "action": "Resend code",
+      "sending": "Sending…"
+    },
+    "code": {
+      "pasteHint": "You can paste the whole code."
     }
   },
   "formBuilder": {
@@ -712,7 +757,13 @@
     },
     "nav": {
       "forms": "My forms",
-      "toggleSidebar": "Toggle sidebar"
+      "toggleSidebar": "Toggle sidebar",
+      "workspace": "Workspace",
+      "responses": "Responses",
+      "analytics": "Analytics",
+      "participation": "Participation",
+      "answered": "Answered surveys",
+      "soon": "Soon"
     },
     "create": "Create form",
     "table": {
@@ -720,7 +771,126 @@
       "visibility": "Visibility",
       "createdAt": "Created",
       "actions": "Actions",
-      "open": "Open in builder"
+      "open": "Open in builder",
+      "status": "Status"
+    },
+    "eyebrow": "Workspace",
+    "stats": {
+      "label": "Overview of your forms",
+      "total": "Forms",
+      "published": "Published",
+      "drafts": "Drafts",
+      "public": "Public"
+    },
+    "list": {
+      "title": "All forms",
+      "version": "Version {{version}}"
+    },
+    "filter": {
+      "all": "All",
+      "search": "Search forms",
+      "status": "Filter by status",
+      "noResults": "No forms match your search."
+    }
+  },
+  "userMenu": {
+    "label": "Account menu",
+    "account": "Account",
+    "profile": "Profile",
+    "appearance": "Appearance",
+    "signOut": "Sign out",
+    "signOutError": {
+      "title": "We couldn't sign you out",
+      "detail": "Please try again in a few seconds."
+    },
+    "signOutConfirm": {
+      "title": "Sign out?",
+      "message": "You'll need to sign in again to access your forms."
+    }
+  },
+  "appearance": {
+    "mode": {
+      "label": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "brand": {
+      "label": "Primary color",
+      "teal": "Teal",
+      "blue": "Blue",
+      "indigo": "Indigo",
+      "violet": "Violet",
+      "rose": "Rose"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Manage your profile and how Pliego looks.",
+    "nav": {
+      "label": "Settings sections",
+      "profile": "Profile",
+      "appearance": "Appearance"
+    },
+    "profile": {
+      "title": "Personal information",
+      "description": "This is how people you share forms with will see you.",
+      "photo": {
+        "label": "Profile photo",
+        "soon": "Uploading your own photo is coming soon.",
+        "change": "Change photo"
+      },
+      "managedBy": "Synced with your {{provider}} account",
+      "name": {
+        "label": "Full name",
+        "hint": "Use the name people know you by."
+      },
+      "email": {
+        "label": "Email",
+        "hint": "Your sign-in email can't be changed."
+      },
+      "roles": {
+        "title": "Role",
+        "description": "Choose how you use Pliego. You can have both roles."
+      },
+      "unsaved": "You have unsaved changes.",
+      "save": "Save changes",
+      "saved": {
+        "title": "Profile updated",
+        "detail": "Your changes were saved."
+      },
+      "error": {
+        "title": "We couldn't save your profile",
+        "detail": "Check your connection and try again."
+      }
+    },
+    "appearance": {
+      "mode": {
+        "title": "Theme",
+        "description": "Pick a light or dark theme, or follow your device settings."
+      },
+      "brand": {
+        "title": "Primary color",
+        "description": "Used for buttons, links and selected items."
+      },
+      "preview": {
+        "title": "Preview",
+        "primary": "Primary button",
+        "secondary": "Secondary",
+        "link": "Highlighted link"
+      }
+    }
+  },
+  "roles": {
+    "label": "How you'll use Pliego",
+    "required": "Select at least one option.",
+    "creator": {
+      "label": "Create forms",
+      "description": "Design forms to collect responses."
+    },
+    "respondent": {
+      "label": "Answer forms",
+      "description": "Fill in forms shared with you."
     }
   }
 }
