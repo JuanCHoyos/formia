@@ -10,10 +10,7 @@ import { TextareaModule } from 'primeng/textarea';
 import type { AlertFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
 import { Checkbox } from '@/app/ui/components/checkbox/checkbox';
 
-type AlertFieldSettings = Omit<AlertFieldProps, 'closable' | 'size'> & {
-  size: 'default' | 'large' | 'small';
-  closable: boolean;
-};
+import type { AlertFieldSettings } from '../../../../types/field-config-settings';
 
 @Component({
   selector: 'app-alert-field-config-form',

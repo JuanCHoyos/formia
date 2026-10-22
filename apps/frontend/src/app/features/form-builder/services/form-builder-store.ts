@@ -12,14 +12,9 @@ import type {
   FormFieldConfiguration,
   FormPageContainer,
 } from '../formly/interfaces/app-formly-field-config';
+import type { FormSettings } from '../types/form-settings';
 import { FormTreeEditor } from './form-tree-editor';
 import { FormTreeHistory } from './form-tree-history';
-
-export interface FormSettings {
-  isPublic: boolean;
-  allowMultipleSubmissions: boolean;
-  maxSubmissionsPerUser: number;
-}
 
 export const DEFAULT_FORM_SETTINGS: FormSettings = {
   isPublic: false,

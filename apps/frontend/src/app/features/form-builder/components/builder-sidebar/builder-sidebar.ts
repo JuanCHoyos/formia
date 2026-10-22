@@ -6,13 +6,10 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { TabsModule } from 'primeng/tabs';
 
-import {
-  TreeSortableItem,
-  TreeItem,
-  TreeSelector,
-} from '@/app/ui/components/tree-selector/tree-selector';
+import { TreeSelector } from '@/app/ui/components/tree-selector/tree-selector';
 import { Button } from '@ui/components/button/button';
 
+import type { TreeItem, TreeSortableItem } from '../../../../ui/types/tree';
 import { FIELD_TYPE_ICONS } from '../../formly/config/field-type-icons';
 import {
   AppFormlyFieldConfig,

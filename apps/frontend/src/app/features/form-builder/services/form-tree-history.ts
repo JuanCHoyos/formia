@@ -3,15 +3,9 @@ import { computed, signal, type Signal, type WritableSignal } from '@angular/cor
 import { ulid } from 'ulid';
 
 import type { FormFieldConfiguration } from '../formly/interfaces/app-formly-field-config';
+import type { FormTreeVersion } from '../types/form-tree-version';
 
 const HISTORY_LIMIT = 50;
-
-export interface FormTreeVersion {
-  id: string;
-  number: number;
-  createdAt: Date;
-  snapshot: FormFieldConfiguration;
-}
 
 export class FormTreeHistory {
   readonly fields: WritableSignal<FormFieldConfiguration>;

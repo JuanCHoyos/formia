@@ -2,9 +2,8 @@ import { inject, Service } from '@angular/core';
 
 import { apiClient } from '../api/api-client';
 import { apiResult } from '../api/api-result';
+import type { SessionStatus } from './types/session-status';
 import { UserStore } from './user-store';
-
-export type SessionStatus = 'registered' | 'unauthenticated' | 'unregistered';
 
 @Service()
 export class Session {

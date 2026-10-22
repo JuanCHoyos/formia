@@ -8,9 +8,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 
 import type { HeadingFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
-
-type HeadingFieldSettings = Omit<HeadingFieldProps, 'subheading'> & { subheading: string };
 import { TextEditor } from '@/app/ui/components/text-editor/text-editor';
+
+import type { HeadingFieldSettings } from '../../../../types/field-config-settings';
 @Component({
   selector: 'app-heading-field-config-form',
   templateUrl: './heading-field-config-form.html',

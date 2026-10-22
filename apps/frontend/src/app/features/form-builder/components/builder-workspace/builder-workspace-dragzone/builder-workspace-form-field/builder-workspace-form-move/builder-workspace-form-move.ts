@@ -14,7 +14,9 @@ import {
 } from '@/app/features/form-builder/formly/interfaces/app-formly-field-config';
 import { FormBuilderStore } from '@/app/features/form-builder/services/form-builder-store';
 import { Button } from '@/app/ui/components/button/button';
-import { TreeItem, TreeSelector } from '@/app/ui/components/tree-selector/tree-selector';
+import { TreeSelector } from '@/app/ui/components/tree-selector/tree-selector';
+
+import type { TreeItem } from '../../../../../../../ui/types/tree';
 
 @Component({
   selector: 'app-builder-workspace-form-move',

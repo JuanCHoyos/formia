@@ -5,7 +5,6 @@ import { Component, computed, inject, input, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
-import { ButtonSeverity } from 'primeng/button';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { MenuModule } from 'primeng/menu';
 
@@ -18,15 +17,8 @@ import { Button } from '@/app/ui/components/button/button';
 import { APP_ICONS } from '@/app/ui/constants/icons';
 import { AppIcon } from '@/app/ui/types/icons';
 
+import type { MenuActionItem } from '../../../../../types/menu-action-item';
 import { BuilderWorkspaceFormMove } from '../builder-workspace-form-move/builder-workspace-form-move';
-type MenuActionItem = {
-  label: string;
-  icon: AppIcon;
-  severity: ButtonSeverity;
-  command: () => void;
-  customClass: string;
-};
-
 @Component({
   selector: 'app-builder-workspace-form-field-header',
   templateUrl: './builder-workspace-form-field-header.html',

@@ -7,7 +7,8 @@ import {
   type UrlTree,
 } from '@angular/router';
 
-import { Session, type SessionStatus } from '../session';
+import { Session } from '../session';
+import type { SessionStatus } from '../types/session-status';
 import { authenticatedGuard } from './authenticated';
 import { unauthenticatedGuard } from './unauthenticated';
 import { unregisteredGuard } from './unregistered';

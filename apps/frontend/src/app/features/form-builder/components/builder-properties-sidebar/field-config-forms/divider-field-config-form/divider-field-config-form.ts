@@ -9,7 +9,7 @@ import { SelectModule } from 'primeng/select';
 
 import type { DividerFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
 
-type DividerFieldSettings = Omit<DividerFieldProps, 'text'> & { text: string };
+import type { DividerFieldSettings } from '../../../../types/field-config-settings';
 
 @Component({
   selector: 'app-divider-field-config-form',

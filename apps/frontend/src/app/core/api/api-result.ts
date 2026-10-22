@@ -1,17 +1,12 @@
 import {
   ApiErrorBodySchema,
   DEFAULT_API_ERROR_CODE,
-  type ApiErrorCode,
   type ApiSuccessBody,
 } from '@formly/core/schemas/api';
 
-const DEFAULT_API_ERROR_MESSAGE = 'An unexpected error occurred';
+import type { ApiError, EdenResponse } from './types/api-response';
 
-export interface ApiError {
-  status: number;
-  code: ApiErrorCode;
-  message: string;
-}
+const DEFAULT_API_ERROR_MESSAGE = 'An unexpected error occurred';
 
 export class ApiSuccess<T> {
   constructor(readonly data: T) {}
@@ -38,12 +33,6 @@ export class ApiFailure {
 }
 
 export type ApiResult<T> = ApiFailure | ApiSuccess<T>;
-
-interface EdenResponse<TBody> {
-  data: TBody | null;
-  error: { value: unknown } | null;
-  status: number;
-}
 
 /**
  * Turns an Eden request into an `ApiResult`: the success body is unwrapped to its `data`, and

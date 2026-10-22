@@ -11,19 +11,8 @@ import { SelectModule } from 'primeng/select';
 import type { RatingFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
 import { Checkbox } from '@/app/ui/components/checkbox/checkbox';
 
+import type { RatingFieldSettings } from '../../../../types/field-config-settings';
 import { CommonFieldConfigForm } from '../common-field-config-form/common-field-config-form';
-
-type RatingFieldSettings = {
-  label: string;
-  description: string;
-  required: boolean;
-  disabled: boolean;
-  type: 'number' | 'star';
-  stars: number;
-  lowLabel: string;
-  highLabel: string;
-  allowHalf: boolean;
-};
 
 @Component({
   selector: 'app-rating-field-config-form',

@@ -1,19 +1,8 @@
-export interface CognitoErrorNotification {
-  summaryKey: string;
-  detailKey: string;
-}
-
-export type CognitoErrorContext = 'passwordRecovery' | 'signUpConfirmation';
-
-interface CognitoErrorContextRule {
-  defaultNotification: CognitoErrorNotification;
-  messages?: Readonly<Record<string, CognitoErrorNotification>>;
-}
-
-interface CognitoErrorRule extends CognitoErrorContextRule {
-  contexts?: Partial<Record<CognitoErrorContext, CognitoErrorContextRule>>;
-}
-
+import type {
+  CognitoErrorContext,
+  CognitoErrorNotification,
+  CognitoErrorRule,
+} from './types/cognito-error';
 const DEFAULT_NOTIFICATION: CognitoErrorNotification = {
   summaryKey: 'auth.cognitoErrors.title',
   detailKey: 'auth.cognitoErrors.generic',

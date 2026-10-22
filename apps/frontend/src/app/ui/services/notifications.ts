@@ -1,33 +1,14 @@
 import { inject, Service } from '@angular/core';
 
-import { TranslateService, type InterpolationParameters } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { ConfirmationService, MessageService, type Confirmation } from 'primeng/api';
 
-export type NotificationSeverity = 'error' | 'info' | 'success' | 'warn';
-
-export interface NotificationOptions {
-  key?: string;
-  life?: number;
-  summaryParams?: InterpolationParameters;
-  detailParams?: InterpolationParameters;
-}
-
-export interface ConfirmationOptions {
-  titleKey: string;
-  messageKey: string;
-  accept?: () => void;
-  reject?: () => void;
-  key?: string;
-  icon?: string;
-  acceptLabelKey?: string;
-  cancelLabelKey?: string;
-  titleParams?: InterpolationParameters;
-  messageParams?: InterpolationParameters;
-  acceptLabelParams?: InterpolationParameters;
-  cancelLabelParams?: InterpolationParameters;
-  closeOnEscape?: boolean;
-}
+import type {
+  ConfirmationOptions,
+  NotificationOptions,
+  NotificationSeverity,
+} from '../types/notifications';
 
 @Service()
 export class Notifications {

@@ -6,11 +6,10 @@ import { apiClient } from '@/app/core/api/api-client';
 import { apiResult } from '@/app/core/api/api-result';
 import { Notifications } from '@/app/ui/services/notifications';
 
-import {
-  FormFieldConfigurationSchema,
-  type FormFieldConfiguration,
-} from '../formly/interfaces/app-formly-field-config';
-import { FormBuilderStore, type FormSettings } from './form-builder-store';
+import { FormFieldConfigurationSchema } from '../formly/interfaces/app-formly-field-config';
+import type { FormSettings } from '../types/form-settings';
+import type { DraftPatch, PersistedDraft, PublishedVersion, SaveState } from '../types/form-sync';
+import { FormBuilderStore } from './form-builder-store';
 
 /** Quiet time after the last change before the draft is sent. */
 const AUTOSAVE_DEBOUNCE_MS = 2000;
@@ -19,25 +18,6 @@ const AUTOSAVE_MAX_WAIT_MS = 15000;
 const AUTOSAVE_MAX_RETRIES = 3;
 const AUTOSAVE_RETRY_BASE_MS = 5000;
 const MIN_TITLE_LENGTH = 3;
-
-export interface PublishedVersion {
-  version: number;
-  publishedAt: number;
-  fields: FormFieldConfiguration;
-}
-
-interface PersistedDraft {
-  title: string;
-  fields: string;
-  settings: string;
-}
-
-interface DraftPatch extends Partial<FormSettings> {
-  title?: string;
-  schema?: { fields: FormFieldConfiguration };
-}
-
-export type SaveState = 'error' | 'idle' | 'saved' | 'saving';
 
 /**
  * Keeps the builder store in sync with the API: loads (or creates) the form, autosaves the
