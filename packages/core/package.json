@@ -13,6 +13,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./auth": "./src/auth/index.ts",
+    "./lambda": "./src/lambda/index.ts",
     "./data/models/*": "./src/data/models/*.ts",
     "./schemas": {
       "types": "./dist/schemas/index.d.ts",
@@ -35,8 +36,10 @@
     "zod": "catalog:"
   },
   "devDependencies": {
+    "@types/aws-lambda": "catalog:",
     "@types/node": "catalog:",
     "@vitest/coverage-v8": "catalog:",
+    "elysia": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
   }

@@ -21,14 +21,12 @@
     "@elysiajs/cors": "catalog:",
     "@elysiajs/node": "catalog:",
     "@formly/core": "workspace:*",
-    "aws-lambda": "^1.0.7",
     "elysia": "catalog:",
     "elysia-helmet": "catalog:",
     "elysia-rate-limit": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@types/aws-lambda": "catalog:",
     "@types/node": "catalog:",
     "@vitest/coverage-v8": "catalog:",
     "tsx": "catalog:",

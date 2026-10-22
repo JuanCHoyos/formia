@@ -1,5 +1,6 @@
+import { elysiaLambda } from '@formly/core/lambda';
+
 import { app } from './app';
-import { elysiaLambda } from './lambda-wrapper';
 
 app.listen(3000);
 

@@ -1,6 +1,5 @@
-import type { AnyElysia } from 'elysia';
-
 import type { APIGatewayProxyEventV2, APIGatewayProxyStructuredResultV2 } from 'aws-lambda';
+import type { AnyElysia } from 'elysia';
 
 function resolveRequestBody(event: APIGatewayProxyEventV2): ArrayBuffer | string | null {
   let body: ArrayBuffer | string | null = event.body ?? null;
@@ -13,8 +12,13 @@ function resolveRequestBody(event: APIGatewayProxyEventV2): ArrayBuffer | string
   return body;
 }
 
-export function elysiaLambda(app: AnyElysia) {
-  return async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyStructuredResultV2> => {
+/** Named so consumers can emit declarations without depending on `@types/aws-lambda` themselves. */
+export type ElysiaLambdaHandler = (
+  event: APIGatewayProxyEventV2,
+) => Promise<APIGatewayProxyStructuredResultV2>;
+
+export function elysiaLambda(app: AnyElysia): ElysiaLambdaHandler {
+  return async (event) => {
     const method = event.requestContext.http.method;
 
     const headers = new Headers(
