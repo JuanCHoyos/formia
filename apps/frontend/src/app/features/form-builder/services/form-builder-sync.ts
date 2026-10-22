@@ -1,6 +1,7 @@
-import { DestroyRef, effect, inject, Injectable, signal, type OnDestroy } from '@angular/core';
+import { DestroyRef, effect, inject, Service, signal, type OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { apiClient } from '@/app/core/api/api-client';
+import { apiResult } from '@/app/core/api/api-result';
 import { Notifications } from '@/app/ui/services/notifications';
 import {
   FormFieldConfigurationSchema,
@@ -8,7 +9,6 @@ import {
 } from '../formly/interfaces/app-formly-field-config';
 import { FormBuilderStore, type FormSettings } from './form-builder-store';
 
-const HTTP_NOT_FOUND = 404;
 /** Quiet time after the last change before the draft is sent. */
 const AUTOSAVE_DEBOUNCE_MS = 2000;
 /** Upper bound while the user keeps editing, so a long session never goes unsaved. */
@@ -40,7 +40,7 @@ export type SaveState = 'idle' | 'saving' | 'saved' | 'error';
  * Keeps the builder store in sync with the API: loads (or creates) the form, autosaves the
  * work in progress as `draft` and copies it to `definition` when the form is published.
  */
-@Injectable()
+@Service({ autoProvided: false })
 export class FormBuilderSync implements OnDestroy {
   private readonly store = inject(FormBuilderStore);
   private readonly notifications = inject(Notifications);
@@ -57,6 +57,8 @@ export class FormBuilderSync implements OnDestroy {
 
   readonly saveState = signal<SaveState>('idle');
   readonly publishing = signal(false);
+  /** Whether the API holds unpublished changes (a draft) for this form. */
+  readonly hasDraft = signal(false);
   readonly publishedVersion = signal(0);
   /** Last published versions stored by the API (it keeps only the most recent ones). */
   readonly publishedVersions = signal<PublishedVersion[]>([]);
@@ -80,22 +82,19 @@ export class FormBuilderSync implements OnDestroy {
       onCleanup(() => clearTimeout(timer));
     });
 
-    const onVisibilityChange = () => {
+    // Refreshing or closing the tab never prompts: pending edits are flushed instead. `keepalive`
+    // lets the request finish after the page is gone.
+    const flushOnHide = () => {
       if (document.visibilityState === 'hidden') {
-        void this.saveDraft();
-      }
-    };
-    const onBeforeUnload = (event: BeforeUnloadEvent) => {
-      if (this.formId !== null && this.pendingChanges() !== null) {
-        event.preventDefault();
+        void this.saveDraft({ keepalive: true });
       }
     };
 
-    document.addEventListener('visibilitychange', onVisibilityChange);
-    window.addEventListener('beforeunload', onBeforeUnload);
+    document.addEventListener('visibilitychange', flushOnHide);
+    window.addEventListener('pagehide', flushOnHide);
     inject(DestroyRef).onDestroy(() => {
-      document.removeEventListener('visibilitychange', onVisibilityChange);
-      window.removeEventListener('beforeunload', onBeforeUnload);
+      document.removeEventListener('visibilitychange', flushOnHide);
+      window.removeEventListener('pagehide', flushOnHide);
     });
   }
 
@@ -110,27 +109,29 @@ export class FormBuilderSync implements OnDestroy {
     this.formId = null;
     this.saveState.set('idle');
 
-    const existing = await apiClient.forms({ id }).get();
+    const existing = await apiResult(apiClient.forms({ id }).get());
     let form;
 
-    if (!existing.error && existing.data.success) {
-      form = existing.data.data;
-    } else if (existing.error?.status === HTTP_NOT_FOUND) {
-      const created = await apiClient.forms.post({
-        id,
-        title: this.defaultTitle(),
-        isPublic: false,
-        allowMultipleSubmissions: false,
-        maxSubmissionsPerUser: 1,
-        schema: {},
-      });
+    if (existing.isSuccess()) {
+      form = existing.data;
+    } else if (existing.error.code === 'FORM_NOT_FOUND') {
+      const created = await apiResult(
+        apiClient.forms.post({
+          id,
+          title: this.defaultTitle(),
+          isPublic: false,
+          allowMultipleSubmissions: false,
+          maxSubmissionsPerUser: 1,
+          schema: {},
+        }),
+      );
 
-      if (created.error || !created.data.success) {
-        throw new Error('The form could not be created.');
+      if (created.isError()) {
+        throw new Error(created.error.message);
       }
-      form = created.data.data;
+      form = created.data;
     } else {
-      throw new Error('The form could not be loaded.');
+      throw new Error(existing.error.message);
     }
 
     const stored = FormFieldConfigurationSchema.safeParse((form.draft ?? form.published)?.schema['fields']);
@@ -149,6 +150,7 @@ export class FormBuilderSync implements OnDestroy {
           }
         : undefined,
     );
+    this.hasDraft.set(form.draft !== null);
     this.publishedVersion.set(form.published?.version ?? 0);
     this.publishedVersions.set(this.toPublishedVersions(form.versions));
     this.persisted = {
@@ -161,14 +163,44 @@ export class FormBuilderSync implements OnDestroy {
     this.formId = id;
   }
 
+  /**
+   * Whether the user can leave the builder. While a save is in flight it stays and says why;
+   * otherwise pending edits are saved first, and only a failed save asks for confirmation.
+   */
+  async canLeave(): Promise<boolean> {
+    if (this.formId === null || this.pendingChanges() === null) {
+      return true;
+    }
+    if (this.saveState() === 'saving') {
+      this.notifications.info('formBuilder.leaveBlocked.title', 'formBuilder.leaveBlocked.message', {
+        life: 4_000,
+      });
+      return false;
+    }
+    if (await this.saveDraft()) {
+      return true;
+    }
+
+    return new Promise<boolean>((resolve) => {
+      this.notifications.confirmDestructive({
+        titleKey: 'formBuilder.confirmations.leaveUnsaved.title',
+        messageKey: 'formBuilder.confirmations.leaveUnsaved.message',
+        acceptLabelKey: 'formBuilder.confirmations.leaveUnsaved.leave',
+        cancelLabelKey: 'formBuilder.confirmations.leaveUnsaved.stay',
+        accept: () => resolve(true),
+        reject: () => resolve(false),
+      });
+    });
+  }
+
   /** Saves what changed since the last successful save; concurrent calls are coalesced. */
-  saveDraft(): Promise<boolean> {
-    const run = this.queue.then(() => this.persistChanges());
+  saveDraft({ keepalive = false } = {}): Promise<boolean> {
+    const run = this.queue.then(() => this.persistChanges(keepalive));
     this.queue = run.catch(() => false);
     return run;
   }
 
-  private async persistChanges(): Promise<boolean> {
+  private async persistChanges(keepalive: boolean): Promise<boolean> {
     const formId = this.formId;
     const changes = this.pendingChanges();
 
@@ -181,15 +213,20 @@ export class FormBuilderSync implements OnDestroy {
 
     this.saveState.set('saving');
     try {
-      const response = await apiClient.forms({ id: formId }).patch(changes.body);
+      const result = await apiResult(
+        apiClient.forms({ id: formId }).patch(changes.body, {
+          fetch: { keepalive },
+        }),
+      );
 
-      if (response.error || !response.data.success) {
-        throw new Error('The draft could not be saved.');
+      if (result.isError()) {
+        throw new Error(result.error.message);
       }
 
       if (this.persisted !== null) {
         this.persisted = { ...this.persisted, ...changes.snapshot };
       }
+      this.hasDraft.set(result.data.draft != null);
       this.dirtySince = null;
       this.retries = 0;
       // Edits made while the request was in flight are still pending.
@@ -258,19 +295,53 @@ export class FormBuilderSync implements OnDestroy {
         throw new Error('The draft could not be saved.');
       }
 
-      const response = await apiClient.forms({ id: this.formId }).publish.post();
+      const result = await apiResult(apiClient.forms({ id: this.formId }).publish.post());
 
-      if (response.error || !response.data.success) {
-        throw new Error('The form could not be published.');
+      if (result.isError()) {
+        throw new Error(result.error.message);
       }
 
-      this.publishedVersion.set(response.data.data?.published?.version ?? this.publishedVersion());
-      this.publishedVersions.set(this.toPublishedVersions(response.data.data?.versions));
+      this.hasDraft.set(false);
+      this.publishedVersion.set(result.data.published?.version ?? this.publishedVersion());
+      this.publishedVersions.set(this.toPublishedVersions(result.data.versions));
       this.notifications.success('formBuilder.publish.successTitle', 'formBuilder.publish.success');
     } catch {
       this.notifications.error('formBuilder.publish.errorTitle', 'formBuilder.publish.error');
     } finally {
       this.publishing.set(false);
+    }
+  }
+
+  /** Asks for confirmation, then drops the unpublished changes and reloads the published version. */
+  discardDraft(): void {
+    this.notifications.confirmDestructive({
+      titleKey: 'formBuilder.confirmations.discardDraft.title',
+      messageKey: 'formBuilder.confirmations.discardDraft.message',
+      acceptLabelKey: 'formBuilder.confirmations.discardDraft.discard',
+      accept: () => void this.dropDraft(),
+    });
+  }
+
+  private async dropDraft(): Promise<void> {
+    const formId = this.formId;
+    if (formId === null) {
+      return;
+    }
+
+    try {
+      // Let an in-flight autosave finish so it cannot recreate the draft afterwards.
+      await this.queue;
+      const result = await apiResult(apiClient.forms({ id: formId }).draft.delete());
+
+      if (result.isError()) {
+        throw new Error(result.error.message);
+      }
+      await this.load(formId);
+    } catch {
+      this.notifications.error(
+        'formBuilder.confirmations.discardDraft.errorTitle',
+        'formBuilder.confirmations.discardDraft.error',
+      );
     }
   }
 

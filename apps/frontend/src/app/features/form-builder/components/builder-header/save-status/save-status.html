@@ -1,0 +1,31 @@
+<div class="flex items-center gap-2" role="status" aria-live="polite">
+  @switch (state()) {
+    @case ('saving') {
+      <p-tag severity="secondary" rounded>
+        <span class="flex items-center gap-1.5 px-1 font-medium">
+          <p-progress-spinner class="size-3.5!" [strokeWidth]="6" aria-hidden="true" />
+          {{ 'formBuilder.header.saveState.saving' | translate }}
+        </span>
+      </p-tag>
+    }
+    @case ('saved') {
+      <p-tag severity="success" rounded>
+        <span class="flex items-center gap-1.5 px-1 font-medium">
+          <ng-icon name="lucideCheckCircle2" class="size-3.5" aria-hidden="true" />
+          {{ 'formBuilder.header.saveState.saved' | translate }}
+        </span>
+      </p-tag>
+    }
+    @case ('error') {
+      <p-tag severity="danger" rounded>
+        <span class="flex items-center gap-1.5 px-1 font-medium">
+          <ng-icon name="lucideAlertTriangle" class="size-3.5" aria-hidden="true" />
+          {{ 'formBuilder.header.saveState.error' | translate }}
+        </span>
+      </p-tag>
+      <app-button variant="text" size="small" (pressed)="retry()">
+        {{ 'formBuilder.header.saveState.retry' | translate }}
+      </app-button>
+    }
+  }
+</div>

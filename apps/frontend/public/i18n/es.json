@@ -247,9 +247,11 @@
         "idle": "",
         "saving": "Guardando borrador…",
         "saved": "Borrador guardado",
-        "error": "No se pudo guardar el borrador"
+        "error": "No se pudo guardar el borrador",
+        "retry": "Reintentar"
       },
-      "titleTooShort": "El título debe tener al menos {{min}} caracteres."
+      "titleTooShort": "El título debe tener al menos {{min}} caracteres.",
+      "discardChanges": "Descartar cambios"
     },
     "history": {
       "ariaLabel": "Historial de versiones del formulario",
@@ -519,6 +521,19 @@
       "deleteField": {
         "title": "Confirmar eliminación",
         "message": "¿Seguro que quieres eliminar este elemento? Esta acción no se puede deshacer."
+      },
+      "leaveUnsaved": {
+        "title": "Cambios sin guardar",
+        "message": "No pudimos guardar tus últimos cambios. Si sales ahora, se perderán.",
+        "leave": "Salir sin guardar",
+        "stay": "Quedarme y seguir editando"
+      },
+      "discardDraft": {
+        "title": "Descartar cambios",
+        "message": "Se perderán los cambios sin publicar y el editor volverá a la versión publicada.",
+        "discard": "Descartar",
+        "errorTitle": "No se pudieron descartar los cambios",
+        "error": "Inténtalo de nuevo en un momento."
       }
     },
     "navigation": {
@@ -583,6 +598,10 @@
       "version": "Versión {{number}}",
       "restore": "Restaurar",
       "empty": "Aún no hay versiones anteriores."
+    },
+    "leaveBlocked": {
+      "title": "Guardando tus cambios",
+      "message": "Estamos guardando tu borrador. Podrás salir en cuanto termine."
     }
   },
   "fieldPalette": {

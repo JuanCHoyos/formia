@@ -247,9 +247,11 @@
         "idle": "",
         "saving": "Saving draft…",
         "saved": "Draft saved",
-        "error": "Couldn't save the draft"
+        "error": "Couldn't save the draft",
+        "retry": "Retry"
       },
-      "titleTooShort": "The title must be at least {{min}} characters."
+      "titleTooShort": "The title must be at least {{min}} characters.",
+      "discardChanges": "Discard changes"
     },
     "history": {
       "ariaLabel": "Form version history",
@@ -519,6 +521,19 @@
       "deleteField": {
         "title": "Confirm deletion",
         "message": "Are you sure you want to delete this item? This action cannot be undone."
+      },
+      "leaveUnsaved": {
+        "title": "Unsaved changes",
+        "message": "We couldn't save your latest changes. If you leave now, they will be lost.",
+        "leave": "Leave without saving",
+        "stay": "Stay and keep editing"
+      },
+      "discardDraft": {
+        "title": "Discard changes",
+        "message": "The unpublished changes will be lost and the editor will go back to the published version.",
+        "discard": "Discard",
+        "errorTitle": "Couldn't discard the changes",
+        "error": "Try again in a moment."
       }
     },
     "navigation": {
@@ -583,6 +598,10 @@
       "version": "Version {{number}}",
       "restore": "Restore",
       "empty": "No previous versions yet."
+    },
+    "leaveBlocked": {
+      "title": "Saving your changes",
+      "message": "We're saving your draft. You can leave as soon as it's done."
     }
   },
   "fieldPalette": {

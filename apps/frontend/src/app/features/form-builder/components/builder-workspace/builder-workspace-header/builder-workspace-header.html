@@ -17,9 +17,9 @@
         }
         <span
           class="block size-2 rounded-full"
-          [class]="sync.publishedVersion() > 0 ? 'bg-success' : 'bg-warn'"
+          [class]="sync.hasDraft() ? 'bg-warn' : 'bg-success'"
         ></span>
-        {{ (sync.publishedVersion() > 0 ? 'common.status.published' : 'common.status.draft') | translate }}
+        {{ (sync.hasDraft() ? 'common.status.draft' : 'common.status.published') | translate }}
       </li>
       <li class="text-sm text-muted-color">
         {{
