@@ -1,11 +1,10 @@
 :host ::ng-deep ngx-editor {
-      .NgxEditor {
-        border: none;
-      }
+  .NgxEditor {
+    border: none;
+  }
 
-      .NgxEditor__Content {
-        min-height: auto;
-        padding: 0;
-      }
-    }
-    
+  .NgxEditor__Content {
+    min-height: auto;
+    padding: 0;
+  }
+}

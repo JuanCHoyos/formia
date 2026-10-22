@@ -1,6 +1,6 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { AnswerSchema, IdSchema } from "./common";
+import { AnswerSchema, IdSchema } from './common';
 
 const formResponseFields = {
   answer: AnswerSchema,
@@ -12,7 +12,11 @@ export const CreateFormResponseSchema = z
     formVersionId: IdSchema,
     respondentUserId: IdSchema.optional(),
     ...formResponseFields,
-    createdAt: z.number().int().nonnegative().default(() => Date.now()),
+    createdAt: z
+      .number()
+      .int()
+      .nonnegative()
+      .default(() => Date.now()),
   })
   .strict();
 
@@ -22,9 +26,7 @@ export const UpdateFormResponseSchema = z
   })
   .strict()
   .refine((value) => Object.values(value).some((field) => field !== undefined), {
-    error: "At least one field must be provided.",
+    error: 'At least one field must be provided.',
   });
 
-export type CreateFormResponseInput = z.infer<
-  typeof CreateFormResponseSchema
->;
+export type CreateFormResponseInput = z.infer<typeof CreateFormResponseSchema>;

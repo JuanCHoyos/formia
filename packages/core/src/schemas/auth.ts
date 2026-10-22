@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const PasswordSchema = z
   .string()
@@ -37,13 +37,11 @@ export const SignInSchema = z
   })
   .strict();
 
-
 export const ForgotPasswordSchema = z
   .object({
     email: z.email(),
   })
   .strict();
-
 
 export const ConfirmForgotPasswordSchema = z
   .object({

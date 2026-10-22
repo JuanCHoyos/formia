@@ -8,7 +8,6 @@ import { InputIconModule } from 'primeng/inputicon';
 import { Eye } from '@primeicons/angular/eye';
 import { EyeSlash } from '@primeicons/angular/eye-slash';
 
-
 import { Check } from '@primeicons/angular/check';
 import { Times } from '@primeicons/angular/times';
 
@@ -29,9 +28,23 @@ const PASSWORD_POLICY = {
   noWhitespace: /^\S+$/,
 };
 
-
 @Component({
-  imports: [CommonModule, FormField, InputPasswordModule, DividerModule, IconFieldModule, InputIconModule, PopoverModule, ProgressBarModule, TagModule, TranslatePipe, Eye, EyeSlash, Check, Times],
+  imports: [
+    CommonModule,
+    FormField,
+    InputPasswordModule,
+    DividerModule,
+    IconFieldModule,
+    InputIconModule,
+    PopoverModule,
+    ProgressBarModule,
+    TagModule,
+    TranslatePipe,
+    Eye,
+    EyeSlash,
+    Check,
+    Times,
+  ],
   selector: 'app-password',
   templateUrl: './password.html',
 })
@@ -50,13 +63,36 @@ export class Password {
     disableField(path, { when: () => this.disabled() });
   });
 
-
   readonly rules = signal([
-    { id: 'minLength', label: 'auth.passwordStrength.rules.minLength', test: (v: string) => v.length >= PASSWORD_POLICY.minLength },
-    { id: 'lowercase', label: 'auth.passwordStrength.rules.lowercase', test: (v: string) => PASSWORD_POLICY.lowercase.test(v) },
-    { id: 'uppercase', label: 'auth.passwordStrength.rules.uppercase', test: (v: string) => PASSWORD_POLICY.uppercase.test(v) },
-    { id: 'number', label: 'auth.passwordStrength.rules.number', test: (v: string) => PASSWORD_POLICY.number.test(v) },
-    { id: 'symbol', label: 'auth.passwordStrength.rules.symbol', test: (v: string) => PASSWORD_POLICY.symbol.test(v) },
-    { id: 'noWhitespace', label: 'auth.passwordStrength.rules.noWhitespace', test: (v: string) => PASSWORD_POLICY.noWhitespace.test(v) },
+    {
+      id: 'minLength',
+      label: 'auth.passwordStrength.rules.minLength',
+      test: (v: string) => v.length >= PASSWORD_POLICY.minLength,
+    },
+    {
+      id: 'lowercase',
+      label: 'auth.passwordStrength.rules.lowercase',
+      test: (v: string) => PASSWORD_POLICY.lowercase.test(v),
+    },
+    {
+      id: 'uppercase',
+      label: 'auth.passwordStrength.rules.uppercase',
+      test: (v: string) => PASSWORD_POLICY.uppercase.test(v),
+    },
+    {
+      id: 'number',
+      label: 'auth.passwordStrength.rules.number',
+      test: (v: string) => PASSWORD_POLICY.number.test(v),
+    },
+    {
+      id: 'symbol',
+      label: 'auth.passwordStrength.rules.symbol',
+      test: (v: string) => PASSWORD_POLICY.symbol.test(v),
+    },
+    {
+      id: 'noWhitespace',
+      label: 'auth.passwordStrength.rules.noWhitespace',
+      test: (v: string) => PASSWORD_POLICY.noWhitespace.test(v),
+    },
   ]);
 }

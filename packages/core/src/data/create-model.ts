@@ -1,18 +1,11 @@
-import type { Entity, KeyInputItem } from "dynamodb-toolbox/entity";
-import type { GetItemOptions } from "dynamodb-toolbox/entity/actions/get";
-import { EntityRepository } from "dynamodb-toolbox/entity/actions/repository";
-import type { Table } from "dynamodb-toolbox/table";
-import type {
-  Query,
-  QueryOptions,
-  QueryResponse,
-} from "dynamodb-toolbox/table/actions/query";
-import { TableRepository } from "dynamodb-toolbox/table/actions/repository";
+import type { Entity, KeyInputItem } from 'dynamodb-toolbox/entity';
+import type { GetItemOptions } from 'dynamodb-toolbox/entity/actions/get';
+import { EntityRepository } from 'dynamodb-toolbox/entity/actions/repository';
+import type { Table } from 'dynamodb-toolbox/table';
+import type { Query, QueryOptions, QueryResponse } from 'dynamodb-toolbox/table/actions/query';
+import { TableRepository } from 'dynamodb-toolbox/table/actions/repository';
 
-export function createModel<T extends Table, E extends Entity>(
-  table: T,
-  entity: E,
-) {
+export function createModel<T extends Table, E extends Entity>(table: T, entity: E) {
   const entityRepository = entity.build(EntityRepository);
   const tableRepository = table.build(TableRepository);
 
@@ -32,16 +25,11 @@ export function createModel<T extends Table, E extends Entity>(
       await entityRepository.delete(...args);
     },
 
-    query: async <
-      QUERY extends Query<T>,
-      const OPTIONS extends QueryOptions<T, [E], QUERY> = {},
-    >(
+    query: async <QUERY extends Query<T>, const OPTIONS extends QueryOptions<T, [E], QUERY> = {}>(
       query: QUERY,
       options?: OPTIONS,
     ): Promise<NonNullable<QueryResponse<T, QUERY, [E], OPTIONS>['Items']>> => {
-      const { Items } = await tableRepository
-        .entities(entity)
-        .query(query, options);
+      const { Items } = await tableRepository.entities(entity).query(query, options);
 
       return Items ?? ([] as NonNullable<QueryResponse<T, QUERY, [E], OPTIONS>['Items']>);
     },

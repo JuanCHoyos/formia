@@ -115,8 +115,12 @@ describe('SocialLoginButtons', () => {
       button(element, 'google').click();
       await render();
 
-      element.querySelectorAll('button').forEach((providerButton) => expect(providerButton.disabled).toBe(true));
-      expect(query(element, '[role="status"]').textContent).toContain('auth.socialLogin.redirecting');
+      element
+        .querySelectorAll('button')
+        .forEach((providerButton) => expect(providerButton.disabled).toBe(true));
+      expect(query(element, '[role="status"]').textContent).toContain(
+        'auth.socialLogin.redirecting',
+      );
 
       request.resolve();
       await vi.waitFor(() => expect(component.loadingProvider()).toBeNull());

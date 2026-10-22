@@ -19,7 +19,6 @@ import {
 } from './field-types';
 import { ContainerFieldTypeSchema } from './field-types/container-field';
 
-
 const LeafFieldSchema = z.union([
   AlertFieldTypeSchema,
   CheckboxFieldTypeSchema,

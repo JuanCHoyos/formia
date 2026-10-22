@@ -81,7 +81,10 @@ describe('Login', () => {
   });
 
   it('redirects to confirm-signup when the account is not confirmed', async () => {
-    authApi.signIn.mockResolvedValue({ isSignedIn: false, nextStep: { signInStep: 'CONFIRM_SIGN_UP' } });
+    authApi.signIn.mockResolvedValue({
+      isSignedIn: false,
+      nextStep: { signInStep: 'CONFIRM_SIGN_UP' },
+    });
     fill('ada@example.com', 'Abcdef1!');
 
     await submit();
@@ -129,8 +132,12 @@ describe('Login', () => {
 
       expect(element.textContent).toContain('auth.login.title');
       expect(element.querySelector('app-social-login-buttons')).not.toBeNull();
-      expect(query(element, 'a[href="/auth/register"]').textContent).toContain('auth.login.registerLink');
-      expect(query(element, 'a[href="/auth/forgot-password"]').textContent).toContain('auth.login.forgotPassword');
+      expect(query(element, 'a[href="/auth/register"]').textContent).toContain(
+        'auth.login.registerLink',
+      );
+      expect(query(element, 'a[href="/auth/forgot-password"]').textContent).toContain(
+        'auth.login.forgotPassword',
+      );
     });
 
     it('binds the email input and enables submit once the form is valid', async () => {

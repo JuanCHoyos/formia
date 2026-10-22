@@ -21,12 +21,23 @@
       {{ formPreviewState.previewText() | translate }}
     </app-button>
     @if (sync.hasDraft() && sync.publishedVersion() > 0) {
-      <app-button icon="lucideUndo2" variant="text" severity="secondary" (pressed)="sync.discardDraft()">
+      <app-button
+        icon="lucideUndo2"
+        variant="text"
+        severity="secondary"
+        (pressed)="sync.discardDraft()"
+      >
         {{ 'formBuilder.header.discardChanges' | translate }}
       </app-button>
     }
     <app-published-versions-menu />
-    <app-button icon="lucideRocket" [disabled]="!sync.hasDraft()" [loading]="sync.publishing()" (pressed)="sync.publish()">{{ 'formBuilder.header.publish' | translate }}</app-button>
+    <app-button
+      icon="lucideRocket"
+      [disabled]="!sync.hasDraft()"
+      [loading]="sync.publishing()"
+      (pressed)="sync.publish()"
+      >{{ 'formBuilder.header.publish' | translate }}</app-button
+    >
     <app-form-settings-popover />
   </div>
 </header>

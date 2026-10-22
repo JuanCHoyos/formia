@@ -1,9 +1,6 @@
-import type { createCognito } from "./cognito";
+import type { createCognito } from './cognito';
 
-type CognitoAuthProperties = Pick<
-  ReturnType<typeof createCognito>,
-  "userPoolId" | "clientId"
->;
+type CognitoAuthProperties = Pick<ReturnType<typeof createCognito>, 'userPoolId' | 'clientId'>;
 
 export function createFormlyApi(
   s3Storage: sst.aws.Bucket,
@@ -13,11 +10,11 @@ export function createFormlyApi(
   }>,
   cognitoAuth: sst.Linkable<CognitoAuthProperties>,
 ) {
-  return new sst.aws.Function("formlyApi", {
-    handler: "./apps/backend/src/index.handler",
+  return new sst.aws.Function('formlyApi', {
+    handler: './apps/backend/src/index.handler',
     link: [s3Storage, ...tables, dynamoDB, cognitoAuth],
-    timeout: "30 seconds",
-    memory: "2048 MB",
+    timeout: '30 seconds',
+    memory: '2048 MB',
     url: { cors: false },
   });
 }

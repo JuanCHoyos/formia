@@ -16,8 +16,5 @@ export const DividerFieldTypeSchema = z.object({
 export type DividerFieldTypeSchemaType = z.infer<typeof DividerFieldTypeSchema>;
 export type DividerFieldProps = DividerFieldTypeSchemaType['props'];
 
-export type DividerFieldTypeConfig = Omit<
-  FieldTypeConfig<DividerFieldProps>,
-  OmitBaseConfig
-> &
+export type DividerFieldTypeConfig = Omit<FieldTypeConfig<DividerFieldProps>, OmitBaseConfig> &
   DividerFieldTypeSchemaType;

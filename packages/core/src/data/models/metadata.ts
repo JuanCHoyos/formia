@@ -1,5 +1,5 @@
-import { s } from "dynamodb-toolbox/schema";
-import { ulid } from "ulid";
+import { s } from 'dynamodb-toolbox/schema';
+import { ulid } from 'ulid';
 
 export const dateSchema = s
   .any()
@@ -16,7 +16,7 @@ export const metadataSchema = s.item({
     .default(() => ulid()),
   _version: s.number().default(1),
   _active: s.boolean().default(true),
-  _action: s.string().enum("CREATE", "UPDATE", "DELETE", "RESTORE"),
+  _action: s.string().enum('CREATE', 'UPDATE', 'DELETE', 'RESTORE'),
   _createdAt: dateSchema.required(),
   _updatedAt: dateSchema.optional().default(() => new Date()),
 });

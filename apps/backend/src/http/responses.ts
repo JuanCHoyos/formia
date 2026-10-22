@@ -1,4 +1,4 @@
-import type { ApiErrorCode, ApiSuccessBody } from "@formly/core/schemas/api";
+import type { ApiErrorCode, ApiSuccessBody } from '@formly/core/schemas/api';
 
 export const ok = <T>(message: string, data: T): ApiSuccessBody<T> => ({
   success: true,

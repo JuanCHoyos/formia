@@ -1,9 +1,7 @@
 import { Component, effect, input, OnInit, output, signal } from '@angular/core';
 
 import { CommonFieldConfigForm } from '../common-field-config-form/common-field-config-form';
-import type {
-  CheckboxFieldProps,
-} from '@/app/features/form-builder/formly/interfaces/field-types';
+import type { CheckboxFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
 import { form } from '@angular/forms/signals';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AccordionModule } from 'primeng/accordion';

@@ -12,9 +12,9 @@ describe('AuthHeader', () => {
     await fixture.whenStable();
     const element = fixture.nativeElement as HTMLElement;
 
-    expect(element.querySelector('h3')?.textContent).toBe('Welcome');
-    expect(element.querySelector('h2')?.textContent).toBe('Sign in');
-    expect(element.querySelector('p')?.textContent).toBe('Use your account');
+    expect(element.querySelector('h3')?.textContent?.trim()).toBe('Welcome');
+    expect(element.querySelector('h2')?.textContent?.trim()).toBe('Sign in');
+    expect(element.querySelector('p')?.textContent?.trim()).toBe('Use your account');
     expect(element.querySelector('ng-icon')).not.toBeNull();
   });
 });

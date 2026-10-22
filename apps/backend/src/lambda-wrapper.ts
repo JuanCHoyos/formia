@@ -1,16 +1,11 @@
-import type {
-  APIGatewayProxyEventV2,
-  APIGatewayProxyStructuredResultV2,
-} from "aws-lambda";
-import type { AnyElysia } from "elysia";
+import type { APIGatewayProxyEventV2, APIGatewayProxyStructuredResultV2 } from 'aws-lambda';
+import type { AnyElysia } from 'elysia';
 
-function resolveRequestBody(
-  event: APIGatewayProxyEventV2,
-): ArrayBuffer | string | null {
+function resolveRequestBody(event: APIGatewayProxyEventV2): ArrayBuffer | string | null {
   let body: ArrayBuffer | string | null = event.body ?? null;
 
   if (body && event.isBase64Encoded) {
-    const buf = Buffer.from(body, "base64");
+    const buf = Buffer.from(body, 'base64');
     body = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength);
   }
 
@@ -18,9 +13,7 @@ function resolveRequestBody(
 }
 
 export function elysiaLambda(app: AnyElysia) {
-  return async (
-    event: APIGatewayProxyEventV2,
-  ): Promise<APIGatewayProxyStructuredResultV2> => {
+  return async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyStructuredResultV2> => {
     const method = event.requestContext.http.method;
 
     const headers = new Headers(
@@ -29,12 +22,12 @@ export function elysiaLambda(app: AnyElysia) {
       ),
     );
 
-    if (event.cookies?.length) headers.set("cookie", event.cookies.join("; "));
+    if (event.cookies?.length) headers.set('cookie', event.cookies.join('; '));
 
     const path = event.rawPath;
-    const query = event.rawQueryString ? `?${event.rawQueryString}` : "";
+    const query = event.rawQueryString ? `?${event.rawQueryString}` : '';
 
-    const host = headers.get("host") ?? "localhost";
+    const host = headers.get('host') ?? 'localhost';
 
     const url = `https://${host}${path}${query}`;
 
@@ -50,7 +43,7 @@ export function elysiaLambda(app: AnyElysia) {
 
     const responseCookies = response.headers.getSetCookie();
     const responseHeaders = Object.fromEntries(response.headers.entries());
-    delete responseHeaders["set-cookie"];
+    delete responseHeaders['set-cookie'];
 
     return {
       statusCode: response.status,

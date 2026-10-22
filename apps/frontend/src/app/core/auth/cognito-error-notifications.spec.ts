@@ -23,8 +23,12 @@ describe('getCognitoErrorNotification', () => {
   });
 
   it('reads the error code from name, code or __type', () => {
-    expect(getCognitoErrorNotification({ code: 'CodeMismatchException' })).toEqual(detail('codeMismatch'));
-    expect(getCognitoErrorNotification({ __type: 'com.amazon#ExpiredCodeException' })).toEqual(detail('expiredCode'));
+    expect(getCognitoErrorNotification({ code: 'CodeMismatchException' })).toEqual(
+      detail('codeMismatch'),
+    );
+    expect(getCognitoErrorNotification({ __type: 'com.amazon#ExpiredCodeException' })).toEqual(
+      detail('expiredCode'),
+    );
   });
 
   it('prefers a known code over an unknown one', () => {
@@ -49,13 +53,17 @@ describe('getCognitoErrorNotification', () => {
     it('uses the passwordRecovery rule for NotAuthorizedException', () => {
       const error = { name: 'NotAuthorizedException', message: 'nope' };
 
-      expect(getCognitoErrorNotification(error, 'passwordRecovery')).toEqual(detail('passwordRecoveryFailed'));
+      expect(getCognitoErrorNotification(error, 'passwordRecovery')).toEqual(
+        detail('passwordRecoveryFailed'),
+      );
     });
 
     it('uses the passwordRecovery rule for UserNotFoundException', () => {
       const error = { name: 'UserNotFoundException' };
 
-      expect(getCognitoErrorNotification(error, 'passwordRecovery')).toEqual(detail('passwordRecoveryFailed'));
+      expect(getCognitoErrorNotification(error, 'passwordRecovery')).toEqual(
+        detail('passwordRecoveryFailed'),
+      );
       expect(getCognitoErrorNotification(error)).toEqual(detail('invalidCredentials'));
     });
 
@@ -65,13 +73,15 @@ describe('getCognitoErrorNotification', () => {
         message: 'User cannot be confirmed. Current status is CONFIRMED',
       };
 
-      expect(getCognitoErrorNotification(error, 'signUpConfirmation')).toEqual(detail('alreadyConfirmed'));
+      expect(getCognitoErrorNotification(error, 'signUpConfirmation')).toEqual(
+        detail('alreadyConfirmed'),
+      );
     });
 
     it('falls back to the base rule when the code has no rule for that context', () => {
-      expect(getCognitoErrorNotification({ name: 'CodeMismatchException' }, 'passwordRecovery')).toEqual(
-        detail('codeMismatch'),
-      );
+      expect(
+        getCognitoErrorNotification({ name: 'CodeMismatchException' }, 'passwordRecovery'),
+      ).toEqual(detail('codeMismatch'));
     });
   });
 });

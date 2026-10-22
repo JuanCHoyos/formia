@@ -1,5 +1,5 @@
 export function createStorage() {
-  const uploads = new sst.aws.Bucket("Uploads");
+  const uploads = new sst.aws.Bucket('Uploads');
 
   return {
     uploads,

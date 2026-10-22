@@ -16,7 +16,9 @@ export class PublishedVersionsMenu {
 
   protected readonly maxPreviousVersions = MAX_PREVIOUS_FORM_VERSIONS;
   /** Previous versions only: the newest stored version is the one currently published. */
-  protected readonly versions = computed(() => [...this.sync.publishedVersions()].reverse().slice(1));
+  protected readonly versions = computed(() =>
+    [...this.sync.publishedVersions()].reverse().slice(1),
+  );
 
   protected restore(version: Parameters<FormBuilderSync['restoreVersion']>[0]): void {
     this.sync.restoreVersion(version);

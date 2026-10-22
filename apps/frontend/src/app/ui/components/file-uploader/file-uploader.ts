@@ -55,8 +55,8 @@ export class FileUploader implements ControlValueAccessor, OnDestroy {
   showDialog = model(false);
 
   private nextId = 0;
-  private onChange: (files: File[]) => void = () => { };
-  private onTouched: () => void = () => { };
+  private onChange: (files: File[]) => void = () => {};
+  private onTouched: () => void = () => {};
 
   writeValue(files: File[] | null): void {
     this.releasePreviews(this.uploads());

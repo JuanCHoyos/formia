@@ -1,30 +1,29 @@
-import { isDeepStrictEqual } from "node:util";
+import { isDeepStrictEqual } from 'node:util';
 
-import { FormModel, type Form } from "@formly/core/data/models/form";
+import { FormModel, type Form } from '@formly/core/data/models/form';
 import {
   FormVersionModel,
   replaceValue,
   type FormVersion,
-} from "@formly/core/data/models/form-version";
+} from '@formly/core/data/models/form-version';
 import {
   MAX_PREVIOUS_FORM_VERSIONS,
   type CreateFormInput,
   type UpdateFormInput,
-} from "@formly/core/schemas/form";
+} from '@formly/core/schemas/form';
 
 /** Newest versions of a form first; the draft, when present, is always the newest. */
 const VERSIONS_PAGE_SIZE = MAX_PREVIOUS_FORM_VERSIONS + 2;
 
 export async function createForm(ownerId: string, input: CreateFormInput) {
-  const { id, title, isPublic, allowMultipleSubmissions, maxSubmissionsPerUser, schema } =
-    input;
+  const { id, title, isPublic, allowMultipleSubmissions, maxSubmissionsPerUser, schema } = input;
   const createdAt = Date.now();
 
   const form = await FormModel.put({
     ...(id ? { id } : {}),
     ownerId,
     createdAt,
-    _action: "CREATE",
+    _action: 'CREATE',
     _createdAt: new Date(),
   });
 
@@ -32,14 +31,14 @@ export async function createForm(ownerId: string, input: CreateFormInput) {
     await FormVersionModel.put({
       formId: form.id,
       version: 1,
-      status: "draft",
+      status: 'draft',
       title,
       isPublic,
       allowMultipleSubmissions,
       maxSubmissionsPerUser,
       schema,
       createdAt,
-      _action: "CREATE",
+      _action: 'CREATE',
       _createdAt: new Date(),
     });
   } catch (error) {
@@ -56,19 +55,19 @@ export function getFormById(id: string) {
 
 function getRecentVersions(formId: string) {
   return FormVersionModel.query(
-    { index: "byForm", partition: formId },
+    { index: 'byForm', partition: formId },
     { reverse: true, limit: VERSIONS_PAGE_SIZE },
   );
 }
 
 /** Forms of an owner, each with the metadata of the version the creator is working on. */
 export async function getFormsByOwnerId(ownerId: string) {
-  const forms = await FormModel.query({ index: "byOwner", partition: ownerId });
+  const forms = await FormModel.query({ index: 'byOwner', partition: ownerId });
 
   const summaries = await Promise.all(
     forms.map(async (form) => {
       const [latest] = await FormVersionModel.query(
-        { index: "byForm", partition: form.id },
+        { index: 'byForm', partition: form.id },
         { reverse: true, limit: 1 },
       );
 
@@ -93,10 +92,10 @@ export async function getFormDetail(form: Form) {
 
   return {
     ...form,
-    draft: versions.find(({ status }) => status === "draft") ?? null,
+    draft: versions.find(({ status }) => status === 'draft') ?? null,
     published: versions.find(({ id }) => id === form.publishedVersionId) ?? null,
     versions: versions
-      .filter(({ status }) => status === "published")
+      .filter(({ status }) => status === 'published')
       .sort((a, b) => a.version - b.version)
       .slice(-(MAX_PREVIOUS_FORM_VERSIONS + 1)),
   };
@@ -114,27 +113,27 @@ export async function getPublishedVersionByFormId(formId: string) {
 /** Returns the form's draft, creating it as an independent copy of the latest version if missing. */
 async function getOrCreateDraft(form: Form): Promise<FormVersion> {
   const versions = await getRecentVersions(form.id);
-  const existing = versions.find(({ status }) => status === "draft");
+  const existing = versions.find(({ status }) => status === 'draft');
   if (existing) {
     return existing;
   }
 
   const base = versions.find(({ id }) => id === form.publishedVersionId) ?? versions[0];
   if (!base) {
-    throw new Error("The form has no version to create a draft from.");
+    throw new Error('The form has no version to create a draft from.');
   }
 
   return FormVersionModel.put({
     formId: form.id,
     version: base.version + 1,
-    status: "draft",
+    status: 'draft',
     title: base.title,
     isPublic: base.isPublic,
     allowMultipleSubmissions: base.allowMultipleSubmissions,
     maxSubmissionsPerUser: base.maxSubmissionsPerUser,
     schema: structuredClone(base.schema),
     createdAt: Date.now(),
-    _action: "CREATE",
+    _action: 'CREATE',
     _createdAt: new Date(),
   });
 }
@@ -142,11 +141,11 @@ async function getOrCreateDraft(form: Form): Promise<FormVersion> {
 type FormDetail = Awaited<ReturnType<typeof getFormDetail>>;
 
 const CONTENT_KEYS = [
-  "title",
-  "isPublic",
-  "allowMultipleSubmissions",
-  "maxSubmissionsPerUser",
-  "schema",
+  'title',
+  'isPublic',
+  'allowMultipleSubmissions',
+  'maxSubmissionsPerUser',
+  'schema',
 ] as const;
 
 const hasSameContent = (a: FormVersion, b: FormVersion) =>
@@ -160,7 +159,7 @@ async function dropDraft(detail: FormDetail): Promise<FormDetail> {
 
   await FormVersionModel.delete(
     { id: detail.draft.id },
-    { condition: { attr: "status", eq: "draft" } },
+    { condition: { attr: 'status', eq: 'draft' } },
   );
   return { ...detail, draft: null };
 }
@@ -181,10 +180,10 @@ export async function updateForm(form: Form, input: UpdateFormInput) {
       ...fields,
       ...(schema ? { schema: replaceValue(schema) } : {}),
       id: draft.id,
-      _action: "UPDATE",
+      _action: 'UPDATE',
       _updatedAt: new Date(),
     },
-    { condition: { attr: "status", eq: "draft" } },
+    { condition: { attr: 'status', eq: 'draft' } },
   );
 
   // A draft that went back to the published content is not a change: drop it.
@@ -196,9 +195,7 @@ export async function updateForm(form: Form, input: UpdateFormInput) {
 
 /** Publishes the draft: it becomes immutable and the form points to it. */
 export async function publishForm(form: Form) {
-  const draft = (await getRecentVersions(form.id)).find(
-    ({ status }) => status === "draft",
-  );
+  const draft = (await getRecentVersions(form.id)).find(({ status }) => status === 'draft');
   if (!draft) {
     return getFormDetail(form);
   }
@@ -206,18 +203,18 @@ export async function publishForm(form: Form) {
   await FormVersionModel.update(
     {
       id: draft.id,
-      status: "published",
+      status: 'published',
       publishedAt: Date.now(),
-      _action: "UPDATE",
+      _action: 'UPDATE',
       _updatedAt: new Date(),
     },
-    { condition: { attr: "status", eq: "draft" } },
+    { condition: { attr: 'status', eq: 'draft' } },
   );
 
   await FormModel.update({
     id: form.id,
     publishedVersionId: draft.id,
-    _action: "UPDATE",
+    _action: 'UPDATE',
     _updatedAt: new Date(),
   });
 

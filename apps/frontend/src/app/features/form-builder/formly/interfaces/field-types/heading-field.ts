@@ -23,8 +23,5 @@ export const HeadingFieldTypeSchema = z.object({
 export type HeadingFieldTypeSchemaType = z.infer<typeof HeadingFieldTypeSchema>;
 export type HeadingFieldProps = HeadingFieldTypeSchemaType['props'];
 
-export type HeadingFieldTypeConfig = Omit<
-  FieldTypeConfig<HeadingFieldProps>,
-  OmitBaseConfig
-> &
+export type HeadingFieldTypeConfig = Omit<FieldTypeConfig<HeadingFieldProps>, OmitBaseConfig> &
   HeadingFieldTypeSchemaType;

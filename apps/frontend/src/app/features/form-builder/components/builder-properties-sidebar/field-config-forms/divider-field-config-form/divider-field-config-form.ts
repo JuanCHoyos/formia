@@ -5,9 +5,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 
-import type {
-  DividerFieldProps,
-} from '@/app/features/form-builder/formly/interfaces/field-types';
+import type { DividerFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
 
 type DividerFieldSettings = Omit<DividerFieldProps, 'text'> & { text: string };
 
@@ -33,16 +31,16 @@ export class DividerFieldConfigForm implements OnInit {
 
   readonly alignmentOptions = computed(() =>
     this.dividerFieldSettings().layout === 'horizontal'
-      ? [
+      ? ([
           { label: 'formBuilder.properties.divider.alignment.left', value: 'left' },
           { label: 'formBuilder.properties.divider.alignment.center', value: 'center' },
           { label: 'formBuilder.properties.divider.alignment.right', value: 'right' },
-        ] satisfies { label: string; value: DividerFieldProps['align'] }[]
-      : [
+        ] satisfies { label: string; value: DividerFieldProps['align'] }[])
+      : ([
           { label: 'formBuilder.properties.divider.alignment.top', value: 'top' },
           { label: 'formBuilder.properties.divider.alignment.center', value: 'center' },
           { label: 'formBuilder.properties.divider.alignment.bottom', value: 'bottom' },
-        ] satisfies { label: string; value: DividerFieldProps['align'] }[],
+        ] satisfies { label: string; value: DividerFieldProps['align'] }[]),
   );
 
   readonly dividerFieldSettings = signal<DividerFieldSettings>({

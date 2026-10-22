@@ -4,9 +4,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { CommonFieldConfigForm } from '../common-field-config-form/common-field-config-form';
-import type {
-  SelectFieldProps,
-} from '@/app/features/form-builder/formly/interfaces/field-types';
+import type { SelectFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
 import { form, FormField, validate } from '@angular/forms/signals';
 import { MessageModule } from 'primeng/message';
 import { OptionEditor } from '@/app/ui/components/option-editor/option-editor';

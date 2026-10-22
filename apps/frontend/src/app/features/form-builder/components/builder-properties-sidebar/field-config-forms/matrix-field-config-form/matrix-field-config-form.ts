@@ -5,9 +5,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { SelectModule } from 'primeng/select';
 
 import { CommonFieldConfigForm } from '../common-field-config-form/common-field-config-form';
-import type {
-  MatrixFieldProps,
-} from '@/app/features/form-builder/formly/interfaces/field-types';
+import type { MatrixFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
 import { OptionEditor } from '@/app/ui/components/option-editor/option-editor';
 
 @Component({

@@ -15,9 +15,6 @@ export type CheckboxFieldTypeSchemaType = z.infer<typeof CheckboxFieldTypeSchema
 export type CheckboxFieldProps = CheckboxFieldTypeSchemaType['props'];
 export type CheckboxFieldPropsForm = Required<CheckboxFieldProps>;
 
-export type CheckboxFieldTypeConfig = Omit<
-  FieldTypeConfig<CheckboxFieldProps>,
-  OmitBaseConfig
-> &
+export type CheckboxFieldTypeConfig = Omit<FieldTypeConfig<CheckboxFieldProps>, OmitBaseConfig> &
   BaseField &
   CheckboxFieldTypeSchemaType;

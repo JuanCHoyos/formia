@@ -5,9 +5,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { AccordionModule } from 'primeng/accordion';
 
 import { CommonFieldConfigForm } from '../common-field-config-form/common-field-config-form';
-import type {
-  TextareaFieldProps,
-} from '@/app/features/form-builder/formly/interfaces/field-types';
+import type { TextareaFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
 import { disabled, form, FormField, max, min, required, validate } from '@angular/forms/signals';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { MessageModule } from 'primeng/message';

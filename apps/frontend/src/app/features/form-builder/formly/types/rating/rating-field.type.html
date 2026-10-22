@@ -1,11 +1,7 @@
 <div class="max-w-fit flex flex-col gap-2">
   @switch (props.type) {
     @case ('star') {
-      <p-rating
-        [formControl]="formControl"
-        [allowHalf]="props.allowHalf"
-        [stars]="props.stars"
-      />
+      <p-rating [formControl]="formControl" [allowHalf]="props.allowHalf" [stars]="props.stars" />
     }
 
     @case ('number') {
@@ -21,7 +17,6 @@
         }
       </div>
     }
-
   }
 
   <div class="flex items-center justify-between">

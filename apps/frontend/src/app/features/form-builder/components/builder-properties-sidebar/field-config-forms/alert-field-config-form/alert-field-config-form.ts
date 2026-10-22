@@ -6,9 +6,7 @@ import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 
 import { Checkbox } from '@/app/ui/components/checkbox/checkbox';
-import type {
-  AlertFieldProps,
-} from '@/app/features/form-builder/formly/interfaces/field-types';
+import type { AlertFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
 
 type AlertFieldSettings = Omit<AlertFieldProps, 'size' | 'closable'> & {
   size: 'default' | 'small' | 'large';

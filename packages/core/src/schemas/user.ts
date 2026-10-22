@@ -1,6 +1,6 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { AuthProviderSchema, UserRoleSchema } from "./common";
+import { AuthProviderSchema, UserRoleSchema } from './common';
 
 const userFields = {
   fullName: z.string().trim().min(1),
@@ -15,8 +15,8 @@ export const CreateUserSchema = z
     termsAccepted: z.boolean().default(true),
     termsAcceptedAt: z.date(),
     cognitoSub: z.string().min(1),
-    roles: userFields.roles.default(["FORM_CREATOR"]),
-    authProvider: AuthProviderSchema.default("SYSTEM"),
+    roles: userFields.roles.default(['FORM_CREATOR']),
+    authProvider: AuthProviderSchema.default('SYSTEM'),
   })
   .strict();
 
@@ -39,7 +39,7 @@ export const UpdateUserSchema = z
   })
   .strict()
   .refine((value) => Object.values(value).some((field) => field !== undefined), {
-    error: "At least one field must be provided.",
+    error: 'At least one field must be provided.',
   });
 
 export type CreateUserInput = z.infer<typeof CreateUserSchema>;

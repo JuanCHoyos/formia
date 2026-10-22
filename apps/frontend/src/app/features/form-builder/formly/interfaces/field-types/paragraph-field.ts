@@ -13,8 +13,5 @@ export const ParagraphFieldTypeSchema = z.object({
 export type ParagraphFieldTypeSchemaType = z.infer<typeof ParagraphFieldTypeSchema>;
 export type ParagraphFieldProps = ParagraphFieldTypeSchemaType['props'];
 
-export type ParagraphFieldTypeConfig = Omit<
-  FieldTypeConfig<ParagraphFieldProps>,
-  OmitBaseConfig
-> &
+export type ParagraphFieldTypeConfig = Omit<FieldTypeConfig<ParagraphFieldProps>, OmitBaseConfig> &
   ParagraphFieldTypeSchemaType;

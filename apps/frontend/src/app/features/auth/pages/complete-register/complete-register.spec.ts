@@ -46,7 +46,10 @@ describe('CompleteRegister', () => {
   };
 
   it('offers the creator and respondent roles', () => {
-    expect(component.roleOptions().map((option) => option.value)).toEqual(['FORM_CREATOR', 'FORM_RESPONDENT']);
+    expect(component.roleOptions().map((option) => option.value)).toEqual([
+      'FORM_CREATOR',
+      'FORM_RESPONDENT',
+    ]);
   });
 
   it.each([

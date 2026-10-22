@@ -125,7 +125,9 @@ describe('Register', () => {
       const element = await render();
 
       expect(element.textContent).toContain('auth.register.title');
-      expect(query(element, 'a[href="/auth/login"]').textContent).toContain('auth.register.loginLink');
+      expect(query(element, 'a[href="/auth/login"]').textContent).toContain(
+        'auth.register.loginLink',
+      );
     });
 
     it('binds the inputs and enables submit once the form is valid', async () => {

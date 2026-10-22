@@ -1,5 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { provideRouter, Router, type ActivatedRouteSnapshot, type RouterStateSnapshot, type UrlTree } from '@angular/router';
+import {
+  provideRouter,
+  Router,
+  type ActivatedRouteSnapshot,
+  type RouterStateSnapshot,
+  type UrlTree,
+} from '@angular/router';
 import { Session, type SessionStatus } from '../session';
 import { authenticatedGuard } from './authenticated';
 import { unauthenticatedGuard } from './unauthenticated';

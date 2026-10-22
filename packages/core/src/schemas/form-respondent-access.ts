@@ -1,6 +1,6 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { IdSchema } from "./common";
+import { IdSchema } from './common';
 
 const formRespondentAccessFields = {
   email: z.email(),
@@ -19,13 +19,9 @@ export const UpdateFormRespondentAccessSchema = z
   })
   .strict()
   .refine((value) => Object.values(value).some((field) => field !== undefined), {
-    error: "At least one field must be provided.",
+    error: 'At least one field must be provided.',
   });
 
-export type CreateFormRespondentAccessInput = z.infer<
-  typeof CreateFormRespondentAccessSchema
->;
+export type CreateFormRespondentAccessInput = z.infer<typeof CreateFormRespondentAccessSchema>;
 
-export type UpdateFormRespondentAccessInput = z.infer<
-  typeof UpdateFormRespondentAccessSchema
->;
+export type UpdateFormRespondentAccessInput = z.infer<typeof UpdateFormRespondentAccessSchema>;

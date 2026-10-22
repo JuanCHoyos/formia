@@ -1,34 +1,33 @@
-import { Elysia } from "elysia";
+import { Elysia } from 'elysia';
 
-import { createUser, toUserProfile } from "./users.service";
-import { CreateUserProfileSchema } from "@formly/core/schemas";
-import { authenticatedWithUser, authenticatedWithCognito } from "../../middleware/authenticated";
-import { ok } from "../../http/responses";
+import { createUser, toUserProfile } from './users.service';
+import { CreateUserProfileSchema } from '@formly/core/schemas';
+import { authenticatedWithUser, authenticatedWithCognito } from '../../middleware/authenticated';
+import { ok } from '../../http/responses';
 
-
-
-export const usersRouter = new Elysia({ prefix: "/users" })
+export const usersRouter = new Elysia({ prefix: '/users' })
   .use(
     new Elysia()
       .use(authenticatedWithUser)
       .get('/me', ({ user }) => ok('User retrieved successfully', toUserProfile(user))),
   )
   .use(
-    new Elysia()
-      .use(authenticatedWithCognito)
-      .post("/", async ({ body, cognito, status }) => {
+    new Elysia().use(authenticatedWithCognito).post(
+      '/',
+      async ({ body, cognito, status }) => {
         const user = await createUser({
           cognitoSub: cognito.sub,
           fullName: cognito.name,
           email: cognito.email,
           roles: body.roles,
           termsAccepted: body.termsAccepted,
-          authProvider: cognito.provider ?? "SYSTEM",
-          termsAcceptedAt: new Date()
+          authProvider: cognito.provider ?? 'SYSTEM',
+          termsAcceptedAt: new Date(),
         });
         return status(201, ok('User created successfully', toUserProfile(user)));
-      }, {
-        body: CreateUserProfileSchema
-      }))
-
-
+      },
+      {
+        body: CreateUserProfileSchema,
+      },
+    ),
+  );

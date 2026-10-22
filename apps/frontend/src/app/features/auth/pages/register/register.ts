@@ -17,7 +17,18 @@ import { getCognitoErrorNotification } from '@/app/core/auth/cognito-error-notif
 
 @Component({
   selector: 'app-register',
-  imports: [RouterLink, FormField, Button, Password, InputTextModule, SelectModule, CheckboxModule, MessageModule, AuthHeader, TranslatePipe],
+  imports: [
+    RouterLink,
+    FormField,
+    Button,
+    Password,
+    InputTextModule,
+    SelectModule,
+    CheckboxModule,
+    MessageModule,
+    AuthHeader,
+    TranslatePipe,
+  ],
   templateUrl: './register.html',
 })
 export class Register {

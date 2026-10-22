@@ -24,7 +24,7 @@ type CommonFieldConfigTree = Pick<
     TextareaModule,
     ToggleSwitchModule,
     TranslatePipe,
-    Checkbox
+    Checkbox,
   ],
 })
 export class CommonFieldConfigForm {

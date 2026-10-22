@@ -7,40 +7,37 @@ const apiUrl = new URL(environment.API_URL);
 const apiPath = apiUrl.pathname.replace(/\/+$/, '');
 
 const isApiRequest = (url: string): boolean => {
-    const requestUrl = new URL(url, apiUrl);
+  const requestUrl = new URL(url, apiUrl);
 
-    return (
-        requestUrl.origin === apiUrl.origin &&
-        (requestUrl.pathname === apiPath ||
-            requestUrl.pathname.startsWith(`${apiPath}/`))
-    );
-}
+  return (
+    requestUrl.origin === apiUrl.origin &&
+    (requestUrl.pathname === apiPath || requestUrl.pathname.startsWith(`${apiPath}/`))
+  );
+};
 
 const authenticatedFetch: typeof fetch = async (input, init) => {
-    const request = new Request(input, init);
+  const request = new Request(input, init);
 
-    if (!isApiRequest(request.url)) {
-        return fetch(request);
-    }
+  if (!isApiRequest(request.url)) {
+    return fetch(request);
+  }
 
-    const session = await fetchAuthSession();
-    const accessToken = session.tokens?.accessToken;
-    const idToken = session.tokens?.idToken;
+  const session = await fetchAuthSession();
+  const accessToken = session.tokens?.accessToken;
+  const idToken = session.tokens?.idToken;
 
-    if (!accessToken || !idToken) {
-        throw new Error(
-            'An authenticated Cognito session is required.',
-        );
-    }
+  if (!accessToken || !idToken) {
+    throw new Error('An authenticated Cognito session is required.');
+  }
 
-    const headers = new Headers(request.headers);
+  const headers = new Headers(request.headers);
 
-    headers.set('Authorization', `Bearer ${accessToken.toString()}`);
-    headers.set('x-id-token', idToken.toString());
+  headers.set('Authorization', `Bearer ${accessToken.toString()}`);
+  headers.set('x-id-token', idToken.toString());
 
-    return fetch(new Request(request, { headers }));
+  return fetch(new Request(request, { headers }));
 };
 
 export const apiClient = treaty<App>(apiUrl.origin, {
-    fetcher: authenticatedFetch,
+  fetcher: authenticatedFetch,
 }).api.v1;

@@ -2,7 +2,12 @@
   @if (isMobile() && open()) {
     <p-sidebar-backdrop />
   }
-  <p-sidebar id="main-sidebar" [collapsible]="isMobile() ? 'offcanvas' : 'icon'" [overlay]="isMobile()" [(open)]="open">
+  <p-sidebar
+    id="main-sidebar"
+    [collapsible]="isMobile() ? 'offcanvas' : 'icon'"
+    [overlay]="isMobile()"
+    [(open)]="open"
+  >
     <p-sidebar-spacer />
     <p-sidebar-aside>
       <p-sidebar-panel>
@@ -10,7 +15,10 @@
           <p-sidebar-menu>
             <p-sidebar-menu-item>
               <a pSidebarMenuButton routerLink="/dashboard/forms" class="p-1!">
-                <span class="flex size-6 shrink-0 items-center justify-center rounded-md bg-primary text-xs font-bold leading-none text-white">F</span>
+                <span
+                  class="flex size-6 shrink-0 items-center justify-center rounded-md bg-primary text-xs font-bold leading-none text-white"
+                  >F</span
+                >
                 <span class="text-sm font-semibold">Formia</span>
               </a>
             </p-sidebar-menu-item>
@@ -42,13 +50,21 @@
           <p-sidebar-menu>
             <p-sidebar-menu-item>
               <button pSidebarMenuButton type="button" class="p-1!">
-                <p-avatar [label]="userStore.initials()" shape="circle" class="size-6 shrink-0 text-xs" />
+                <p-avatar
+                  [label]="userStore.initials()"
+                  shape="circle"
+                  class="size-6 shrink-0 text-xs"
+                />
                 <span class="truncate">{{ userStore.user()?.fullName }}</span>
               </button>
             </p-sidebar-menu-item>
           </p-sidebar-menu>
         </p-sidebar-footer>
-        <button pSidebarRail type="button" [attr.aria-label]="'dashboard.nav.toggleSidebar' | translate"></button>
+        <button
+          pSidebarRail
+          type="button"
+          [attr.aria-label]="'dashboard.nav.toggleSidebar' | translate"
+        ></button>
       </p-sidebar-panel>
     </p-sidebar-aside>
   </p-sidebar>

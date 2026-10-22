@@ -1,11 +1,10 @@
 import { Component, input, model, output } from '@angular/core';
-import { FormValueControl,  } from '@angular/forms/signals';
+import { FormValueControl } from '@angular/forms/signals';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { APP_ICONS } from '../../constants/icons';
 import type { OptionCardSelectorOption } from '../../types/option-card-selector-option';
 import { CommonModule } from '@angular/common';
 import { CheckboxModule } from 'primeng/checkbox';
-
 
 @Component({
   selector: 'app-option-card-selector',
@@ -20,8 +19,6 @@ export class OptionCardSelector<T> implements FormValueControl<T[]> {
   readonly disabled = input<boolean>(false);
   readonly touch = output<void>();
 
-
-
   isSelected(value: T): boolean {
     return this.value().includes(value);
   }
@@ -31,9 +28,8 @@ export class OptionCardSelector<T> implements FormValueControl<T[]> {
     const selectedValues = this.value();
     this.value.set(
       this.isSelected(value)
-      ? selectedValues.filter((selectedValue) => selectedValue !== value)
-      : [...selectedValues, value],
+        ? selectedValues.filter((selectedValue) => selectedValue !== value)
+        : [...selectedValues, value],
     );
-
   }
 }

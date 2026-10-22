@@ -52,7 +52,6 @@ import {
 
 import { svglGoogle, svglFacebook, svglMicrosoft } from '@ng-icons/svgl';
 
-
 export const APP_ICONS = {
   lucideAlertOctagon,
   lucideAlertTriangle,

@@ -1,37 +1,75 @@
 <main class="min-h-screen bg-[#eef2f6] text-[#18212b]">
   <div class="grid min-h-screen lg:grid-cols-[minmax(320px,0.9fr)_minmax(520px,1.1fr)]">
     <section
-      class="relative hidden overflow-hidden bg-[#263746] p-10 text-[#f7fafc] lg:flex lg:flex-col lg:justify-between">
-      <div class="absolute -left-28 top-1/4 size-136 rounded-full bg-[#f26b4f]/14 blur-[110px]"></div>
-      <div class="absolute -right-32 bottom-0 size-112 rounded-full bg-[#d5a84a]/16 blur-[100px]"></div>
+      class="relative hidden overflow-hidden bg-[#263746] p-10 text-[#f7fafc] lg:flex lg:flex-col lg:justify-between"
+    >
+      <div
+        class="absolute -left-28 top-1/4 size-136 rounded-full bg-[#f26b4f]/14 blur-[110px]"
+      ></div>
+      <div
+        class="absolute -right-32 bottom-0 size-112 rounded-full bg-[#d5a84a]/16 blur-[100px]"
+      ></div>
       <div class="relative z-10">
         <div class="flex items-center gap-3">
           <div
-            class="grid size-10 place-items-center rounded-lg bg-[#f26b4f] text-white shadow-[0_8px_24px_-10px_rgba(242,107,79,0.7)]">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              class="lucide lucide-shapes size-5" aria-hidden="true">
-              <path d="M8.3 10a.7.7 0 0 1-.626-1.079L11.4 3a.7.7 0 0 1 1.198-.043L16.3 8.9a.7.7 0 0 1-.572 1.1Z"></path>
+            class="grid size-10 place-items-center rounded-lg bg-[#f26b4f] text-white shadow-[0_8px_24px_-10px_rgba(242,107,79,0.7)]"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-shapes size-5"
+              aria-hidden="true"
+            >
+              <path
+                d="M8.3 10a.7.7 0 0 1-.626-1.079L11.4 3a.7.7 0 0 1 1.198-.043L16.3 8.9a.7.7 0 0 1-.572 1.1Z"
+              ></path>
               <rect x="3" y="14" width="7" height="7" rx="1"></rect>
               <circle cx="17.5" cy="17.5" r="3.5"></circle>
             </svg>
-          </div><span class="text-lg font-semibold tracking-[-0.04em]">Formia</span>
+          </div>
+          <span class="text-lg font-semibold tracking-[-0.04em]">Formia</span>
         </div>
       </div>
       <div class="relative z-10 max-w-md pb-8">
-        <p class="mb-5 text-xs font-semibold uppercase tracking-[0.24em] text-[#f4b183]">{{ 'auth.layout.tagline' | translate }}</p>
-        <h2 class="text-5xl font-semibold leading-[1.03] tracking-[-0.055em]">{{ 'auth.layout.headline' | translate }}</h2>
-        <p class="mt-6 max-w-sm text-sm leading-6 text-[#d8e1e8]">{{ 'auth.layout.description' | translate }}</p>
-        <div class="mt-10 flex items-center gap-3 text-xs font-medium text-[#403b36]"><span
-            class="grid size-7 place-items-center rounded-full border border-[#211f1c]/15 bg-[#211f1c]/5"><svg
-              xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              class="lucide lucide-shield-check size-3.5" aria-hidden="true">
+        <p class="mb-5 text-xs font-semibold uppercase tracking-[0.24em] text-[#f4b183]">
+          {{ 'auth.layout.tagline' | translate }}
+        </p>
+        <h2 class="text-5xl font-semibold leading-[1.03] tracking-[-0.055em]">
+          {{ 'auth.layout.headline' | translate }}
+        </h2>
+        <p class="mt-6 max-w-sm text-sm leading-6 text-[#d8e1e8]">
+          {{ 'auth.layout.description' | translate }}
+        </p>
+        <div class="mt-10 flex items-center gap-3 text-xs font-medium text-[#403b36]">
+          <span
+            class="grid size-7 place-items-center rounded-full border border-[#211f1c]/15 bg-[#211f1c]/5"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-shield-check size-3.5"
+              aria-hidden="true"
+            >
               <path
-                d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z">
-              </path>
-              <path d="m9 12 2 2 4-4"></path>
-            </svg></span> {{ 'auth.layout.security' | translate }}</div>
+                d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
+              ></path>
+              <path d="m9 12 2 2 4-4"></path></svg
+          ></span>
+          {{ 'auth.layout.security' | translate }}
+        </div>
       </div>
       <p class="relative z-10 text-xs text-[#6d665e]">{{ 'auth.layout.copyright' | translate }}</p>
     </section>

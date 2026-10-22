@@ -50,19 +50,25 @@ const COGNITO_ERROR_NOTIFICATIONS: Readonly<Record<string, CognitoErrorRule>> = 
     defaultNotification: createNotification('auth.cognitoErrors.invalidCredentials'),
     messages: {
       'incorrect username or password': createNotification('auth.cognitoErrors.invalidCredentials'),
-      'password attempts exceeded': createNotification('auth.cognitoErrors.passwordAttemptsExceeded'),
+      'password attempts exceeded': createNotification(
+        'auth.cognitoErrors.passwordAttemptsExceeded',
+      ),
     },
     contexts: {
       passwordRecovery: {
         defaultNotification: createNotification('auth.cognitoErrors.passwordRecoveryFailed'),
         messages: {
-          'password attempts exceeded': createNotification('auth.cognitoErrors.passwordAttemptsExceeded'),
+          'password attempts exceeded': createNotification(
+            'auth.cognitoErrors.passwordAttemptsExceeded',
+          ),
         },
       },
       signUpConfirmation: {
         defaultNotification: createNotification('auth.cognitoErrors.invalidCredentials'),
         messages: {
-          'user cannot be confirmed. current status is confirmed': createNotification('auth.cognitoErrors.alreadyConfirmed'),
+          'user cannot be confirmed. current status is confirmed': createNotification(
+            'auth.cognitoErrors.alreadyConfirmed',
+          ),
         },
       },
     },
@@ -82,13 +88,17 @@ const COGNITO_ERROR_NOTIFICATIONS: Readonly<Record<string, CognitoErrorRule>> = 
   UserNotFoundException: {
     defaultNotification: createNotification('auth.cognitoErrors.invalidCredentials'),
     messages: {
-      'username/client id combination not found': createNotification('auth.cognitoErrors.invalidCredentials'),
+      'username/client id combination not found': createNotification(
+        'auth.cognitoErrors.invalidCredentials',
+      ),
     },
     contexts: {
       passwordRecovery: {
         defaultNotification: createNotification('auth.cognitoErrors.passwordRecoveryFailed'),
         messages: {
-          'username/client id combination not found': createNotification('auth.cognitoErrors.passwordRecoveryFailed'),
+          'username/client id combination not found': createNotification(
+            'auth.cognitoErrors.passwordRecoveryFailed',
+          ),
         },
       },
     },
@@ -99,7 +109,7 @@ const COGNITO_ERROR_NOTIFICATIONS: Readonly<Record<string, CognitoErrorRule>> = 
 };
 
 const asErrorRecord = (error: unknown): Record<string, unknown> =>
-  typeof error === 'object' && error !== null ? error as Record<string, unknown> : {};
+  typeof error === 'object' && error !== null ? (error as Record<string, unknown>) : {};
 
 const isString = (value: unknown): value is string => typeof value === 'string';
 
@@ -131,9 +141,11 @@ export const getCognitoErrorNotification = (
   const contextRule = context ? rule?.contexts?.[context] : undefined;
   const message = isString(record['message']) ? record['message'].toLowerCase() : '';
 
-  return getMatchingNotification(contextRule?.messages, message)
-    ?? contextRule?.defaultNotification
-    ?? getMatchingNotification(rule?.messages, message)
-    ?? rule?.defaultNotification
-    ?? DEFAULT_NOTIFICATION;
+  return (
+    getMatchingNotification(contextRule?.messages, message) ??
+    contextRule?.defaultNotification ??
+    getMatchingNotification(rule?.messages, message) ??
+    rule?.defaultNotification ??
+    DEFAULT_NOTIFICATION
+  );
 };

@@ -13,10 +13,19 @@ import { AuthApi } from '@/app/core/auth/auth-api';
 import { Notifications } from '@/app/ui/services/notifications';
 import { getCognitoErrorNotification } from '@/app/core/auth/cognito-error-notifications';
 
-
 @Component({
   selector: 'app-login',
-  imports: [RouterLink, FormField, Button, Password, InputTextModule, DividerModule, AuthHeader, SocialLoginButtons, TranslatePipe],
+  imports: [
+    RouterLink,
+    FormField,
+    Button,
+    Password,
+    InputTextModule,
+    DividerModule,
+    AuthHeader,
+    SocialLoginButtons,
+    TranslatePipe,
+  ],
   templateUrl: './login.html',
 })
 export class Login {
@@ -30,7 +39,7 @@ export class Login {
     email(path.email);
     required(path.email);
     required(path.password);
-  },);
+  });
 
   async onSubmit(event: Event): Promise<void> {
     event.preventDefault();

@@ -37,11 +37,11 @@ export class CompleteRegister {
     },
   ]);
 
-  userRegistration = signal<{ roles: UserRole[], terms: boolean }>({ roles: [], terms: false });
+  userRegistration = signal<{ roles: UserRole[]; terms: boolean }>({ roles: [], terms: false });
 
   readonly registrationForm = form(this.userRegistration, (path) => {
-    minLength(path.roles, 1)
-    required(path.terms)
+    minLength(path.roles, 1);
+    required(path.terms);
   });
 
   readonly isSubmitting = signal(false);
@@ -72,10 +72,7 @@ export class CompleteRegister {
       );
       await this.router.navigateByUrl('/dashboard/forms');
     } catch {
-      this.notifications.error(
-        'auth.completeRegister.errorTitle',
-        'auth.completeRegister.error',
-      );
+      this.notifications.error('auth.completeRegister.errorTitle', 'auth.completeRegister.error');
     } finally {
       this.isSubmitting.set(false);
     }

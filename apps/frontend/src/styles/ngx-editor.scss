@@ -4,16 +4,16 @@ ngx-editor .NgxEditor__Content {
   overflow-wrap: anywhere;
 }
 
-.NgxEditor__Wrapper, .NgxEditor__Wrapper .NgxEditor__MenuBar {
+.NgxEditor__Wrapper,
+.NgxEditor__Wrapper .NgxEditor__MenuBar {
   --ngx-editor-border-color: var(--p-form-field-border-color);
-  --ngx-editor-wrapper-border-color: var(--p-form-field-border-color)
+  --ngx-editor-wrapper-border-color: var(--p-form-field-border-color);
 }
 
 .NgxEditor__Wrapper {
   border-radius: var(--p-inputtext-border-radius);
   overflow: hidden;
 }
-
 
 ngx-editor-menu svg {
   color: var(--p-text-color);
@@ -26,20 +26,21 @@ div.NgxEditor__HelpText.NgxEditor__HelpText--Error {
 }
 
 /* Menu */
-button.NgxEditor__MenuItem.NgxEditor__MenuItem--Active, .NgxEditor__MenuItem button.NgxEditor__MenuItem--Active {
-    background-color: var(--p-primary-color);
+button.NgxEditor__MenuItem.NgxEditor__MenuItem--Active,
+.NgxEditor__MenuItem button.NgxEditor__MenuItem--Active {
+  background-color: var(--p-primary-color);
 
-    svg {
-      color: var(--p-primary-contrast-color);
-    }
+  svg {
+    color: var(--p-primary-contrast-color);
+  }
 
-    &:hover {
-      background-color: var(--p-primary-hover-color);
-    }
+  &:hover {
+    background-color: var(--p-primary-hover-color);
+  }
 }
 
 div.NgxEditor__Seperator {
-  margin: 0 ;
+  margin: 0;
 }
 
 .NgxEditor__MenuBar {
@@ -93,8 +94,7 @@ div.NgxEditor__Seperator {
       }
 
       &:focus {
-        outline: var(--p-inputtext-focus-ring-width)
-          var(--p-inputtext-focus-ring-style)
+        outline: var(--p-inputtext-focus-ring-width) var(--p-inputtext-focus-ring-style)
           var(--p-inputtext-focus-ring-color);
         outline-offset: var(--p-inputtext-focus-ring-offset);
         border-color: var(--p-inputtext-focus-border-color);

@@ -9,7 +9,11 @@ vi.mock('aws-amplify/auth', () => ({
   }),
 }));
 
-const user: UserProfile = { fullName: 'Ada Lovelace', email: 'ada@example.com', roles: ['FORM_CREATOR'] };
+const user: UserProfile = {
+  fullName: 'Ada Lovelace',
+  email: 'ada@example.com',
+  roles: ['FORM_CREATOR'],
+};
 
 const jsonResponse = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } });

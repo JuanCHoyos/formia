@@ -12,7 +12,14 @@ import { FormBuilderSync } from '../../services/form-builder-sync';
 @Component({
   selector: 'app-builder-header',
   templateUrl: './builder-header.html',
-  imports: [Button, FormSettingsPopover, FormTitleEditor, PublishedVersionsMenu, SaveStatus, TranslatePipe],
+  imports: [
+    Button,
+    FormSettingsPopover,
+    FormTitleEditor,
+    PublishedVersionsMenu,
+    SaveStatus,
+    TranslatePipe,
+  ],
 })
 export class BuilderHeader {
   private readonly router = inject(Router);

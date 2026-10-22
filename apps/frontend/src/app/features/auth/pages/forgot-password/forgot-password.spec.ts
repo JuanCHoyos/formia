@@ -175,7 +175,9 @@ describe('ForgotPassword', () => {
       expect(element.textContent).toContain('auth.forgotPassword.description');
       expect(element.querySelector('#email')).not.toBeNull();
       expect(element.querySelector('p-inputotp')).toBeNull();
-      expect(query(element, 'a[href="/auth/login"]').textContent).toContain('auth.forgotPassword.loginLink');
+      expect(query(element, 'a[href="/auth/login"]').textContent).toContain(
+        'auth.forgotPassword.loginLink',
+      );
     });
 
     it('binds the email and requests the code through the form', async () => {

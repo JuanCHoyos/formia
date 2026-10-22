@@ -47,8 +47,8 @@ export class BuilderWorkspaceFormMove {
       items:
         'fieldGroup' in field && field.fieldGroup
           ? this.buildTreeItems(field.fieldGroup, level + 1).filter(
-            (item) => item.id !== this.dialogConfig.data.field.id,
-          )
+              (item) => item.id !== this.dialogConfig.data.field.id,
+            )
           : [],
     }));
   }

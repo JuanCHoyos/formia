@@ -25,7 +25,10 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
       const accessToken = session.tokens?.accessToken;
       const idToken = session.tokens?.idToken;
       if (!accessToken || !idToken) {
-        return throwError(() => new Error('An authenticated Cognito session with access and ID tokens is required.'));
+        return throwError(
+          () =>
+            new Error('An authenticated Cognito session with access and ID tokens is required.'),
+        );
       }
 
       request = request.clone({

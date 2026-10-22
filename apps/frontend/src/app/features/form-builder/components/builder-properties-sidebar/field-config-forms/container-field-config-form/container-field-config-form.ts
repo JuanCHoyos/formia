@@ -5,9 +5,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 
-import type {
-  ContainerFieldProps,
-} from '@/app/features/form-builder/formly/interfaces/field-types';
+import type { ContainerFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
 
 @Component({
   selector: 'app-container-field-config-form',

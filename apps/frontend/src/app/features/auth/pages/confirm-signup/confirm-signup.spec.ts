@@ -56,7 +56,10 @@ describe('ConfirmSignup', () => {
 
     await submit();
 
-    expect(authApi.confirmSignUpWithEmail).toHaveBeenCalledWith({ email: 'ada@example.com', code: '123456' });
+    expect(authApi.confirmSignUpWithEmail).toHaveBeenCalledWith({
+      email: 'ada@example.com',
+      code: '123456',
+    });
     expect(notifications.success).toHaveBeenCalledWith(
       'auth.notifications.accountConfirmed.title',
       'auth.notifications.accountConfirmed.detail',
@@ -100,7 +103,9 @@ describe('ConfirmSignup', () => {
 
       expect(element.textContent).toContain('auth.confirmSignup.title');
       expect(element.querySelector('p-inputotp')).not.toBeNull();
-      expect(query(element, 'a[href="/auth/login"]').textContent).toContain('auth.confirmSignup.loginLink');
+      expect(query(element, 'a[href="/auth/login"]').textContent).toContain(
+        'auth.confirmSignup.loginLink',
+      );
     });
 
     it('disables submit until the code is complete', async () => {

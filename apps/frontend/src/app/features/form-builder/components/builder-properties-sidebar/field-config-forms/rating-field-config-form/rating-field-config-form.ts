@@ -8,9 +8,7 @@ import { SelectModule } from 'primeng/select';
 
 import { CommonFieldConfigForm } from '../common-field-config-form/common-field-config-form';
 import { Checkbox } from '@/app/ui/components/checkbox/checkbox';
-import type {
-  RatingFieldProps,
-} from '@/app/features/form-builder/formly/interfaces/field-types';
+import type { RatingFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
 
 type RatingFieldSettings = {
   label: string;

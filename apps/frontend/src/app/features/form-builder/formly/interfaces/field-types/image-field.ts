@@ -14,8 +14,5 @@ export const ImageFieldTypeSchema = z.object({
 export type ImageFieldTypeSchemaType = z.infer<typeof ImageFieldTypeSchema>;
 export type ImageFieldProps = ImageFieldTypeSchemaType['props'];
 
-export type ImageFieldTypeConfig = Omit<
-  FieldTypeConfig<ImageFieldProps>,
-  OmitBaseConfig
-> &
+export type ImageFieldTypeConfig = Omit<FieldTypeConfig<ImageFieldProps>, OmitBaseConfig> &
   ImageFieldTypeSchemaType;

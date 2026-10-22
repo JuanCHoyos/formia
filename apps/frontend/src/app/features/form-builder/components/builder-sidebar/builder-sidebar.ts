@@ -75,7 +75,6 @@ export class BuilderSidebar {
   }
 
   onSort(event: TreeSortableItem<AppFormlyFieldConfig | FormPageContainer>): void {
-
     console.log(event);
     if (event.isPrincipal) {
       this.formBuilderStore.formTreeEditor.movePage(event.itemId, event.newIndex);

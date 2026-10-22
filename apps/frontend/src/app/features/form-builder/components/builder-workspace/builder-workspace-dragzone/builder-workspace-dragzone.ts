@@ -7,13 +7,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 @Component({
   selector: 'app-builder-workspace-dragzone',
   templateUrl: './builder-workspace-dragzone.html',
-  imports: [
-    CommonModule,
-    BuilderWorkspaceFormPage,
-    TranslatePipe,
-  ],
+  imports: [CommonModule, BuilderWorkspaceFormPage, TranslatePipe],
 })
 export class BuilderWorkspaceDragzone {
   readonly formBuilderStore = inject(FormBuilderStore);
-
 }

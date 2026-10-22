@@ -28,9 +28,6 @@ export const RatingFieldTypeSchema = z.object({
 export type RatingFieldTypeSchemaType = z.infer<typeof RatingFieldTypeSchema>;
 export type RatingFieldProps = RatingFieldTypeSchemaType['props'];
 
-export type RatingFieldTypeConfig = Omit<
-  FieldTypeConfig<RatingFieldProps>,
-  OmitBaseConfig
-> &
+export type RatingFieldTypeConfig = Omit<FieldTypeConfig<RatingFieldProps>, OmitBaseConfig> &
   BaseField &
   RatingFieldTypeSchemaType;

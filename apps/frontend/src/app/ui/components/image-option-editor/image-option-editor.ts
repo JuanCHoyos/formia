@@ -34,15 +34,11 @@ export class ImageOptionEditor {
   readonly inputId = input<string>(ulid());
   readonly sort = input<boolean>(false);
 
-  readonly value = model<SelectOptionImage[]>([
-    { label: '', value: '', image: '' },
-  ]);
+  readonly value = model<SelectOptionImage[]>([{ label: '', value: '', image: '' }]);
   readonly disabled = input<boolean>(false);
   readonly touch = output<void>();
   readonly gridTemplateColumns = computed(() =>
-    this.sort()
-      ? 'auto 1fr 1fr 1fr 28px'
-      : '1fr 1fr 1fr auto',
+    this.sort() ? 'auto 1fr 1fr 1fr 28px' : '1fr 1fr 1fr auto',
   );
 
   readonly optionEditorForm = form(this.value, (path) => {

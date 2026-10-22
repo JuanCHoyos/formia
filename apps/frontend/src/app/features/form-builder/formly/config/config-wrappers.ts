@@ -4,7 +4,6 @@ import { FormScrollWrapper } from '../wrappers/form-scroll/scroll.wrapper';
 import { FormStepsWrapper } from '../wrappers/form-steps/steps.wrapper';
 import { FormTabsWrapper } from '../wrappers/form-tabs/tabs.wrapper';
 
-
 export const fieldWrapperConfigurations = [
   { name: 'form-field', component: FormFieldWrapper },
   { name: 'form-steps', component: FormStepsWrapper },

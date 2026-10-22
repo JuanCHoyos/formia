@@ -1,7 +1,7 @@
 import {
   CognitoIdentityProviderClient,
   GetUserCommand,
-} from "@aws-sdk/client-cognito-identity-provider";
+} from '@aws-sdk/client-cognito-identity-provider';
 
 const cognito = new CognitoIdentityProviderClient({});
 

@@ -1,6 +1,6 @@
 packages:
-  - "apps/*"
-  - "packages/*"
+  - 'apps/*'
+  - 'packages/*'
 catalog:
   '@elysiajs/bearer': 1.4.4
   '@elysiajs/cors': 1.4.2

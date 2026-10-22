@@ -1,11 +1,11 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { FormContentSchema, IdSchema } from "./common";
+import { FormContentSchema, IdSchema } from './common';
 
 /** Previous published versions kept in addition to the current one. */
 export const MAX_PREVIOUS_FORM_VERSIONS = 5;
 
-export const FormVersionStatusSchema = z.enum(["draft", "published"]);
+export const FormVersionStatusSchema = z.enum(['draft', 'published']);
 
 const formVersionFields = {
   title: z.string().trim().min(3).optional(),
@@ -27,13 +27,11 @@ export const CreateFormSchema = z
   .strict()
   .refine(
     ({ allowMultipleSubmissions, maxSubmissionsPerUser }) =>
-      allowMultipleSubmissions
-        ? maxSubmissionsPerUser > 1
-        : maxSubmissionsPerUser === 1,
+      allowMultipleSubmissions ? maxSubmissionsPerUser > 1 : maxSubmissionsPerUser === 1,
     {
-      path: ["maxSubmissionsPerUser"],
+      path: ['maxSubmissionsPerUser'],
       error:
-        "Multiple submissions require a maximum greater than 1; otherwise the maximum must be 1.",
+        'Multiple submissions require a maximum greater than 1; otherwise the maximum must be 1.',
     },
   );
 
@@ -42,29 +40,22 @@ export const UpdateFormSchema = z
   .object(formVersionFields)
   .strict()
   .refine((value) => Object.values(value).some((field) => field !== undefined), {
-    error: "At least one field must be provided.",
+    error: 'At least one field must be provided.',
   })
   .refine(
     ({ allowMultipleSubmissions, maxSubmissionsPerUser }) => {
-      if (
-        allowMultipleSubmissions === undefined ||
-        maxSubmissionsPerUser === undefined
-      ) {
-        return (
-          allowMultipleSubmissions === undefined &&
-          maxSubmissionsPerUser === undefined
-        );
+      if (allowMultipleSubmissions === undefined || maxSubmissionsPerUser === undefined) {
+        return allowMultipleSubmissions === undefined && maxSubmissionsPerUser === undefined;
       }
 
-      return allowMultipleSubmissions
-        ? maxSubmissionsPerUser > 1
-        : maxSubmissionsPerUser === 1;
+      return allowMultipleSubmissions ? maxSubmissionsPerUser > 1 : maxSubmissionsPerUser === 1;
     },
     {
-      path: ["maxSubmissionsPerUser"],
+      path: ['maxSubmissionsPerUser'],
       error:
-        "Update allowMultipleSubmissions and maxSubmissionsPerUser together with consistent values.",
-  });
+        'Update allowMultipleSubmissions and maxSubmissionsPerUser together with consistent values.',
+    },
+  );
 
 export type CreateFormInput = z.infer<typeof CreateFormSchema>;
 

@@ -1,22 +1,18 @@
-import {
-  Entity,
-  type FormattedItem,
-  type ReadItemOptions,
-} from "dynamodb-toolbox/entity";
-import { s } from "dynamodb-toolbox/schema";
-import { Table } from "dynamodb-toolbox/table";
-import { Resource } from "sst";
+import { Entity, type FormattedItem, type ReadItemOptions } from 'dynamodb-toolbox/entity';
+import { s } from 'dynamodb-toolbox/schema';
+import { Table } from 'dynamodb-toolbox/table';
+import { Resource } from 'sst';
 
-import { documentClient } from "../client";
-import { createModel } from "../create-model";
-import { metadataSchema } from "./metadata";
+import { documentClient } from '../client';
+import { createModel } from '../create-model';
+import { metadataSchema } from './metadata';
 
 const formVersionResource = Resource as { FormVersion?: { name: string } };
 
 const schema = metadataSchema.and({
   formId: s.string().required(),
   version: s.number().required(),
-  status: s.string().enum("draft", "published").required(),
+  status: s.string().enum('draft', 'published').required(),
   title: s.string().required(),
   isPublic: s.boolean().default(false),
   allowMultipleSubmissions: s.boolean().default(false),
@@ -28,19 +24,19 @@ const schema = metadataSchema.and({
 
 export const table = new Table({
   documentClient,
-  name: formVersionResource.FormVersion?.name ?? "",
-  partitionKey: { name: "id", type: "string" },
+  name: formVersionResource.FormVersion?.name ?? '',
+  partitionKey: { name: 'id', type: 'string' },
   indexes: {
     byForm: {
-      type: "global",
-      partitionKey: { name: "formId", type: "string" },
-      sortKey: { name: "version", type: "number" },
+      type: 'global',
+      partitionKey: { name: 'formId', type: 'string' },
+      sortKey: { name: 'version', type: 'number' },
     },
   },
 });
 
 export const formVersionEntity = new Entity({
-  name: "FormVersion",
+  name: 'FormVersion',
   table,
   schema,
   timestamps: false,
@@ -48,13 +44,11 @@ export const formVersionEntity = new Entity({
 
 export const FormVersionModel = createModel(table, formVersionEntity);
 
-
-export { $set as replaceValue } from "dynamodb-toolbox/entity/actions/update";
+export { $set as replaceValue } from 'dynamodb-toolbox/entity/actions/update';
 
 export type FormVersionTable = typeof table;
 
 export type FormVersionEntity = typeof formVersionEntity;
 
-export type FormVersion<
-  OPTIONS extends ReadItemOptions<typeof formVersionEntity> = object,
-> = FormattedItem<typeof formVersionEntity, OPTIONS>;
+export type FormVersion<OPTIONS extends ReadItemOptions<typeof formVersionEntity> = object> =
+  FormattedItem<typeof formVersionEntity, OPTIONS>;

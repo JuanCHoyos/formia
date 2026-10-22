@@ -1,18 +1,15 @@
-@import "tailwindcss";
-@import "tailwindcss-primeui";
+@import 'tailwindcss';
+@import 'tailwindcss-primeui';
 @import './styles/ngx-editor.scss';
 @import './styles/primeng.scss';
 
-
 @theme {
-  --color-background: light-dark(var(--p-surface-0),
-      var(--p-surface-900));
+  --color-background: light-dark(var(--p-surface-0), var(--p-surface-900));
   --color-success: var(--p-button-success-background);
 
   --color-warn: var(--p-button-warn-background);
 
   --color-danger: var(--p-button-danger-background);
-
 }
 
 .p-tabs {
@@ -22,7 +19,6 @@
   --p-tabs-tab-font-size: 0.75rem;
   --p-tabs-tab-border-width: 0;
 
-
   .p-tab {
     flex: 1;
     min-width: fit-content;
@@ -30,8 +26,6 @@
     place-content: center;
     z-index: 10;
   }
-
-
 }
 
 .p-accordion {
@@ -47,10 +41,8 @@
 }
 
 .p-button-text.p-button-fill {
-
   background: var(--p-button-text-primary-hover-background);
   color: var(--p-button-text-primary-color);
-
 
   &.p-button-danger {
     background: var(--p-button-text-danger-hover-background);
@@ -66,7 +58,6 @@
     background: var(--p-button-text-secondary-hover-background);
     color: var(--p-button-text-secondary-color);
   }
-
 
   &.p-button-warn {
     background: var(--p-button-text-warn-hover-background);
@@ -100,10 +91,6 @@
     scale: var(--tw-scale-x) var(--tw-scale-y);
   }
 }
-
-
-
-
 
 @utility bg-highlight {
   --bg-color: var(--color-indigo-50);
@@ -143,11 +130,9 @@
   border: 1px solid var(--color-indigo-500);
 }
 
-
 @utility border-highlight {
   border: 1px solid var(--color-indigo-500);
 }
-
 
 @utility border-highlight-medium {
   border: 1px solid var(--color-indigo-200);
@@ -173,7 +158,6 @@
 .cdk-drag-preview {
   opacity: 0.8;
 }
-
 
 .cdk-drop-list-dragging .cdk-drag {
   transition: transform 150ms cubic-bezier(0, 0, 0.2, 1);

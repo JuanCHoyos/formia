@@ -4,9 +4,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { AccordionModule } from 'primeng/accordion';
 
 import { CommonFieldConfigForm } from '../common-field-config-form/common-field-config-form';
-import type {
-  MultiCheckboxFieldProps,
-} from '@/app/features/form-builder/formly/interfaces/field-types';
+import type { MultiCheckboxFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
 import { OptionEditor } from '@/app/ui/components/option-editor/option-editor';
 
 @Component({

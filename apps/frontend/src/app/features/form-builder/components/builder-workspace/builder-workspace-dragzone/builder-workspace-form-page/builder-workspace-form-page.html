@@ -6,7 +6,9 @@
     [cdkDropListConnectedTo]="formBuilderStore.dropListIds()"
     [cdkDropListData]="formFields()"
     (cdkDropListDropped)="drop($event)"
-    [ngClass]="{ 'justify-center items-center flex-row min-h-32 h-full': formFields().length === 0 }"
+    [ngClass]="{
+      'justify-center items-center flex-row min-h-32 h-full': formFields().length === 0,
+    }"
   >
     @for (field of formFields(); track field) {
       <app-builder-workspace-form-field

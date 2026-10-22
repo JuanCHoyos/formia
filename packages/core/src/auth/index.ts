@@ -1,1 +1,1 @@
-export { verifyAccessTokenUser, verifyIdTokenUser} from "./token";
+export { verifyAccessTokenUser, verifyIdTokenUser } from './token';

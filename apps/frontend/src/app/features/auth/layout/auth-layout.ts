@@ -7,5 +7,4 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [RouterOutlet, TranslatePipe],
   templateUrl: './auth-layout.html',
 })
-export class AuthLayout {
-}
+export class AuthLayout {}

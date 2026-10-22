@@ -134,7 +134,9 @@ export class FormBuilderSync implements OnDestroy {
       throw new Error(existing.error.message);
     }
 
-    const stored = FormFieldConfigurationSchema.safeParse((form.draft ?? form.published)?.schema['fields']);
+    const stored = FormFieldConfigurationSchema.safeParse(
+      (form.draft ?? form.published)?.schema['fields'],
+    );
     const fields = stored.success ? stored.data : undefined;
 
     const current = form.draft ?? form.published;
@@ -172,9 +174,13 @@ export class FormBuilderSync implements OnDestroy {
       return true;
     }
     if (this.saveState() === 'saving') {
-      this.notifications.info('formBuilder.leaveBlocked.title', 'formBuilder.leaveBlocked.message', {
-        life: 4_000,
-      });
+      this.notifications.info(
+        'formBuilder.leaveBlocked.title',
+        'formBuilder.leaveBlocked.message',
+        {
+          life: 4_000,
+        },
+      );
       return false;
     }
     if (await this.saveDraft()) {
@@ -353,7 +359,8 @@ export class FormBuilderSync implements OnDestroy {
   }
 
   private toPublishedVersions(
-    versions: { version: number; publishedAt?: number; schema: Record<string, unknown> }[] | undefined,
+    versions:
+      { version: number; publishedAt?: number; schema: Record<string, unknown> }[] | undefined,
   ): PublishedVersion[] {
     return (versions ?? []).flatMap(({ version, publishedAt, schema }) => {
       const fields = FormFieldConfigurationSchema.safeParse(schema['fields']);

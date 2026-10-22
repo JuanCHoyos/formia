@@ -26,11 +26,17 @@ describe('AuthApi', () => {
   });
 
   it('signs in with the email as username', async () => {
-    vi.mocked(amplify.signIn).mockResolvedValue({ isSignedIn: true, nextStep: { signInStep: 'DONE' } });
+    vi.mocked(amplify.signIn).mockResolvedValue({
+      isSignedIn: true,
+      nextStep: { signInStep: 'DONE' },
+    });
 
     await api.signIn({ email: 'ada@example.com', password: 'Abcdef1!' });
 
-    expect(amplify.signIn).toHaveBeenCalledWith({ username: 'ada@example.com', password: 'Abcdef1!' });
+    expect(amplify.signIn).toHaveBeenCalledWith({
+      username: 'ada@example.com',
+      password: 'Abcdef1!',
+    });
   });
 
   it('starts the OAuth redirect for a provider', async () => {
@@ -77,7 +83,11 @@ describe('AuthApi', () => {
   });
 
   it('confirms a password reset with the new password', async () => {
-    await api.confirmForgotPassword({ email: 'ada@example.com', code: '123456', newPassword: 'Abcdef1!' });
+    await api.confirmForgotPassword({
+      email: 'ada@example.com',
+      code: '123456',
+      newPassword: 'Abcdef1!',
+    });
 
     expect(amplify.confirmResetPassword).toHaveBeenCalledWith({
       username: 'ada@example.com',
@@ -111,7 +121,10 @@ describe('AuthApi', () => {
 
     it('throws the API error message on failure', async () => {
       fetchMock.mockResolvedValue(
-        jsonResponse({ success: false, code: 'USER_ALREADY_EXISTS', message: 'User already exists' }, 409),
+        jsonResponse(
+          { success: false, code: 'USER_ALREADY_EXISTS', message: 'User already exists' },
+          409,
+        ),
       );
 
       await expect(api.completeRegistration(input)).rejects.toThrow('User already exists');

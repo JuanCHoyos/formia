@@ -7,8 +7,7 @@ import { unregisteredGuard } from '@/app/core/auth/guards/unregistered';
 export const routes: Routes = [
   {
     path: 'auth',
-    loadComponent: () =>
-      import('./features/auth/layout/auth-layout').then((m) => m.AuthLayout),
+    loadComponent: () => import('./features/auth/layout/auth-layout').then((m) => m.AuthLayout),
     children: AUTH_ROUTES,
     canActivate: [unauthenticatedGuard],
   },
@@ -30,8 +29,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'forms',
-        loadComponent: () =>
-          import('./features/dashboard/pages/forms/forms').then((m) => m.Forms),
+        loadComponent: () => import('./features/dashboard/pages/forms/forms').then((m) => m.Forms),
       },
     ],
   },

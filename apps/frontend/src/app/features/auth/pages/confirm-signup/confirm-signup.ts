@@ -9,7 +9,6 @@ import { AuthApi } from '@/app/core/auth/auth-api';
 import { Notifications } from '@/app/ui/services/notifications';
 import { getCognitoErrorNotification } from '@/app/core/auth/cognito-error-notifications';
 
-
 @Component({
   selector: 'app-confirm-signup',
   imports: [RouterLink, InputOtpModule, FormField, Button, AuthHeader, TranslatePipe],
@@ -33,7 +32,7 @@ export class ConfirmSignup {
   async submit(event: Event): Promise<void> {
     event.preventDefault();
     if (this.isSubmitting()) return;
-  
+
     if (this.codeForm().invalid()) {
       return this.notifications.error(
         'auth.validation.invalidForm.title',

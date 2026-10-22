@@ -33,10 +33,7 @@
       </div>
     </p-accordion-header>
     <p-accordion-content>
-      <app-image-option-editor
-        [formField]="radioImageFieldSettingsForm.options"
-        [sort]="true"
-      />
+      <app-image-option-editor [formField]="radioImageFieldSettingsForm.options" [sort]="true" />
       @if (radioImageFieldSettingsForm.options().invalid()) {
         <small class="text-sm text-red-500">
           {{ radioImageFieldSettingsForm.options().errors()[0].message }}

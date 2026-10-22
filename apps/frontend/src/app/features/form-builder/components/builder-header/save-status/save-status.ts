@@ -7,7 +7,6 @@ import { Button } from '@ui/components/button/button';
 import { APP_ICONS } from '@ui/constants/icons';
 import { FormBuilderSync } from '../../../services/form-builder-sync';
 
-
 @Component({
   selector: 'app-save-status',
   imports: [ProgressSpinner, Tag, NgIcon, TranslatePipe, Button],
