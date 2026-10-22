@@ -8,7 +8,8 @@
     "build": "pnpm --filter @formly/backend build:types && pnpm --filter @formly/core build && ng build",
     "watch": "pnpm --filter @formly/backend build:types && pnpm --filter @formly/core build && pnpm --parallel --filter @formly/backend --filter @formly/core --filter @formly/frontend run watch:workspace",
     "watch:workspace": "ng build --watch --configuration development",
-    "test": "pnpm --filter @formly/backend build:types && pnpm --filter @formly/core build && ng test"
+    "test": "pnpm --filter @formly/backend build:types && pnpm --filter @formly/core build && NG_APP_API_URL=http://localhost:3000/ ng test",
+    "test:coverage": "pnpm --filter @formly/backend build:types && pnpm --filter @formly/core build && NG_APP_API_URL=http://localhost:3000/ ng test --no-watch --configuration coverage"
   },
   "private": true,
   "packageManager": "pnpm@12.14.0",
@@ -48,13 +49,14 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@formly/backend": "workspace:*",
     "@angular/build": "^22.1.8",
     "@angular/cli": "^22.1.8",
     "@angular/compiler-cli": "^22.1.0",
+    "@formly/backend": "workspace:*",
     "@tailwindcss/postcss": "^4.1.12",
     "@types/lodash": "^4.17.25",
     "@types/sortablejs": "^1.15.9",
+    "@vitest/coverage-v8": "catalog:",
     "jsdom": "^28.0.0",
     "postcss": "^8.5.3",
     "prettier": "^3.8.1",

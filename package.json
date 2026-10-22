@@ -3,13 +3,16 @@
   "private": true,
   "scripts": {
     "dev": "pnpm --filter @formly/core build && pnpm sst dev --stage dev",
-    "dev:secrets": "pnpm sst secrets load --stage dev"
+    "dev:secrets": "pnpm sst secrets load --stage dev",
+    "test": "pnpm -r --if-present test",
+    "test:unit": "vitest run"
   },
   "dependencies": {
     "sst": "catalog:"
   },
   "devDependencies": {
-    "@types/aws-lambda": "catalog:"
+    "@types/aws-lambda": "catalog:",
+    "vitest": "catalog:"
   },
   "allowScripts": {
     "aws-sdk@2.1693.0": true,

@@ -7,7 +7,9 @@
     "build:types": "tsc -p tsconfig.json --emitDeclarationOnly",
     "dev:workspace": "tsc -p tsconfig.json --emitDeclarationOnly --watch",
     "start": "tsx dist/index.js",
-    "watch:workspace": "tsc -p tsconfig.json --emitDeclarationOnly --watch"
+    "watch:workspace": "tsc -p tsconfig.json --emitDeclarationOnly --watch",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "exports": {
     "./api": {
@@ -28,8 +30,10 @@
   "devDependencies": {
     "@types/aws-lambda": "catalog:",
     "@types/node": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
     "tsx": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "type": "module",
   "allowScripts": {

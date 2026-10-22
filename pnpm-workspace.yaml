@@ -8,6 +8,7 @@ catalog:
   '@elysiajs/node': 1.4.5
   '@types/aws-lambda': 8.10.164
   '@types/node': 26.6.5
+  '@vitest/coverage-v8': 4.1.12
   elysia: 1.4.30
   elysia-helmet: 3.1.0
   elysia-rate-limit: 5.1.1
@@ -15,6 +16,7 @@ catalog:
   tsx: 4.23.15
   typescript: 6.0.3
   ulid: 3.0.2
+  vitest: 4.1.12
   zod: 4.6.7
 allowBuilds:
   '@parcel/watcher': true
