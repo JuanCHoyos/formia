@@ -17,7 +17,6 @@
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "sourceMap": true,
-    "customConditions": ["@formly/source"],
-    "types": ["@total-typescript/ts-reset"]
+    "customConditions": ["@formly/source"]
   }
 }

@@ -1,6 +1,7 @@
 import js from '@eslint/js';
 
 import angular from 'angular-eslint';
+import type { Linter } from 'eslint';
 import perfectionist from 'eslint-plugin-perfectionist';
 import unusedImports from 'eslint-plugin-unused-imports';
 import { defineConfig, globalIgnores } from 'eslint/config';
@@ -14,7 +15,7 @@ type ImportGroup = { name: string; pattern: string };
  * built-ins, scoped packages (`@scope/...`), other packages, workspace packages (`@formly/...`),
  * path aliases and finally relative imports. Groups are separated by a blank line.
  */
-const importOrder = (frameworkGroups: ImportGroup[], aliasPattern?: string) => {
+const importOrder = (frameworkGroups: ImportGroup[], aliasPattern?: string): Linter.RuleEntry => {
   const leadingGroups = aliasPattern
     ? [...frameworkGroups, { name: 'alias', pattern: aliasPattern }]
     : frameworkGroups;
@@ -44,7 +45,7 @@ const importOrder = (frameworkGroups: ImportGroup[], aliasPattern?: string) => {
         'unknown',
       ],
     },
-  ] as const;
+  ];
 };
 
 export default defineConfig(
