@@ -1,49 +1,57 @@
-<section class="flex min-h-screen flex-col bg-white px-5 py-7 sm:px-10 lg:px-20 lg:py-10">
-  <div class="mx-auto flex w-full max-w-107.5 flex-1 flex-col justify-center py-12">
+<div class="flex flex-col gap-7">
+  <div class="flex flex-col gap-5">
+    <app-auth-steps [current]="2" [total]="3" labelKey="auth.steps.verifyEmail" />
     <app-auth-header
       [eyebrow]="'auth.confirmSignup.eyebrow' | translate"
       [title]="'auth.confirmSignup.title' | translate"
       [description]="'auth.confirmSignup.description' | translate"
-      icon="lucideLock"
-    ></app-auth-header>
+      icon="lucideMailCheck"
+    >
+      <strong class="font-semibold text-text">{{ email() }}</strong>
+    </app-auth-header>
+  </div>
 
-    <form class="flex flex-col gap-4 mb-8" novalidate (submit)="submit($event)">
-      <label for="code" class="text-sm font-medium">{{
-        'auth.confirmSignup.code.label' | translate
-      }}</label>
+  <form class="flex flex-col gap-5" novalidate (submit)="submit($event)">
+    <div class="flex flex-col gap-2">
+      <span id="code-label" class="text-sm font-medium">
+        {{ 'auth.confirmSignup.code.label' | translate }}
+      </span>
       <p-inputotp
-        id="code"
         [formField]="codeForm"
         [length]="6"
         [integerOnly]="true"
-        [invalid]="false"
-        [attr.aria-label]="'auth.confirmSignup.code.label' | translate"
-        class="w-full *:flex-1 *:aspect-square **:text-2xl! **:font-bold! my-auto gap-3"
+        role="group"
+        aria-labelledby="code-label"
+        class="otp-field"
       />
-      <p class="text-sm text-muted-foreground">
-        {{ 'auth.confirmSignup.codeNotReceived' | translate }}
-        <app-button variant="text" class="text-sm">{{
-          'auth.confirmSignup.resend' | translate
-        }}</app-button>
-      </p>
-      <app-button
-        type="submit"
-        class="w-full"
-        customClass="w-full min-h-12"
-        [disabled]="codeForm().invalid()"
-        [loading]="isSubmitting()"
-      >
-        <span aria-live="polite">{{
+      <span class="text-xs text-text-3">{{ 'auth.code.pasteHint' | translate }}</span>
+    </div>
+
+    <app-resend-code [send]="resendCode" />
+
+    <app-button
+      type="submit"
+      class="w-full"
+      customClass="h-12 w-full justify-center"
+      [disabled]="codeForm().invalid()"
+      [loading]="isSubmitting()"
+    >
+      <span aria-live="polite">
+        {{
           (isSubmitting() ? 'auth.confirmSignup.submitting' : 'auth.confirmSignup.submit')
             | translate
-        }}</span>
-      </app-button>
-    </form>
-    <p class="flex items-center gap-1 text-sm text-muted-foreground">
-      {{ 'auth.confirmSignup.hasAccount' | translate }}
-      <a routerLink="/auth/login" class="font-semibold text-primary hover:underline">{{
-        'auth.confirmSignup.loginLink' | translate
-      }}</a>
-    </p>
-  </div>
-</section>
+        }}
+      </span>
+    </app-button>
+  </form>
+
+  <p class="text-center text-sm text-text-2">
+    {{ 'auth.confirmSignup.hasAccount' | translate }}
+    <a
+      routerLink="/auth/login"
+      class="rounded-sm font-semibold text-brand-text hover:underline focus-visible:focus-ring"
+    >
+      {{ 'auth.confirmSignup.loginLink' | translate }}
+    </a>
+  </p>
+</div>

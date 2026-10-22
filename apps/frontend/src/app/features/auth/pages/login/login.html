@@ -1,65 +1,82 @@
-<section class="flex min-h-screen flex-col bg-white px-5 py-7 sm:px-10 lg:px-20 lg:py-10">
-  <div class="mx-auto flex w-full max-w-107.5 flex-1 flex-col justify-center py-12">
-    <app-auth-header
-      [eyebrow]="'auth.login.eyebrow' | translate"
-      [title]="'auth.login.title' | translate"
-      [description]="'auth.login.description' | translate"
-      icon="lucideLock"
-    ></app-auth-header>
-    <app-social-login-buttons></app-social-login-buttons>
+<div class="flex flex-col gap-7">
+  <app-auth-header
+    [eyebrow]="'auth.login.eyebrow' | translate"
+    [title]="'auth.login.title' | translate"
+    [description]="'auth.login.description' | translate"
+  />
 
-    <p-divider align="center" type="solid" class="my-7 text-xs text-muted-foreground">
-      {{ 'auth.login.continueWithEmail' | translate }}
-    </p-divider>
+  <app-social-login-buttons />
 
-    <form class="flex flex-col gap-4 mb-8" novalidate (submit)="onSubmit($event)">
-      <div class="flex flex-col gap-2">
-        <label for="email" class="text-sm font-medium">{{
-          'auth.login.email.label' | translate
-        }}</label>
-        <input
-          id="email"
-          type="email"
-          [placeholder]="'auth.login.email.placeholder' | translate"
-          autocomplete="new-password"
-          [formField]="loginForm.email"
-          class="w-full min-h-12"
-          pInputText
-        />
+  <p class="flex items-center gap-3 text-xs text-text-3">
+    <span class="h-px flex-1 bg-border" aria-hidden="true"></span>
+    {{ 'auth.login.continueWithEmail' | translate }}
+    <span class="h-px flex-1 bg-border" aria-hidden="true"></span>
+  </p>
+
+  <form class="flex flex-col gap-4" novalidate (submit)="onSubmit($event)">
+    @let emailInvalid = loginForm.email().touched() && loginForm.email().invalid();
+    <div class="flex flex-col gap-1.5">
+      <label for="email" class="text-sm font-medium">{{
+        'auth.login.email.label' | translate
+      }}</label>
+      <input
+        pInputText
+        id="email"
+        type="email"
+        class="h-12 w-full"
+        autocomplete="email"
+        [placeholder]="'auth.login.email.placeholder' | translate"
+        [formField]="loginForm.email"
+        [class.p-invalid]="emailInvalid"
+        [attr.aria-invalid]="emailInvalid"
+        aria-describedby="email-error"
+      />
+      <app-field-error id="email-error" [state]="loginForm.email()" />
+    </div>
+
+    <div class="flex flex-col gap-1.5">
+      <div class="flex items-center justify-between gap-2">
+        <label for="password" class="text-sm font-medium">
+          {{ 'auth.login.password.label' | translate }}
+        </label>
+        <a
+          routerLink="/auth/forgot-password"
+          class="rounded-sm text-xs font-medium text-brand-text hover:underline focus-visible:focus-ring"
+        >
+          {{ 'auth.login.forgotPassword' | translate }}
+        </a>
       </div>
-      <div class="flex flex-col gap-2">
-        <label for="password" class="text-sm font-medium">{{
-          'auth.login.password.label' | translate
-        }}</label>
-        <app-password
-          inputId="password"
-          [placeholder]="'auth.login.password.placeholder' | translate"
-          customClass="w-full min-h-12"
-          [formField]="loginForm.password"
-        ></app-password>
-      </div>
-      <a
-        routerLink="/auth/forgot-password"
-        class="text-xs text-end font-medium text-primary hover:underline"
-        >{{ 'auth.login.forgotPassword' | translate }}</a
-      >
-      <app-button
-        type="submit"
-        class="w-full"
-        customClass="w-full min-h-12"
-        [disabled]="loginForm().invalid()"
-        [loading]="isSubmitting()"
-      >
-        <span aria-live="polite">{{
-          (isSubmitting() ? 'auth.login.submitting' : 'auth.login.submit') | translate
-        }}</span>
-      </app-button>
-    </form>
-    <p class="flex items-center justify-center gap-1 text-sm text-muted-foreground">
-      {{ 'auth.login.noAccount' | translate }}
-      <a routerLink="/auth/register" class="font-semibold text-primary hover:underline">{{
-        'auth.login.registerLink' | translate
-      }}</a>
-    </p>
-  </div>
-</section>
+      <app-password
+        inputId="password"
+        autocomplete="current-password"
+        customClass="h-12"
+        describedBy="password-error"
+        [placeholder]="'auth.login.password.placeholder' | translate"
+        [formField]="loginForm.password"
+      />
+      <app-field-error id="password-error" [state]="loginForm.password()" />
+    </div>
+
+    <app-button
+      type="submit"
+      class="mt-1 w-full"
+      customClass="h-12 w-full justify-center"
+      [disabled]="loginForm().invalid()"
+      [loading]="isSubmitting()"
+    >
+      <span aria-live="polite">
+        {{ (isSubmitting() ? 'auth.login.submitting' : 'auth.login.submit') | translate }}
+      </span>
+    </app-button>
+  </form>
+
+  <p class="text-center text-sm text-text-2">
+    {{ 'auth.login.noAccount' | translate }}
+    <a
+      routerLink="/auth/register"
+      class="rounded-sm font-semibold text-brand-text hover:underline focus-visible:focus-ring"
+    >
+      {{ 'auth.login.registerLink' | translate }}
+    </a>
+  </p>
+</div>

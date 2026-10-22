@@ -4,6 +4,7 @@ import { provideRouter, Router } from '@angular/router';
 
 import { provideTranslateService } from '@ngx-translate/core';
 
+import type { UserRole } from '@formly/core/schemas/common';
 import type { UserProfile } from '@formly/core/schemas/user';
 
 import { AuthApi } from '@/app/core/auth/auth-api';
@@ -14,7 +15,12 @@ import { deferred, query, submitForm } from '@/testing/dom';
 
 import { CompleteRegister } from './complete-register';
 
-const profile: UserProfile = { fullName: 'Ada', email: 'ada@example.com', roles: ['FORM_CREATOR'] };
+const profile: UserProfile = {
+  fullName: 'Ada',
+  email: 'ada@example.com',
+  roles: ['FORM_CREATOR'],
+  authProvider: 'SYSTEM',
+};
 
 describe('CompleteRegister', () => {
   const authApi = { completeRegistration: vi.fn() };
@@ -130,7 +136,9 @@ describe('CompleteRegister', () => {
       await render();
       const selector = fixture.debugElement.query(By.directive(OptionCardSelector));
 
-      selector.triggerEventHandler('valueChange', ['FORM_RESPONDENT']);
+      (selector.componentInstance as OptionCardSelector<UserRole>).toggleSelection(
+        'FORM_RESPONDENT',
+      );
 
       expect(component.userRegistration().roles).toEqual(['FORM_RESPONDENT']);
     });

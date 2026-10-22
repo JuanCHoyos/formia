@@ -9,12 +9,23 @@ import { InputOtpModule } from 'primeng/inputotp';
 import { AuthApi } from '@/app/core/auth/auth-api';
 import { getCognitoErrorNotification } from '@/app/core/auth/cognito-error-notifications';
 import { AuthHeader } from '@/app/features/auth/components/auth-header/auth-header';
+import { AuthSteps } from '@/app/features/auth/components/auth-steps/auth-steps';
+import { ResendCode } from '@/app/features/auth/components/resend-code/resend-code';
 import { Button } from '@/app/ui/components/button/button';
 import { Notifications } from '@/app/ui/services/notifications';
 
 @Component({
   selector: 'app-confirm-signup',
-  imports: [RouterLink, InputOtpModule, FormField, Button, AuthHeader, TranslatePipe],
+  imports: [
+    RouterLink,
+    InputOtpModule,
+    FormField,
+    Button,
+    AuthHeader,
+    AuthSteps,
+    ResendCode,
+    TranslatePipe,
+  ],
   templateUrl: './confirm-signup.html',
 })
 export class ConfirmSignup {
@@ -31,6 +42,21 @@ export class ConfirmSignup {
     required(path);
     minLength(path, 6);
   });
+
+  readonly resendCode = async (): Promise<boolean> => {
+    try {
+      await this.authApi.resendSignUpCode(this.email());
+      this.notifications.success(
+        'auth.notifications.confirmationCodeSent.title',
+        'auth.notifications.confirmationCodeSent.detail',
+      );
+      return true;
+    } catch (error) {
+      const notification = getCognitoErrorNotification(error, 'signUpConfirmation');
+      this.notifications.error(notification.summaryKey, notification.detailKey);
+      return false;
+    }
+  };
 
   async submit(event: Event): Promise<void> {
     event.preventDefault();

@@ -4,7 +4,6 @@ import { Router, RouterLink } from '@angular/router';
 
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { DividerModule } from 'primeng/divider';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { AuthApi } from '@/app/core/auth/auth-api';
@@ -12,6 +11,7 @@ import { getCognitoErrorNotification } from '@/app/core/auth/cognito-error-notif
 import { AuthHeader } from '@/app/features/auth/components/auth-header/auth-header';
 import { SocialLoginButtons } from '@/app/features/auth/components/social-login-buttons/social-login-buttons';
 import { Button } from '@/app/ui/components/button/button';
+import { FieldError } from '@/app/ui/components/field-error/field-error';
 import { Password } from '@/app/ui/components/password/password';
 import { Notifications } from '@/app/ui/services/notifications';
 
@@ -23,8 +23,8 @@ import { Notifications } from '@/app/ui/services/notifications';
     Button,
     Password,
     InputTextModule,
-    DividerModule,
     AuthHeader,
+    FieldError,
     SocialLoginButtons,
     TranslatePipe,
   ],
@@ -38,9 +38,9 @@ export class Login {
 
   readonly login = signal<{ email: string; password: string }>({ email: '', password: '' });
   readonly loginForm = form(this.login, (path) => {
-    email(path.email);
-    required(path.email);
-    required(path.password);
+    required(path.email, { message: 'auth.validation.emailRequired' });
+    email(path.email, { message: 'auth.validation.emailInvalid' });
+    required(path.password, { message: 'auth.validation.passwordRequired' });
   });
 
   async onSubmit(event: Event): Promise<void> {

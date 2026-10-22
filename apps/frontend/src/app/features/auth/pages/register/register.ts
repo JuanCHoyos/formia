@@ -1,13 +1,11 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { email, form, FormField, required, validate } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
 
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
-import { MessageModule } from 'primeng/message';
-import { SelectModule } from 'primeng/select';
 
 import type { SignUpInput } from '@formly/core/schemas/auth';
 
@@ -15,8 +13,11 @@ import { AuthApi } from '@/app/core/auth/auth-api';
 import { getCognitoErrorNotification } from '@/app/core/auth/cognito-error-notifications';
 import { isCognitoPasswordValid } from '@/app/core/auth/password-policy';
 import { AuthHeader } from '@/app/features/auth/components/auth-header/auth-header';
+import { AuthSteps } from '@/app/features/auth/components/auth-steps/auth-steps';
 import { Button } from '@/app/ui/components/button/button';
+import { FieldError } from '@/app/ui/components/field-error/field-error';
 import { Password } from '@/app/ui/components/password/password';
+import { APP_ICONS } from '@/app/ui/constants/icons';
 import { Notifications } from '@/app/ui/services/notifications';
 
 @Component({
@@ -26,13 +27,14 @@ import { Notifications } from '@/app/ui/services/notifications';
     FormField,
     Button,
     Password,
+    NgIcon,
     InputTextModule,
-    SelectModule,
-    CheckboxModule,
-    MessageModule,
     AuthHeader,
+    AuthSteps,
+    FieldError,
     TranslatePipe,
   ],
+  providers: [provideIcons(APP_ICONS)],
   templateUrl: './register.html',
 })
 export class Register {
@@ -49,27 +51,31 @@ export class Register {
   });
 
   registerForm = form(this.register, (path) => {
-    email(path.email);
-    required(path.email);
-    required(path.name);
+    required(path.name, { message: 'auth.validation.nameRequired' });
     validate(path.name, ({ value }) =>
-      value().length >= 3
+      !value() || value().trim().length >= 3
         ? null
-        : { kind: 'minLength', message: 'auth.validation.invalidForm.detail' },
+        : { kind: 'minLength', message: 'auth.validation.nameTooShort' },
     );
-    required(path.password);
-    required(path.confirmPassword);
+    required(path.email, { message: 'auth.validation.emailRequired' });
+    email(path.email, { message: 'auth.validation.emailInvalid' });
+    required(path.password, { message: 'auth.validation.passwordRequired' });
     validate(path.password, ({ value }) =>
-      isCognitoPasswordValid(value())
+      !value() || isCognitoPasswordValid(value())
         ? null
         : { kind: 'password-policy', message: 'auth.validation.passwordPolicy' },
     );
-    validate(path.confirmPassword, ({ value }) => {
-      const password = this.register().password;
-      return value() === password
+    required(path.confirmPassword, { message: 'auth.validation.confirmPasswordRequired' });
+    validate(path.confirmPassword, ({ value }) =>
+      !value() || value() === this.register().password
         ? null
-        : { kind: 'mismatch', message: 'auth.validation.passwordsDoNotMatch' };
-    });
+        : { kind: 'mismatch', message: 'auth.validation.passwordsDoNotMatch' },
+    );
+  });
+
+  readonly passwordsMatch = computed(() => {
+    const { password, confirmPassword } = this.register();
+    return confirmPassword.length > 0 && confirmPassword === password;
   });
 
   async onSubmit(event: Event): Promise<void> {

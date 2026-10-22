@@ -1,7 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { email, form, FormField, minLength, required, validate } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
 
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { InputOtpModule } from 'primeng/inputotp';
@@ -11,8 +12,12 @@ import { AuthApi } from '@/app/core/auth/auth-api';
 import { getCognitoErrorNotification } from '@/app/core/auth/cognito-error-notifications';
 import { isCognitoPasswordValid } from '@/app/core/auth/password-policy';
 import { AuthHeader } from '@/app/features/auth/components/auth-header/auth-header';
+import { AuthSteps } from '@/app/features/auth/components/auth-steps/auth-steps';
+import { ResendCode } from '@/app/features/auth/components/resend-code/resend-code';
 import { Button } from '@/app/ui/components/button/button';
+import { FieldError } from '@/app/ui/components/field-error/field-error';
 import { Password } from '@/app/ui/components/password/password';
+import { APP_ICONS } from '@/app/ui/constants/icons';
 import { Notifications } from '@/app/ui/services/notifications';
 
 @Component({
@@ -24,9 +29,14 @@ import { Notifications } from '@/app/ui/services/notifications';
     Password,
     InputOtpModule,
     InputTextModule,
+    NgIcon,
     AuthHeader,
+    AuthSteps,
+    FieldError,
+    ResendCode,
     TranslatePipe,
   ],
+  providers: [provideIcons(APP_ICONS)],
   templateUrl: './forgot-password.html',
 })
 export class ForgotPassword {
@@ -44,26 +54,46 @@ export class ForgotPassword {
   });
 
   readonly emailForm = form(this.reset, (path) => {
-    email(path.email);
-    required(path.email);
+    required(path.email, { message: 'auth.validation.emailRequired' });
+    email(path.email, { message: 'auth.validation.emailInvalid' });
   });
 
   readonly resetForm = form(this.reset, (path) => {
     required(path.code);
-    required(path.password);
-    required(path.confirmPassword);
     minLength(path.code, 6);
+    required(path.password, { message: 'auth.validation.passwordRequired' });
     validate(path.password, ({ value }) =>
-      isCognitoPasswordValid(value())
+      !value() || isCognitoPasswordValid(value())
         ? null
         : { kind: 'password-policy', message: 'auth.validation.passwordPolicy' },
     );
+    required(path.confirmPassword, { message: 'auth.validation.confirmPasswordRequired' });
     validate(path.confirmPassword, ({ value }) =>
-      value() === this.reset().password
+      !value() || value() === this.reset().password
         ? null
         : { kind: 'mismatch', message: 'auth.validation.passwordsDoNotMatch' },
     );
   });
+
+  readonly passwordsMatch = computed(() => {
+    const { password, confirmPassword } = this.reset();
+    return confirmPassword.length > 0 && confirmPassword === password;
+  });
+
+  readonly resendCode = async (): Promise<boolean> => {
+    try {
+      await this.authApi.forgotPassword({ email: this.reset().email });
+      this.notifications.success(
+        'auth.notifications.resetCodeSent.title',
+        'auth.notifications.resetCodeSent.detail',
+      );
+      return true;
+    } catch (error) {
+      const notification = getCognitoErrorNotification(error, 'passwordRecovery');
+      this.notifications.error(notification.summaryKey, notification.detailKey);
+      return false;
+    }
+  };
 
   async requestCode(event: Event): Promise<void> {
     event.preventDefault();

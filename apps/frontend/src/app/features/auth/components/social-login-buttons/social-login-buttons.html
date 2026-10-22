@@ -1,7 +1,7 @@
 <div class="social-login-buttons flex items-center gap-4">
   <app-button
-    class="min-h-12 w-full"
-    customClass="w-full min-h-12 text-lg"
+    class="w-full"
+    customClass="h-12 w-full text-lg"
     variant="outlined"
     severity="secondary"
     [iconOnly]="true"
@@ -12,8 +12,8 @@
     (pressed)="signInWithProvider('Google')"
   ></app-button>
   <app-button
-    class="min-h-12 w-full"
-    customClass="w-full min-h-12 text-lg"
+    class="w-full"
+    customClass="h-12 w-full text-lg"
     variant="outlined"
     severity="secondary"
     [iconOnly]="true"
@@ -24,8 +24,8 @@
     (pressed)="signInWithProvider('Microsoft')"
   ></app-button>
   <app-button
-    class="min-h-12 w-full"
-    customClass="w-full min-h-12 text-lg"
+    class="w-full"
+    customClass="h-12 w-full text-lg"
     variant="outlined"
     severity="secondary"
     [iconOnly]="true"
@@ -37,7 +37,7 @@
   ></app-button>
 </div>
 @if (loadingProvider(); as provider) {
-  <p class="mt-3 text-sm text-muted-foreground" role="status" aria-live="polite">
+  <p class="mt-3 text-sm text-text-2" role="status" aria-live="polite">
     {{ 'auth.socialLogin.redirecting' | translate: { provider: provider } }}
   </p>
 }

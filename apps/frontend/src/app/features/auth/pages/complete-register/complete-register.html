@@ -1,64 +1,48 @@
-<main
-  class="flex min-h-screen items-center justify-center bg-[#f8fafc] px-5 py-10 text-[#17273a] sm:px-10 lg:px-16"
->
-  <section class="w-full max-w-[640px]">
-    <div class="mb-12 flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <span
-          class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white shadow-lg shadow-[#f26752]/20"
-          ><svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-sparkles h-5 w-5"
-            aria-hidden="true"
-          >
-            <path
-              d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"
-            ></path>
-            <path d="M20 2v4"></path>
-            <path d="M22 4h-4"></path>
-            <circle cx="4" cy="20" r="2"></circle></svg></span
-        ><span class="text-[17px] font-semibold tracking-[-0.02em]">Formia</span>
-      </div>
-      <span class="text-xs font-medium text-muted-color">Crea mejores formularios</span>
-    </div>
+<div class="flex flex-col gap-7">
+  <div class="flex flex-col gap-5">
+    <app-auth-steps [current]="3" [total]="3" labelKey="auth.steps.completeProfile" />
     <app-auth-header
-      eyebrow="Bienvenido a Formia"
-      title="Empecemos por lo esencial."
-      description="Selecciona cómo usarás Formia. Puedes elegir una o ambas opciones."
-      icon="lucidePencilSparkles"
-    ></app-auth-header>
+      [eyebrow]="'auth.completeRegister.eyebrow' | translate"
+      [title]="'auth.completeRegister.title' | translate"
+      [description]="'auth.completeRegister.description' | translate"
+    />
+  </div>
 
-    <form class="flex flex-col gap-8 mb-4" (submit)="submit($event)">
+  <form class="flex flex-col gap-6" novalidate (submit)="submit($event)">
+    <div class="flex flex-col gap-2">
       <app-option-card-selector
         [options]="roleOptions()"
-        (valueChange)="registrationForm.roles().value.set($event)"
-        [disabled]="false"
+        [ariaLabel]="'roles.label' | translate"
+        [formField]="registrationForm.roles"
       />
+      <app-field-error id="roles-error" [state]="registrationForm.roles()" />
+    </div>
 
-      <div class="flex items-center gap-2">
+    <div class="flex flex-col gap-1.5">
+      <div class="flex items-start gap-2.5">
         <p-checkbox inputId="terms" [formField]="registrationForm.terms" [binary]="true" />
-        <label for="terms" class="text-sm leading-5">
-          Acepto los términos de uso y la política de privacidad.</label
-        >
+        <label for="terms" class="text-sm leading-5 text-text-2">
+          {{ 'auth.register.acceptTerms' | translate }}
+        </label>
       </div>
+      <app-field-error id="terms-error" [state]="registrationForm.terms()" />
+    </div>
 
-      <app-button
-        type="submit"
-        class="w-full"
-        customClass="w-full min-h-12"
-        [disabled]="registrationForm().invalid()"
-        [loading]="isSubmitting()"
-        >Continuar</app-button
-      >
-    </form>
-    <p class="text-center text-xs text-muted-color">Podrás cambiar tus preferencias después.</p>
-  </section>
-</main>
+    <app-button
+      type="submit"
+      class="w-full"
+      customClass="h-12 w-full justify-center"
+      [disabled]="registrationForm().invalid()"
+      [loading]="isSubmitting()"
+    >
+      <span aria-live="polite">
+        {{
+          (isSubmitting() ? 'auth.completeRegister.submitting' : 'auth.completeRegister.submit')
+            | translate
+        }}
+      </span>
+    </app-button>
+  </form>
+
+  <p class="text-center text-xs text-text-3">{{ 'auth.completeRegister.laterHint' | translate }}</p>
+</div>

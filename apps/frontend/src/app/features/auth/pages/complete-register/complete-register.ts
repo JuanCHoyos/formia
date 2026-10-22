@@ -2,6 +2,8 @@ import { Component, inject, signal } from '@angular/core';
 import { form, FormField, minLength, required } from '@angular/forms/signals';
 import { Router } from '@angular/router';
 
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+
 import { CheckboxModule } from 'primeng/checkbox';
 
 import type { UserRole } from '@formly/core/schemas/common';
@@ -9,14 +11,25 @@ import type { UserRole } from '@formly/core/schemas/common';
 import { AuthApi } from '@/app/core/auth/auth-api';
 import { UserStore } from '@/app/core/auth/user-store';
 import { AuthHeader } from '@/app/features/auth/components/auth-header/auth-header';
+import { AuthSteps } from '@/app/features/auth/components/auth-steps/auth-steps';
 import { Button } from '@/app/ui/components/button/button';
+import { FieldError } from '@/app/ui/components/field-error/field-error';
 import { OptionCardSelector } from '@/app/ui/components/option-card-selector/option-card-selector';
 import { Notifications } from '@/app/ui/services/notifications';
 import type { OptionCardSelectorOption } from '@/app/ui/types/option-card-selector-option';
 
 @Component({
   selector: 'app-complete-register',
-  imports: [FormField, Button, CheckboxModule, AuthHeader, OptionCardSelector],
+  imports: [
+    FormField,
+    TranslatePipe,
+    Button,
+    CheckboxModule,
+    AuthHeader,
+    AuthSteps,
+    FieldError,
+    OptionCardSelector,
+  ],
   templateUrl: './complete-register.html',
 })
 export class CompleteRegister {
@@ -24,18 +37,19 @@ export class CompleteRegister {
   private readonly router = inject(Router);
   private readonly notifications = inject(Notifications);
   private readonly userStore = inject(UserStore);
+  private readonly translate = inject(TranslateService);
 
   readonly roleOptions = signal<OptionCardSelectorOption<UserRole>[]>([
     {
       icon: 'lucidePencilSparkles',
-      label: 'Crear formularios',
-      description: 'Diseña formularios para recopilar respuestas.',
+      label: this.translate.instant('roles.creator.label') as string,
+      description: this.translate.instant('roles.creator.description') as string,
       value: 'FORM_CREATOR',
     },
     {
       icon: 'lucideClipboardPenLine',
-      label: 'Responder formularios',
-      description: 'Contesta un formulario compartido contigo.',
+      label: this.translate.instant('roles.respondent.label') as string,
+      description: this.translate.instant('roles.respondent.description') as string,
       value: 'FORM_RESPONDENT',
     },
   ]);
@@ -43,8 +57,8 @@ export class CompleteRegister {
   userRegistration = signal<{ roles: UserRole[]; terms: boolean }>({ roles: [], terms: false });
 
   readonly registrationForm = form(this.userRegistration, (path) => {
-    minLength(path.roles, 1);
-    required(path.terms);
+    minLength(path.roles, 1, { message: 'roles.required' });
+    required(path.terms, { message: 'auth.register.termsRequired' });
   });
 
   readonly isSubmitting = signal(false);
