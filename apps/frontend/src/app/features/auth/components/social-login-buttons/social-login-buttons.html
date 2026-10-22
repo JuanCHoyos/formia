@@ -19,9 +19,9 @@
     [iconOnly]="true"
     icon="svglMicrosoft"
     [ariaLabel]="'auth.socialLogin.microsoft' | translate"
-    [loading]="loadingProvider() === 'Apple'"
+    [loading]="loadingProvider() === 'Microsoft'"
     [disabled]="loadingProvider() !== null"
-    (pressed)="signInWithProvider('Apple')"
+    (pressed)="signInWithProvider('Microsoft')"
   ></app-button>
   <app-button
     class="min-h-12 w-full"
@@ -29,11 +29,11 @@
     variant="outlined"
     severity="secondary"
     [iconOnly]="true"
-    icon="svglFacebook"
-    [ariaLabel]="'auth.socialLogin.facebook' | translate"
-    [loading]="loadingProvider() === 'Facebook'"
+    icon="svglGithubLight"
+    [ariaLabel]="'auth.socialLogin.github' | translate"
+    [loading]="loadingProvider() === 'GitHub'"
     [disabled]="loadingProvider() !== null"
-    (pressed)="signInWithProvider('Facebook')"
+    (pressed)="signInWithProvider('GitHub')"
   ></app-button>
 </div>
 @if (loadingProvider(); as provider) {

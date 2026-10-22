@@ -68,7 +68,7 @@ describe('SocialLoginButtons', () => {
     authApi.signInWithProvider.mockReturnValue(request.promise);
 
     const pending = component.signInWithProvider('Google');
-    await component.signInWithProvider('Facebook');
+    await component.signInWithProvider('GitHub');
     expect(authApi.signInWithProvider).toHaveBeenCalledOnce();
 
     request.resolve();
@@ -99,7 +99,8 @@ describe('SocialLoginButtons', () => {
 
     it.each([
       ['google', 'Google'],
-      ['facebook', 'Facebook'],
+      ['microsoft', 'Microsoft'],
+      ['github', 'GitHub'],
     ] as const)('signs in with %s when its button is clicked', async (labelKey, provider) => {
       authApi.signInWithProvider.mockResolvedValue(undefined);
       const element = await render();

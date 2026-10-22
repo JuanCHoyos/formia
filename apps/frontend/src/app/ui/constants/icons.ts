@@ -49,7 +49,7 @@ import {
   lucideType,
   lucideUndo2,
 } from '@ng-icons/lucide';
-import { svglGoogle, svglFacebook, svglMicrosoft } from '@ng-icons/svgl';
+import { svglGithubLight, svglGoogle, svglMicrosoft } from '@ng-icons/svgl';
 
 export const APP_ICONS = {
   lucideAlertOctagon,
@@ -101,7 +101,7 @@ export const APP_ICONS = {
   lucideTrash2,
   lucideType,
   lucideUndo2,
-  svglFacebook,
+  svglGithubLight,
   svglGoogle,
   svglMicrosoft,
 };

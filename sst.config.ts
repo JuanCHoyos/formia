@@ -5,6 +5,8 @@ const STAGE_REGIONS: Partial<Record<string, string>> = {
   dev: 'us-east-2',
 };
 
+const regionForStage = (stage: string) => STAGE_REGIONS[stage] ?? 'us-east-2';
+
 export default $config({
   app(input) {
     return {
@@ -12,6 +14,9 @@ export default $config({
       removal: input?.stage === 'production' ? 'retain' : 'remove',
       protect: ['production'].includes(input?.stage),
       home: 'aws',
+      providers: {
+        aws: { region: regionForStage(input.stage) },
+      },
     };
   },
   async run() {
@@ -19,7 +24,9 @@ export default $config({
     const { createDynamo } = await import('./infra/dynamo');
     const { createFormlyApi } = await import('./infra/api');
     const { createCognito } = await import('./infra/cognito');
-    const cognito = createCognito();
+    const { createGitHubOidc } = await import('./infra/github-oidc');
+    const githubOidc = createGitHubOidc();
+    const cognito = createCognito(regionForStage($app.stage), githubOidc);
     const { uploads } = createStorage();
 
     const cognitoAuth = new sst.Linkable('FormlyCognito', {
@@ -29,14 +36,14 @@ export default $config({
       },
     });
 
-    const dynamoDB = new sst.Linkable('DynamoDB', {
+    const awsRegion = new sst.Linkable('AwsRegion', {
       properties: {
-        region: STAGE_REGIONS[$app.stage] ?? 'us-east-2',
+        region: regionForStage($app.stage),
       },
     });
 
     const tables = createDynamo();
-    const formlyApi = createFormlyApi(uploads, Object.values(tables), dynamoDB, cognitoAuth);
+    const formlyApi = createFormlyApi(uploads, Object.values(tables), awsRegion, cognitoAuth);
 
     const web = new sst.aws.StaticSite('FormlyWeb', {
       path: 'apps/frontend',
@@ -61,6 +68,7 @@ export default $config({
       web: web.urn,
       formlyApi: formlyApi.url,
       userPool: cognito.userPoolId,
+      githubOidc: githubOidc.issuer,
     };
   },
 });

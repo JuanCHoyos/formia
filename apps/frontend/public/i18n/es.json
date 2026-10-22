@@ -213,7 +213,7 @@
     "socialLogin": {
       "google": "Continuar con Google",
       "microsoft": "Continuar con Microsoft",
-      "facebook": "Continuar con Facebook",
+      "github": "Continuar con GitHub",
       "providerError": "No se pudo iniciar sesión con este proveedor. Inténtalo de nuevo.",
       "redirecting": "Conectando con {{provider}}…",
       "completing": "Estamos verificando tu cuenta...",

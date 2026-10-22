@@ -1,0 +1,5 @@
+# GitHub OIDC bridge (Lambda bundled by SST): local files.
+
+/node_modules
+/coverage
+*.tsbuildinfo

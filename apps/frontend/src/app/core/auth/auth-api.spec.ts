@@ -47,6 +47,15 @@ describe('AuthApi', () => {
     expect(amplify.signInWithRedirect).toHaveBeenCalledWith({ provider: 'Google' });
   });
 
+  it.each(['Microsoft', 'GitHub'] as const)(
+    'starts the OAuth redirect for the %s OIDC provider by name',
+    async (provider) => {
+      await api.signInWithProvider(provider);
+
+      expect(amplify.signInWithRedirect).toHaveBeenCalledWith({ provider: { custom: provider } });
+    },
+  );
+
   it('rethrows provider sign-in errors', async () => {
     const error = new Error('popup closed');
     vi.mocked(amplify.signInWithRedirect).mockRejectedValue(error);

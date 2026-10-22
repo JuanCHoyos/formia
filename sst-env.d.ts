@@ -6,7 +6,7 @@
 
 declare module "sst" {
   export interface Resource {
-    "DynamoDB": {
+    "AwsRegion": {
       "region": string
       "type": "sst.sst.Linkable"
     }
@@ -39,11 +39,36 @@ declare module "sst" {
       "type": "sst.aws.StaticSite"
       "url": string
     }
+    "GITHUB_CLIENT_ID": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "GITHUB_CLIENT_SECRET": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "GITHUB_OIDC_PRIVATE_KEY": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
     "GOOGLE_CLIENT_ID": {
       "type": "sst.sst.Secret"
       "value": string
     }
     "GOOGLE_CLIENT_SECRET": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "GitHubOidc": {
+      "name": string
+      "type": "sst.aws.Function"
+      "url": string
+    }
+    "MICROSOFT_CLIENT_ID": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "MICROSOFT_CLIENT_SECRET": {
       "type": "sst.sst.Secret"
       "value": string
     }

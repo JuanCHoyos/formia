@@ -213,7 +213,7 @@
     "socialLogin": {
       "google": "Continue with Google",
       "microsoft": "Continue with Microsoft",
-      "facebook": "Continue with Facebook",
+      "github": "Continue with GitHub",
       "providerError": "Couldn't sign in with this provider. Please try again.",
       "redirecting": "Connecting to {{provider}}…",
       "completing": "Checking your account...",

@@ -4,6 +4,6 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   test: {
     passWithNoTests: true,
-    projects: ['apps/backend', 'packages/core'],
+    projects: ['apps/backend', 'apps/github-oidc', 'packages/core'],
   },
 });

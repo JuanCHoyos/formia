@@ -4,7 +4,7 @@ import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 import { Resource } from 'sst';
 
 const dynamoDBClient = new DynamoDBClient({
-  region: Resource.DynamoDB.region,
+  region: Resource.AwsRegion.region,
 });
 
 export const documentClient = DynamoDBDocumentClient.from(dynamoDBClient, {

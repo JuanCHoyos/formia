@@ -1,0 +1,22 @@
+{
+  "name": "@formly/github-oidc",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@elysiajs/bearer": "catalog:",
+    "@formly/core": "workspace:*",
+    "elysia": "catalog:",
+    "sst": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

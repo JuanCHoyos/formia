@@ -16,7 +16,7 @@ const schema = metadataSchema.and({
   termsAccepted: s.boolean(),
   termsAcceptedAt: dateSchema.required(),
   roles: s.list(s.string().enum('FORM_CREATOR', 'FORM_RESPONDENT')).required(),
-  authProvider: s.string().enum('SYSTEM', 'Google', 'Facebook', 'Apple'),
+  authProvider: s.string().enum('SYSTEM', 'Google', 'Microsoft', 'GitHub'),
 });
 
 export const table = new Table({

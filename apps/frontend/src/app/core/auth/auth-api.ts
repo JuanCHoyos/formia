@@ -32,7 +32,8 @@ export class AuthApi {
   }
 
   async signInWithProvider(provider: ExternalAuthProvider) {
-    await signInWithRedirect({ provider: provider });
+    // Amplify names only Cognito's built-in social providers; OIDC providers go by their name.
+    await signInWithRedirect({ provider: provider === 'Google' ? provider : { custom: provider } });
   }
 
   async signUpWithEmail(user: SignUpInput) {

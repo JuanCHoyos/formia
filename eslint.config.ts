@@ -117,7 +117,7 @@ export default defineConfig(
   },
 
   {
-    files: ['apps/backend/**/*.ts'],
+    files: ['apps/backend/**/*.ts', 'apps/github-oidc/**/*.ts'],
     languageOptions: { globals: globals.node },
     rules: {
       'perfectionist/sort-imports': importOrder([
