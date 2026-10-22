@@ -1,17 +1,14 @@
-import { CommonModule } from '@angular/common';
 import { Component, input, model, output } from '@angular/core';
 import { FormValueControl } from '@angular/forms/signals';
 
 import { NgIcon, provideIcons } from '@ng-icons/core';
-
-import { CheckboxModule } from 'primeng/checkbox';
 
 import { APP_ICONS } from '../../constants/icons';
 import type { OptionCardSelectorOption } from '../../types/option-card-selector-option';
 
 @Component({
   selector: 'app-option-card-selector',
-  imports: [CommonModule, NgIcon, CheckboxModule],
+  imports: [NgIcon],
   providers: [provideIcons(APP_ICONS)],
   templateUrl: './option-card-selector.html',
 })
@@ -20,6 +17,7 @@ export class OptionCardSelector<T> implements FormValueControl<T[]> {
   readonly value = model<T[]>([]);
 
   readonly disabled = input<boolean>(false);
+  readonly ariaLabel = input<string>();
   readonly touch = output<void>();
 
   isSelected(value: T): boolean {

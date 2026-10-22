@@ -1,0 +1,26 @@
+<div
+  role="radiogroup"
+  class="grid auto-cols-fr grid-flow-col gap-1 rounded-control bg-surface-sunken p-1"
+  [attr.aria-label]="ariaLabel()"
+  [attr.aria-labelledby]="ariaLabelledBy()"
+>
+  @for (option of options(); track option.value) {
+    <label
+      #item
+      class="relative flex cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-[5px] px-2.5 py-1.5 text-xs font-medium text-text-2 transition-[color,background-color,box-shadow] duration-150 hover:text-text has-checked:bg-surface-raised has-checked:text-text has-checked:shadow-1 has-focus-visible:focus-ring"
+      [class.flex-col]="stacked()"
+    >
+      <input
+        type="radio"
+        class="sr-only"
+        [name]="name"
+        [checked]="option.value === value()"
+        (change)="select(option.value, item)"
+      />
+      @if (option.icon) {
+        <ng-icon [name]="option.icon" size="1rem" aria-hidden="true" />
+      }
+      {{ option.labelKey | translate }}
+    </label>
+  }
+</div>
