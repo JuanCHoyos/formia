@@ -5,8 +5,9 @@
     'surface-highlight': selectedItem() === item().value,
     'border-transparent hover:surface-highlight': selectedItem() !== item().value,
   }"
+  tabindex="0"
   (click)="selectItem()"
-  (keyup.enter)="selectItem()"
+  (keydown.enter)="$event.target === $event.currentTarget && selectItem()"
   cdkDrag
   [cdkDragDisabled]="!sort()"
   [cdkDragData]="{ id: item().id, isPrincipal: rootIndex() === 0 }"

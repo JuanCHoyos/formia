@@ -21,8 +21,14 @@
                     'bg-success': value < navigation.activeStep(),
                     'bg-primary': value === navigation.activeStep(),
                   }"
+                  role="button"
+                  [attr.tabindex]="navigation.canNavigateTo(value) ? 0 : -1"
+                  [attr.aria-disabled]="!navigation.canNavigateTo(value)"
+                  [attr.aria-current]="value === navigation.activeStep() ? 'step' : null"
+                  [attr.aria-label]="step.props?.label"
                   (click)="activateCallback()"
-                  (keyup.enter)="activateCallback()"
+                  (keydown.enter)="activateCallback()"
+                  (keydown.space)="$event.preventDefault(); activateCallback()"
                 >
                   @if (value < navigation.activeStep()) {
                     <ng-icon name="lucideCheck"></ng-icon>
