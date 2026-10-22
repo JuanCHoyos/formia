@@ -1,9 +1,13 @@
 // Define the type of the environment variables.
 declare interface Env {
   readonly NODE_ENV: string;
-  // Replace the following with your own environment variables.
-  // Example: NGX_VERSION: string;
-  [key: string]: any;
+  // Injected by SST through @ngx-env/builder.
+  readonly NG_APP_API_URL: string;
+  readonly NG_APP_COGNITO_USER_POOL_ID: string;
+  readonly NG_APP_COGNITO_USER_POOL_CLIENT_ID: string;
+  readonly NG_APP_COGNITO_DOMAIN: string;
+  readonly NG_APP_COGNITO_REDIRECT_SIGN_IN: string;
+  readonly NG_APP_COGNITO_REDIRECT_SIGN_OUT: string;
 }
 
 // Choose how to access the environment variables.

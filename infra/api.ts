@@ -1,6 +1,6 @@
 import type { createCognito } from './cognito';
 
-type CognitoAuthProperties = Pick<ReturnType<typeof createCognito>, 'userPoolId' | 'clientId'>;
+type CognitoAuthProperties = Pick<ReturnType<typeof createCognito>, 'clientId' | 'userPoolId'>;
 
 export function createFormlyApi(
   s3Storage: sst.aws.Bucket,

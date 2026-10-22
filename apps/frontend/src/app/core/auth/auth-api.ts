@@ -1,13 +1,5 @@
 import { Service } from '@angular/core';
-import type { ExternalAuthProvider } from '@formly/core/schemas/common';
-import type { CreateUserProfileInput, UserProfile } from '@formly/core/schemas/user';
-import type {
-  ConfirmForgotPasswordInput,
-  ConfirmSignUpInput,
-  ForgotPasswordInput,
-  SignInInput,
-  SignUpInput,
-} from '@formly/core/schemas/auth';
+
 import {
   signInWithRedirect,
   signUp,
@@ -16,6 +8,17 @@ import {
   resetPassword,
   confirmResetPassword,
 } from 'aws-amplify/auth';
+
+import type {
+  ConfirmForgotPasswordInput,
+  ConfirmSignUpInput,
+  ForgotPasswordInput,
+  SignInInput,
+  SignUpInput,
+} from '@formly/core/schemas/auth';
+import type { ExternalAuthProvider } from '@formly/core/schemas/common';
+import type { CreateUserProfileInput, UserProfile } from '@formly/core/schemas/user';
+
 import { apiClient } from '../api/api-client';
 import { apiResult } from '../api/api-result';
 
@@ -29,11 +32,7 @@ export class AuthApi {
   }
 
   async signInWithProvider(provider: ExternalAuthProvider) {
-    try {
-      await signInWithRedirect({ provider: provider });
-    } catch (error) {
-      throw error;
-    }
+    await signInWithRedirect({ provider: provider });
   }
 
   async signUpWithEmail(user: SignUpInput) {

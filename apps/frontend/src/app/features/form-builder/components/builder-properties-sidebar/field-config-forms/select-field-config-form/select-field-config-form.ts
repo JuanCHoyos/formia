@@ -1,15 +1,18 @@
 import { Component, effect, input, OnInit, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { form, FormField, validate } from '@angular/forms/signals';
+
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { AccordionModule } from 'primeng/accordion';
 import { InputTextModule } from 'primeng/inputtext';
+import { MessageModule } from 'primeng/message';
+
+import type { SelectFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
+import { Checkbox } from '@/app/ui/components/checkbox/checkbox';
+import { OptionEditor } from '@/app/ui/components/option-editor/option-editor';
 
 import { CommonFieldConfigForm } from '../common-field-config-form/common-field-config-form';
-import type { SelectFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
-import { form, FormField, validate } from '@angular/forms/signals';
-import { MessageModule } from 'primeng/message';
-import { OptionEditor } from '@/app/ui/components/option-editor/option-editor';
-import { Checkbox } from '@/app/ui/components/checkbox/checkbox';
-import { AccordionModule } from 'primeng/accordion';
 @Component({
   selector: 'app-select-field-config-form',
   templateUrl: './select-field-config-form.html',

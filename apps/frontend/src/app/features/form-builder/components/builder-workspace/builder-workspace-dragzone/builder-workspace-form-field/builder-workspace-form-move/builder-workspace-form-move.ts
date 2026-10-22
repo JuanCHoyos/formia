@@ -1,20 +1,19 @@
-import { Component, computed, inject, input, OnInit, signal } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { Button } from '@/app/ui/components/button/button';
-import { APP_ICONS } from '@/app/ui/constants/icons';
 import { CommonModule } from '@angular/common';
+import { Component, computed, inject, signal } from '@angular/core';
+
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { SelectItemGroup } from 'primeng/api';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { SelectModule } from 'primeng/select';
-import { FormBuilderStore } from '@/app/features/form-builder/services/form-builder-store';
+
+import { FIELD_TYPE_ICONS } from '@/app/features/form-builder/formly/config/field-type-icons';
 import {
   AppFormlyFieldConfig,
-  FormFieldConfiguration,
   FormPageContainer,
 } from '@/app/features/form-builder/formly/interfaces/app-formly-field-config';
-import { SelectItemGroup } from 'primeng/api';
-import { ContainerFieldTypeConfig } from '@/app/features/form-builder/formly/interfaces/field-types/container-field';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { FIELD_TYPE_ICONS } from '@/app/features/form-builder/formly/config/field-type-icons';
+import { FormBuilderStore } from '@/app/features/form-builder/services/form-builder-store';
+import { Button } from '@/app/ui/components/button/button';
 import { TreeItem, TreeSelector } from '@/app/ui/components/tree-selector/tree-selector';
 
 @Component({
@@ -30,14 +29,14 @@ export class BuilderWorkspaceFormMove {
 
   fields = signal<SelectItemGroup[]>([]);
 
-  items = computed<TreeItem<FormPageContainer | AppFormlyFieldConfig>[]>(() => {
+  items = computed<TreeItem<AppFormlyFieldConfig | FormPageContainer>[]>(() => {
     return this.buildTreeItems(this.formBuilderStore.fields().fieldGroup, 0);
   });
 
   private buildTreeItems(
-    fields: (FormPageContainer | AppFormlyFieldConfig)[],
+    fields: (AppFormlyFieldConfig | FormPageContainer)[],
     level: number,
-  ): TreeItem<FormPageContainer | AppFormlyFieldConfig>[] {
+  ): TreeItem<AppFormlyFieldConfig | FormPageContainer>[] {
     return fields.map((field) => ({
       id: field.id,
       label: this.getText(field),

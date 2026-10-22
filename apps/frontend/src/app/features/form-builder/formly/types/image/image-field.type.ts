@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+
 import { FieldType } from '@ngx-formly/core';
+
 import type { ImageFieldTypeConfig } from '../../interfaces/field-types/image-field';
 
 @Component({

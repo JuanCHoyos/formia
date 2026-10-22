@@ -1,14 +1,17 @@
 import { Component, effect, input, OnInit, output, signal } from '@angular/core';
 import { form, FormField, min } from '@angular/forms/signals';
+
 import { TranslatePipe } from '@ngx-translate/core';
+
 import { AccordionModule } from 'primeng/accordion';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 
-import { CommonFieldConfigForm } from '../common-field-config-form/common-field-config-form';
-import { Checkbox } from '@/app/ui/components/checkbox/checkbox';
 import type { RatingFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
+import { Checkbox } from '@/app/ui/components/checkbox/checkbox';
+
+import { CommonFieldConfigForm } from '../common-field-config-form/common-field-config-form';
 
 type RatingFieldSettings = {
   label: string;

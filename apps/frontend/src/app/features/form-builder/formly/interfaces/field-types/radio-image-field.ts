@@ -1,8 +1,10 @@
 import type { FieldTypeConfig } from '@ngx-formly/core';
+
+import z from 'zod';
+
 import type { BaseField, OmitBaseConfig } from './base-field';
 import { BaseFieldPropsSchema } from './base-field';
 import { SelectOptionSchema } from './field-options';
-import z from 'zod';
 
 export const RadioImageOptionSchema = SelectOptionSchema.extend({
   image: z.string(),

@@ -1,6 +1,5 @@
-import { Notifications } from '@/app/ui/services/notifications';
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
+
 import { catchError, throwError } from 'rxjs';
 
 export const apiErrorInterceptor: HttpInterceptorFn = (req, next) => {

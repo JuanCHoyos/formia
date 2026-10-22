@@ -1,7 +1,11 @@
 import { Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core';
+
 import { TranslatePipe } from '@ngx-translate/core';
+
 import { InputTextModule } from 'primeng/inputtext';
+
 import { Button } from '@ui/components/button/button';
+
 import { FormBuilderStore } from '../../../services/form-builder-store';
 
 const MIN_TITLE_LENGTH = 3;

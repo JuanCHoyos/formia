@@ -1,4 +1,5 @@
 import { ConfigOption } from '@ngx-formly/core';
+
 import { FormFieldWrapper } from '../wrappers/form-field/form-field.wrapper';
 import { FormScrollWrapper } from '../wrappers/form-scroll/scroll.wrapper';
 import { FormStepsWrapper } from '../wrappers/form-steps/steps.wrapper';

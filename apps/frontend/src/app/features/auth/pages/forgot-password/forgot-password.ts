@@ -1,16 +1,19 @@
-import { AuthApi } from '@/app/core/auth/auth-api';
-import { AuthHeader } from '@/app/features/auth/components/auth-header/auth-header';
-import { Button } from '@/app/ui/components/button/button';
-import { Password } from '@/app/ui/components/password/password';
 import { Component, inject, signal } from '@angular/core';
 import { email, form, FormField, minLength, required, validate } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
+
 import { TranslatePipe } from '@ngx-translate/core';
+
 import { InputOtpModule } from 'primeng/inputotp';
 import { InputTextModule } from 'primeng/inputtext';
-import { Notifications } from '@/app/ui/services/notifications';
-import { isCognitoPasswordValid } from '@/app/core/auth/password-policy';
+
+import { AuthApi } from '@/app/core/auth/auth-api';
 import { getCognitoErrorNotification } from '@/app/core/auth/cognito-error-notifications';
+import { isCognitoPasswordValid } from '@/app/core/auth/password-policy';
+import { AuthHeader } from '@/app/features/auth/components/auth-header/auth-header';
+import { Button } from '@/app/ui/components/button/button';
+import { Password } from '@/app/ui/components/password/password';
+import { Notifications } from '@/app/ui/services/notifications';
 
 @Component({
   selector: 'app-forgot-password',

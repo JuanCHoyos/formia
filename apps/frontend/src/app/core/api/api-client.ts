@@ -1,6 +1,9 @@
-import { fetchAuthSession } from 'aws-amplify/auth';
 import { treaty } from '@elysiajs/eden';
+
+import { fetchAuthSession } from 'aws-amplify/auth';
+
 import type { App } from '@formly/backend/api';
+
 import { environment } from '@/environments/environment';
 
 const apiUrl = new URL(environment.API_URL);

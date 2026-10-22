@@ -1,7 +1,9 @@
-import { TranslatePipe } from '@ngx-translate/core';
-import { Component, computed, signal } from '@angular/core';
-import { FieldWrapper } from '@ngx-formly/core';
 import { CommonModule } from '@angular/common';
+import { Component, computed, signal } from '@angular/core';
+
+import { FieldWrapper } from '@ngx-formly/core';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import type { FieldTypeName } from '../../config/config-types';
 import type { FormWrapperConfig } from '../../interfaces/wrapper-types/form-wrapper';
 

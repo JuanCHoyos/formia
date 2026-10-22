@@ -1,17 +1,19 @@
-import { Button } from '@/app/ui/components/button/button';
-import { Password } from '@/app/ui/components/password/password';
-import { AuthHeader } from '@/app/features/auth/components/auth-header/auth-header';
-import { SocialLoginButtons } from '@/app/features/auth/components/social-login-buttons/social-login-buttons';
 import { Component, inject, signal } from '@angular/core';
 import { email, form, FormField, required } from '@angular/forms/signals';
-
 import { Router, RouterLink } from '@angular/router';
+
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { DividerModule } from 'primeng/divider';
 import { InputTextModule } from 'primeng/inputtext';
-import { TranslatePipe } from '@ngx-translate/core';
+
 import { AuthApi } from '@/app/core/auth/auth-api';
-import { Notifications } from '@/app/ui/services/notifications';
 import { getCognitoErrorNotification } from '@/app/core/auth/cognito-error-notifications';
+import { AuthHeader } from '@/app/features/auth/components/auth-header/auth-header';
+import { SocialLoginButtons } from '@/app/features/auth/components/social-login-buttons/social-login-buttons';
+import { Button } from '@/app/ui/components/button/button';
+import { Password } from '@/app/ui/components/password/password';
+import { Notifications } from '@/app/ui/services/notifications';
 
 @Component({
   selector: 'app-login',

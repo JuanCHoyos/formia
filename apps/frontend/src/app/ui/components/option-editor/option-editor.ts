@@ -1,13 +1,16 @@
+import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { Component, input, model, output } from '@angular/core';
-import { TranslatePipe } from '@ngx-translate/core';
 import { form, FormField, disabled as disableField, FieldTree } from '@angular/forms/signals';
+
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { InputTextModule } from 'primeng/inputtext';
 import { ulid } from 'ulid';
-import { Button } from '../button/button';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+
 import { APP_ICONS } from '../../constants/icons';
-import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
+import { Button } from '../button/button';
 
 export type SelectOption = { label: string; value: string };
 
@@ -54,7 +57,7 @@ export class OptionEditor {
     this.value.update((options) => options.filter((_, i) => i !== index));
   }
 
-  drop(event: CdkDragDrop<FieldTree<SelectOption[], string | number, 'writable'>>) {
+  drop(event: CdkDragDrop<FieldTree<SelectOption[], number | string, 'writable'>>) {
     this.value.update((options) => {
       const updatedOptions = [...options];
       const [movedOption] = updatedOptions.splice(event.previousIndex, 1);

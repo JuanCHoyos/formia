@@ -1,10 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
+
 import { TranslatePipe } from '@ngx-translate/core';
+
 import { InputNumberModule } from 'primeng/inputnumber';
 import { PopoverModule } from 'primeng/popover';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
+
 import { Button } from '@/app/ui/components/button/button';
+
 import { FormBuilderStore } from '../../../services/form-builder-store';
 
 const MIN_MULTIPLE_SUBMISSIONS = 2;

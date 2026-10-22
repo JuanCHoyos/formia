@@ -1,11 +1,13 @@
-import { Component, inject, output, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+
 import { TranslatePipe } from '@ngx-translate/core';
+
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
-import { Button } from '@/app/ui/components/button/button';
-import { FormBuilderStore } from '@/app/features/form-builder/services/form-builder-store';
+
 import { FieldConfigFactory } from '@/app/features/form-builder/services/field-config-factory';
-import { FormPageContainer } from '@/app/features/form-builder/formly/interfaces/app-formly-field-config';
+import { FormBuilderStore } from '@/app/features/form-builder/services/form-builder-store';
+import { Button } from '@/app/ui/components/button/button';
 
 @Component({
   selector: 'app-create-page-dialog',

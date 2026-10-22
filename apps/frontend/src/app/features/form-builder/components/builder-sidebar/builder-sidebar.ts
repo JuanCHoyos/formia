@@ -1,23 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
-import { Button } from '@ui/components/button/button';
-import { TabsModule } from 'primeng/tabs';
 import { FormsModule } from '@angular/forms';
-import { BuilderSidebarComponents } from './builder-sidebar-components/builder-sidebar-components';
 
-import { BuilderMenuState } from '../../services/builder-menu-state';
 import { TranslatePipe } from '@ngx-translate/core';
-import {
-  AppFormlyFieldConfig,
-  FormPageContainer,
-} from '../../formly/interfaces/app-formly-field-config';
-import { FormBuilderStore } from '../../services/form-builder-store';
-import { FIELD_TYPE_ICONS } from '../../formly/config/field-type-icons';
+
+import { TabsModule } from 'primeng/tabs';
+
 import {
   TreeSortableItem,
   TreeItem,
   TreeSelector,
 } from '@/app/ui/components/tree-selector/tree-selector';
+import { Button } from '@ui/components/button/button';
+
+import { FIELD_TYPE_ICONS } from '../../formly/config/field-type-icons';
+import {
+  AppFormlyFieldConfig,
+  FormPageContainer,
+} from '../../formly/interfaces/app-formly-field-config';
+import { BuilderMenuState } from '../../services/builder-menu-state';
+import { FormBuilderStore } from '../../services/form-builder-store';
+import { BuilderSidebarComponents } from './builder-sidebar-components/builder-sidebar-components';
 
 @Component({
   selector: 'app-builder-sidebar',
@@ -36,14 +39,14 @@ export class BuilderSidebar {
   readonly menuState = inject(BuilderMenuState);
   readonly formBuilderStore = inject(FormBuilderStore);
 
-  items = computed<TreeItem<FormPageContainer | AppFormlyFieldConfig>[]>(() => {
+  items = computed<TreeItem<AppFormlyFieldConfig | FormPageContainer>[]>(() => {
     return this.buildTreeItems(this.formBuilderStore.fields().fieldGroup, 0);
   });
 
   private buildTreeItems(
-    fields: (FormPageContainer | AppFormlyFieldConfig)[],
+    fields: (AppFormlyFieldConfig | FormPageContainer)[],
     level: number,
-  ): TreeItem<FormPageContainer | AppFormlyFieldConfig>[] {
+  ): TreeItem<AppFormlyFieldConfig | FormPageContainer>[] {
     return fields.map((field) => ({
       id: field.id,
       label: this.getText(field),

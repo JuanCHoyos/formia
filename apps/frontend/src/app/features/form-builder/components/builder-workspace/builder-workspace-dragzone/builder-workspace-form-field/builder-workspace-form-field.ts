@@ -1,18 +1,20 @@
-import { Component, computed, inject, input, output, signal } from '@angular/core';
-import { FormlyForm } from '@ngx-formly/core';
-import { type AppFormlyFieldConfig } from '../../../../formly/interfaces/app-formly-field-config';
-import { FormBuilderStore } from '@/app/features/form-builder/services/form-builder-store';
-import { BuilderWorkspaceEmptyState } from '../builder-workspace-empty-state/builder-workspace-empty-state';
-import { FieldConfigFactory } from '@/app/features/form-builder/services/field-config-factory';
-import { FieldTypeName } from '@/app/features/form-builder/formly/config/config-types';
-import { BuilderWorkspaceFieldSelector } from '../builder-workspace-field-selector/builder-workspace-field-selector';
-import { BuilderMenuState } from '@/app/features/form-builder/services/builder-menu-state';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-
-import { BuilderWorkspaceFormFieldHeader } from './builder-workspace-form-field-header/builder-workspace-form-field-header';
-import { HoverTrigger } from '@/app/ui/directives/hover-state';
 import { CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDropList } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
+import { Component, computed, inject, input, output, signal } from '@angular/core';
+
+import { FormlyForm } from '@ngx-formly/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+
+import { FieldTypeName } from '@/app/features/form-builder/formly/config/config-types';
+import { BuilderMenuState } from '@/app/features/form-builder/services/builder-menu-state';
+import { FieldConfigFactory } from '@/app/features/form-builder/services/field-config-factory';
+import { FormBuilderStore } from '@/app/features/form-builder/services/form-builder-store';
+import { HoverTrigger } from '@/app/ui/directives/hover-state';
+
+import { type AppFormlyFieldConfig } from '../../../../formly/interfaces/app-formly-field-config';
+import { BuilderWorkspaceEmptyState } from '../builder-workspace-empty-state/builder-workspace-empty-state';
+import { BuilderWorkspaceFieldSelector } from '../builder-workspace-field-selector/builder-workspace-field-selector';
+import { BuilderWorkspaceFormFieldHeader } from './builder-workspace-form-field-header/builder-workspace-form-field-header';
 
 @Component({
   selector: 'app-builder-workspace-form-field',

@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { booleanAttribute, Component, input, output } from '@angular/core';
 
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroArrowTopRightOnSquareMicro } from '@ng-icons/heroicons/micro';
+import { Spinner } from '@primeicons/angular/spinner';
 
 import { ButtonModule, ButtonSeverity, ButtonSize, ButtonVariant } from 'primeng/button';
-import { Spinner } from '@primeicons/angular/spinner';
+
 import { APP_ICONS } from '../../constants/icons';
 import { AppIcon } from '../../types/icons';
 export type IconPosition = 'left' | 'right';

@@ -1,9 +1,19 @@
 import { Component, computed, inject } from '@angular/core';
-import { Button } from '@/app/ui/components/button/button';
+
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
-import { BuilderMenuState } from '../../services/builder-menu-state';
-import { FormBuilderStore } from '../../services/form-builder-store';
+import { MessageModule } from 'primeng/message';
+
+import { Button } from '@/app/ui/components/button/button';
+import { APP_ICONS } from '@/app/ui/constants/icons';
+import { AppIcon } from '@/app/ui/types/icons';
+
+import { FIELD_PALETTE } from '../../constants/field-palette-group';
+import type {
+  AppFormlyFieldConfig,
+  FormPageContainer,
+} from '../../formly/interfaces/app-formly-field-config';
 import type {
   AlertFieldProps,
   CheckboxFieldProps,
@@ -21,10 +31,8 @@ import type {
   TextareaFieldProps,
   TextFieldProps,
 } from '../../formly/interfaces/field-types';
-import type {
-  AppFormlyFieldConfig,
-  FormPageContainer,
-} from '../../formly/interfaces/app-formly-field-config';
+import { BuilderMenuState } from '../../services/builder-menu-state';
+import { FormBuilderStore } from '../../services/form-builder-store';
 import { AlertFieldConfigForm } from './field-config-forms/alert-field-config-form/alert-field-config-form';
 import { CheckboxFieldConfigForm } from './field-config-forms/checkbox-field-config-form/checkbox-field-config-form';
 import { ContainerFieldConfigForm } from './field-config-forms/container-field-config-form/container-field-config-form';
@@ -40,11 +48,6 @@ import { RatingFieldConfigForm } from './field-config-forms/rating-field-config-
 import { SelectFieldConfigForm } from './field-config-forms/select-field-config-form/select-field-config-form';
 import { TextFieldConfigForm } from './field-config-forms/text-field-config-form/text-field-config-form';
 import { TextareaFieldConfigForm } from './field-config-forms/textarea-field-config-form/textarea-field-config-form';
-import { MessageModule } from 'primeng/message';
-import { AppIcon } from '@/app/ui/types/icons';
-import { FIELD_PALETTE } from '../../constants/field-palette-group';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { APP_ICONS } from '@/app/ui/constants/icons';
 @Component({
   selector: 'app-builder-properties-sidebar',
   templateUrl: './builder-properties-sidebar.html',

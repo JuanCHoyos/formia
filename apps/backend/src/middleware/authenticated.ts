@@ -1,8 +1,10 @@
-import { Elysia } from 'elysia';
 import { bearer } from '@elysiajs/bearer';
-import { getUsersByEmail } from '../modules/users/users.service';
+import { Elysia } from 'elysia';
+
 import { verifyAccessTokenUser, verifyIdTokenUser } from '@formly/core/auth';
+
 import { fail } from '../http/responses';
+import { getUsersByEmail } from '../modules/users/users.service';
 
 const validateBearerToken = async (
   token: string | null | undefined,

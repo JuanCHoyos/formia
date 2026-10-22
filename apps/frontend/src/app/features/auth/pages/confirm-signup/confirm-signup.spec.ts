@@ -1,9 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideTranslateService } from '@ngx-translate/core';
 import { provideRouter, Router } from '@angular/router';
+
+import { provideTranslateService } from '@ngx-translate/core';
+
 import { AuthApi } from '@/app/core/auth/auth-api';
 import { Notifications } from '@/app/ui/services/notifications';
 import { deferred, query, submitForm } from '@/testing/dom';
+
 import { ConfirmSignup } from './confirm-signup';
 
 describe('ConfirmSignup', () => {

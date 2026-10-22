@@ -1,16 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component, input } from '@angular/core';
+import { FieldTree, FormField } from '@angular/forms/signals';
+
 import { TranslatePipe } from '@ngx-translate/core';
+
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
-
-import { FieldTree, FormField } from '@angular/forms/signals';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { CommonModule } from '@angular/common';
+
 import { BaseFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
 import { Checkbox } from '@/app/ui/components/checkbox/checkbox';
 
 type CommonFieldConfigTree = Pick<
-  FieldTree<BaseFieldProps, string | number, 'writable'>,
+  FieldTree<BaseFieldProps, number | string, 'writable'>,
   keyof BaseFieldProps
 >;
 

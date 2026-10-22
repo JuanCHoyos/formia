@@ -1,9 +1,10 @@
-import { Elysia } from 'elysia';
 import { cors } from '@elysiajs/cors';
 import { node } from '@elysiajs/node';
+import { Elysia } from 'elysia';
 import { helmet } from 'elysia-helmet';
-import { routers } from './routers';
+
 import { fail } from './http/responses';
+import { routers } from './routers';
 
 export const app = new Elysia({ adapter: node(), prefix: '/api/v1' })
   .use(

@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+
 import { FieldType } from '@ngx-formly/core';
+
 import { CheckboxModule } from 'primeng/checkbox';
+
 import type { CheckboxFieldTypeConfig } from '../../interfaces/field-types/checkbox-field';
 
 @Component({

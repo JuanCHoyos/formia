@@ -1,8 +1,10 @@
 import { inject, Service } from '@angular/core';
+
 import { TranslateService, type InterpolationParameters } from '@ngx-translate/core';
+
 import { ConfirmationService, MessageService, type Confirmation } from 'primeng/api';
 
-export type NotificationSeverity = 'success' | 'info' | 'warn' | 'error';
+export type NotificationSeverity = 'error' | 'info' | 'success' | 'warn';
 
 export interface NotificationOptions {
   key?: string;

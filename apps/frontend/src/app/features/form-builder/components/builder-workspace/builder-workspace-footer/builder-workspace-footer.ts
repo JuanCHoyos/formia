@@ -1,9 +1,13 @@
-import { Button } from '@/app/ui/components/button/button';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilderStore } from '../../../services/form-builder-store';
-import { ProgressBarModule } from 'primeng/progressbar';
+
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { ProgressBarModule } from 'primeng/progressbar';
+
+import { Button } from '@/app/ui/components/button/button';
+
+import { FormBuilderStore } from '../../../services/form-builder-store';
 
 @Component({
   selector: 'app-builder-workspace-footer',

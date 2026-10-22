@@ -1,13 +1,16 @@
-import { Button } from '@/app/ui/components/button/button';
-import { AuthHeader } from '@/app/features/auth/components/auth-header/auth-header';
 import { Component, inject, input, signal } from '@angular/core';
-import { form, required, FormField, validate, minLength } from '@angular/forms/signals';
+import { form, required, FormField, minLength } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
-import { InputOtpModule } from 'primeng/inputotp';
+
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { InputOtpModule } from 'primeng/inputotp';
+
 import { AuthApi } from '@/app/core/auth/auth-api';
-import { Notifications } from '@/app/ui/services/notifications';
 import { getCognitoErrorNotification } from '@/app/core/auth/cognito-error-notifications';
+import { AuthHeader } from '@/app/features/auth/components/auth-header/auth-header';
+import { Button } from '@/app/ui/components/button/button';
+import { Notifications } from '@/app/ui/services/notifications';
 
 @Component({
   selector: 'app-confirm-signup',

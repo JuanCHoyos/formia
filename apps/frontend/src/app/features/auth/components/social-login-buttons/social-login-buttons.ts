@@ -1,11 +1,14 @@
-import { Button } from '@/app/ui/components/button/button';
-import { AuthApi } from '@/app/core/auth/auth-api';
-import type { ExternalAuthProvider } from '@formly/core/schemas/common';
 import { Component, inject, signal } from '@angular/core';
-import { TranslatePipe } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { Notifications } from '@/app/ui/services/notifications';
+
+import { TranslatePipe } from '@ngx-translate/core';
+
+import type { ExternalAuthProvider } from '@formly/core/schemas/common';
+
+import { AuthApi } from '@/app/core/auth/auth-api';
 import { getCognitoErrorNotification } from '@/app/core/auth/cognito-error-notifications';
+import { Button } from '@/app/ui/components/button/button';
+import { Notifications } from '@/app/ui/services/notifications';
 
 @Component({
   selector: 'app-social-login-buttons',

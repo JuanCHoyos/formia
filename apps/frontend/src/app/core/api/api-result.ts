@@ -37,7 +37,7 @@ export class ApiFailure {
   }
 }
 
-export type ApiResult<T> = ApiSuccess<T> | ApiFailure;
+export type ApiResult<T> = ApiFailure | ApiSuccess<T>;
 
 interface EdenResponse<TBody> {
   data: TBody | null;

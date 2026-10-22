@@ -1,7 +1,9 @@
 import type { FieldTypeConfig } from '@ngx-formly/core';
+
+import z from 'zod';
+
 import type { BaseField, OmitBaseConfig } from './base-field';
 import { BaseFieldPropsSchema } from './base-field';
-import z from 'zod';
 
 export const TextareaFieldTypeSchema = z.object({
   id: z.string(),

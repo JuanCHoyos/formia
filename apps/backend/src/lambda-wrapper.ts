@@ -1,5 +1,6 @@
-import type { APIGatewayProxyEventV2, APIGatewayProxyStructuredResultV2 } from 'aws-lambda';
 import type { AnyElysia } from 'elysia';
+
+import type { APIGatewayProxyEventV2, APIGatewayProxyStructuredResultV2 } from 'aws-lambda';
 
 function resolveRequestBody(event: APIGatewayProxyEventV2): ArrayBuffer | string | null {
   let body: ArrayBuffer | string | null = event.body ?? null;

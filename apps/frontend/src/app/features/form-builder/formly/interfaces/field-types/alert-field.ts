@@ -1,6 +1,8 @@
 import type { FieldTypeConfig } from '@ngx-formly/core';
-import type { OmitBaseConfig } from './base-field';
+
 import z from 'zod';
+
+import type { OmitBaseConfig } from './base-field';
 
 export const AlertFieldTypeSchema = z.object({
   id: z.string(),

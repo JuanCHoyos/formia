@@ -1,9 +1,14 @@
-import { Component, computed, inject } from '@angular/core';
-import { TranslatePipe } from '@ngx-translate/core';
 import { DatePipe } from '@angular/common';
+import { Component, computed, inject } from '@angular/core';
+
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { PopoverModule } from 'primeng/popover';
-import { Button } from '@/app/ui/components/button/button';
+
 import { MAX_PREVIOUS_FORM_VERSIONS } from '@formly/core/schemas/form';
+
+import { Button } from '@/app/ui/components/button/button';
+
 import { FormBuilderSync } from '../../../services/form-builder-sync';
 
 @Component({

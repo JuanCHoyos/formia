@@ -1,13 +1,17 @@
-import type { RadioImageOption } from '@/app/features/form-builder/formly/interfaces/field-types';
+import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
 import { Component, computed, input, model, output } from '@angular/core';
-import { TranslatePipe } from '@ngx-translate/core';
 import { form, FormField, disabled as disableField, FieldTree } from '@angular/forms/signals';
+
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { InputTextModule } from 'primeng/inputtext';
 import { ulid } from 'ulid';
-import { Button } from '../button/button';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+
+import type { RadioImageOption } from '@/app/features/form-builder/formly/interfaces/field-types';
+
 import { APP_ICONS } from '../../constants/icons';
-import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
+import { Button } from '../button/button';
 import { FileUploader } from '../file-uploader/file-uploader';
 export type SelectOptionImage = RadioImageOption;
 
@@ -58,7 +62,7 @@ export class ImageOptionEditor {
     this.value.update((options) => options.filter((_, i) => i !== index));
   }
 
-  drop(event: CdkDragDrop<FieldTree<SelectOptionImage[], string | number, 'writable'>>) {
+  drop(event: CdkDragDrop<FieldTree<SelectOptionImage[], number | string, 'writable'>>) {
     this.value.update((options) => {
       const updatedOptions = [...options];
       const [movedOption] = updatedOptions.splice(event.previousIndex, 1);

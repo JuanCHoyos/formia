@@ -1,13 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { TranslatePipe } from '@ngx-translate/core';
+
 import { Button } from '@ui/components/button/button';
+
+import { BuilderPreviewState } from '../../services/builder-preview-state';
+import { FormBuilderSync } from '../../services/form-builder-sync';
 import { FormSettingsPopover } from './form-settings-popover/form-settings-popover';
 import { FormTitleEditor } from './form-title-editor/form-title-editor';
 import { PublishedVersionsMenu } from './published-versions-menu/published-versions-menu';
 import { SaveStatus } from './save-status/save-status';
-import { BuilderPreviewState } from '../../services/builder-preview-state';
-import { FormBuilderSync } from '../../services/form-builder-sync';
 
 @Component({
   selector: 'app-builder-header',

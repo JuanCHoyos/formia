@@ -1,15 +1,17 @@
 import { Component, effect, inject, input, OnInit, output, signal } from '@angular/core';
+import { form, FormField, max, min, validate } from '@angular/forms/signals';
+
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+
+import { AccordionModule } from 'primeng/accordion';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
-import { AccordionModule } from 'primeng/accordion';
+import { MessageModule } from 'primeng/message';
+
+import type { TextareaFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
+import { Checkbox } from '@/app/ui/components/checkbox/checkbox';
 
 import { CommonFieldConfigForm } from '../common-field-config-form/common-field-config-form';
-import type { TextareaFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
-import { disabled, form, FormField, max, min, required, validate } from '@angular/forms/signals';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { MessageModule } from 'primeng/message';
-import { Checkbox } from '@/app/ui/components/checkbox/checkbox';
 
 @Component({
   selector: 'app-textarea-field-config-form',

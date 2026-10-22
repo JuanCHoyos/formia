@@ -1,12 +1,14 @@
-import { Component, inject, input } from '@angular/core';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { Component, inject } from '@angular/core';
+
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { BuilderPreviewState } from '../../services/builder-preview-state';
+import { FormBuilderStore } from '../../services/form-builder-store';
 import { BuilderWorkspaceDragzone } from './builder-workspace-dragzone/builder-workspace-dragzone';
 import { BuilderWorkspaceFooter } from './builder-workspace-footer/builder-workspace-footer';
 import { BuilderWorkspaceHeader } from './builder-workspace-header/builder-workspace-header';
-import { FormBuilderStore } from '../../services/form-builder-store';
-import { TranslatePipe } from '@ngx-translate/core';
 import { BuilderWorkspacePreview } from './builder-workspace-preview/builder-workspace-preview';
-import { BuilderPreviewState } from '../../services/builder-preview-state';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-builder-workspace',

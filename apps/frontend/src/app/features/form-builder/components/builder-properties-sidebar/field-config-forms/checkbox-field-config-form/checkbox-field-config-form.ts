@@ -1,10 +1,13 @@
 import { Component, effect, input, OnInit, output, signal } from '@angular/core';
+import { form } from '@angular/forms/signals';
+
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { AccordionModule } from 'primeng/accordion';
+
+import type { CheckboxFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
 
 import { CommonFieldConfigForm } from '../common-field-config-form/common-field-config-form';
-import type { CheckboxFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
-import { form } from '@angular/forms/signals';
-import { TranslatePipe } from '@ngx-translate/core';
-import { AccordionModule } from 'primeng/accordion';
 
 @Component({
   selector: 'app-checkbox-field-config-form',

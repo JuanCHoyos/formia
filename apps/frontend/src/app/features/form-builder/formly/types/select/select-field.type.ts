@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+
 import { FieldType } from '@ngx-formly/core';
+
 import { SelectModule } from 'primeng/select';
+
 import type { SelectFieldTypeConfig } from '../../interfaces/field-types/select-field';
 
 @Component({

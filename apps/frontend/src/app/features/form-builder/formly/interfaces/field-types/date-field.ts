@@ -1,8 +1,10 @@
 import type { FieldTypeConfig } from '@ngx-formly/core';
+
+import z from 'zod';
+
+import { DATE_FORMATS } from '../../constants/date-formats';
 import type { BaseField, OmitBaseConfig } from './base-field';
 import { BaseFieldPropsSchema } from './base-field';
-import { DATE_FORMATS } from '../../constants/date-formats';
-import z from 'zod';
 
 export const DateFieldTypeSchema = z.object({
   id: z.string(),

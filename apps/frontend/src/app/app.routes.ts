@@ -1,8 +1,10 @@
 import { Routes } from '@angular/router';
-import { AUTH_ROUTES } from './features/auth/auth.routes';
+
 import { authenticatedGuard } from '@/app/core/auth/guards/authenticated';
 import { unauthenticatedGuard } from '@/app/core/auth/guards/unauthenticated';
 import { unregisteredGuard } from '@/app/core/auth/guards/unregistered';
+
+import { AUTH_ROUTES } from './features/auth/auth.routes';
 
 export const routes: Routes = [
   {

@@ -1,6 +1,8 @@
 import type { HttpInterceptorFn } from '@angular/common/http';
+
 import { fetchAuthSession } from 'aws-amplify/auth';
 import { from, switchMap, throwError } from 'rxjs';
+
 import { environment } from '@environments/environment';
 
 const apiUrl = new URL(environment.API_URL);

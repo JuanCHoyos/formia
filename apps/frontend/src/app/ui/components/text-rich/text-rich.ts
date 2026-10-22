@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, model, signal, viewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { Editor, NgxEditorComponent } from 'ngx-editor';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   imports: [CommonModule, NgxEditorComponent, FormsModule],

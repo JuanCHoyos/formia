@@ -1,12 +1,15 @@
 import { Component, computed, input, model, signal } from '@angular/core';
+import { FormValueControl } from '@angular/forms/signals';
+
 import { NgIcon, provideIcons } from '@ng-icons/core';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+
 import { APP_ICONS } from '../../constants/icons';
 import type { AppIcon } from '../../types/icons';
-import { DialogModule } from 'primeng/dialog';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { TranslatePipe } from '@ngx-translate/core';
-import { FormValueControl } from '@angular/forms/signals';
 
 export type IconSelectorValue = AppIcon | AppIcon[] | null;
 

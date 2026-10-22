@@ -1,11 +1,14 @@
 import { Component, effect, input, OnInit, output, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
+
 import { TranslatePipe } from '@ngx-translate/core';
+
 import { AccordionModule } from 'primeng/accordion';
 
-import { CommonFieldConfigForm } from '../common-field-config-form/common-field-config-form';
 import type { RadioImageFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
 import { ImageOptionEditor } from '@/app/ui/components/image-option-editor/image-option-editor';
+
+import { CommonFieldConfigForm } from '../common-field-config-form/common-field-config-form';
 
 @Component({
   selector: 'app-radio-image-field-config-form',

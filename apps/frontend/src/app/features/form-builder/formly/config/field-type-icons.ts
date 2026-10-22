@@ -1,4 +1,5 @@
 import type { AppIcon } from '@/app/ui/types/icons';
+
 import type { FieldTypeName } from './config-types';
 
 export const FIELD_TYPE_ICONS = {

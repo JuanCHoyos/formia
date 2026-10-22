@@ -1,10 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+
 import { FormlyForm } from '@ngx-formly/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FormBuilderStore } from '../../../services/form-builder-store';
-import { CommonModule } from '@angular/common';
+
 import cloneDeep from 'lodash/cloneDeep';
+
+import { FormBuilderStore } from '../../../services/form-builder-store';
 
 @Component({
   selector: 'app-builder-workspace-preview',

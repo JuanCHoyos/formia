@@ -1,4 +1,5 @@
 import { CanDeactivateFn, Routes } from '@angular/router';
+
 import type { BuilderPage } from './pages/builder-page/builder-page';
 
 const confirmLeaveBuilder: CanDeactivateFn<BuilderPage> = (page) => page.canLeave();

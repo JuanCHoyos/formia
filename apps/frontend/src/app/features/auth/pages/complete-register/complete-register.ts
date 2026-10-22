@@ -1,14 +1,17 @@
-import { AuthHeader } from '@/app/features/auth/components/auth-header/auth-header';
-import { AuthApi } from '@/app/core/auth/auth-api';
-import { Button } from '@/app/ui/components/button/button';
-import { OptionCardSelector } from '@/app/ui/components/option-card-selector/option-card-selector';
-import { Notifications } from '@/app/ui/services/notifications';
 import { Component, inject, signal } from '@angular/core';
 import { form, FormField, minLength, required } from '@angular/forms/signals';
 import { Router } from '@angular/router';
-import { UserStore } from '@/app/core/auth/user-store';
-import type { UserRole } from '@formly/core/schemas/common';
+
 import { CheckboxModule } from 'primeng/checkbox';
+
+import type { UserRole } from '@formly/core/schemas/common';
+
+import { AuthApi } from '@/app/core/auth/auth-api';
+import { UserStore } from '@/app/core/auth/user-store';
+import { AuthHeader } from '@/app/features/auth/components/auth-header/auth-header';
+import { Button } from '@/app/ui/components/button/button';
+import { OptionCardSelector } from '@/app/ui/components/option-card-selector/option-card-selector';
+import { Notifications } from '@/app/ui/services/notifications';
 import type { OptionCardSelectorOption } from '@/app/ui/types/option-card-selector-option';
 
 @Component({

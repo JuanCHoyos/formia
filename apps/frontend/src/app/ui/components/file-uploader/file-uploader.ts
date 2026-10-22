@@ -1,14 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { Component, forwardRef, inject, input, model, OnDestroy, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { ButtonModule } from 'primeng/button';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+
 import { DialogModule } from 'primeng/dialog';
 import { ProgressBarModule } from 'primeng/progressbar';
-import { APP_ICONS } from '../../constants/icons';
-import { CommonModule } from '@angular/common';
-import { FileDropZoneDirective } from '../../directives/file-drop-zone';
+
 import type { AcceptedFileType } from '@/app/ui/types/accepted-file-type';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+
+import { APP_ICONS } from '../../constants/icons';
+import { FileDropZoneDirective } from '../../directives/file-drop-zone';
 import { Button } from '../button/button';
 
 interface UploadItem {
@@ -16,7 +19,7 @@ interface UploadItem {
   file: File;
   previewUrl: string | null;
   loaded: number;
-  status: 'queued' | 'uploading' | 'complete' | 'error';
+  status: 'complete' | 'error' | 'queued' | 'uploading';
 }
 
 @Component({

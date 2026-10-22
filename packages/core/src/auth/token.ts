@@ -1,5 +1,6 @@
 import { CognitoJwtVerifier } from 'aws-jwt-verify';
 import { Resource } from 'sst';
+
 import { AuthProvider } from '../schemas/';
 
 export const cognitoJwtVerifier = CognitoJwtVerifier.create({

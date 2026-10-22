@@ -25,6 +25,7 @@ export function createModel<T extends Table, E extends Entity>(table: T, entity:
       await entityRepository.delete(...args);
     },
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- `{}` is DynamoDB-Toolbox's "no options" default
     query: async <QUERY extends Query<T>, const OPTIONS extends QueryOptions<T, [E], QUERY> = {}>(
       query: QUERY,
       options?: OPTIONS,

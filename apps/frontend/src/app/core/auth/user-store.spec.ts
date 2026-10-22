@@ -1,5 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+
 import type { UserProfile } from '@formly/core/schemas/user';
+
 import { UserStore } from './user-store';
 
 const profile = (fullName: string): UserProfile => ({

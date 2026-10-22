@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+
 import { AuthHeader } from './auth-header';
 
 describe('AuthHeader', () => {

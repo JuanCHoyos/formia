@@ -1,11 +1,14 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+
 import { TranslatePipe } from '@ngx-translate/core';
 import { Home } from '@primeicons/angular/home';
 import { Sidebar as SidebarIcon } from '@primeicons/angular/sidebar';
+
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { SidebarModule } from 'primeng/sidebar';
+
 import { UserStore } from '@/app/core/auth/user-store';
 
 const MOBILE_QUERY = '(max-width: 1023px)';

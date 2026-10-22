@@ -1,6 +1,8 @@
-import 'aws-amplify/auth/enable-oauth-listener';
 import { Amplify } from 'aws-amplify';
+
 import { environment } from '@environments/environment';
+
+import 'aws-amplify/auth/enable-oauth-listener';
 
 Amplify.configure({
   Auth: {

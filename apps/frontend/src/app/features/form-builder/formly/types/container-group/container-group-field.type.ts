@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import { FieldType, FormlyField } from '@ngx-formly/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+
+import { FieldType, FormlyField } from '@ngx-formly/core';
+
 import { ContainerFieldTypeConfig } from '../../interfaces/field-types/container-field';
 
 @Component({

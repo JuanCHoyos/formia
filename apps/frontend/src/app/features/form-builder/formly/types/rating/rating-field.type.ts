@@ -1,10 +1,14 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+
 import { FieldType } from '@ngx-formly/core';
-import { RatingModule } from 'primeng/rating';
-import type { RatingFieldTypeConfig } from '../../interfaces/field-types/rating-field';
-import { Button } from '@/app/ui/components/button/button';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { RatingModule } from 'primeng/rating';
+
+import { Button } from '@/app/ui/components/button/button';
+
+import type { RatingFieldTypeConfig } from '../../interfaces/field-types/rating-field';
 
 @Component({
   selector: 'formly-field-rating',

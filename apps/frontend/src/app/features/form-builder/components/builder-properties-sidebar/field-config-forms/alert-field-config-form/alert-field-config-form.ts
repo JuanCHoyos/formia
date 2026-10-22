@@ -1,15 +1,17 @@
 import { Component, effect, input, OnInit, output, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
+
 import { TranslatePipe } from '@ngx-translate/core';
+
 import { AccordionModule } from 'primeng/accordion';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 
-import { Checkbox } from '@/app/ui/components/checkbox/checkbox';
 import type { AlertFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
+import { Checkbox } from '@/app/ui/components/checkbox/checkbox';
 
-type AlertFieldSettings = Omit<AlertFieldProps, 'size' | 'closable'> & {
-  size: 'default' | 'small' | 'large';
+type AlertFieldSettings = Omit<AlertFieldProps, 'closable' | 'size'> & {
+  size: 'default' | 'large' | 'small';
   closable: boolean;
 };
 

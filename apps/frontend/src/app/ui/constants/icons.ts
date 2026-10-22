@@ -49,7 +49,6 @@ import {
   lucideType,
   lucideUndo2,
 } from '@ng-icons/lucide';
-
 import { svglGoogle, svglFacebook, svglMicrosoft } from '@ng-icons/svgl';
 
 export const APP_ICONS = {

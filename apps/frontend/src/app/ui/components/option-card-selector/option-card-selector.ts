@@ -1,10 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component, input, model, output } from '@angular/core';
 import { FormValueControl } from '@angular/forms/signals';
+
 import { NgIcon, provideIcons } from '@ng-icons/core';
+
+import { CheckboxModule } from 'primeng/checkbox';
+
 import { APP_ICONS } from '../../constants/icons';
 import type { OptionCardSelectorOption } from '../../types/option-card-selector-option';
-import { CommonModule } from '@angular/common';
-import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-option-card-selector',

@@ -1,22 +1,21 @@
-import { Component, input, model, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InputPasswordModule } from 'primeng/inputpassword';
+import { Component, input, model, output, signal } from '@angular/core';
+import { form, FormField, disabled as disableField } from '@angular/forms/signals';
+
+import { TranslatePipe } from '@ngx-translate/core';
+import { Check } from '@primeicons/angular/check';
+import { Eye } from '@primeicons/angular/eye';
+import { EyeSlash } from '@primeicons/angular/eye-slash';
+import { Times } from '@primeicons/angular/times';
 
 import { DividerModule } from 'primeng/divider';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { Eye } from '@primeicons/angular/eye';
-import { EyeSlash } from '@primeicons/angular/eye-slash';
-
-import { Check } from '@primeicons/angular/check';
-import { Times } from '@primeicons/angular/times';
-
-import { ulid } from 'ulid';
-import { form, FormField, disabled as disableField } from '@angular/forms/signals';
+import { InputPasswordModule } from 'primeng/inputpassword';
 import { PopoverModule } from 'primeng/popover';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { TagModule } from 'primeng/tag';
-import { TranslatePipe } from '@ngx-translate/core';
+import { ulid } from 'ulid';
 
 const PASSWORD_POLICY = {
   minLength: 8,

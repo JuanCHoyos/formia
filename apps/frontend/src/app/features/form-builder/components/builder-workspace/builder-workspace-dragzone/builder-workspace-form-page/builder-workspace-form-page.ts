@@ -1,18 +1,21 @@
-import { Component, inject, input, signal } from '@angular/core';
-import { APP_ICONS } from '@/app/ui/constants/icons';
-import { type AppFormlyFieldConfig } from '../../../../formly/interfaces/app-formly-field-config';
-import { FormBuilderStore } from '@/app/features/form-builder/services/form-builder-store';
+import { CdkDrag, CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { BuilderWorkspaceEmptyState } from '../builder-workspace-empty-state/builder-workspace-empty-state';
-import { FieldConfigFactory } from '@/app/features/form-builder/services/field-config-factory';
+import { Component, inject, input, signal } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { provideIcons } from '@ng-icons/core';
+import { TranslateService } from '@ngx-translate/core';
+
 import { FieldTypeName } from '@/app/features/form-builder/formly/config/config-types';
 import { BuilderMenuState } from '@/app/features/form-builder/services/builder-menu-state';
-import { TranslateService } from '@ngx-translate/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { BuilderWorkspaceFormField } from '../builder-workspace-form-field/builder-workspace-form-field';
-import { provideIcons } from '@ng-icons/core';
-import { CdkDrag, CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
+import { FieldConfigFactory } from '@/app/features/form-builder/services/field-config-factory';
+import { FormBuilderStore } from '@/app/features/form-builder/services/form-builder-store';
 import { FieldPaletteFieldItem } from '@/app/features/form-builder/types/field-palette';
+import { APP_ICONS } from '@/app/ui/constants/icons';
+
+import { type AppFormlyFieldConfig } from '../../../../formly/interfaces/app-formly-field-config';
+import { BuilderWorkspaceEmptyState } from '../builder-workspace-empty-state/builder-workspace-empty-state';
+import { BuilderWorkspaceFormField } from '../builder-workspace-form-field/builder-workspace-form-field';
 
 @Component({
   selector: 'app-builder-workspace-form-page',

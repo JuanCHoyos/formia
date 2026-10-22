@@ -1,14 +1,18 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { FieldWrapper, FormlyField } from '@ngx-formly/core';
-import { StepperModule } from 'primeng/stepper';
 import { CommonModule } from '@angular/common';
-import { Button } from '@/app/ui/components/button/button';
+import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { FieldWrapper, FormlyField } from '@ngx-formly/core';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { StepperModule } from 'primeng/stepper';
+
+import { Button } from '@/app/ui/components/button/button';
+import { APP_ICONS } from '@/app/ui/constants/icons';
+
 import type { FormStepsWrapperConfig } from '../../interfaces/wrapper-types/form-wrapper';
 import { FormStepNavigation } from '../../services/form-step-navigation';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { APP_ICONS } from '@/app/ui/constants/icons';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-form-steps-wrapper',

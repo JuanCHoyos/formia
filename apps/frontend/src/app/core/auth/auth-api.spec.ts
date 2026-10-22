@@ -1,5 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+
 import * as amplify from 'aws-amplify/auth';
+
 import { AuthApi } from './auth-api';
 
 vi.mock('aws-amplify/auth', () => ({

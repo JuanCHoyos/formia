@@ -1,10 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideTranslateService } from '@ngx-translate/core';
 import { provideRouter, Router } from '@angular/router';
+
+import { provideTranslateService } from '@ngx-translate/core';
+
 import type { SignUpOutput } from 'aws-amplify/auth';
+
 import { AuthApi } from '@/app/core/auth/auth-api';
 import { Notifications } from '@/app/ui/services/notifications';
 import { deferred, query, submitForm, typeInto } from '@/testing/dom';
+
 import { Register } from './register';
 
 const validInput = {

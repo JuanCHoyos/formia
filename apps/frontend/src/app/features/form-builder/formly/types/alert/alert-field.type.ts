@@ -1,7 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { FieldType } from '@ngx-formly/core';
-import { MessageModule } from 'primeng/message';
-import type { AlertFieldTypeConfig } from '../../interfaces/field-types/alert-field';
+
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   lucideAlertOctagon,
@@ -9,7 +7,12 @@ import {
   lucideCheckCircle2,
   lucideInfo,
 } from '@ng-icons/lucide';
+import { FieldType } from '@ngx-formly/core';
+
+import { MessageModule } from 'primeng/message';
 import { MessageSeverity } from 'primeng/types/message';
+
+import type { AlertFieldTypeConfig } from '../../interfaces/field-types/alert-field';
 
 @Component({
   selector: 'formly-field-alert',
@@ -20,7 +23,7 @@ import { MessageSeverity } from 'primeng/types/message';
   ],
 })
 export class AlertFieldType extends FieldType<AlertFieldTypeConfig> {
-  icons = signal<Record<Exclude<MessageSeverity, 'secondary' | 'contrast'>, string>>({
+  icons = signal<Record<Exclude<MessageSeverity, 'contrast' | 'secondary'>, string>>({
     info: 'lucideInfo',
     error: 'lucideAlertOctagon',
     success: 'lucideCheckCircle2',

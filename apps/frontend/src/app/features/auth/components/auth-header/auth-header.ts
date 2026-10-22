@@ -1,7 +1,9 @@
+import { Component, input } from '@angular/core';
+
+import { NgIcon, provideIcons } from '@ng-icons/core';
+
 import { APP_ICONS } from '@/app/ui/constants/icons';
 import { AppIcon } from '@/app/ui/types/icons';
-import { Component, input } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
 
 @Component({
   selector: 'app-auth-header',

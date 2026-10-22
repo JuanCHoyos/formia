@@ -1,9 +1,14 @@
+import { CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDropList } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { Component, computed, input, model, output } from '@angular/core';
-import { APP_ICONS } from '@/app/ui/constants/icons';
+
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { TooltipModule } from 'primeng/tooltip';
+
 import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
+
+import { APP_ICONS } from '@/app/ui/constants/icons';
+
 import {
   TreeSortableItem,
   TreeItem,
@@ -11,7 +16,6 @@ import {
   TREE_ROOT_DROP_LIST_ID,
   TreeDragData,
 } from '../tree-selector';
-import { CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDropList } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-tree-selector-item',
   templateUrl: './tree-selector-item.html',

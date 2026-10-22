@@ -1,13 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { provideTranslateService } from '@ngx-translate/core';
 import { provideRouter, Router } from '@angular/router';
+
+import { provideTranslateService } from '@ngx-translate/core';
+
 import type { UserProfile } from '@formly/core/schemas/user';
+
 import { AuthApi } from '@/app/core/auth/auth-api';
 import { UserStore } from '@/app/core/auth/user-store';
-import { Notifications } from '@/app/ui/services/notifications';
 import { OptionCardSelector } from '@/app/ui/components/option-card-selector/option-card-selector';
+import { Notifications } from '@/app/ui/services/notifications';
 import { deferred, query, submitForm } from '@/testing/dom';
+
 import { CompleteRegister } from './complete-register';
 
 const profile: UserProfile = { fullName: 'Ada', email: 'ada@example.com', roles: ['FORM_CREATOR'] };

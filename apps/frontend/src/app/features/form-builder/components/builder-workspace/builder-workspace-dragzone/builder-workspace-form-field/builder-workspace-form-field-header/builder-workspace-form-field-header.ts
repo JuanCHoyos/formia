@@ -1,20 +1,24 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { Button } from '@/app/ui/components/button/button';
-import { APP_ICONS } from '@/app/ui/constants/icons';
+import { CdkDragHandle } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
+import { Component, computed, inject, input, signal } from '@angular/core';
+
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { FormBuilderStore } from '@/app/features/form-builder/services/form-builder-store';
-import { AppIcon } from '@/app/ui/types/icons';
+
 import { ButtonSeverity } from 'primeng/button';
-import { AppFormlyFieldConfig } from '@/app/features/form-builder/formly/interfaces/app-formly-field-config';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { MenuModule } from 'primeng/menu';
+
+import { FIELD_PALETTE } from '@/app/features/form-builder/constants/field-palette-group';
+import { AppFormlyFieldConfig } from '@/app/features/form-builder/formly/interfaces/app-formly-field-config';
 import { BuilderMenuState } from '@/app/features/form-builder/services/builder-menu-state';
 import { FieldConfigFactory } from '@/app/features/form-builder/services/field-config-factory';
+import { FormBuilderStore } from '@/app/features/form-builder/services/form-builder-store';
+import { Button } from '@/app/ui/components/button/button';
+import { APP_ICONS } from '@/app/ui/constants/icons';
+import { AppIcon } from '@/app/ui/types/icons';
+
 import { BuilderWorkspaceFormMove } from '../builder-workspace-form-move/builder-workspace-form-move';
-import { FIELD_PALETTE } from '@/app/features/form-builder/constants/field-palette-group';
-import { MenuModule } from 'primeng/menu';
-import { CdkDragHandle } from '@angular/cdk/drag-drop';
 type MenuActionItem = {
   label: string;
   icon: AppIcon;
@@ -87,7 +91,7 @@ export class BuilderWorkspaceFormFieldHeader {
     //this.fieldConfigFactory.duplicate(field, index);
   }
 
-  copyContainerField(field: AppFormlyFieldConfig): void {
+  copyContainerField(_field: AppFormlyFieldConfig): void {
     //this.fieldConfigFactory.duplicate(field, this.formBuilderStore.currentPageFields().length);
   }
 

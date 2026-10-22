@@ -1,8 +1,11 @@
 import { DestroyRef, effect, inject, Service, signal, type OnDestroy } from '@angular/core';
+
 import { TranslateService } from '@ngx-translate/core';
+
 import { apiClient } from '@/app/core/api/api-client';
 import { apiResult } from '@/app/core/api/api-result';
 import { Notifications } from '@/app/ui/services/notifications';
+
 import {
   FormFieldConfigurationSchema,
   type FormFieldConfiguration,
@@ -34,7 +37,7 @@ interface DraftPatch extends Partial<FormSettings> {
   schema?: { fields: FormFieldConfiguration };
 }
 
-export type SaveState = 'idle' | 'saving' | 'saved' | 'error';
+export type SaveState = 'error' | 'idle' | 'saved' | 'saving';
 
 /**
  * Keeps the builder store in sync with the API: loads (or creates) the form, autosaves the

@@ -1,5 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+
 import { Session } from '../session';
 
 /** Keeps users with a valid session out of the auth pages. */

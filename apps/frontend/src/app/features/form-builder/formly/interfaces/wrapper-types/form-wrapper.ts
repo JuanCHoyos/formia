@@ -25,4 +25,4 @@ export type FormContainerWrapperConfig<T> = FormlyFieldConfig & {
 };
 
 export type FormWrapperConfig =
-  FormScrollWrapperConfig | FormTabsWrapperConfig | FormStepsWrapperConfig;
+  FormScrollWrapperConfig | FormStepsWrapperConfig | FormTabsWrapperConfig;

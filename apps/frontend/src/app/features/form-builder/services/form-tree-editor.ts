@@ -1,11 +1,13 @@
 import { ulid } from 'ulid';
+
+import { Notifications } from '@/app/ui/services/notifications';
+
+import { FieldTypeName } from '../formly/config/config-types';
 import {
   AppFormlyFieldConfig,
   FormPageContainer,
 } from '../formly/interfaces/app-formly-field-config';
 import { ContainerFieldTypeConfig } from '../formly/interfaces/field-types/container-field';
-import { FieldTypeName } from '../formly/config/config-types';
-import { Notifications } from '@/app/ui/services/notifications';
 import { FormTreeHistory } from './form-tree-history';
 
 export class FormTreeEditor {
@@ -352,7 +354,7 @@ export class FormTreeEditor {
     }));
   }
 
-  private cloneItem<T extends FormPageContainer | AppFormlyFieldConfig>(item: T): T {
+  private cloneItem<T extends AppFormlyFieldConfig | FormPageContainer>(item: T): T {
     const cloned = { ...item };
 
     cloned.id = ulid();

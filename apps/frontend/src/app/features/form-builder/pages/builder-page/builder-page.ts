@@ -1,14 +1,18 @@
 import { Component, inject, input, resource } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
+
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { SkeletonModule } from 'primeng/skeleton';
+
 import { Button } from '@/app/ui/components/button/button';
+
 import { BuilderHeader } from '../../components/builder-header/builder-header';
 import { BuilderPropertiesSidebar } from '../../components/builder-properties-sidebar/builder-properties-sidebar';
 import { BuilderSidebar } from '../../components/builder-sidebar/builder-sidebar';
 import { BuilderWorkspace } from '../../components/builder-workspace/builder-workspace';
-import { FormBuilderSync } from '../../services/form-builder-sync';
 import { BuilderMenuState } from '../../services/builder-menu-state';
 import { BuilderPreviewState } from '../../services/builder-preview-state';
+import { FormBuilderSync } from '../../services/form-builder-sync';
 
 @Component({
   selector: 'app-builder-page',

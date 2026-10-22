@@ -1,5 +1,6 @@
-import type { FieldWrapperName } from '../config/config-wrappers';
 import z from 'zod';
+
+import type { FieldWrapperName } from '../config/config-wrappers';
 import {
   AlertFieldTypeSchema,
   CheckboxFieldTypeSchema,

@@ -1,15 +1,19 @@
 import { computed, inject, Service, signal } from '@angular/core';
+
+import { TranslateService } from '@ngx-translate/core';
+
+import { ulid } from 'ulid';
+
+import { Notifications } from '@/app/ui/services/notifications';
+
 import type { FieldWrapperName } from '../formly/config/config-wrappers';
 import type {
   AppFormlyFieldConfig,
   FormFieldConfiguration,
   FormPageContainer,
 } from '../formly/interfaces/app-formly-field-config';
-import { ulid } from 'ulid';
 import { FormTreeEditor } from './form-tree-editor';
 import { FormTreeHistory } from './form-tree-history';
-import { TranslateService } from '@ngx-translate/core';
-import { Notifications } from '@/app/ui/services/notifications';
 
 export interface FormSettings {
   isPublic: boolean;
@@ -35,7 +39,7 @@ export class FormBuilderStore {
 
   dropListIds = computed(() => this.extractGroupIds(this.fields().fieldGroup));
 
-  extractGroupIds(fields: (FormPageContainer | AppFormlyFieldConfig)[] = []): string[] {
+  extractGroupIds(fields: (AppFormlyFieldConfig | FormPageContainer)[] = []): string[] {
     const keys: string[] = [];
 
     for (const field of fields) {

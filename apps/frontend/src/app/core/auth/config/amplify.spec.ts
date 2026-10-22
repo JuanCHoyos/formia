@@ -1,5 +1,7 @@
 import { Amplify } from 'aws-amplify';
+
 import { environment } from '@environments/environment';
+
 import './amplify';
 
 vi.mock('aws-amplify', () => ({ Amplify: { configure: vi.fn() } }));

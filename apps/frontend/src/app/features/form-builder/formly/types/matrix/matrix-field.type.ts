@@ -1,12 +1,15 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+
 import { FieldType } from '@ngx-formly/core';
-import type { MatrixFieldTypeConfig } from '../../interfaces/field-types/matrix-field';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { TableModule } from 'primeng/table';
-import { CheckboxModule } from 'primeng/checkbox';
-import { TranslatePipe } from '@ngx-translate/core';
+
+import type { MatrixFieldTypeConfig } from '../../interfaces/field-types/matrix-field';
 
 @Component({
   selector: 'formly-field-matrix',

@@ -1,23 +1,27 @@
+import { CdkDropList } from '@angular/cdk/drag-drop';
+import { CommonModule } from '@angular/common';
 import { Component, computed, inject, model, signal } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { Search } from '@primeicons/angular/search';
+
+import { AccordionModule } from 'primeng/accordion';
+import type { AccordionValue } from 'primeng/accordion';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { FormsModule } from '@angular/forms';
-import { Search } from '@primeicons/angular/search';
-import { normalizeSearchText } from '@/app/ui/utils/search.utils';
+import { InputTextModule } from 'primeng/inputtext';
+import { Options } from 'sortablejs';
+
 import type {
   FieldPaletteGroup,
   FilteredFieldPaletteGroup,
 } from '@/app/features/form-builder/types/field-palette';
-import { AccordionModule } from 'primeng/accordion';
-import type { AccordionValue } from 'primeng/accordion';
-import { Options } from 'sortablejs';
+import { normalizeSearchText } from '@/app/ui/utils/search.utils';
+
 import { FIELD_PALETTE } from '../../../constants/field-palette-group';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
-import { CdkDropList } from '@angular/cdk/drag-drop';
-import { BuilderSidebarComponentItem } from '../builder-sidebar-component-item/builder-sidebar-component-item';
 import { FormBuilderStore } from '../../../services/form-builder-store';
+import { BuilderSidebarComponentItem } from '../builder-sidebar-component-item/builder-sidebar-component-item';
 
 @Component({
   selector: 'app-builder-sidebar-components',

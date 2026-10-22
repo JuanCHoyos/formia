@@ -1,9 +1,10 @@
 import { Elysia } from 'elysia';
 
-import { createUser, toUserProfile } from './users.service';
 import { CreateUserProfileSchema } from '@formly/core/schemas';
-import { authenticatedWithUser, authenticatedWithCognito } from '../../middleware/authenticated';
+
 import { ok } from '../../http/responses';
+import { authenticatedWithUser, authenticatedWithCognito } from '../../middleware/authenticated';
+import { createUser, toUserProfile } from './users.service';
 
 export const usersRouter = new Elysia({ prefix: '/users' })
   .use(

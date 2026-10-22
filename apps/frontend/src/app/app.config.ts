@@ -1,25 +1,28 @@
+import { DOCUMENT } from '@angular/common';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
   ApplicationConfig,
   inject,
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
 import { provideRouter, withComponentInputBinding, withViewTransitions } from '@angular/router';
-import { routes } from './app.routes';
-import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeuix/themes/aura';
-import { definePreset } from '@primeuix/themes';
+
 import { provideFormlyCore } from '@ngx-formly/core';
-import { fieldTypeConfigurations } from './features/form-builder/formly/config/config-types';
-import { fieldWrapperConfigurations } from './features/form-builder/formly/config/config-wrappers';
-import { provideGlobalSortableOptions } from 'nxt-sortablejs';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { authInterceptor } from './core/auth/auth.interceptor';
 import { provideTranslateService, TranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { definePreset } from '@primeuix/themes';
+import Aura from '@primeuix/themes/aura';
+
+import { provideGlobalSortableOptions } from 'nxt-sortablejs';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { providePrimeNG } from 'primeng/config';
+
+import { routes } from './app.routes';
+import { authInterceptor } from './core/auth/auth.interceptor';
 import { apiErrorInterceptor } from './core/interceptors/api-error-interceptor';
+import { fieldTypeConfigurations } from './features/form-builder/formly/config/config-types';
+import { fieldWrapperConfigurations } from './features/form-builder/formly/config/config-wrappers';
 
 const DEFAULT_LANGUAGE = 'en';
 

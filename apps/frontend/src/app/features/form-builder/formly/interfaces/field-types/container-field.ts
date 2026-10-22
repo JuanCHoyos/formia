@@ -1,7 +1,9 @@
 import type { FieldTypeConfig } from '@ngx-formly/core';
+
+import z from 'zod';
+
 import type { AppFormlyFieldConfig } from '../app-formly-field-config';
 import type { BaseField, OmitBaseConfig } from './base-field';
-import z from 'zod';
 
 export const ContainerFieldTypeSchema = z.object({
   id: z.string(),

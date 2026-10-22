@@ -1,7 +1,9 @@
 import { HttpRequest, type HttpEvent, type HttpHandlerFn } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
+
 import { fetchAuthSession } from 'aws-amplify/auth';
 import { lastValueFrom, of, type Observable } from 'rxjs';
+
 import { authInterceptor } from './auth.interceptor';
 
 vi.mock('aws-amplify/auth', () => ({ fetchAuthSession: vi.fn() }));

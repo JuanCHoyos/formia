@@ -1,19 +1,23 @@
-import { Button } from '@/app/ui/components/button/button';
-import { Password } from '@/app/ui/components/password/password';
-import { AuthHeader } from '@/app/features/auth/components/auth-header/auth-header';
-import { AuthApi } from '@/app/core/auth/auth-api';
 import { Component, inject, signal } from '@angular/core';
 import { email, form, FormField, required, validate } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
+
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { SelectModule } from 'primeng/select';
-import { TranslatePipe } from '@ngx-translate/core';
+
 import type { SignUpInput } from '@formly/core/schemas/auth';
-import { isCognitoPasswordValid } from '@/app/core/auth/password-policy';
-import { Notifications } from '@/app/ui/services/notifications';
+
+import { AuthApi } from '@/app/core/auth/auth-api';
 import { getCognitoErrorNotification } from '@/app/core/auth/cognito-error-notifications';
+import { isCognitoPasswordValid } from '@/app/core/auth/password-policy';
+import { AuthHeader } from '@/app/features/auth/components/auth-header/auth-header';
+import { Button } from '@/app/ui/components/button/button';
+import { Password } from '@/app/ui/components/password/password';
+import { Notifications } from '@/app/ui/services/notifications';
 
 @Component({
   selector: 'app-register',

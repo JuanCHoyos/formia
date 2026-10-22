@@ -1,15 +1,19 @@
+import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { Component, computed, input, model, output } from '@angular/core';
-import { TreeSelectorItem } from './tree-selector-item/tree-selector-item';
-import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+
+import { TranslatePipe } from '@ngx-translate/core';
+import { Search } from '@primeicons/angular/search';
+
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { TranslatePipe } from '@ngx-translate/core';
-import { FormsModule } from '@angular/forms';
-import { Search } from '@primeicons/angular/search';
-import { normalizeSearchText } from '@/app/ui/utils/search.utils';
+import { InputTextModule } from 'primeng/inputtext';
 import { z } from 'zod';
-import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
+
+import { normalizeSearchText } from '@/app/ui/utils/search.utils';
+
+import { TreeSelectorItem } from './tree-selector-item/tree-selector-item';
 
 export const TREE_ROOT_PARENT_ID = '__tree_root__';
 export const TREE_ROOT_DROP_LIST_ID = 'tree-root-drop-list';
@@ -32,13 +36,13 @@ export interface TreeItem<T> {
   id: string;
   label: string;
   icon: string;
-  type: 'Group' | 'Field';
+  type: 'Field' | 'Group';
   items: TreeItem<T>[];
   showItems?: boolean;
   value: T;
 }
 
-export interface TreeSortableItem<T> {
+export interface TreeSortableItem<_T> {
   from: string;
   to: string;
   itemId: string;

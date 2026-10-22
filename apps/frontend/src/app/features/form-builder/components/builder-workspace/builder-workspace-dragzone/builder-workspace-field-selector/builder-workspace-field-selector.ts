@@ -1,13 +1,16 @@
-import { FIELD_PALETTE } from '@/app/features/form-builder/constants/field-palette-group';
-import { FieldPaletteFieldItem } from '@/app/features/form-builder/types/field-palette';
-import { APP_ICONS } from '@/app/ui/constants/icons';
 import { CommonModule } from '@angular/common';
 import { Component, model, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { TranslatePipe } from '@ngx-translate/core';
+
 import { SelectItemGroup } from 'primeng/api';
 import { SelectChangeEvent, SelectModule } from 'primeng/select';
+
+import { FIELD_PALETTE } from '@/app/features/form-builder/constants/field-palette-group';
+import { FieldPaletteFieldItem } from '@/app/features/form-builder/types/field-palette';
+import { APP_ICONS } from '@/app/ui/constants/icons';
 
 @Component({
   selector: 'app-builder-workspace-field-selector',

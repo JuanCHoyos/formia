@@ -17,4 +17,4 @@ export const BaseFieldPropsSchema = z.object({
 export type BaseFieldProps = z.infer<typeof BaseFieldPropsSchema>;
 
 export type OmitBaseConfig =
-  'type' | 'props' | 'key' | 'wrappers' | 'fieldGroup' | 'fieldArray' | 'id';
+  'fieldArray' | 'fieldGroup' | 'id' | 'key' | 'props' | 'type' | 'wrappers';

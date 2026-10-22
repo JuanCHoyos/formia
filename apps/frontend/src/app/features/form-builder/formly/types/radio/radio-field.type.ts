@@ -1,11 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import type { RadioFieldTypeConfig } from '../../interfaces/field-types/radio-field';
-import { FieldType } from '@ngx-formly/core';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck } from '@ng-icons/lucide';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FieldType } from '@ngx-formly/core';
+
+import { RadioButtonModule } from 'primeng/radiobutton';
+
+import type { RadioFieldTypeConfig } from '../../interfaces/field-types/radio-field';
 
 @Component({
   selector: 'formly-field-radio',
