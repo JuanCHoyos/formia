@@ -65,6 +65,10 @@ export default defineConfig(
     plugins: { perfectionist, 'unused-imports': unusedImports },
     rules: {
       '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-empty-object-type': [
+        'error',
+        { allowInterfaces: 'with-single-extends' },
+      ],
 
       // Unused imports are removed by `--fix`; unused variables are reported (prefix with `_` to keep).
       '@typescript-eslint/no-unused-vars': 'off',
@@ -90,7 +94,7 @@ export default defineConfig(
     rules: {
       '@angular-eslint/component-selector': [
         'error',
-        { type: 'element', prefix: 'app', style: 'kebab-case' },
+        { type: 'element', prefix: ['app', 'formly'], style: 'kebab-case' },
       ],
       '@angular-eslint/directive-selector': [
         'error',
@@ -105,6 +109,10 @@ export default defineConfig(
   {
     files: ['apps/frontend/**/*.html'],
     extends: [angular.configs.templateRecommended, angular.configs.templateAccessibility],
+    rules: {
+      // Making these elements focusable changes keyboard UX; reported until each one is reviewed.
+      '@angular-eslint/template/interactive-supports-focus': 'warn',
+    },
   },
 
   {
@@ -123,6 +131,13 @@ export default defineConfig(
     languageOptions: { globals: globals.node },
   },
 
+  {
+    files: ['sst.config.ts'],
+    rules: {
+      // SST requires this reference to type its global `$config`.
+      '@typescript-eslint/triple-slash-reference': 'off',
+    },
+  },
   {
     files: ['infra/**/*.ts', 'sst.config.ts'],
     languageOptions: { globals: globals.node },
