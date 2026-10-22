@@ -96,3 +96,17 @@ Every authenticated request carries **two** Cognito tokens: `Authorization: Bear
 ### Data and infra
 
 Five DynamoDB tables (User, Form, FormResponse, ProjectAsset, FormRespondentAccess), defined in `infra/dynamo.ts` and mirrored by entities in `packages/core/src/data/models`. Keep key and index definitions in both places in sync. Table names resolve from SST `Resource` links, with the region from the `DynamoDB` linkable. Stage regions are mapped in `sst.config.ts` (`prod` → us-east-1, `dev` → us-east-2). Note that `removal`/`protect` there key off the stage name `production`, not `prod`.
+
+## Agent skills
+
+### Issue tracker
+
+Issues are tracked in GitHub Issues for `JuanCHoyos/formia`, via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: one `GLOSSARY.md` and `docs/adr/` at the repo root. See `docs/agents/domain.md`.
