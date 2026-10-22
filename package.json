@@ -5,7 +5,12 @@
     "dev": "pnpm --filter @formly/core build && pnpm sst dev --stage dev",
     "dev:secrets": "pnpm sst secrets load --stage dev",
     "test": "pnpm -r --if-present test",
-    "test:unit": "vitest run"
+    "test:unit": "vitest run",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "lefthook install"
   },
   "dependencies": {
     "sst": "catalog:"

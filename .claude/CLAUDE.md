@@ -68,12 +68,15 @@ Do not claim that a command or test passed unless it was actually executed succe
 
 ## Commands
 
-Run from the repo root unless noted. There is no lint script anywhere, and the only test runner is the frontend's (`ng test`, Vitest). The root is not a git repo; `apps/frontend` and `apps/backend` each have their own.
+Run from the repo root unless noted. The root is a single git repo for the whole monorepo.
 
 - `pnpm dev` — builds `@formly/core`, then `sst dev --stage dev` (deploys/links real AWS resources; needs AWS credentials). `pnpm dev:secrets` loads SST secrets.
 - Frontend only (`apps/frontend`): `pnpm dev` (`ng serve` plus watchers on backend types and core), `pnpm build`, `pnpm test`. A single spec: `pnpm exec ng test --include src/app/app.spec.ts`.
 - Backend (`apps/backend`): `pnpm dev` (`tsx watch src/index.ts`, port 3000, prefix `/api/v1`); `pnpm build:types` emits the `.d.ts` the frontend needs. The backend imports `sst` `Resource`, so running it locally without `sst dev` will fail on missing linked resources.
 - Typecheck: `pnpm exec tsc -p tsconfig.json --noEmit` inside `apps/backend` or `packages/core`; the frontend typechecks via `ng build`.
+- Tests: `pnpm test:unit` runs backend and core with Vitest (root `vitest.config.ts`); the frontend runs through the Angular builder (`pnpm --filter @formly/frontend test`, `test:coverage`). Frontend specs run isolated so `vi.mock` works per file.
+- Lint and format: `pnpm lint` / `pnpm lint:fix` (root `eslint.config.ts`) and `pnpm format` / `pnpm format:check` (root `.prettierrc.mjs`). ESLint forbids `any`, removes unused imports and sorts imports and union types; each package lists its framework imports first (Angular in the frontend, Elysia then SST in the backend, SST in infra).
+- Git hooks (Lefthook, `lefthook.yml`): pre-commit runs ESLint `--fix` and Prettier on staged files, commit-msg validates the commit convention (`scripts/validate-commit-message.mjs`), pre-push runs all tests.
 
 ## Architecture
 

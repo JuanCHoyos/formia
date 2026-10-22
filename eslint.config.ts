@@ -127,7 +127,7 @@ export default defineConfig(
   },
 
   {
-    files: ['packages/**/*.ts'],
+    files: ['packages/**/*.ts', 'scripts/**/*.mjs', '*.{ts,mjs}'],
     languageOptions: { globals: globals.node },
   },
 

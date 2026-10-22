@@ -1,0 +1,23 @@
+# Git hooks, installed by `pnpm install` (root `prepare` script).
+# Skip once with `LEFTHOOK=0 git commit ...` or `git push --no-verify`.
+
+pre-commit:
+  piped: true
+  jobs:
+    - name: eslint
+      glob: '*.{ts,mjs,html}'
+      run: pnpm exec eslint --fix --no-warn-ignored {staged_files}
+      stage_fixed: true
+    - name: prettier
+      run: pnpm exec prettier --write --ignore-unknown {staged_files}
+      stage_fixed: true
+
+commit-msg:
+  jobs:
+    - name: conventional-commit
+      run: node scripts/validate-commit-message.mjs {1}
+
+pre-push:
+  jobs:
+    - name: tests
+      run: pnpm test:unit && pnpm --filter @formly/frontend test --no-watch
