@@ -6,6 +6,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { ulid } from 'ulid';
 import { apiClient } from '@/app/core/api/api-client';
+import { apiResult } from '@/app/core/api/api-result';
 import { Button } from '@/app/ui/components/button/button';
 
 @Component({
@@ -18,13 +19,13 @@ export class Forms {
 
   protected readonly formsResource = resource({
     loader: async () => {
-      const response = await apiClient.forms.get();
+      const result = await apiResult(apiClient.forms.get());
 
-      if (response.error || !response.data.success) {
-        throw new Error('The forms could not be loaded.');
+      if (result.isError()) {
+        throw new Error(result.error.message);
       }
 
-      return response.data.data;
+      return result.data;
     },
   });
 
