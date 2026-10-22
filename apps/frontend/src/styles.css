@@ -1,15 +1,17 @@
 @import 'tailwindcss';
 @import 'tailwindcss-primeui';
+@import './styles/tokens.css';
 @import './styles/ngx-editor.scss';
 @import './styles/primeng.scss';
 
-@theme {
-  --color-background: light-dark(var(--p-surface-0), var(--p-surface-900));
-  --color-success: var(--p-button-success-background);
+html.theme-reveal::view-transition-old(root),
+html.theme-reveal::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
 
-  --color-warn: var(--p-button-warn-background);
-
-  --color-danger: var(--p-button-danger-background);
+html.theme-reveal::view-transition-new(root) {
+  z-index: 1;
 }
 
 .p-tabs {
@@ -34,10 +36,6 @@
   .p-accordionheader {
     --p-accordion-header-padding: 1rem 0;
   }
-}
-
-:root {
-  color-scheme: light;
 }
 
 .p-button-text.p-button-fill {
@@ -93,20 +91,8 @@
 }
 
 @utility bg-highlight {
-  --bg-color: var(--color-indigo-50);
-  --border-color: var(--color-indigo-500);
-  background-color: var(--bg-color) !important;
-  border: 1px solid var(--border-color);
-
-  &:hover {
-    background-color: var(--bg-color);
-    border: 1px solid var(--border-color);
-  }
-}
-
-@utility bg-highlight {
-  --bg-color: var(--color-indigo-50);
-  --border-color: var(--color-indigo-500);
+  --bg-color: var(--color-brand-soft);
+  --border-color: var(--color-brand);
   background-color: var(--bg-color) !important;
   border: 1px solid var(--border-color);
 
@@ -117,37 +103,37 @@
 }
 
 @utility surface-default {
-  background-color: var(--color-slate-50);
-  border: 1px solid var(--color-slate-200);
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
 }
 
 @utility border-default {
-  border: 1px solid var(--color-slate-200);
+  border: 1px solid var(--color-border);
 }
 
 @utility surface-highlight {
-  background-color: var(--color-indigo-50);
-  border: 1px solid var(--color-indigo-500);
+  background-color: var(--color-brand-soft);
+  border: 1px solid var(--color-brand);
 }
 
 @utility border-highlight {
-  border: 1px solid var(--color-indigo-500);
+  border: 1px solid var(--color-brand);
 }
 
 @utility border-highlight-medium {
-  border: 1px solid var(--color-indigo-200);
+  border: 1px solid var(--color-brand-bd);
 }
 
 @utility surface-hover {
   &:hover {
-    background-color: var(--color-slate-50);
+    background-color: var(--color-hover);
   }
 }
 
 @utility surface-highlight-hover {
   &:hover {
-    background-color: var(--color-indigo-100);
-    border-color: var(--color-indigo-600);
+    background-color: var(--color-brand-soft-2);
+    border-color: var(--color-brand-hover);
   }
 }
 

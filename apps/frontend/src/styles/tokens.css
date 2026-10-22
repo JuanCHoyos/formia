@@ -1,0 +1,159 @@
+@custom-variant dark (&:where(.app-dark, .app-dark *));
+
+:root {
+  --app-bg: light-dark(#f8fafc, #141414);
+  --app-surface-2: light-dark(#f8fafc, #202020);
+  --app-surface-sunken: light-dark(#f1f5f9, #111111);
+  --app-text-2: light-dark(#475569, #b5b5b5);
+  --app-viz-track: light-dark(#eef0f5, #2a2a2a);
+
+  --app-success: light-dark(#15803d, #6ee7a0);
+  --app-success-bg: light-dark(#f0fdf4, #11241a);
+  --app-success-border: light-dark(#bbf7d0, #1f4a33);
+  --app-success-solid: light-dark(#16a34a, #22c55e);
+  --app-warn: light-dark(#b45309, #fbc069);
+  --app-warn-bg: light-dark(#fffbeb, #2a2112);
+  --app-warn-border: light-dark(#fde68a, #5a4318);
+  --app-warn-solid: #f59e0b;
+  --app-danger: light-dark(#dc2626, #ff8a80);
+  --app-danger-bg: light-dark(#fef2f2, #2d1616);
+  --app-danger-border: light-dark(#fca5a5, #6b2a2a);
+  --app-danger-solid: light-dark(#dc2626, #e5483c);
+  --app-danger-hover: light-dark(#b91c1c, #c93a2f);
+  --app-info: light-dark(#0369a1, #7dd3fc);
+  --app-info-bg: light-dark(#f0f9ff, #10222e);
+  --app-info-border: light-dark(#bae6fd, #1e4a63);
+  --app-info-solid: light-dark(#0ea5e9, #38bdf8);
+
+  --app-shadow-1: 0 1px 2px light-dark(rgba(15, 23, 42, 0.05), rgba(0, 0, 0, 0.5));
+  --app-shadow-2:
+    0 10px 24px -6px light-dark(rgba(15, 23, 42, 0.14), rgba(0, 0, 0, 0.7)),
+    0 2px 6px light-dark(rgba(15, 23, 42, 0.06), rgba(0, 0, 0, 0.3));
+  --app-shadow-3: 0 24px 48px -12px light-dark(rgba(15, 23, 42, 0.28), rgba(0, 0, 0, 0.8));
+
+  --app-focus-ring: var(--p-focus-ring-shadow);
+}
+
+@theme inline {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --color-brand: var(--p-primary-color);
+  --color-brand-hover: var(--p-primary-hover-color);
+  --color-brand-press: var(--p-primary-active-color);
+  --color-brand-text: var(--p-highlight-color);
+  --color-brand-soft: var(--p-highlight-background);
+  --color-brand-soft-2: var(--p-highlight-focus-background);
+  --color-brand-bd: var(--p-brand-border);
+  --color-brand-disabled: var(--p-brand-disabled);
+  --color-on-brand: var(--p-primary-contrast-color);
+
+  --color-bg: var(--app-bg);
+  --color-surface: var(--p-content-background);
+  --color-surface-2: var(--app-surface-2);
+  --color-surface-raised: var(--p-overlay-popover-background);
+  --color-surface-sunken: var(--app-surface-sunken);
+  --color-hover: var(--p-content-hover-background);
+  --color-viz-track: var(--app-viz-track);
+
+  --color-border: var(--p-content-border-color);
+  --color-border-strong: var(--p-form-field-border-color);
+  --color-border-hover: var(--p-form-field-hover-border-color);
+
+  --color-text: var(--p-text-color);
+  --color-text-2: var(--app-text-2);
+  --color-text-3: var(--p-text-muted-color);
+  --color-placeholder: var(--p-form-field-placeholder-color);
+
+  --color-success: var(--app-success-solid);
+  --color-success-text: var(--app-success);
+  --color-success-bg: var(--app-success-bg);
+  --color-success-border: var(--app-success-border);
+  --color-warn: var(--app-warn-solid);
+  --color-warn-text: var(--app-warn);
+  --color-warn-bg: var(--app-warn-bg);
+  --color-warn-border: var(--app-warn-border);
+  --color-danger: var(--app-danger-solid);
+  --color-danger-hover: var(--app-danger-hover);
+  --color-danger-text: var(--app-danger);
+  --color-danger-bg: var(--app-danger-bg);
+  --color-danger-border: var(--app-danger-border);
+  --color-info: var(--app-info-solid);
+  --color-info-text: var(--app-info);
+  --color-info-bg: var(--app-info-bg);
+  --color-info-border: var(--app-info-border);
+
+  --color-background: var(--p-content-background);
+
+  --radius-control: 6px;
+  --radius-menu: 10px;
+  --radius-panel: 12px;
+  --radius-sheet: 16px;
+
+  --shadow-1: var(--app-shadow-1);
+  --shadow-2: var(--app-shadow-2);
+  --shadow-3: var(--app-shadow-3);
+}
+
+html {
+  background-color: var(--app-bg);
+  color: var(--p-text-color);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@utility focus-ring {
+  outline: none;
+  box-shadow: var(--app-focus-ring);
+}
+
+@utility text-display {
+  font-size: 1.75rem;
+  line-height: 2.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+@utility text-title-xl {
+  font-size: 2.125rem;
+  line-height: 2.5rem;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+@utility text-h1 {
+  font-size: 1.375rem;
+  line-height: 1.875rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+@utility text-h2 {
+  font-size: 1.0625rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+@utility text-h3 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+}
+
+@utility text-eyebrow {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-brand-text);
+}
+
+@utility text-overline {
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-3);
+}

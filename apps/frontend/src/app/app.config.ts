@@ -6,13 +6,12 @@ import {
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
+import { provideSignalFormsConfig } from '@angular/forms/signals';
 import { provideRouter, withComponentInputBinding, withViewTransitions } from '@angular/router';
 
 import { provideFormlyCore } from '@ngx-formly/core';
 import { provideTranslateService, TranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
-import { definePreset } from '@primeuix/themes';
-import Aura from '@primeuix/themes/aura';
 
 import { provideGlobalSortableOptions } from 'nxt-sortablejs';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -21,12 +20,14 @@ import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 import { authInterceptor } from './core/auth/auth.interceptor';
 import { apiErrorInterceptor } from './core/interceptors/api-error-interceptor';
+import { PLIEGO_THEME_OPTIONS, PliegoPreset } from './core/theme/pliego-preset';
+import { ThemePreferences } from './core/theme/theme-preferences';
 import { fieldTypeConfigurations } from './features/form-builder/formly/config/config-types';
 import { fieldWrapperConfigurations } from './features/form-builder/formly/config/config-wrappers';
 
 const DEFAULT_LANGUAGE = 'en';
 
-function getBrowserLanguage(): string {
+const getBrowserLanguage = (): string => {
   if (typeof navigator === 'undefined') {
     return DEFAULT_LANGUAGE;
   }
@@ -36,25 +37,7 @@ function getBrowserLanguage(): string {
   );
 
   return preferredLanguage?.toLowerCase().startsWith('es') ? 'es' : DEFAULT_LANGUAGE;
-}
-
-const AppPreset = definePreset(Aura, {
-  semantic: {
-    primary: {
-      50: '#eef0ff',
-      100: '#dfe2ff',
-      200: '#c5c8ff',
-      300: '#a5a7ff',
-      400: '#7d78f4',
-      500: '#5146e5',
-      600: '#4638d1',
-      700: '#392bb5',
-      800: '#30258f',
-      900: '#2b2470',
-      950: '#1d194d',
-    },
-  },
-});
+};
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -65,15 +48,11 @@ export const appConfig: ApplicationConfig = {
       license:
         'eyJpZCI6ImE0N2YzNzhiLTNkMzUtNDVmNS1hNzU5LTljZDBlNzAxYmMyZSIsInByb2R1Y3QiOiJwcmltZXVpIiwidGllciI6ImNvbW11bml0eSIsInR5cGUiOiJkZXYiLCJpYXQiOjE3OTAxMzk2OTAsImV4cCI6MTgyMTY3NTY5MH0.wtj3bFgxZBMdBtHGiN_k30l45Yd0z_flr42MTlXr5bO3RJ2pw1KX2dm3_4E-VgEQ_kxscdIrS4gIaI3NtRtDCA',
       theme: {
-        preset: AppPreset,
-        options: {
-          cssLayer: {
-            name: 'primeng',
-            order: 'theme, base, primeng',
-          },
-        },
+        preset: PliegoPreset,
+        options: PLIEGO_THEME_OPTIONS,
       },
     }),
+    provideAppInitializer(() => inject(ThemePreferences).restore()),
     provideHttpClient(withInterceptors([apiErrorInterceptor, authInterceptor])),
     provideTranslateService({
       fallbackLang: DEFAULT_LANGUAGE,
@@ -86,6 +65,9 @@ export const appConfig: ApplicationConfig = {
       const language = getBrowserLanguage();
       inject(DOCUMENT).documentElement.lang = language;
       return inject(TranslateService).use(language);
+    }),
+    provideSignalFormsConfig({
+      classes: { 'field-untouched': (field) => !field.state().touched() },
     }),
     provideFormlyCore({
       types: fieldTypeConfigurations,

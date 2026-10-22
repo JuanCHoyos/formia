@@ -1,25 +1,129 @@
 p-radiobutton {
-  --size: 1.25rem;
-  --p-radiobutton-width: var(--size);
-  --p-radiobutton-height: var(--size);
-  .p-radiobutton-box {
-    background-color: transparent;
-  }
-
   .p-radiobutton-box .p-radiobutton-icon {
-    width: 0;
-    height: 0;
+    display: none;
   }
 
-  &.p-radiobutton-checked .p-radiobutton-box .p-radiobutton-icon {
-    background-color: var(--p-radiobutton-checked-background);
-    width: var(--p-radiobutton-icon-size);
-    height: var(--p-radiobutton-icon-size);
+  &.p-radiobutton-checked .p-radiobutton-box {
+    border-width: 5px;
+    background: var(--p-radiobutton-background);
+  }
+
+  &.p-radiobutton-checked:not(.p-disabled):hover .p-radiobutton-box {
+    background: var(--p-radiobutton-background);
+  }
+
+  &.p-disabled.p-radiobutton-checked .p-radiobutton-box {
+    border-color: var(--p-brand-disabled);
   }
 }
 
-p-checkbox {
-  --size: 1.25rem;
-  --p-checkbox-width: var(--size);
-  --p-checkbox-height: var(--size);
+.p-button:disabled:not(
+    .p-button-outlined,
+    .p-button-text,
+    .p-button-link,
+    .p-button-secondary,
+    .p-button-success,
+    .p-button-info,
+    .p-button-warn,
+    .p-button-help,
+    .p-button-danger,
+    .p-button-contrast
+  ) {
+  background: var(--p-brand-disabled);
+  border-color: var(--p-brand-disabled);
+  opacity: 1;
+}
+
+.field-untouched {
+  --p-inputtext-invalid-border-color: var(--p-form-field-border-color);
+  --p-textarea-invalid-border-color: var(--p-form-field-border-color);
+  --p-select-invalid-border-color: var(--p-form-field-border-color);
+  --p-multiselect-invalid-border-color: var(--p-form-field-border-color);
+  --p-autocomplete-invalid-border-color: var(--p-form-field-border-color);
+  --p-cascadeselect-invalid-border-color: var(--p-form-field-border-color);
+  --p-treeselect-invalid-border-color: var(--p-form-field-border-color);
+  --p-checkbox-invalid-border-color: var(--p-form-field-border-color);
+  --p-radiobutton-invalid-border-color: var(--p-form-field-border-color);
+  --p-listbox-invalid-border-color: var(--p-form-field-border-color);
+  --p-selectbutton-invalid-border-color: var(--p-form-field-border-color);
+  --p-togglebutton-invalid-border-color: var(--p-form-field-border-color);
+  --p-toggleswitch-invalid-border-color: var(--p-form-field-border-color);
+  --p-inputchips-invalid-border-color: var(--p-form-field-border-color);
+  --p-inputtags-invalid-border-color: var(--p-form-field-border-color);
+  --p-inputtext-invalid-placeholder-color: var(--p-form-field-placeholder-color);
+  --p-textarea-invalid-placeholder-color: var(--p-form-field-placeholder-color);
+  --p-select-invalid-placeholder-color: var(--p-form-field-placeholder-color);
+  --p-multiselect-invalid-placeholder-color: var(--p-form-field-placeholder-color);
+  --p-autocomplete-invalid-placeholder-color: var(--p-form-field-placeholder-color);
+  --p-cascadeselect-invalid-placeholder-color: var(--p-form-field-placeholder-color);
+  --p-treeselect-invalid-placeholder-color: var(--p-form-field-placeholder-color);
+  --p-floatlabel-invalid-color: var(--p-form-field-float-label-color);
+}
+
+:is(
+  .p-inputtext.p-invalid:enabled:focus,
+  .p-textarea.p-invalid:enabled:focus,
+  .p-inputnumber.p-invalid .p-inputtext:enabled:focus,
+  .p-select.p-invalid.p-focus,
+  .p-multiselect.p-invalid.p-focus,
+  .p-datepicker.p-invalid .p-inputtext:enabled:focus
+):not(.field-untouched, .field-untouched *) {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--app-danger-solid) 18%, transparent);
+}
+
+.p-tag {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, currentColor 22%, transparent);
+}
+
+.p-toast-close-button {
+  border: 1.5px solid currentColor;
+  color: inherit;
+}
+
+.p-dialog-footer {
+  padding-top: 1rem;
+  border-top: 1px solid var(--p-content-border-color);
+  background: var(--app-surface-2);
+  border-radius: 0 0 var(--p-dialog-border-radius) var(--p-dialog-border-radius);
+}
+
+.p-card {
+  border: 1px solid var(--p-content-border-color);
+}
+
+.p-datatable-thead > tr > th {
+  font-size: 0.75rem;
+}
+
+.p-tab.p-tab-active {
+  font-weight: 600;
+}
+
+.p-sidebar-aside {
+  position: fixed;
+  height: 100dvh;
+}
+
+.p-sidebar-menu-button[data-active='true'] svg {
+  color: var(--p-sidebar-menu-button-active-color);
+}
+
+.p-sidebar-menu-item:has(> .p-sidebar-menu-badge) > .p-sidebar-menu-button {
+  padding-inline-end: 3.75rem;
+}
+
+.otp-field {
+  display: flex;
+  width: 100%;
+  gap: 0.5rem;
+
+  .p-inputotp-input {
+    flex: 1;
+    min-width: 0;
+    height: 3.5rem;
+    padding: 0;
+    text-align: center;
+    font-size: 1.375rem;
+    font-weight: 600;
+  }
 }

@@ -4,10 +4,25 @@ ngx-editor .NgxEditor__Content {
   overflow-wrap: anywhere;
 }
 
-.NgxEditor__Wrapper,
-.NgxEditor__Wrapper .NgxEditor__MenuBar {
+:root {
+  --ngx-editor-background-color: var(--p-form-field-background);
+  --ngx-editor-text-color: var(--p-text-color);
+  --ngx-editor-placeholder-color: var(--p-form-field-placeholder-color);
   --ngx-editor-border-color: var(--p-form-field-border-color);
   --ngx-editor-wrapper-border-color: var(--p-form-field-border-color);
+  --ngx-editor-focus-ring-color: var(--p-primary-color);
+  --ngx-editor-menubar-bg-color: var(--app-surface-2);
+  --ngx-editor-seperator-color: var(--p-content-border-color);
+  --ngx-editor-menu-item-hover-bg-color: var(--p-content-hover-background);
+  --ngx-editor-menu-item-active-bg-color: var(--p-highlight-background);
+  --ngx-editor-menu-item-active-color: var(--p-highlight-color);
+  --ngx-editor-popup-bg-color: var(--p-overlay-popover-background);
+  --ngx-editor-popup-shadow: var(--app-shadow-2);
+  --ngx-editor-bubble-bg-color: var(--p-overlay-popover-background);
+  --ngx-editor-bubble-text-color: var(--p-text-color);
+  --ngx-editor-bubble-item-hover-color: var(--p-content-hover-background);
+  --ngx-editor-blockquote-color: var(--app-text-2);
+  --ngx-editor-error-color: var(--app-danger);
 }
 
 .NgxEditor__Wrapper {
@@ -21,7 +36,7 @@ ngx-editor-menu svg {
 
 div.NgxEditor__HelpText.NgxEditor__HelpText--Error {
   margin-top: 4px;
-  color: var(--color-danger);
+  color: var(--app-danger);
   font-size: var(--text-xs);
 }
 
@@ -47,7 +62,6 @@ div.NgxEditor__Seperator {
   button:not(:disabled),
   [role='button']:not(:disabled) {
     --ngx-editor-click-pointer: pointer;
-    --ngx-editor-menu-item-hover-bg-color: var(--color-indigo-50);
 
     &.NgxEditor__Color:hover {
       transform: scale(1.05);
@@ -111,7 +125,7 @@ div.NgxEditor__Seperator {
       cursor: pointer;
 
       &:hover {
-        outline: 0.25rem solid var(--p-surface-100);
+        outline: 0.25rem solid var(--p-content-hover-background);
         outline-offset: 0;
       }
     }
@@ -131,7 +145,7 @@ div.NgxEditor__Seperator {
   width: 100%;
   margin-top: 8px;
   padding: 4px 16px;
-  border-radius: 0.25rem;
+  border-radius: var(--p-form-field-border-radius);
   background-color: var(--p-primary-color);
   color: var(--p-primary-contrast-color);
   font-size: var(--p-typography-font-size);
@@ -164,7 +178,7 @@ ngx-editor {
   }
 
   a {
-    color: var(--p-primary-color);
+    color: var(--p-highlight-color);
     text-decoration: underline;
   }
 
@@ -197,15 +211,15 @@ ngx-editor {
   blockquote {
     margin-block: 1rem !important;
     padding-inline-start: 1rem !important;
-    border-inline-start: 0.25rem solid var(--p-primary-500) !important;
+    border-inline-start: 0.25rem solid var(--p-primary-color) !important;
   }
 
   pre {
     overflow-x: auto;
     margin-block: 1rem;
     padding: 1rem;
-    border-radius: 0.5rem;
-    background-color: var(--p-surface-100) !important;
+    border-radius: var(--p-form-field-border-radius);
+    background-color: var(--app-surface-sunken) !important;
 
     code {
       padding: 0;
