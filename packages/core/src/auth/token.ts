@@ -26,6 +26,6 @@ export const verifyIdTokenUser = async (idToken: string) => {
         sub: payload.sub as string,
         email: payload.email as string,
         name: payload.name as string,
-        provider: (payload.identities[0]?.providerName) as AuthProvider ?? null,
+        provider: (payload.identities?.[0]?.providerName as AuthProvider | undefined) ?? null,
     };
 };
