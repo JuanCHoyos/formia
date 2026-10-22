@@ -1,9 +1,7 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Service, signal } from '@angular/core';
 import { FormBuilderStore } from './form-builder-store';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class BuilderMenuState {
   private readonly formBuilderStore = inject(FormBuilderStore);
   readonly isLeftMenuOpen = signal(true);

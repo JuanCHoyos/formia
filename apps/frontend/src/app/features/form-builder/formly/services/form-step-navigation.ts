@@ -1,8 +1,8 @@
-import { computed, Injectable, OnDestroy, signal } from '@angular/core';
+import { computed, OnDestroy, Service, signal } from '@angular/core';
 import type { AbstractControl } from '@angular/forms';
 import type { Subscription } from 'rxjs';
 
-@Injectable()
+@Service({ autoProvided: false })
 export class FormStepNavigation implements OnDestroy {
   readonly activeStep = signal<number>(0);
 

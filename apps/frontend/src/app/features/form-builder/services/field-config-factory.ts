@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ulid } from 'ulid';
 import type { FieldTypeName } from '../formly/config/config-types';
@@ -294,9 +294,7 @@ const FIELD_LABEL_KEYS: Record<FieldTypeName, string> = {
   'container-group': 'fieldPalette.fields.container.label',
 };
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class FieldConfigFactory {
   private readonly translate = inject(TranslateService);
 

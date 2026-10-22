@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Service, signal } from '@angular/core';
 import type { FieldWrapperName } from '../formly/config/config-wrappers';
 import type {
   AppFormlyFieldConfig,
@@ -23,9 +23,7 @@ export const DEFAULT_FORM_SETTINGS: FormSettings = {
   maxSubmissionsPerUser: 1,
 };
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class FormBuilderStore {
   private readonly notifications = inject(Notifications);
   private readonly translate = inject(TranslateService);

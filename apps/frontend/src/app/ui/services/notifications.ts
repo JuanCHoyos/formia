@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { TranslateService, type InterpolationParameters } from '@ngx-translate/core';
 import { ConfirmationService, MessageService, type Confirmation } from 'primeng/api';
 
@@ -27,9 +27,7 @@ export interface ConfirmationOptions {
   closeOnEscape?: boolean;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class Notifications {
   private readonly messageService = inject(MessageService);
   private readonly confirmationService = inject(ConfirmationService);
