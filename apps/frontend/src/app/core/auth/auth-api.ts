@@ -1,9 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { Service } from '@angular/core';
 import type { ExternalAuthProvider } from '@formly/core/schemas/common';
 import type { CreateUserProfileInput, UserProfile } from '@formly/core/schemas/user';
 import type { ConfirmForgotPasswordInput, ConfirmSignUpInput, ForgotPasswordInput, SignInInput, SignUpInput } from '@formly/core/schemas/auth';
-import { firstValueFrom } from 'rxjs';
 import {
     signInWithRedirect,
     signUp,
@@ -12,14 +10,11 @@ import {
     resetPassword,
     confirmResetPassword,
 } from 'aws-amplify/auth';
-import { environment } from '@environments/environment';
+import { apiClient } from '../api/api-client';
+import { apiResult } from '../api/api-result';
 
-@Injectable({ providedIn: 'root' })
-
+@Service()
 export class AuthApi {
-    private readonly http = inject(HttpClient);
-
-
     async signIn(signInInput: SignInInput) {
         return signIn({
             username: signInInput.email,
@@ -70,12 +65,12 @@ export class AuthApi {
     }
 
     async completeRegistration(input: CreateUserProfileInput): Promise<UserProfile> {
-        const response = await firstValueFrom(
-            this.http.post<{ data: UserProfile }>(
-                `${environment.API_URL}/users`,
-                input,
-            ),
-        );
-        return response.data;
+        const result = await apiResult(apiClient.users.post(input));
+
+        if (result.isError()) {
+            throw new Error(result.error.message);
+        }
+
+        return result.data;
     }
 }

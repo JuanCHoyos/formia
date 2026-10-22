@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { AUTH_ROUTES } from './features/auth/auth.routes';
-import { authenticatedGuard } from '@core/auth/authenticated';
-import { unauthenticatedGuard } from '@core/auth/unauthenticated';
-import { unregisteredGuard } from '@core/auth/unregistered';
+import { authenticatedGuard } from '@/app/core/auth/guards/authenticated';
+import { unauthenticatedGuard } from '@/app/core/auth/guards/unauthenticated';
+import { unregisteredGuard } from '@/app/core/auth/guards/unregistered';
 
 export const routes: Routes = [
   {
@@ -43,11 +43,11 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'forms',
+    redirectTo: 'dashboard/forms',
     pathMatch: 'full',
   },
   {
     path: '**',
-    redirectTo: 'forms',
+    redirectTo: 'dashboard/forms',
   },
 ];

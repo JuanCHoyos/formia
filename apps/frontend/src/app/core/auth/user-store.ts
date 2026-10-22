@@ -19,11 +19,11 @@ export class UserStore {
       .map((part) => part.charAt(0).toUpperCase())
       .join('');
   });
-
+ 
   set(user: UserProfile): void {
     this._user.set(user);
   }
-
+ 
   clear(): void {
     this._user.set(null);
   }
