@@ -33,7 +33,7 @@ import type { BrandName } from '../../../../core/theme/types/brand';
             (change)="selectionChange.emit({ value: option.brand, element: item })"
           />
           <span
-            class="flex size-10 items-center justify-center rounded-full bg-(--swatch) text-white shadow-1 outline-2 outline-offset-2 outline-transparent transition-[outline-color,transform] duration-150 group-hover:scale-105 group-has-checked:outline-(--swatch)"
+            class="flex size-10 min-w-10 min-h-10 items-center justify-center rounded-full bg-(--swatch) text-white shadow-1 outline-2 outline-offset-2 outline-transparent transition-[outline-color,transform] duration-150 group-hover:scale-105 group-has-checked:outline-(--swatch)"
             aria-hidden="true"
           >
             <ng-icon

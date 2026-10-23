@@ -1,11 +1,14 @@
 <label
   [for]="inputId()"
-  class="flex w-full items-center gap-3 rounded-control border border-transparent px-3 py-2 select-none transition-colors hover:bg-hover"
+  class="flex w-full items-start gap-3 rounded-menu border px-3.5 py-3 select-none transition-colors"
+  [class]="
+    checkboxForm().value()
+      ? 'border-brand-bd bg-brand-soft'
+      : 'border-border bg-surface hover:border-border-hover'
+  "
   [class.cursor-pointer]="!disabled()"
   [class.cursor-not-allowed]="disabled()"
   [class.opacity-60]="disabled()"
-  [class.bg-brand-soft]="checkboxForm().value()"
-  [class.border-brand-bd]="checkboxForm().value()"
 >
   <p-checkbox
     [formField]="checkboxForm"
@@ -14,9 +17,10 @@
     [disabled]="disabled()"
     (onChange)="markAsTouched()"
     (onBlur)="markAsTouched()"
+    class="mt-0.5"
   />
   <div class="flex flex-col gap-0.5">
-    <span class="text-sm font-medium text-text">{{ label() }}</span>
+    <span class="text-h3 text-text">{{ label() }}</span>
     @if (description()) {
       <small class="text-xs text-text-2">{{ description() }}</small>
     }

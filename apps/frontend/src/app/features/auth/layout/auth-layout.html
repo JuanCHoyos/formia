@@ -28,7 +28,7 @@
             class="flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.04em] text-brand-text"
           >
             <span
-              class="grid size-7 place-items-center rounded-lg border border-brand-bd bg-brand-soft"
+              class="grid size-7 min-w-7 min-h-7 place-items-center rounded-lg border border-brand-bd bg-brand-soft"
             >
               <ng-icon name="lucideCircleDot" size="1rem" />
             </span>
@@ -82,7 +82,10 @@
       </div>
 
       <p class="relative flex items-center gap-2.5 text-sm text-white/90">
-        <span class="grid size-7.5 place-items-center rounded-full bg-white/15" aria-hidden="true">
+        <span
+          class="grid size-7.5 min-w-7.5 min-h-7.5 place-items-center rounded-full bg-white/15"
+          aria-hidden="true"
+        >
           <ng-icon name="lucideShieldCheck" size="0.875rem" />
         </span>
         {{ 'auth.layout.security' | translate }}

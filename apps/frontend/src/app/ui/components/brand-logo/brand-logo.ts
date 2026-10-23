@@ -9,7 +9,7 @@ import { booleanAttribute, Component, input } from '@angular/core';
       [class]="inverse() ? 'bg-white' : 'bg-brand'"
       aria-hidden="true"
     >
-      <svg viewBox="0 0 24 24" class="size-5">
+      <svg viewBox="0 0 24 24" class="size-5 min-w-5 min-h-5">
         <path
           d="M7 2.5h7.3L19 7.2V20a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 6 20V4a1.5 1.5 0 0 1 1-1.5z"
           [attr.fill]="inverse() ? 'currentColor' : '#fff'"

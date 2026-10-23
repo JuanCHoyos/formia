@@ -17,7 +17,7 @@ import type { FormSummary } from '../../types/form-summary';
       @for (stat of stats(); track stat.labelKey) {
         <li class="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4 shadow-1">
           <span
-            class="flex size-8 items-center justify-center rounded-lg bg-brand-soft text-brand-text"
+            class="flex size-8 min-w-8 min-h-8 items-center justify-center rounded-lg bg-brand-soft text-brand-text"
             aria-hidden="true"
           >
             <ng-icon [name]="stat.icon" size="1rem" />
