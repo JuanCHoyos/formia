@@ -1,4 +1,4 @@
-import { Component, computed, input, model, signal } from '@angular/core';
+import { Component, computed, input, model, output, signal } from '@angular/core';
 import { FormValueControl } from '@angular/forms/signals';
 
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -19,11 +19,12 @@ import type { AppIcon } from '../../types/icons';
   templateUrl: './icon-selector.html',
 })
 export class IconSelector implements FormValueControl<IconSelectorValue> {
-  multiple = input(true);
+  readonly multiple = input(true);
   readonly value = model<IconSelectorValue>(null);
-  disabled = model<boolean>(false);
-  touched = model<boolean>(false);
-  showDialog = model(false);
+  readonly disabled = input<boolean>(false);
+  readonly touch = output<void>();
+
+  protected readonly showDialog = signal(false);
 
   searchTerm = signal('');
   draftIcons = signal<AppIcon[]>([]);
@@ -57,12 +58,13 @@ export class IconSelector implements FormValueControl<IconSelectorValue> {
     if (this.disabled()) return;
     this.draftIcons.set(this.normalizeIcons(this.value()));
     this.searchTerm.set('');
-    this.setDialogVisibility(true);
+    this.showDialog.set(true);
   }
 
-  setDialogVisibility(visible: boolean): void {
-    this.touched.set(true);
-    this.showDialog.set(visible);
+  /** Closes without saving; the draft is discarded and the field counts as touched. */
+  closeDialog(): void {
+    this.showDialog.set(false);
+    this.touch.emit();
   }
 
   toggleIcon(icon: AppIcon): void {
@@ -83,7 +85,7 @@ export class IconSelector implements FormValueControl<IconSelectorValue> {
     const selected = this.draftIcons();
     const value = this.multiple() ? selected : (selected[0] ?? null);
     this.value.set(value);
-    this.setDialogVisibility(false);
+    this.closeDialog();
   }
 
   private normalizeIcons(value: AppIcon | AppIcon[] | null): AppIcon[] {

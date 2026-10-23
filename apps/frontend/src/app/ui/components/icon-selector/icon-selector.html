@@ -34,6 +34,7 @@
   [modal]="true"
   [header]="'formBuilder.iconSelector.dialogTitle' | translate"
   [style]="{ width: '25rem', maxWidth: '90vw' }"
+  (visibleChange)="!$event && closeDialog()"
 >
   <section
     class="flex flex-col gap-4"
@@ -81,13 +82,7 @@
       </fieldset>
     </div>
     <div class="flex items-center gap-2 justify-end">
-      <button
-        pButton
-        type="button"
-        variant="outlined"
-        severity="secondary"
-        (click)="setDialogVisibility(false)"
-      >
+      <button pButton type="button" variant="outlined" severity="secondary" (click)="closeDialog()">
         {{ 'common.actions.cancel' | translate }}
       </button>
       <button pButton type="button" [disabled]="disabled()" (click)="saveSelectedIcons()">
