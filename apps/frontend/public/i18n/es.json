@@ -738,19 +738,40 @@
     }
   },
   "fileUploader": {
-    "open": "Abrir el selector de archivos",
+    "open": "Subir archivos",
+    "title": "Subir archivos",
     "sectionAriaLabel": "Subir archivos",
-    "title": "Sube tus archivos",
-    "subtitle": "Para usar en el proyecto",
-    "dropFiles": "Arrastra y suelta tus archivos aquí o",
-    "selectFiles": "Selecciona archivos",
-    "maxPerFile": "Máximo {{size}} por archivo",
-    "errors": {
-      "allowedTypes": "Tipos permitidos: {{types}}.",
-      "maxFileSize": "El tamaño máximo por archivo es {{size}}.",
-      "missingUploadUrl": "Configura la URL de carga para iniciar la carga.",
-      "httpFailure": "La carga falló (HTTP {{status}}).",
-      "uploadFailure": "No se pudo completar la carga."
+    "dropFiles": "Arrastra y suelta tus archivos aquí",
+    "or": "o",
+    "browse": "Seleccionar archivos",
+    "done": "Listo",
+    "dismissErrors": "Descartar errores",
+    "types": {
+      "image": "Imágenes",
+      "audio": "Audio",
+      "video": "Video"
+    },
+    "limits": {
+      "formats": "Formatos admitidos: {{types}}",
+      "single": "Solo un archivo",
+      "count": "Hasta {{count}} archivos",
+      "unlimited": "Varios archivos",
+      "fileSize": "máx. {{size}} por archivo",
+      "totalSize": "máx. {{size}} en total"
+    },
+    "history": {
+      "title": "Subidos anteriormente",
+      "empty": "Aún no has subido archivos."
+    },
+    "queue": {
+      "title": "Listos para subir ({{count}})"
+    },
+    "rejections": {
+      "type": "{{name}}: tipo de archivo no permitido.",
+      "fileSize": "{{name}}: supera el límite de {{size}} por archivo.",
+      "totalSize": "{{name}}: supera el límite total de {{size}}.",
+      "count": "{{name}}: puedes agregar hasta {{count}} archivo(s).",
+      "duplicate": "{{name}}: ya fue agregado."
     }
   },
   "dashboard": {
@@ -852,7 +873,7 @@
       "description": "Así te verán las personas con las que compartes formularios.",
       "photo": {
         "label": "Foto de perfil",
-        "soon": "Pronto podrás subir tu propia foto.",
+        "hint": "PNG, JPG o WEBP, hasta 2 MB.",
         "change": "Cambiar foto"
       },
       "managedBy": "Sincronizado con tu cuenta de {{provider}}",

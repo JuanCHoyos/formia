@@ -1,72 +1,141 @@
-import { Component, forwardRef, inject, input, model, OnDestroy, signal } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgTemplateOutlet } from '@angular/common';
+import {
+  booleanAttribute,
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  OnDestroy,
+  output,
+  signal,
+} from '@angular/core';
 
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 import { DialogModule } from 'primeng/dialog';
-import { ProgressBarModule } from 'primeng/progressbar';
 
 import type { AcceptedFileType } from '@/app/ui/types/accepted-file-type';
 
 import { APP_ICONS } from '../../constants/icons';
 import { FileDropZoneDirective } from '../../directives/file-drop-zone';
-import type { UploadItem } from '../../types/upload-item';
+import type { FileRejection, FileUploaderVariant, UploadedFile } from '../../types/file-upload';
+import {
+  BYTES_PER_MB,
+  formatBytes,
+  getFileTypeLabel,
+  totalFileSize,
+  validateFiles,
+} from '../../utils/file.utils';
 import { Button } from '../button/button';
+
+interface QueuedFile {
+  file: File;
+  previewUrl: string | null;
+}
+
+let nextId = 0;
 
 @Component({
   selector: 'app-file-uploader',
   templateUrl: './file-uploader.html',
-  imports: [DialogModule, Button, ProgressBarModule, NgIcon, FileDropZoneDirective, TranslatePipe],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FileUploader),
-      multi: true,
-    },
-    provideIcons(APP_ICONS),
-  ],
+  imports: [DialogModule, NgTemplateOutlet, Button, NgIcon, FileDropZoneDirective, TranslatePipe],
+  providers: [provideIcons(APP_ICONS)],
 })
-export class FileUploader implements ControlValueAccessor, OnDestroy {
+export class FileUploader implements OnDestroy {
   private readonly translate = inject(TranslateService);
 
-  multiple = input(true);
-  accept = input<AcceptedFileType[]>(['image/*']);
-  maxSizeMb = input(50);
-  uploadUrl = input('');
-  uploads = signal<UploadItem[]>([]);
-  disabled = signal(false);
-  errorMessage = signal('');
-  dragActive = signal(false);
+  readonly variant = input<FileUploaderVariant>('dialog');
+  readonly header = input<string>();
+  readonly accept = input<readonly AcceptedFileType[]>(['image/*']);
+  readonly multiple = input(false, { transform: booleanAttribute });
+  readonly maxFiles = input<number>();
+  readonly maxFileSizeMb = input(5);
+  readonly maxTotalSizeMb = input<number>();
+  readonly history = input<readonly UploadedFile[]>([]);
+  /** Hides the built-in button so the host can open the dialog with its own via `open()`. */
+  readonly hideTrigger = input(false, { transform: booleanAttribute });
 
-  showDialog = model(false);
+  /** Emits the selected files: on "Done" in the dialog, on every change in the minimal variant. */
+  readonly filesSelected = output<File[]>();
 
-  private nextId = 0;
-  private onChange: (files: File[]) => void = () => {};
-  private onTouched: () => void = () => {};
+  protected readonly id = `file-uploader-${nextId++}`;
+  protected readonly dragActive = signal(false);
+  protected readonly visible = signal(false);
+  protected readonly rejections = signal<FileRejection[]>([]);
+  protected readonly files = signal<File[]>([]);
 
-  writeValue(files: File[] | null): void {
-    this.releasePreviews(this.uploads());
-    this.uploads.set((files ?? []).map((file) => this.createUploadItem(file)));
+  private readonly previewUrls = new Map<File, string>();
+
+  protected readonly fileLimit = computed<number | undefined>(() =>
+    this.multiple() ? this.maxFiles() : 1,
+  );
+  protected readonly maxFileSizeBytes = computed(() => this.maxFileSizeMb() * BYTES_PER_MB);
+  protected readonly maxTotalSizeBytes = computed<number | undefined>(() => {
+    const maxTotalSizeMb = this.maxTotalSizeMb();
+    return maxTotalSizeMb === undefined ? undefined : maxTotalSizeMb * BYTES_PER_MB;
+  });
+  protected readonly totalSize = computed(() => totalFileSize(this.files()));
+
+  protected readonly queue = computed<QueuedFile[]>(() =>
+    this.files().map((file) => ({ file, previewUrl: this.previewUrlFor(file) })),
+  );
+
+  protected readonly acceptedTypesLabel = computed<string>(() => {
+    this.translate.currentLang();
+    const labels = this.accept().map((type) =>
+      type.endsWith('/*')
+        ? (this.translate.instant(`fileUploader.types.${type.slice(0, -2)}`) as string)
+        : getFileTypeLabel(type),
+    );
+    return [...new Set(labels)].join(', ');
+  });
+
+  protected readonly limitsSummary = computed<string>(() => {
+    this.translate.currentLang();
+    const fileLimit = this.fileLimit();
+    const maxTotalSizeBytes = this.maxTotalSizeBytes();
+    const countKey =
+      fileLimit === 1
+        ? 'fileUploader.limits.single'
+        : fileLimit === undefined
+          ? 'fileUploader.limits.unlimited'
+          : 'fileUploader.limits.count';
+
+    const limits = [
+      this.translate.instant(countKey, { count: fileLimit }) as string,
+      this.translate.instant('fileUploader.limits.fileSize', {
+        size: this.formatBytes(this.maxFileSizeBytes()),
+      }) as string,
+    ];
+    if (maxTotalSizeBytes !== undefined) {
+      limits.push(
+        this.translate.instant('fileUploader.limits.totalSize', {
+          size: this.formatBytes(maxTotalSizeBytes),
+        }) as string,
+      );
+    }
+    return limits.join(' · ');
+  });
+
+  constructor() {
+    effect(() => {
+      const files = new Set(this.files());
+      for (const [file, url] of this.previewUrls) {
+        if (files.has(file)) continue;
+        URL.revokeObjectURL(url);
+        this.previewUrls.delete(file);
+      }
+    });
   }
 
   ngOnDestroy(): void {
-    this.releasePreviews(this.uploads());
+    for (const url of this.previewUrls.values()) URL.revokeObjectURL(url);
+    this.previewUrls.clear();
   }
 
-  registerOnChange(fn: (files: File[]) => void): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled.set(isDisabled);
-  }
-
-  selectFiles(event: Event): void {
+  protected selectFiles(event: Event): void {
     const inputElement = event.target;
     if (!(inputElement instanceof HTMLInputElement)) return;
 
@@ -74,191 +143,80 @@ export class FileUploader implements ControlValueAccessor, OnDestroy {
     inputElement.value = '';
   }
 
-  onFilesDropped(files: File[]): void {
-    this.addFiles(files);
+  protected addFiles(files: File[]): void {
+    const multiple = this.multiple();
+    const current = multiple ? this.files() : [];
+    const { accepted, rejections } = validateFiles(current, files, {
+      accept: this.accept(),
+      maxFiles: this.fileLimit() ?? Number.POSITIVE_INFINITY,
+      maxFileSizeBytes: this.maxFileSizeBytes(),
+      maxTotalSizeBytes: this.maxTotalSizeBytes(),
+    });
+
+    this.rejections.set(rejections);
+    if (accepted.length > current.length) this.setFiles(accepted);
   }
 
-  setDragActive(isActive: boolean): void {
-    this.dragActive.set(isActive);
+  protected removeFile(file: File): void {
+    this.setFiles(this.files().filter((queuedFile) => queuedFile !== file));
   }
 
-  private addFiles(selectedFiles: File[]): void {
-    const maxSizeBytes = this.maxSizeMb() * 1024 * 1024;
-    const rejectedByType = selectedFiles.filter((file) => !this.isAccepted(file));
-    const rejectedBySize = selectedFiles.filter((file) => file.size > maxSizeBytes);
-    const acceptedFiles = selectedFiles.filter(
-      (file) => this.isAccepted(file) && file.size <= maxSizeBytes,
-    );
-
-    const errors: string[] = [];
-    if (rejectedByType.length) {
-      errors.push(
-        this.translate.instant('fileUploader.errors.allowedTypes', {
-          types: this.getAcceptedTypesLabel(),
-        }) as string,
-      );
-    }
-    if (rejectedBySize.length) {
-      errors.push(
-        this.translate.instant('fileUploader.errors.maxFileSize', {
-          size: this.formatBytes(maxSizeBytes),
-        }) as string,
-      );
-    }
-    this.errorMessage.set(errors.join(' '));
-
-    if (acceptedFiles.length === 0) {
-      return;
-    }
-
-    const files = this.multiple() ? acceptedFiles : acceptedFiles.slice(0, 1);
-    const newUploads = files.map((file) => this.createUploadItem(file));
-
-    if (this.multiple()) {
-      this.uploads.update((uploads) => [...uploads, ...newUploads]);
-    } else {
-      this.releasePreviews(this.uploads());
-      this.uploads.set(newUploads);
-    }
-
-    this.onChange(this.uploads().map((item) => item.file));
-    this.onTouched();
+  open(): void {
+    this.visible.set(true);
   }
 
-  removeFile(id: number): void {
-    const removedUpload = this.uploads().find((item) => item.id === id);
-    if (removedUpload?.previewUrl) URL.revokeObjectURL(removedUpload.previewUrl);
-
-    const uploads = this.uploads().filter((item) => item.id !== id);
-    this.uploads.set(uploads);
-    this.onChange(uploads.map((item) => item.file));
-    this.onTouched();
+  protected confirmSelection(): void {
+    this.filesSelected.emit(this.files());
+    this.close();
   }
 
-  async uploadFiles() {
-    const url = this.uploadUrl().trim();
+  protected close(): void {
+    this.rejections.set([]);
+    this.files.set([]);
+    this.visible.set(false);
+  }
+
+  protected rejectionMessage({ file, reason }: FileRejection): string {
+    return this.translate.instant(`fileUploader.rejections.${reason}`, {
+      name: file.name,
+      count: this.fileLimit(),
+      size: this.formatBytes(
+        reason === 'totalSize' ? (this.maxTotalSizeBytes() ?? 0) : this.maxFileSizeBytes(),
+      ),
+    }) as string;
+  }
+
+  protected formatBytes(bytes: number): string {
+    return formatBytes(bytes, this.currentLocale());
+  }
+
+  protected formatDate(isoDate: string): string {
+    const date = new Date(isoDate);
+    if (Number.isNaN(date.getTime())) return '';
+    return new Intl.DateTimeFormat(this.currentLocale(), { dateStyle: 'medium' }).format(date);
+  }
+
+  protected isImage(type: string | undefined): boolean {
+    return type?.startsWith('image/') ?? false;
+  }
+
+  private setFiles(files: File[]): void {
+    this.files.set(files);
+    if (this.variant() === 'minimal') this.filesSelected.emit(files);
+  }
+
+  private currentLocale(): string {
+    return this.translate.currentLang() ?? 'en';
+  }
+
+  private previewUrlFor(file: File): string | null {
+    if (!this.isImage(file.type)) return null;
+
+    let url = this.previewUrls.get(file);
     if (!url) {
-      this.errorMessage.set(
-        this.translate.instant('fileUploader.errors.missingUploadUrl') as string,
-      );
-      return;
+      url = URL.createObjectURL(file);
+      this.previewUrls.set(file, url);
     }
-
-    this.errorMessage.set('');
-    const queuedUploads = this.uploads().filter((item) => item.status === 'queued');
-
-    for (const item of queuedUploads) {
-      this.updateUpload(item.id, { status: 'uploading', loaded: 0 });
-    }
-
-    await Promise.all(queuedUploads.map((item) => this.uploadFile(item, url)));
-
-    if (this.uploads().every((item) => item.status === 'complete')) {
-      this.showDialog.set(false);
-    }
-  }
-
-  formatBytes(bytes: number): string {
-    if (bytes < 1024) return `${bytes} B`;
-
-    const units = ['KB', 'MB', 'GB'];
-    let size = bytes / 1024;
-    let unitIndex = 0;
-
-    while (size >= 1024 && unitIndex < units.length - 1) {
-      size /= 1024;
-      unitIndex++;
-    }
-
-    const locale = this.translate.currentLang() ?? 'en';
-    return `${new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(size)} ${units[unitIndex]}`;
-  }
-
-  private createUploadItem(file: File): UploadItem {
-    return {
-      id: this.nextId++,
-      file,
-      previewUrl: file.type.startsWith('image/') ? URL.createObjectURL(file) : null,
-      loaded: 0,
-      status: 'queued',
-    };
-  }
-
-  private releasePreviews(uploads: UploadItem[]): void {
-    for (const item of uploads) {
-      if (item.previewUrl) URL.revokeObjectURL(item.previewUrl);
-    }
-  }
-
-  private isAccepted(file: File): boolean {
-    const acceptedTypes = this.accept()
-      .map((type) => type.trim().toLowerCase())
-      .filter(Boolean);
-
-    if (acceptedTypes.length === 0) return true;
-
-    const fileType = file.type.toLowerCase();
-    const fileName = file.name.toLowerCase();
-
-    return acceptedTypes.some((type) => {
-      if (type.startsWith('.')) return fileName.endsWith(type);
-      if (type.endsWith('/*')) return fileType.startsWith(type.slice(0, -1));
-      return fileType === type;
-    });
-  }
-
-  private getAcceptedTypesLabel(): string {
-    return this.accept()
-      .map((type) => type.trim())
-      .filter(Boolean)
-      .join(', ');
-  }
-
-  private updateUpload(id: number, changes: Partial<UploadItem>): void {
-    this.uploads.update((uploads) =>
-      uploads.map((item) => (item.id === id ? { ...item, ...changes } : item)),
-    );
-  }
-
-  private async uploadFile(item: UploadItem, url: string): Promise<void> {
-    return new Promise((resolve) => {
-      const request = new XMLHttpRequest();
-      const body = new FormData();
-      body.append('file', item.file);
-
-      request.upload.addEventListener('progress', (event) => {
-        if (!event.lengthComputable) return;
-        const loaded = Math.min(
-          item.file.size,
-          Math.round((event.loaded / event.total) * item.file.size),
-        );
-        this.updateUpload(item.id, { loaded });
-      });
-
-      request.addEventListener('load', () => {
-        if (request.status >= 200 && request.status < 300) {
-          this.updateUpload(item.id, { loaded: item.file.size, status: 'complete' });
-        } else {
-          this.updateUpload(item.id, { status: 'error' });
-          this.errorMessage.set(
-            this.translate.instant('fileUploader.errors.httpFailure', {
-              status: request.status,
-            }) as string,
-          );
-        }
-        resolve();
-      });
-
-      request.addEventListener('error', () => {
-        this.updateUpload(item.id, { status: 'error' });
-        this.errorMessage.set(
-          this.translate.instant('fileUploader.errors.uploadFailure') as string,
-        );
-        resolve();
-      });
-
-      request.open('POST', url);
-      request.send(body);
-    });
+    return url;
   }
 }

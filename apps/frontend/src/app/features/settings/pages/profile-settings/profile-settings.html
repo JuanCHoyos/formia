@@ -19,7 +19,7 @@
             </p>
           } @else {
             <p class="mt-0.5 text-xs text-text-3">
-              {{ 'settings.profile.photo.soon' | translate }}
+              {{ 'settings.profile.photo.hint' | translate }}
             </p>
           }
         </div>
@@ -29,10 +29,18 @@
             variant="outlined"
             severity="secondary"
             icon="lucideCamera"
-            [disabled]="true"
+            [ariaLabel]="'settings.profile.photo.change' | translate"
+            (pressed)="photoUploader.open()"
           >
             <span class="hidden sm:inline">{{ 'settings.profile.photo.change' | translate }}</span>
           </app-button>
+          <app-file-uploader
+            #photoUploader
+            hideTrigger
+            [header]="'settings.profile.photo.label' | translate"
+            [accept]="['image/png', 'image/jpeg', 'image/webp']"
+            [maxFileSizeMb]="2"
+          />
         }
       </div>
 

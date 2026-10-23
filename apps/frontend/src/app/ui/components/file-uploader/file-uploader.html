@@ -1,161 +1,240 @@
-<app-button
-  type="button"
-  variant="outlined"
-  severity="primary"
-  [iconOnly]="true"
-  icon="lucideImagePlus"
-  [disabled]="disabled()"
-  customClass="w-full"
-  (pressed)="showDialog.set(true)"
->
-</app-button>
+<input
+  #fileInput
+  type="file"
+  hidden
+  [accept]="accept().join(',')"
+  [multiple]="multiple()"
+  (change)="selectFiles($event)"
+/>
 
-<p-dialog
-  [visible]="showDialog()"
-  [closable]="true"
-  [closeOnEscape]="true"
-  [modal]="true"
-  [style]="{ width: '25rem', maxWidth: '90vw' }"
-  (visibleChange)="showDialog.set($event)"
->
-  <section
-    class="flex flex-col gap-4"
-    [attr.aria-label]="'fileUploader.sectionAriaLabel' | translate"
-  >
-    <div class="flex flex-col gap-1">
-      <h3 class="text-center text-h2">{{ 'fileUploader.title' | translate }}</h3>
-      <span class="text-center text-sm text-text-2">
-        {{ 'fileUploader.subtitle' | translate }}
-      </span>
-    </div>
+<ng-template #fileThumbnail let-url let-label="label">
+  @if (url) {
+    <img
+      [src]="url"
+      [alt]="label"
+      class="size-9 shrink-0 rounded-control border border-border object-cover"
+    />
+  } @else {
+    <span
+      class="grid size-9 shrink-0 place-items-center rounded-control bg-surface-sunken text-text-3"
+      aria-hidden="true"
+    >
+      <ng-icon name="lucideFile" size="1.125rem" />
+    </span>
+  }
+</ng-template>
 
-    <div class="flex flex-col gap-2">
-      <div
-        class="flex h-36 flex-col items-center justify-center gap-1 rounded-menu border border-dashed border-border-strong bg-surface-2 transition-colors"
-        appFileDropZone
-        [fileDropDisabled]="disabled()"
-        (filesDropped)="onFilesDropped($event)"
-        (dragActiveChange)="setDragActive($event)"
-        [class.border-brand]="dragActive()"
-        [class.bg-brand-soft]="dragActive()"
-      >
-        <div class="flex w-20 items-center justify-center rounded-full bg-brand-soft p-2">
-          <img src="assets/images/upload.png" alt="" class="w-full" />
-        </div>
-        <input
-          type="file"
-          id="fileInput"
-          [accept]="accept().join(',')"
-          [multiple]="multiple()"
-          [disabled]="disabled()"
-          hidden
-          (change)="selectFiles($event)"
-        />
-        <span class="text-sm font-semibold">
-          {{ 'fileUploader.dropFiles' | translate }}
-          <label for="fileInput" class="cursor-pointer text-brand-text hover:underline">
-            {{ 'fileUploader.selectFiles' | translate }}
-          </label>
-        </span>
-        <span class="text-xs text-text-3">
-          {{
-            'fileUploader.maxPerFile' | translate: { size: formatBytes(maxSizeMb() * 1024 * 1024) }
-          }}
-        </span>
-      </div>
-
-      @if (errorMessage()) {
-        <p class="text-sm text-danger-text" role="alert">{{ errorMessage() }}</p>
-      }
-    </div>
-
-    @if (uploads().length) {
-      <div class="flex flex-col gap-2 max-h-64 overflow-y-auto">
-        @for (item of uploads(); track item.id) {
-          <div class="flex items-center gap-2 rounded-menu border border-border p-2">
-            @if (item.previewUrl) {
-              <img
-                [src]="item.previewUrl"
-                [alt]="item.file.name"
-                class="size-10 shrink-0 rounded-control object-cover"
-              />
-            } @else {
-              <div
-                class="flex items-center justify-center rounded-control bg-brand-soft p-2 text-brand-text"
-              >
-                <ng-icon name="lucideImage" size="1.5rem" aria-hidden="true" />
-              </div>
-            }
-
-            <div class="flex flex-col gap-1 w-full min-w-0">
-              <div class="truncate text-xs font-semibold">{{ item.file.name }}</div>
-
-              <div class="flex items-center gap-2 divide-x divide-border">
-                <span class="pr-2 text-xs text-text-3">
-                  <span [class.hidden]="item.status !== 'uploading'"
-                    >{{ formatBytes(item.loaded) }} /
-                  </span>
-                  <span>{{ formatBytes(item.file.size) }}</span>
-                </span>
-                <span class="flex items-center gap-1 text-xs text-text-3">
-                  <span
-                    class="block size-1.5 rounded-full"
-                    [class.animate-pulse]="item.status === 'uploading' || item.status === 'queued'"
-                    [class.bg-success]="item.status === 'complete'"
-                    [class.bg-danger]="item.status === 'error'"
-                    [class.bg-warn]="item.status === 'queued' || item.status === 'uploading'"
-                  ></span>
-                  {{
-                    item.status === 'error'
-                      ? ('common.status.error' | translate)
-                      : item.status === 'complete'
-                        ? ('common.status.complete' | translate)
-                        : ('common.status.pending' | translate)
-                  }}</span
-                >
-              </div>
-              <p-progressbar
-                [value]="item.file.size ? (item.loaded / item.file.size) * 100 : 0"
-                [showValue]="false"
-                [style]="{ height: '4px' }"
-              />
-            </div>
-
-            <app-button
-              type="button"
-              severity="danger"
-              [iconOnly]="true"
-              size="small"
-              variant="text"
-              class="min-w-fit"
-              icon="lucideTrash2"
-              [disabled]="item.status === 'uploading'"
-              [ariaLabel]="'common.actions.deleteItem' | translate: { label: item.file.name }"
-              (pressed)="removeFile(item.id)"
-            />
-          </div>
+<ng-template #rejectionList>
+  @if (rejections().length) {
+    <div
+      role="alert"
+      class="flex items-start gap-2 rounded-menu border border-danger-border bg-danger-bg px-3.5 py-2.5 text-xs text-danger-text"
+    >
+      <ng-icon name="lucideCircleAlert" size="1rem" class="mt-px shrink-0" aria-hidden="true" />
+      <ul class="m-0 flex min-w-0 flex-1 list-none flex-col gap-0.5 p-0">
+        @for (rejection of rejections(); track $index) {
+          <li class="break-words">{{ rejectionMessage(rejection) }}</li>
         }
-      </div>
-    }
-
-    <div class="flex items-center gap-2 justify-end">
-      <app-button
+      </ul>
+      <button
         type="button"
-        variant="outlined"
-        severity="secondary"
-        (pressed)="showDialog.set(false)"
+        class="grid size-5 shrink-0 cursor-pointer place-items-center rounded-control hover:bg-danger-border focus-visible:focus-ring"
+        [attr.aria-label]="'fileUploader.dismissErrors' | translate"
+        (click)="rejections.set([])"
       >
+        <ng-icon name="lucideX" size="0.875rem" aria-hidden="true" />
+      </button>
+    </div>
+  }
+</ng-template>
+
+<ng-template #queueList>
+  @if (queue().length) {
+    <section class="flex flex-col gap-2" [attr.aria-labelledby]="id + '-queue'">
+      <div class="flex items-center justify-between gap-2">
+        <h3 [id]="id + '-queue'" class="text-sm font-semibold text-text">
+          {{ 'fileUploader.queue.title' | translate: { count: queue().length } }}
+        </h3>
+        <span class="shrink-0 text-xs text-text-3">
+          {{ formatBytes(totalSize()) }}
+          @if (maxTotalSizeBytes(); as maxTotal) {
+            / {{ formatBytes(maxTotal) }}
+          }
+        </span>
+      </div>
+
+      <ul class="m-0 flex max-h-56 list-none flex-col gap-1.5 overflow-y-auto p-0">
+        @for (item of queue(); track item.file) {
+          <li
+            class="flex items-center gap-3 rounded-menu border border-border bg-surface px-3 py-2"
+          >
+            <ng-container
+              *ngTemplateOutlet="
+                fileThumbnail;
+                context: { $implicit: item.previewUrl, label: item.file.name }
+              "
+            />
+            <span class="flex min-w-0 flex-1 flex-col">
+              <span class="truncate text-[13px] font-medium text-text">{{ item.file.name }}</span>
+              <span class="text-xs text-text-3">{{ formatBytes(item.file.size) }}</span>
+            </span>
+            <app-button
+              severity="danger"
+              variant="text"
+              size="small"
+              icon="lucideTrash2"
+              class="min-w-fit"
+              [iconOnly]="true"
+              [ariaLabel]="'common.actions.deleteItem' | translate: { label: item.file.name }"
+              (pressed)="removeFile(item.file)"
+            />
+          </li>
+        }
+      </ul>
+    </section>
+  }
+</ng-template>
+
+@if (variant() === 'minimal') {
+  <div class="flex flex-col gap-3" [attr.aria-label]="'fileUploader.sectionAriaLabel' | translate">
+    <div
+      appFileDropZone
+      class="flex flex-wrap items-center gap-3 rounded-menu border border-dashed border-border-strong bg-surface-2 px-4 py-3 transition-colors"
+      [class.border-brand]="dragActive()"
+      [class.bg-brand-soft]="dragActive()"
+      (filesDropped)="addFiles($event)"
+      (dragActiveChange)="dragActive.set($event)"
+    >
+      <span
+        class="grid size-9 shrink-0 place-items-center rounded-full bg-brand-soft text-brand-text"
+        aria-hidden="true"
+      >
+        <ng-icon name="lucideCloudUpload" size="1.125rem" />
+      </span>
+      <span class="flex min-w-0 flex-1 flex-col">
+        <span class="text-sm font-medium text-text">{{
+          'fileUploader.dropFiles' | translate
+        }}</span>
+        <span class="text-xs text-text-3">{{ acceptedTypesLabel() }} · {{ limitsSummary() }}</span>
+      </span>
+      <app-button size="small" variant="outlined" (pressed)="fileInput.click()">
+        {{ 'fileUploader.browse' | translate }}
+      </app-button>
+    </div>
+
+    <ng-container *ngTemplateOutlet="rejectionList" />
+    <ng-container *ngTemplateOutlet="queueList" />
+  </div>
+} @else {
+  @if (!hideTrigger()) {
+    <app-button variant="outlined" icon="lucideUpload" customClass="w-full" (pressed)="open()">
+      {{ 'fileUploader.open' | translate }}
+    </app-button>
+  }
+
+  <p-dialog
+    [visible]="visible()"
+    [modal]="true"
+    [closeOnEscape]="true"
+    [header]="header() ?? ('fileUploader.title' | translate)"
+    [style]="{ width: '56rem', maxWidth: '95vw' }"
+    (visibleChange)="!$event && close()"
+  >
+    <div class="grid gap-5 md:grid-cols-[15rem_minmax(0,1fr)]">
+      <aside
+        class="order-2 flex min-w-0 flex-col gap-3 md:order-1 md:border-r md:border-border md:pr-5"
+        [attr.aria-labelledby]="id + '-history'"
+      >
+        <h3 [id]="id + '-history'" class="flex items-center gap-2 text-sm font-semibold text-text">
+          <ng-icon name="lucideHistory" size="1rem" class="text-text-3" aria-hidden="true" />
+          {{ 'fileUploader.history.title' | translate }}
+        </h3>
+
+        @if (history().length) {
+          <ul class="m-0 flex max-h-96 list-none flex-col gap-1 overflow-y-auto p-0">
+            @for (item of history(); track item.id) {
+              <li class="flex items-center gap-2.5 rounded-menu px-2 py-1.5 hover:bg-hover">
+                <ng-container
+                  *ngTemplateOutlet="
+                    fileThumbnail;
+                    context: {
+                      $implicit: item.url && isImage(item.type) ? item.url : null,
+                      label: item.name,
+                    }
+                  "
+                />
+                <span class="flex min-w-0 flex-col">
+                  <span class="truncate text-[13px] font-medium text-text">{{ item.name }}</span>
+                  <span class="text-xs text-text-3">
+                    {{ formatBytes(item.size) }}
+                    @if (item.uploadedAt) {
+                      · {{ formatDate(item.uploadedAt) }}
+                    }
+                  </span>
+                </span>
+              </li>
+            }
+          </ul>
+        } @else {
+          <p
+            class="rounded-menu border border-dashed border-border px-3 py-6 text-center text-xs text-text-3"
+          >
+            {{ 'fileUploader.history.empty' | translate }}
+          </p>
+        }
+      </aside>
+
+      <section
+        class="order-1 flex min-w-0 flex-col gap-4 md:order-2"
+        [attr.aria-label]="'fileUploader.sectionAriaLabel' | translate"
+      >
+        <div
+          appFileDropZone
+          class="flex flex-col items-center justify-center gap-3 rounded-panel border-2 border-dashed border-border-strong bg-surface-2 px-6 py-10 text-center transition-colors"
+          [class.border-brand]="dragActive()"
+          [class.bg-brand-soft]="dragActive()"
+          (filesDropped)="addFiles($event)"
+          (dragActiveChange)="dragActive.set($event)"
+        >
+          <span
+            class="grid size-14 place-items-center rounded-full bg-brand-soft text-brand-text"
+            aria-hidden="true"
+          >
+            <ng-icon name="lucideCloudUpload" size="1.75rem" />
+          </span>
+          <span class="flex flex-col gap-1">
+            <span class="text-sm font-semibold text-text">
+              {{ 'fileUploader.dropFiles' | translate }}
+            </span>
+            <span class="text-xs text-text-3">{{ 'fileUploader.or' | translate }}</span>
+          </span>
+          <app-button icon="lucideUpload" (pressed)="fileInput.click()">
+            {{ 'fileUploader.browse' | translate }}
+          </app-button>
+          <span class="text-xs text-text-2">
+            {{ 'fileUploader.limits.formats' | translate: { types: acceptedTypesLabel() } }}
+          </span>
+        </div>
+
+        <p
+          class="m-0 flex items-start gap-2 rounded-menu border border-info-border bg-info-bg px-3.5 py-2.5 text-xs text-info-text"
+        >
+          <ng-icon name="lucideInfo" size="1rem" class="mt-px shrink-0" aria-hidden="true" />
+          {{ limitsSummary() }}
+        </p>
+
+        <ng-container *ngTemplateOutlet="rejectionList" />
+        <ng-container *ngTemplateOutlet="queueList" />
+      </section>
+    </div>
+
+    <div class="mt-5 flex items-center justify-end gap-2 border-t border-border pt-4">
+      <app-button severity="secondary" variant="outlined" (pressed)="close()">
         {{ 'common.actions.cancel' | translate }}
       </app-button>
-      <app-button
-        type="button"
-        [disabled]="
-          disabled() || !uploads().length || uploads().some((item) => item.status === 'uploading')
-        "
-        (pressed)="uploadFiles()"
-      >
-        {{ 'common.actions.accept' | translate }}
+      <app-button [disabled]="!files().length" (pressed)="confirmSelection()">
+        {{ 'fileUploader.done' | translate }}
       </app-button>
     </div>
-  </section>
-</p-dialog>
+  </p-dialog>
+}

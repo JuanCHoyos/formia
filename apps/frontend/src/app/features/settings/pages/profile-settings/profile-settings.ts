@@ -13,6 +13,7 @@ import type { UpdateUserProfileInput, UserProfile } from '@formly/core/schemas/u
 import { UserStore } from '@/app/core/auth/user-store';
 import { UsersApi } from '@/app/core/users/users-api';
 import { Button } from '@/app/ui/components/button/button';
+import { FileUploader } from '@/app/ui/components/file-uploader/file-uploader';
 import { OptionCardSelector } from '@/app/ui/components/option-card-selector/option-card-selector';
 import { APP_ICONS } from '@/app/ui/constants/icons';
 import { Notifications } from '@/app/ui/services/notifications';
@@ -38,6 +39,7 @@ const sameRoles = (a: readonly UserRole[], b: readonly UserRole[]) =>
     AvatarModule,
     InputTextModule,
     Button,
+    FileUploader,
     OptionCardSelector,
     SettingsSection,
   ],
@@ -72,7 +74,9 @@ export class ProfileSettings {
 
   protected readonly profileForm = form(this.model, (path) => {
     required(path.fullName);
-    disabled(path.fullName, () => this.isManagedByProvider());
+    disabled(path.fullName, {
+      when: () => this.isManagedByProvider(),
+    });
     minLength(path.roles, 1);
   });
 
@@ -103,9 +107,7 @@ export class ProfileSettings {
 
   protected async save(event: Event): Promise<void> {
     event.preventDefault();
-    if (!this.canSave()) {
-      return;
-    }
+    if (!this.canSave()) return;
 
     this.isSaving.set(true);
     try {

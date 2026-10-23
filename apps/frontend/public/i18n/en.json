@@ -738,19 +738,40 @@
     }
   },
   "fileUploader": {
-    "open": "Open file picker",
+    "open": "Upload files",
+    "title": "Upload files",
     "sectionAriaLabel": "Upload files",
-    "title": "Upload your files",
-    "subtitle": "For use in the project",
-    "dropFiles": "Drag and drop your files here or",
-    "selectFiles": "Select files",
-    "maxPerFile": "Maximum {{size}} per file",
-    "errors": {
-      "allowedTypes": "Allowed types: {{types}}.",
-      "maxFileSize": "The maximum file size is {{size}}.",
-      "missingUploadUrl": "Configure the upload URL to start uploading.",
-      "httpFailure": "Upload failed (HTTP {{status}}).",
-      "uploadFailure": "The upload could not be completed."
+    "dropFiles": "Drag and drop your files here",
+    "or": "or",
+    "browse": "Browse files",
+    "done": "Done",
+    "dismissErrors": "Dismiss errors",
+    "types": {
+      "image": "Images",
+      "audio": "Audio",
+      "video": "Video"
+    },
+    "limits": {
+      "formats": "Supported formats: {{types}}",
+      "single": "Only one file",
+      "count": "Up to {{count}} files",
+      "unlimited": "Multiple files",
+      "fileSize": "max. {{size}} per file",
+      "totalSize": "max. {{size}} in total"
+    },
+    "history": {
+      "title": "Previously uploaded",
+      "empty": "You haven't uploaded any files yet."
+    },
+    "queue": {
+      "title": "Ready to upload ({{count}})"
+    },
+    "rejections": {
+      "type": "{{name}}: file type not allowed.",
+      "fileSize": "{{name}}: exceeds the {{size}} limit per file.",
+      "totalSize": "{{name}}: exceeds the {{size}} total limit.",
+      "count": "{{name}}: you can add up to {{count}} file(s).",
+      "duplicate": "{{name}}: already added."
     }
   },
   "dashboard": {
@@ -852,7 +873,7 @@
       "description": "This is how people you share forms with will see you.",
       "photo": {
         "label": "Profile photo",
-        "soon": "Uploading your own photo is coming soon.",
+        "hint": "PNG, JPG or WEBP, up to 2 MB.",
         "change": "Change photo"
       },
       "managedBy": "Synced with your {{provider}} account",
