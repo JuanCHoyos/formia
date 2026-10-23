@@ -7,6 +7,7 @@ import { PrimeNG } from 'primeng/config';
 import { z } from 'zod';
 
 import { BRAND_NAMES, BRANDS, DEFAULT_BRAND } from './brand';
+import { buildBrandColorStyles } from './brand-color-styles';
 import { buildPreset, PLIEGO_THEME_OPTIONS } from './pliego-preset';
 import type { BrandName } from './types/brand';
 import type { ThemeMode } from './types/theme-mode';
@@ -18,6 +19,7 @@ export const THEME_MODES: readonly ThemeMode[] = ['light', 'dark', 'system'];
 const STORAGE_KEY = 'pliego.appearance';
 const DARK_CLASS = 'app-dark';
 const DARK_SCHEME_QUERY = '(prefers-color-scheme: dark)';
+const BRAND_COLORS_STYLE_ID = 'pliego-brand-colors';
 
 const StoredAppearanceSchema = z.object({
   mode: z.enum(['dark', 'light', 'system']).catch('system'),
@@ -63,6 +65,7 @@ export class ThemePreferences {
     this._mode.set(mode);
     this._brand.set(brand);
     this.applyScheme();
+    this.applyBrandColors();
 
     if (brand !== DEFAULT_BRAND) {
       this.primeng.theme.set({ preset: buildPreset(BRANDS[brand]), options: PLIEGO_THEME_OPTIONS });
@@ -93,6 +96,17 @@ export class ThemePreferences {
     this._brand.set(brand);
     this.persist();
     revealTransition(this.document, () => usePreset(buildPreset(BRANDS[brand])), origin);
+  }
+
+  /** Every brand is available as a rich text color, whatever brand the app currently uses. */
+  private applyBrandColors(): void {
+    if (this.document.getElementById(BRAND_COLORS_STYLE_ID)) {
+      return;
+    }
+    const style = this.document.createElement('style');
+    style.id = BRAND_COLORS_STYLE_ID;
+    style.textContent = buildBrandColorStyles(DARK_CLASS);
+    this.document.head.appendChild(style);
   }
 
   private applyScheme(): void {
