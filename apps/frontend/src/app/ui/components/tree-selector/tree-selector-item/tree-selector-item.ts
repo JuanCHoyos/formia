@@ -1,5 +1,11 @@
-import { CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDropList } from '@angular/cdk/drag-drop';
-import { Component, computed, input, model, output } from '@angular/core';
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDragHandle,
+  CdkDragPlaceholder,
+  CdkDropList,
+} from '@angular/cdk/drag-drop';
+import { Component, computed, inject, input } from '@angular/core';
 
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -9,8 +15,9 @@ import { TooltipModule } from 'primeng/tooltip';
 
 import { APP_ICONS } from '@/app/ui/constants/icons';
 
-import type { TreeDragData, TreeItem, TreeSortableItem } from '../../../types/tree';
-import { TreeSortableItemSchema, TREE_ROOT_DROP_LIST_ID } from '../tree-selector';
+import type { TreeDragData, TreeItem } from '../../../types/tree';
+import { TreeSelectorContext } from '../tree-selector.context';
+
 @Component({
   selector: 'app-tree-selector-item',
   templateUrl: './tree-selector-item.html',
@@ -21,47 +28,50 @@ import { TreeSortableItemSchema, TREE_ROOT_DROP_LIST_ID } from '../tree-selector
     NgIcon,
     CdkDropList,
     CdkDrag,
+    CdkDragHandle,
     CdkDragPlaceholder,
   ],
   providers: [provideIcons(APP_ICONS)],
 })
 export class TreeSelectorItem<T> {
-  item = input.required<TreeItem<T>>();
-  rootIndex = input.required<number>();
-  dropListIds = input<string[]>([]);
-  sort = input<boolean>(false);
-  isPrincipalItemDisabled = input<boolean>(false);
-  sortedItems = output<TreeSortableItem<T>>();
-  readonly canDrop = (drag: CdkDrag<TreeDragData>, drop: CdkDropList<string>): boolean =>
-    drag.data.isPrincipal === (drop.id === TREE_ROOT_DROP_LIST_ID);
+  protected readonly tree = inject<TreeSelectorContext<T>>(TreeSelectorContext);
 
-  selectedItem = model<T | null>(null);
-  paddingLeft = computed(() => `${8 + this.rootIndex()! * 32}px`);
+  readonly item = input.required<TreeItem<T>>();
+  readonly depth = input.required<number>();
 
-  toggleSubItems(event: PointerEvent) {
+  protected readonly isContainer = computed(() => this.item().type === 'Group');
+  protected readonly expanded = computed(
+    () => this.isContainer() && this.tree.isExpanded(this.item().id),
+  );
+  protected readonly selected = computed(() => this.tree.selectedItem() === this.item().value);
+  protected readonly listId = computed(() => `tree-list-${this.item().id}`);
+  protected readonly paddingLeft = computed(() => `${8 + this.depth() * 32}px`);
+  protected readonly dragData = computed<TreeDragData>(() => ({
+    id: this.item().id,
+    isPrincipal: this.depth() === 0,
+    isContainer: this.isContainer(),
+  }));
+
+  readonly canEnter = (drag: CdkDrag<TreeDragData>, drop: CdkDropList<string>): boolean =>
+    this.tree.canEnter(drag, drop, this.depth());
+
+  toggle(event: Event): void {
     event.stopPropagation();
-    if (this.item().type !== 'Group') return;
-    this.item().showItems = !this.item().showItems;
+    this.tree.toggle(this.item().id);
   }
 
-  selectItem() {
-    if (this.isPrincipalItemDisabled() && this.rootIndex() === 0) return;
-    this.selectedItem.set(this.item().value);
+  select(): void {
+    if (this.tree.isPrincipalItemDisabled() && this.depth() === 0) return;
+    this.tree.selectedItem.set(this.item().value);
   }
 
-  drop(event: CdkDragDrop<string, string, TreeDragData>) {
-    if (event.previousIndex === event.currentIndex && event.previousContainer === event.container) {
-      return;
-    }
+  drop(event: CdkDragDrop<string, string, TreeDragData>): void {
+    this.tree.handleDrop(event);
+  }
 
-    const parsed = TreeSortableItemSchema.safeParse({
-      from: event.previousContainer.data,
-      to: event.container.data,
-      itemId: event.item.data.id,
-      oldIndex: event.previousIndex,
-      newIndex: event.currentIndex,
-    });
-
-    if (parsed.success) this.sortedItems.emit(parsed.data);
+  /** A collapsed container takes the item at the end of its children and opens up. */
+  dropOnCollapsed(event: CdkDragDrop<string, string, TreeDragData>): void {
+    this.tree.handleDrop(event, this.item().items.length);
+    this.tree.expand(this.item().id);
   }
 }

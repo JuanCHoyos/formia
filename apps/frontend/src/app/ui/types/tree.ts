@@ -1,6 +1,9 @@
 export interface TreeDragData {
   id: string;
+  /** Root items (pages) can only be reordered among themselves. */
   isPrincipal: boolean;
+  /** Containers below the root can only be dropped into root containers. */
+  isContainer: boolean;
 }
 
 export interface TreeItem<T> {
@@ -9,7 +12,6 @@ export interface TreeItem<T> {
   icon: string;
   type: 'Field' | 'Group';
   items: TreeItem<T>[];
-  showItems?: boolean;
   value: T;
 }
 

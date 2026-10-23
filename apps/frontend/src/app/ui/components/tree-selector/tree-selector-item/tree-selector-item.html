@@ -1,85 +1,103 @@
 <div
-  class="flex cursor-pointer items-center justify-between gap-1 rounded-control border px-2 py-1 transition-colors focus-visible:focus-ring"
-  [style.paddingLeft]="paddingLeft()"
-  [class]="
-    selectedItem() === item().value
-      ? 'border-brand-bd bg-brand-soft text-brand-text'
-      : 'border-transparent text-text hover:bg-hover'
-  "
-  [attr.aria-current]="selectedItem() === item().value ? 'true' : null"
-  tabindex="0"
-  (click)="selectItem()"
-  (keydown.enter)="$event.target === $event.currentTarget && selectItem()"
   cdkDrag
-  [cdkDragDisabled]="!sort()"
-  [cdkDragData]="{ id: item().id, isPrincipal: rootIndex() === 0 }"
+  [cdkDragData]="dragData()"
+  [cdkDragDisabled]="!tree.sortable()"
+  [attr.data-tree-item-id]="item().id"
+  (cdkDragStarted)="tree.dragStarted()"
+  (cdkDragEnded)="tree.dragEnded()"
 >
   <div
     class="h-8 rounded-control border border-dashed border-brand-bd bg-brand-soft"
     *cdkDragPlaceholder
   ></div>
-  <span class="flex items-center gap-2 w-full overflow-hidden">
-    @if (item().type === 'Group') {
-      <button
-        pButton
-        iconOnly
-        size="small"
-        variant="text"
-        class="relative -left-1 h-6 w-6 min-w-6 p-1 text-base"
-        [attr.aria-label]="
-          (item().showItems ? 'common.actions.collapse' : 'common.actions.expand')
-            | translate: { label: item().label }
-        "
-        [attr.aria-expanded]="item().showItems"
-        (click)="toggleSubItems($event)"
-      >
-        <ng-icon
-          [name]="item().showItems ? 'lucideChevronDown' : 'lucideChevronRight'"
-          aria-hidden="true"
-        />
-      </button>
-    }
-    <span
-      class="max-h-5"
-      [class]="item().type === 'Group' ? 'text-warn-text' : 'text-text-3'"
-      aria-hidden="true"
-      ><ng-icon [name]="item().icon"
-    /></span>
-    <span class="text-sm truncate" pTooltip="{{ item().label }}">{{ item().label }}</span>
-  </span>
-  <span
-    class="max-h-fit rounded-full px-2 py-0.5 text-[10px] font-semibold tracking-[0.04em] uppercase"
-    [class]="
-      item().type === 'Group' ? 'bg-warn-bg text-warn-text' : 'bg-surface-sunken text-text-3'
-    "
-    >{{ item().type }}</span
-  >
-</div>
 
-@if (item().showItems && item().type === 'Group') {
   <div
-    class="min-h-4"
-    [attr.data-field-parent-id]="item().id"
-    cdkDropList
-    [cdkDropListData]="item().id"
-    [cdkDropListConnectedTo]="dropListIds()"
-    [cdkDropListEnterPredicate]="canDrop"
-    [cdkDropListDisabled]="!sort()"
-    (cdkDropListDropped)="drop($event)"
-    [id]="'tree-list-' + item().id"
+    cdkDragHandle
+    class="relative flex cursor-pointer items-center justify-between gap-1 rounded-control border px-2 py-1 transition-colors focus-visible:focus-ring"
+    [style.paddingLeft]="paddingLeft()"
+    [class]="
+      selected()
+        ? 'border-brand-bd bg-brand-soft text-brand-text'
+        : 'border-transparent text-text hover:bg-hover'
+    "
+    [attr.aria-current]="selected() ? 'true' : null"
+    tabindex="0"
+    (click)="select()"
+    (keydown.enter)="$event.target === $event.currentTarget && select()"
   >
-    @for (field of item().items; track $index) {
-      <app-tree-selector-item
-        [attr.data-field-id]="field.id"
-        [attr.data-field-parent-id]="item().id"
-        [sort]="sort()"
-        [dropListIds]="dropListIds()"
-        [item]="field"
-        [rootIndex]="rootIndex() + 1"
-        (sortedItems)="sortedItems.emit($event)"
-        [(selectedItem)]="selectedItem"
-      >
-      </app-tree-selector-item>
+    <span class="flex w-full items-center gap-2 overflow-hidden">
+      @if (isContainer()) {
+        <button
+          pButton
+          iconOnly
+          size="small"
+          variant="text"
+          class="relative -left-1 z-10 h-6 w-6 min-w-6 p-1 text-base"
+          [attr.aria-label]="
+            (expanded() ? 'common.actions.collapse' : 'common.actions.expand')
+              | translate: { label: item().label }
+          "
+          [attr.aria-expanded]="expanded()"
+          (click)="toggle($event)"
+        >
+          <ng-icon
+            [name]="expanded() ? 'lucideChevronDown' : 'lucideChevronRight'"
+            aria-hidden="true"
+          />
+        </button>
+      }
+      <span
+        class="max-h-5"
+        [class]="isContainer() ? 'text-warn-text' : 'text-text-3'"
+        aria-hidden="true"
+        ><ng-icon [name]="item().icon"
+      /></span>
+      <span class="truncate text-sm" [pTooltip]="item().label">{{ item().label }}</span>
+    </span>
+    <span
+      class="max-h-fit rounded-full px-2 py-0.5 text-[10px] font-semibold tracking-[0.04em] uppercase"
+      [class]="isContainer() ? 'bg-warn-bg text-warn-text' : 'bg-surface-sunken text-text-3'"
+      >{{ item().type }}</span
+    >
+
+    @if (isContainer() && !expanded()) {
+      <div
+        cdkDropList
+        class="absolute inset-0 rounded-control [&_.cdk-drag-placeholder]:hidden [&.cdk-drop-list-dragging]:ring-2 [&.cdk-drop-list-dragging]:ring-brand"
+        [class.pointer-events-none]="!tree.dragging()"
+        [id]="listId()"
+        [cdkDropListData]="item().id"
+        [cdkDropListConnectedTo]="tree.dropListIds()"
+        [cdkDropListEnterPredicate]="canEnter"
+        [cdkDropListDisabled]="!tree.sortable()"
+        (cdkDropListDropped)="dropOnCollapsed($event)"
+      ></div>
     }
   </div>
-}
+
+  @if (expanded()) {
+    <div
+      cdkDropList
+      class="min-h-4"
+      [id]="listId()"
+      [cdkDropListData]="item().id"
+      [cdkDropListConnectedTo]="tree.dropListIds()"
+      [cdkDropListEnterPredicate]="canEnter"
+      [cdkDropListDisabled]="!tree.sortable()"
+      (cdkDropListDropped)="drop($event)"
+    >
+      @for (child of item().items; track child.id) {
+        <app-tree-selector-item [item]="child" [depth]="depth() + 1" />
+      } @empty {
+        @if (tree.sortable()) {
+          <p
+            class="my-1 rounded-control border border-dashed border-border px-2 py-1.5 text-xs text-text-3"
+            [style.marginLeft]="paddingLeft()"
+          >
+            {{ 'common.actions.dragPlaceholder' | translate }}
+          </p>
+        }
+      }
+    </div>
+  }
+</div>

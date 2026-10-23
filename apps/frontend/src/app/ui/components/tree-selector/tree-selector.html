@@ -1,45 +1,36 @@
-<p-iconfield class="mb-4 block">
-  <input
-    pInputText
-    type="search"
-    [ngModel]="searchTerm()"
-    (ngModelChange)="searchTerm.set($event)"
-    variant="filled"
-    [placeholder]="'formBuilder.sidebar.searchPlaceholder' | translate"
-    [attr.aria-label]="'formBuilder.sidebar.searchAriaLabel' | translate"
-    class="w-full"
-  />
+@if (search()) {
+  <p-iconfield class="mb-4 block">
+    <input
+      pInputText
+      type="search"
+      [ngModel]="searchTerm()"
+      (ngModelChange)="searchTerm.set($event)"
+      variant="filled"
+      [placeholder]="'formBuilder.sidebar.searchPlaceholder' | translate"
+      [attr.aria-label]="'formBuilder.sidebar.searchAriaLabel' | translate"
+      class="w-full"
+    />
 
-  <p-inputicon>
-    <svg data-p-icon="search" aria-hidden="true"></svg>
-  </p-inputicon>
-</p-iconfield>
+    <p-inputicon>
+      <svg data-p-icon="search" aria-hidden="true"></svg>
+    </p-inputicon>
+  </p-iconfield>
+}
 
-<div cdkDropListGroup>
-  <div
-    class="overflow-y-auto"
-    [style.maxHeight]="maxContentHeight()"
-    cdkDropList
-    [id]="rootDropListId"
-    [cdkDropListData]="rootParentId"
-    [cdkDropListConnectedTo]="dropListIds()"
-    [cdkDropListEnterPredicate]="canDrop"
-    [cdkDropListDisabled]="!sort()"
-    (cdkDropListDropped)="drop($event)"
-  >
-    @for (item of filteredItems(); track $index) {
-      <app-tree-selector-item
-        [item]="item"
-        [sort]="sort()"
-        [dropListIds]="dropListIds()"
-        [isPrincipalItemDisabled]="isPrincipalItemDisabled()"
-        [rootIndex]="0"
-        [(selectedItem)]="selectedItem"
-        (sortedItems)="sortedItems.emit($event)"
-        [attr.data-field-id]="item.id"
-      ></app-tree-selector-item>
-    } @empty {
-      <p class="py-2 text-sm text-text-3">{{ 'formBuilder.sidebar.noComponents' | translate }}</p>
-    }
-  </div>
+<div
+  class="overflow-y-auto"
+  [style.maxHeight]="maxContentHeight()"
+  cdkDropList
+  [id]="rootDropListId"
+  [cdkDropListData]="rootParentId"
+  [cdkDropListConnectedTo]="dropListIds()"
+  [cdkDropListEnterPredicate]="canEnterRoot"
+  [cdkDropListDisabled]="!sortable()"
+  (cdkDropListDropped)="handleDrop($event)"
+>
+  @for (item of filteredItems(); track item.id) {
+    <app-tree-selector-item [item]="item" [depth]="0" />
+  } @empty {
+    <p class="py-2 text-sm text-text-3">{{ 'formBuilder.sidebar.noComponents' | translate }}</p>
+  }
 </div>
