@@ -75,7 +75,7 @@
               "
             />
             <span class="flex min-w-0 flex-1 flex-col">
-              <span class="truncate text-[13px] font-medium text-text">{{ item.file.name }}</span>
+              <span class="truncate text-sm font-medium text-text">{{ item.file.name }}</span>
               <span class="text-xs text-text-3">{{ formatBytes(item.file.size) }}</span>
             </span>
             <app-button
@@ -164,7 +164,7 @@
                   "
                 />
                 <span class="flex min-w-0 flex-col">
-                  <span class="truncate text-[13px] font-medium text-text">{{ item.name }}</span>
+                  <span class="truncate text-sm font-medium text-text">{{ item.name }}</span>
                   <span class="text-xs text-text-3">
                     {{ formatBytes(item.size) }}
                     @if (item.uploadedAt) {

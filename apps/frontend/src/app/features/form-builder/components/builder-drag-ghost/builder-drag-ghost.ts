@@ -11,7 +11,7 @@ import type { AppIcon } from '@/app/ui/types/icons';
   providers: [provideIcons(APP_ICONS)],
   host: {
     class:
-      'flex min-w-56 items-center gap-2.5 rounded-menu border border-brand bg-surface-raised px-3 py-2 text-[13px] font-semibold text-text shadow-3 -rotate-2',
+      'flex min-w-56 items-center gap-2.5 rounded-menu border border-brand bg-surface-raised px-3 py-2 text-sm font-semibold text-text shadow-3 -rotate-2',
   },
   template: `
     <span

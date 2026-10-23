@@ -33,7 +33,7 @@ import { booleanAttribute, Component, input } from '@angular/core';
       </svg>
     </span>
     @if (wordmark()) {
-      <span class="text-[17px] font-bold tracking-[-0.03em]">Pliego</span>
+      <span class="text-lg font-bold tracking-[-0.03em]">Pliego</span>
     }
   `,
 })

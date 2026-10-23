@@ -6,7 +6,7 @@
         pInputText
         pSize="small"
         type="text"
-        class="w-64 text-[15px] font-semibold"
+        class="w-64 text-base font-semibold"
         placeholder="{{ 'formBuilder.header.titlePlaceholder' | translate }}"
         [class.p-invalid]="titleTooShort()"
         [value]="draft()"
@@ -32,7 +32,7 @@
       (pressed)="save()"
     />
   } @else {
-    <span class="max-w-64 truncate text-[15px] font-semibold" [title]="title()">{{ title() }}</span>
+    <span class="max-w-64 truncate text-base font-semibold" [title]="title()">{{ title() }}</span>
     <app-button
       icon="lucidePencil"
       size="small"
