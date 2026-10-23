@@ -1,27 +1,14 @@
-import { AfterViewInit, Component, model, signal, viewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, computed, input } from '@angular/core';
 
-import { Editor, NgxEditorComponent } from 'ngx-editor';
+import { sanitizeRichText } from '../../utils/rich-text.utils';
 
+/** Displays HTML written by `app-text-editor`, with the same content styles. */
 @Component({
-  imports: [NgxEditorComponent, FormsModule],
   selector: 'app-text-rich',
-  templateUrl: './text-rich.html',
-  styleUrls: ['./text-rich.scss'],
+  template: `<div class="text-editor-content" [innerHTML]="content()"></div>`,
+  host: { class: 'block' },
 })
-export class TextRich implements AfterViewInit {
-  html = model<string>();
-  ngxEditorInstance = viewChild<NgxEditorComponent>('ngxEditor');
-  editor = signal<Editor>(
-    new Editor({
-      keyboardShortcuts: true,
-    }),
-  );
-
-  ngAfterViewInit() {
-    const ngxEditorInstance = this.ngxEditorInstance()?.editor();
-    if (ngxEditorInstance) {
-      ngxEditorInstance.view.dom.setAttribute('contenteditable', 'false');
-    }
-  }
+export class TextRich {
+  readonly html = input<string | null | undefined>('');
+  protected readonly content = computed(() => sanitizeRichText(this.html()));
 }

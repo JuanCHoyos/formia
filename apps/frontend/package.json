@@ -37,7 +37,6 @@
     "@primeuix/themes": "^3.0.1",
     "aws-amplify": "^6.22.2",
     "date-fns": "^4.4.0",
-    "ngx-editor": "^19.1.0",
     "primeng": "^22.1.1",
     "rxjs": "~7.8.0",
     "tailwindcss-primeui": "^0.6.1",
