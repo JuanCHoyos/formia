@@ -113,8 +113,8 @@ export function buildPreset(brand: BrandDefinition) {
       formField: {
         paddingX: '0.75rem',
         paddingY: '0.5625rem',
-        sm: { fontSize: '0.8125rem', paddingX: '0.625rem', paddingY: '0.4375rem' },
-        lg: { fontSize: '0.9375rem', paddingX: '0.875rem', paddingY: '0.75rem' },
+        sm: { fontSize: '0.875rem', paddingX: '0.625rem', paddingY: '0.4375rem' },
+        lg: { fontSize: '1.125rem', paddingX: '0.875rem', paddingY: '0.75rem' },
         borderRadius: '{border.radius.md}',
         focusRing: {
           width: '0',
@@ -225,13 +225,13 @@ export function buildPreset(brand: BrandDefinition) {
           paddingY: '0.5rem',
           iconOnlyWidth: '2.25rem',
           sm: {
-            fontSize: '0.8125rem',
+            fontSize: '0.875rem',
             paddingX: '0.625rem',
             paddingY: '0.375rem',
             iconOnlyWidth: '2rem',
           },
           lg: {
-            fontSize: '0.9375rem',
+            fontSize: '1.125rem',
             paddingX: '1.125rem',
             paddingY: '0.75rem',
             iconOnlyWidth: '3rem',
@@ -421,7 +421,7 @@ export function buildPreset(brand: BrandDefinition) {
       },
       dialog: {
         header: { padding: '1.25rem 1.5rem', gap: '0.5rem' },
-        title: { fontSize: '1.0625rem', fontWeight: '600' },
+        title: { fontSize: '1.125rem', fontWeight: '600' },
         content: { padding: '0 1.5rem 1.25rem 1.5rem' },
         footer: { padding: '1rem 1.5rem', gap: '0.5rem' },
       },
@@ -446,7 +446,7 @@ export function buildPreset(brand: BrandDefinition) {
       card: {
         root: { borderRadius: '{border.radius.xl}', shadow: 'none' },
         body: { padding: '1.25rem', gap: '0.75rem' },
-        title: { fontSize: '1.0625rem', fontWeight: '600' },
+        title: { fontSize: '1.125rem', fontWeight: '600' },
       },
       menu: {
         root: { background: neutral.raised, borderRadius: '10px' },
