@@ -1,0 +1,45 @@
+<p-tabs [value]="navigation.activeStep()" (valueChange)="navigation.navigateTo($event)">
+  <p-tablist>
+    @for (step of field.fieldGroup; track $index) {
+      <p-tab [value]="$index" [disabled]="!navigation.canNavigateTo($index)">{{
+        step.props?.label
+      }}</p-tab>
+    }
+  </p-tablist>
+  <p-tabpanels>
+    @for (group of field.fieldGroup; track $index) {
+      <p-tabpanel [value]="$index">
+        <ng-template #content let-activateCallback="activateCallback">
+          <formly-field [field]="group" />
+        </ng-template>
+      </p-tabpanel>
+    }
+  </p-tabpanels>
+</p-tabs>
+
+<div class="mt-6 flex justify-between">
+  <app-button
+    severity="secondary"
+    icon="lucideArrowLeft"
+    [disabled]="navigation.activeStep() === 0"
+    (pressed)="navigation.previous()"
+    (keyup.enter)="navigation.previous()"
+  >
+    {{ 'common.actions.back' | translate }}
+  </app-button>
+
+  <app-button
+    [type]="navigation.isLastStep() ? 'submit' : 'button'"
+    [disabled]="!navigation.canProceedFromCurrent()"
+    icon="lucideArrowRight"
+    iconPosition="right"
+    (pressed)="navigation.next()"
+    (keyup.enter)="navigation.next()"
+  >
+    {{
+      navigation.isLastStep()
+        ? ('common.actions.submit' | translate)
+        : ('common.actions.next' | translate)
+    }}
+  </app-button>
+</div>

@@ -1,0 +1,26 @@
+<div class="flex flex-col gap-2">
+  @for (option of props.options; track option.value) {
+    @let inputId = field.id + '-' + $index;
+    @let isChecked = formControl.value?.includes(option.value);
+    <label
+      [for]="inputId"
+      class="flex min-h-13 items-center gap-3 rounded-menu border px-4 py-2 text-sm transition-colors"
+      [class]="
+        isChecked
+          ? 'border-brand bg-brand-soft text-text'
+          : 'border-border text-text hover:border-border-hover hover:bg-hover'
+      "
+      [class.cursor-pointer]="!props.disabled"
+      [class.opacity-60]="props.disabled"
+      [class.cursor-not-allowed]="props.disabled"
+    >
+      <p-checkbox
+        [inputId]="inputId"
+        [name]="field.id"
+        [value]="option.value"
+        [formControl]="formControl"
+      />
+      <span class="flex-1">{{ option.label }}</span>
+    </label>
+  }
+</div>

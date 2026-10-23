@@ -1,0 +1,30 @@
+<div class="max-w-fit flex flex-col gap-2">
+  @switch (props.type) {
+    @case ('star') {
+      <p-rating [formControl]="formControl" [allowHalf]="props.allowHalf" [stars]="props.stars" />
+    }
+
+    @case ('number') {
+      <div class="flex items-center gap-2">
+        @for (star of stars(); track $index) {
+          <app-button
+            [variant]="star <= field.formControl.value ? undefined : 'outlined'"
+            customClass="size-8 hover:scale-105"
+            (pressed)="setValue(star)"
+          >
+            {{ star }}
+          </app-button>
+        }
+      </div>
+    }
+  }
+
+  <div class="flex items-center justify-between">
+    <small class="text-xs text-text-3">
+      {{ props.lowLabel || ('formBuilder.rating.low' | translate) }}
+    </small>
+    <small class="text-xs text-text-3">
+      {{ props.highLabel || ('formBuilder.rating.high' | translate) }}
+    </small>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="grid grid-cols-[repeat(auto-fill,minmax(8rem,1fr))] gap-4">
+  @for (option of props.options; track option.value) {
+    @let inputId = field.id + '-' + $index;
+    <label
+      [for]="inputId"
+      class="flex cursor-pointer flex-col justify-between gap-2 rounded-menu border border-border p-2 transition-colors hover:border-border-hover hover:bg-hover"
+      [class.border-brand]="formControl.value === option.value"
+      [class.bg-brand-soft]="formControl.value === option.value"
+    >
+      <div
+        class="ml-auto grid size-6 place-content-center rounded-full border-2 text-on-brand"
+        aria-hidden="true"
+        [class.border-border-strong]="formControl.value !== option.value"
+        [class.border-brand]="formControl.value === option.value"
+        [class.bg-brand]="formControl.value === option.value"
+      >
+        <ng-icon name="lucideCheck" [class.hidden]="formControl.value !== option.value"></ng-icon>
+      </div>
+      @if (option.image) {
+        <img [src]="option.image" [alt]="option.label" class="rounded-control" />
+      }
+      <div class="flex items-center gap-2">
+        <p-radiobutton
+          [inputId]="inputId"
+          [name]="field.id"
+          [value]="option.value"
+          [formControl]="formControl"
+        />
+        <span>{{ option.label }}</span>
+      </div>
+    </label>
+  }
+</div>

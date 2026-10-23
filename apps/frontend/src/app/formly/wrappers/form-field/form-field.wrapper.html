@@ -1,0 +1,33 @@
+<div class="flex flex-col gap-2">
+  <div
+    class="flex flex-col gap-2"
+    [class.flex-row]="hasInlineLabel()"
+    [class.items-center]="hasInlineLabel()"
+  >
+    @if (props.label) {
+      <label
+        [for]="field.id"
+        class="text-[15px] leading-6 font-semibold text-text"
+        [class.order-2]="hasInlineLabel()"
+        [class.font-medium]="hasInlineLabel()"
+      >
+        {{ props.label }}
+        @if (props.required) {
+          <span class="text-danger-text" aria-hidden="true">*</span>
+          <span class="sr-only">({{ 'formBuilder.fieldWrapper.required' | translate }})</span>
+        }
+      </label>
+    }
+    @if (props.description) {
+      <p class="text-sm text-text-2" [id]="field.id + '-description'">{{ props.description }}</p>
+    }
+
+    <ng-container #fieldComponent />
+  </div>
+  @if (errorMessage(); as error) {
+    <p class="flex items-center gap-1.5 text-xs font-medium text-danger-text" role="alert">
+      <ng-icon name="lucideCircleAlert" size="0.875rem" aria-hidden="true" />
+      {{ error.key | translate: error.params }}
+    </p>
+  }
+</div>

@@ -1,0 +1,32 @@
+<section
+  class="space-y-2 text-start"
+  [class.text-center]="props.alignment === 'center'"
+  [class.text-end]="props.alignment === 'end'"
+>
+  @switch (props.level) {
+    @case (1) {
+      <h1 class="text-[2rem] leading-tight font-semibold tracking-[-0.03em]">{{ props.text }}</h1>
+    }
+    @case (2) {
+      <h2 class="text-[1.625rem] leading-tight font-semibold tracking-[-0.025em]">
+        {{ props.text }}
+      </h2>
+    }
+    @case (3) {
+      <h3 class="text-h1">{{ props.text }}</h3>
+    }
+    @case (4) {
+      <h4 class="text-[1.125rem] leading-7 font-semibold">{{ props.text }}</h4>
+    }
+    @case (5) {
+      <h5 class="text-h2">{{ props.text }}</h5>
+    }
+    @case (6) {
+      <h6 class="text-h3">{{ props.text }}</h6>
+    }
+  }
+
+  @if (props.subheading) {
+    <app-text-rich [html]="props.subheading"></app-text-rich>
+  }
+</section>

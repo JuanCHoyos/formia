@@ -1,0 +1,19 @@
+<div class="relative">
+  <textarea
+    pTextarea
+    [id]="field.id"
+    [placeholder]="props.placeholder"
+    [autoResize]="props.autoResize"
+    [formControl]="formControl"
+    [maxlength]="props.max"
+    [minlength]="props.min"
+    class="w-full max-h-36 min-h-24 overflow-auto!"
+    [class.pb-8]="props.max !== infinity || props.min !== 0"
+  ></textarea>
+  @if (props.max !== infinity || props.min !== 0) {
+    <small
+      class="absolute right-3 bottom-2 rounded-control bg-surface px-2 py-0.5 text-right text-xs text-text-3 tabular-nums"
+      >{{ formControl.value?.length ?? 0 }} / {{ props.max }}</small
+    >
+  }
+</div>

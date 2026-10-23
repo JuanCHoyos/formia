@@ -9,11 +9,9 @@ import {
 import { provideSignalFormsConfig } from '@angular/forms/signals';
 import { provideRouter, withComponentInputBinding, withViewTransitions } from '@angular/router';
 
-import { provideFormlyCore } from '@ngx-formly/core';
 import { provideTranslateService, TranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { provideGlobalSortableOptions } from 'nxt-sortablejs';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 
@@ -22,8 +20,6 @@ import { authInterceptor } from './core/auth/auth.interceptor';
 import { apiErrorInterceptor } from './core/interceptors/api-error-interceptor';
 import { PLIEGO_THEME_OPTIONS, PliegoPreset } from './core/theme/pliego-preset';
 import { ThemePreferences } from './core/theme/theme-preferences';
-import { fieldTypeConfigurations } from './features/form-builder/formly/config/config-types';
-import { fieldWrapperConfigurations } from './features/form-builder/formly/config/config-wrappers';
 
 const DEFAULT_LANGUAGE = 'en';
 
@@ -68,13 +64,6 @@ export const appConfig: ApplicationConfig = {
     }),
     provideSignalFormsConfig({
       classes: { 'field-untouched': (field) => !field.state().touched() },
-    }),
-    provideFormlyCore({
-      types: fieldTypeConfigurations,
-      wrappers: fieldWrapperConfigurations,
-    }),
-    provideGlobalSortableOptions({
-      animation: 150,
     }),
     MessageService,
     ConfirmationService,
