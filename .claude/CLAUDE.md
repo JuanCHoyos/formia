@@ -22,6 +22,7 @@ The project uses:
 - Never use `any`.
 - Avoid unnecessary type assertions and unsafe casts.
 - Prefer simple, readable solutions over unnecessary abstractions.
+- Write standalone functions and callbacks as arrow functions (`const name = (…) => {…}`). Use the `function` keyword only when the language requires it: generators (`function*`), overload signatures, or code that depends on its own `this` or on hoisting. Class members stay as methods.
 - Do not introduce dependencies unless they provide clear value.
 - Do not modify unrelated files.
 - Follow the existing project architecture and naming conventions.
