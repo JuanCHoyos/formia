@@ -30,6 +30,57 @@
       "placeholder": "Type here…"
     }
   },
+  "textEditor": {
+    "toolbar": "Text formatting",
+    "more": "More options",
+    "counter": "{{count}} / {{max}}",
+    "tools": {
+      "undo": "Undo",
+      "redo": "Redo",
+      "heading": "Text style",
+      "bold": "Bold",
+      "italic": "Italic",
+      "underline": "Underline",
+      "strike": "Strikethrough",
+      "code": "Code",
+      "superscript": "Superscript",
+      "subscript": "Subscript",
+      "textColor": "Text color",
+      "backgroundColor": "Highlight color",
+      "link": "Link",
+      "bulletList": "Bulleted list",
+      "orderedList": "Numbered list",
+      "blockquote": "Quote",
+      "indent": "Increase indent",
+      "outdent": "Decrease indent",
+      "align": "Alignment",
+      "horizontalRule": "Divider",
+      "clearFormatting": "Clear formatting"
+    },
+    "blockTypes": {
+      "paragraph": "Normal text",
+      "heading1": "Heading 1",
+      "heading2": "Heading 2",
+      "heading3": "Heading 3"
+    },
+    "alignments": {
+      "left": "Align left",
+      "center": "Center",
+      "right": "Align right",
+      "justify": "Justify"
+    },
+    "colors": {
+      "none": "No color"
+    },
+    "link": {
+      "text": "Text to display",
+      "textPlaceholder": "Uses the address if empty",
+      "label": "Link address",
+      "apply": "Apply",
+      "remove": "Remove link",
+      "invalid": "Enter a valid web or email address"
+    }
+  },
   "auth": {
     "passwordStrength": {
       "title": "Password requirements",

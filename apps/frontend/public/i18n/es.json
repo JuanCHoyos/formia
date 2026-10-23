@@ -30,6 +30,57 @@
       "placeholder": "Escribe aquí…"
     }
   },
+  "textEditor": {
+    "toolbar": "Formato de texto",
+    "more": "Más opciones",
+    "counter": "{{count}} / {{max}}",
+    "tools": {
+      "undo": "Deshacer",
+      "redo": "Rehacer",
+      "heading": "Estilo de texto",
+      "bold": "Negrita",
+      "italic": "Cursiva",
+      "underline": "Subrayado",
+      "strike": "Tachado",
+      "code": "Código",
+      "superscript": "Superíndice",
+      "subscript": "Subíndice",
+      "textColor": "Color de texto",
+      "backgroundColor": "Color de resaltado",
+      "link": "Enlace",
+      "bulletList": "Lista con viñetas",
+      "orderedList": "Lista numerada",
+      "blockquote": "Cita",
+      "indent": "Aumentar sangría",
+      "outdent": "Reducir sangría",
+      "align": "Alineación",
+      "horizontalRule": "Línea divisoria",
+      "clearFormatting": "Quitar formato"
+    },
+    "blockTypes": {
+      "paragraph": "Texto normal",
+      "heading1": "Título 1",
+      "heading2": "Título 2",
+      "heading3": "Título 3"
+    },
+    "alignments": {
+      "left": "Alinear a la izquierda",
+      "center": "Centrar",
+      "right": "Alinear a la derecha",
+      "justify": "Justificar"
+    },
+    "colors": {
+      "none": "Sin color"
+    },
+    "link": {
+      "text": "Texto a mostrar",
+      "textPlaceholder": "Si lo dejas vacío se usa la dirección",
+      "label": "Dirección del enlace",
+      "apply": "Aplicar",
+      "remove": "Quitar enlace",
+      "invalid": "Escribe una dirección web o de correo válida"
+    }
+  },
   "auth": {
     "passwordStrength": {
       "title": "Requisitos de la contraseña",

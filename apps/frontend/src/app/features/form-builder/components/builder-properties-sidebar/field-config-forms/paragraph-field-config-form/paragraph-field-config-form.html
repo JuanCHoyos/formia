@@ -12,14 +12,15 @@
     </p-accordion-header>
     <p-accordion-content>
       <div class="flex flex-col gap-2">
-        <label class="text-sm font-medium text-text" for="paragraph-text">
+        <span id="paragraph-text-label" class="text-sm font-medium text-text">
           {{ 'formBuilder.properties.paragraph.text' | translate }}
-        </label>
+        </span>
 
         <app-text-editor
-          [formField]="paragraphFieldSettingsForm.text"
           inputId="paragraph-text"
-        ></app-text-editor>
+          ariaLabelledBy="paragraph-text-label"
+          [formField]="paragraphFieldSettingsForm.text"
+        />
       </div>
     </p-accordion-content>
   </p-accordion-panel>

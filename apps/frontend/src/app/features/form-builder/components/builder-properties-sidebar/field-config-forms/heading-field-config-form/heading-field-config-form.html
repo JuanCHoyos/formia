@@ -19,13 +19,14 @@
           <input id="heading-text" pInputText [formField]="headingFieldSettingsForm.text" />
         </div>
         <div class="flex flex-col gap-1.5">
-          <label class="text-sm font-semibold text-text-3" for="heading-subheading">
+          <span id="heading-subheading-label" class="text-sm font-semibold text-text-3">
             {{ 'formBuilder.properties.heading.subheading' | translate }}
-          </label>
+          </span>
           <app-text-editor
-            [formField]="headingFieldSettingsForm.subheading"
             inputId="heading-subheading"
-          ></app-text-editor>
+            ariaLabelledBy="heading-subheading-label"
+            [formField]="headingFieldSettingsForm.subheading"
+          />
         </div>
       </div>
     </p-accordion-content>

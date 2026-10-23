@@ -1,8 +1,63 @@
-<div class="NgxEditor__Wrapper">
-  <ngx-editor-menu [editor]="editor()" [toolbar]="toolbar"> </ngx-editor-menu>
-  <ngx-editor
-    [editor]="editor()"
-    [formField]="textEditorForm"
-    [placeholder]="'common.editor.placeholder' | translate"
-  ></ngx-editor>
+<div class="flex flex-col gap-1.5">
+  <div [class]="frameClass()">
+    @if (!readonly()) {
+      <app-text-editor-toolbar
+        class="border-b border-border"
+        [state]="state()"
+        [tools]="enabledTools()"
+        [disabled]="disabled()"
+        [controls]="inputId()"
+        (requested)="execute($event)"
+        (dismissed)="refocus()"
+      />
+    }
+
+    <div class="relative">
+      <div
+        #content
+        class="text-editor-content max-h-80 min-h-24 overflow-y-auto px-3 py-2.5 outline-none"
+        role="textbox"
+        aria-multiline="true"
+        [id]="inputId()"
+        [attr.contenteditable]="editable() ? 'true' : 'false'"
+        [attr.tabindex]="disabled() ? -1 : 0"
+        [attr.aria-label]="ariaLabel() ?? null"
+        [attr.aria-labelledby]="ariaLabelledBy() ?? null"
+        [attr.aria-describedby]="describedByIds()"
+        [attr.aria-placeholder]="
+          editable() ? (placeholder() ?? ('common.editor.placeholder' | translate)) : null
+        "
+        [attr.aria-required]="required() || null"
+        [attr.aria-readonly]="readonly() || null"
+        [attr.aria-disabled]="disabled() || null"
+        [attr.aria-invalid]="showsError() || null"
+        (keydown)="onKeydown($event)"
+        (beforeinput)="onBeforeInput($event)"
+        (input)="onInput($event)"
+        (paste)="onPaste($event)"
+        (drop)="$event.preventDefault()"
+        (blur)="touch.emit()"
+      ></div>
+
+      @if (empty() && editable()) {
+        <span
+          class="pointer-events-none absolute top-2.5 left-3 text-sm leading-6 text-placeholder select-none"
+          aria-hidden="true"
+        >
+          {{ placeholder() ?? ('common.editor.placeholder' | translate) }}
+        </span>
+      }
+    </div>
+  </div>
+
+  @if (maxLength() !== undefined) {
+    <p
+      class="self-end text-xs tabular-nums"
+      aria-live="polite"
+      [id]="counterId()"
+      [class]="overLimit() ? 'font-semibold text-danger-text' : 'text-text-3'"
+    >
+      {{ 'textEditor.counter' | translate: { count: length(), max: maxLength() } }}
+    </p>
+  }
 </div>

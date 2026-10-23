@@ -3,7 +3,7 @@
 @import 'tailwindcss';
 @import 'tailwindcss-primeui';
 @import './styles/tokens.css';
-@import './styles/ngx-editor.scss';
+@import './styles/text-editor.css';
 @import './styles/primeng.scss';
 
 html.theme-reveal::view-transition-old(root),

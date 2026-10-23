@@ -1,0 +1,144 @@
+<div
+  class="flex min-w-0 items-center gap-0.5 px-1.5 py-1"
+  role="toolbar"
+  [attr.aria-label]="'textEditor.toolbar' | translate"
+  [attr.aria-controls]="controls()"
+  [attr.aria-disabled]="disabled() || null"
+>
+  @for (entry of entries(); track entry.item.id) {
+    @if (entry.separatorBefore) {
+      <span class="mx-0.5 h-5 w-px shrink-0 bg-border" aria-hidden="true"></span>
+    }
+    <button
+      #button
+      type="button"
+      class="grid size-8 shrink-0 place-items-center rounded-control text-text-2 transition-colors hover:bg-hover hover:text-text focus-visible:focus-ring disabled:pointer-events-none disabled:opacity-40 aria-expanded:bg-hover aria-pressed:bg-brand-soft aria-pressed:text-brand-text"
+      [attr.data-toolbar-item]="entry.item.id"
+      [disabled]="entry.disabled"
+      [tabIndex]="tabStop() === entry.item.id ? 0 : -1"
+      [attr.aria-label]="entry.item.label | translate"
+      [attr.title]="title(entry.item, entry.item.label | translate)"
+      [attr.aria-keyshortcuts]="ariaShortcut(entry.item)"
+      [attr.aria-pressed]="entry.pressed"
+      [attr.aria-haspopup]="entry.item.kind === 'menu' ? 'dialog' : null"
+      [attr.aria-expanded]="entry.item.kind === 'menu' ? openMenu() === entry.item.id : null"
+      (mousedown)="$event.preventDefault()"
+      (focus)="onFocus(entry.item.id)"
+      (keydown)="onKeydown($event)"
+      (click)="activate(entry.item, button)"
+    >
+      <ng-icon
+        size="1rem"
+        aria-hidden="true"
+        class="rounded-sm"
+        [class]="entry.colorClass ?? ''"
+        [name]="entry.icon"
+      />
+    </button>
+  }
+
+  @if (overflow().length) {
+    <span class="mx-0.5 h-5 w-px shrink-0 bg-border" aria-hidden="true"></span>
+    <button
+      #moreButton
+      type="button"
+      data-toolbar-item="more"
+      class="grid size-8 shrink-0 place-items-center rounded-control text-text-2 transition-colors hover:bg-hover hover:text-text focus-visible:focus-ring disabled:pointer-events-none disabled:opacity-40 aria-expanded:bg-hover"
+      aria-haspopup="dialog"
+      [disabled]="disabled()"
+      [tabIndex]="tabStop() === 'more' ? 0 : -1"
+      [attr.aria-label]="'textEditor.more' | translate"
+      [attr.title]="'textEditor.more' | translate"
+      [attr.aria-expanded]="openMenu() === 'more'"
+      (mousedown)="$event.preventDefault()"
+      (focus)="onFocus('more')"
+      (keydown)="onKeydown($event)"
+      (click)="toggleMore(moreButton)"
+    >
+      <ng-icon name="lucideEllipsis" size="1rem" aria-hidden="true" />
+    </button>
+  }
+</div>
+
+<p-popover #morePopover (onHide)="onPopoverHide('more')">
+  <div
+    class="flex min-w-52 flex-col gap-0.5"
+    role="group"
+    [attr.aria-label]="'textEditor.more' | translate"
+  >
+    @for (entry of overflow(); track entry.item.id) {
+      @if (entry.separatorBefore) {
+        <span class="my-1 h-px bg-border" aria-hidden="true"></span>
+      }
+      <button
+        #row
+        type="button"
+        class="flex items-center gap-2.5 rounded-control px-2.5 py-2 text-start text-sm text-text transition-colors hover:bg-hover focus-visible:focus-ring disabled:pointer-events-none disabled:opacity-40 aria-pressed:bg-brand-soft aria-pressed:text-brand-text"
+        [disabled]="entry.disabled"
+        [attr.aria-pressed]="entry.pressed"
+        [attr.aria-keyshortcuts]="ariaShortcut(entry.item)"
+        [attr.aria-haspopup]="entry.item.kind === 'menu' ? 'dialog' : null"
+        (mousedown)="$event.preventDefault()"
+        (click)="activate(entry.item, row)"
+      >
+        <ng-icon
+          size="1rem"
+          aria-hidden="true"
+          [class]="entry.colorClass ?? ''"
+          [name]="entry.icon"
+        />
+        <span class="flex-1">{{ entry.item.label | translate }}</span>
+        @if (entry.item.shortcut) {
+          <kbd class="font-sans text-xs text-text-3">{{ entry.item.shortcut }}</kbd>
+        }
+      </button>
+    }
+  </div>
+</p-popover>
+
+<p-popover #headingPopover (onHide)="onPopoverHide('heading')">
+  <app-text-editor-option-menu
+    label="textEditor.tools.heading"
+    [options]="blockTypeOptions"
+    [current]="state().blockType"
+    (selected)="run({ type: 'blockType', blockType: $event }, 'heading')"
+  />
+</p-popover>
+
+<p-popover #alignPopover (onHide)="onPopoverHide('align')">
+  <app-text-editor-option-menu
+    label="textEditor.tools.align"
+    [options]="alignmentOptions"
+    [current]="state().alignment"
+    (selected)="run({ type: 'align', alignment: $event }, 'align')"
+  />
+</p-popover>
+
+<p-popover #textColorPopover (onHide)="onPopoverHide('textColor')">
+  <app-text-editor-color-picker
+    kind="text"
+    label="textEditor.tools.textColor"
+    [colors]="brands"
+    [current]="state().textColor"
+    (picked)="run({ type: 'textColor', color: $event }, 'textColor')"
+  />
+</p-popover>
+
+<p-popover #backgroundColorPopover (onHide)="onPopoverHide('backgroundColor')">
+  <app-text-editor-color-picker
+    kind="background"
+    label="textEditor.tools.backgroundColor"
+    [colors]="brands"
+    [current]="state().backgroundColor"
+    (picked)="run({ type: 'backgroundColor', color: $event }, 'backgroundColor')"
+  />
+</p-popover>
+
+<p-popover #linkPopover (onHide)="onPopoverHide('link')">
+  <app-text-editor-link-form
+    [href]="state().link"
+    [text]="state().linkText"
+    (applied)="run({ type: 'link', href: $event.href, text: $event.text }, 'link')"
+    (removed)="run({ type: 'link', href: null }, 'link')"
+  />
+</p-popover>
