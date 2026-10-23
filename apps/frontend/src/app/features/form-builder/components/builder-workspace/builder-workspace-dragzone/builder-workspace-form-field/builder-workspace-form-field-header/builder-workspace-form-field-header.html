@@ -1,76 +1,70 @@
-<header class="field-header flex items-center justify-between gap-4 select-none">
-  <span class="flex items-center gap-2 text-muted-color">
-    <div
-      class="min-w-8 min-h-8 grid place-content-center surface-highlight border-highlight-medium rounded-lg text-primary"
+<header class="field-header flex min-h-8 items-center justify-between gap-3 select-none">
+  <span
+    class="flex items-center gap-2.5 text-xs font-semibold tracking-[0.04em] text-brand-text uppercase"
+  >
+    <span
+      class="grid size-7.5 shrink-0 place-items-center rounded-lg border border-brand-bd bg-brand-soft"
+      aria-hidden="true"
     >
-      <ng-icon class="text-base" [name]="currentFieldIconLabel().icon" />
-    </div>
-
-    <span class="text-xs text-primary font-semibold uppercase">
-      {{ currentFieldIconLabel().label | translate }}
+      <ng-icon [name]="currentFieldIconLabel().icon" size="1rem" />
     </span>
+    {{ currentFieldIconLabel().label | translate }}
   </span>
 
   <div
-    class="flex items-center gap-1 overflow-hidden max-w-fit"
-    [class.invisible]="!isFieldHighlighted()"
-    [class.visible]="isFieldHighlighted()"
+    class="flex items-center gap-0.5 text-text-2 transition-opacity duration-150 group-focus-within:opacity-100"
+    [class.opacity-0]="!isFieldHighlighted()"
+    role="toolbar"
+    [attr.aria-label]="'formBuilder.workspace.fieldActions.label' | translate"
   >
     <app-button
-      class="drag-handle cursor-grab touch-none select-none"
+      class="cursor-grab touch-none"
       icon="lucideGripVertical"
       variant="text"
-      severity="contrast"
+      severity="secondary"
+      size="small"
       [iconOnly]="true"
       [preventEventBubbling]="true"
-      customClass="text-slate-500"
+      [ariaLabel]="'formBuilder.workspace.fieldActions.drag' | translate"
       cdkDragHandle
     />
 
     <div class="actions-inline">
-      @for (item of menuActionItems(); track item) {
+      @for (item of menuActionItems(); track item.label) {
         <app-button
           [icon]="item.icon"
           variant="text"
+          size="small"
           [severity]="item.severity"
           [iconOnly]="true"
           [preventEventBubbling]="true"
+          [ariaLabel]="item.label | translate"
           (pressed)="item.command()"
-          [customClass]="item.customClass"
         />
       }
     </div>
 
     <div class="actions-menu">
-      <p-menu
-        [model]="menuActionItems()"
-        class="flex justify-center"
-        [popup]="true"
-        [appendTo]="'body'"
-        styleClass="w-52"
-        #FieldHeaderMenu
-      >
+      <p-menu [model]="menuActionItems()" [popup]="true" appendTo="body" #fieldHeaderMenu>
         <ng-template #item let-item>
-          <div
-            class="flex items-center gap-2 px-2 py-1 cursor-pointer"
-            [ngClass]="item.customClass"
+          <span
+            class="flex cursor-pointer items-center gap-2 px-2 py-1.5"
+            [class]="item.customClass"
           >
-            <ng-icon [name]="item.icon"></ng-icon>
-
-            <span class="text-sm">
-              {{ item.label | translate }}
-            </span>
-          </div>
+            <ng-icon [name]="item.icon" size="1rem" aria-hidden="true" />
+            <span class="text-sm">{{ item.label | translate }}</span>
+          </span>
         </ng-template>
       </p-menu>
       <app-button
         icon="lucideEllipsis"
         variant="text"
-        severity="contrast"
+        size="small"
+        severity="secondary"
         [iconOnly]="true"
         [preventEventBubbling]="true"
-        customClass="text-slate-500"
-        (pressed)="$event.stopPropagation(); FieldHeaderMenu.toggle($event)"
+        [ariaLabel]="'formBuilder.workspace.fieldActions.more' | translate"
+        (pressed)="$event.stopPropagation(); fieldHeaderMenu.toggle($event)"
       />
     </div>
   </div>

@@ -1,58 +1,88 @@
 <article
   data-builder-form-field
-  class="flex flex-col gap-2 rounded-xl border px-4 pl-8 py-4 relative transition bg-white"
+  class="group relative mx-auto flex w-full max-w-148 flex-col gap-3 rounded-panel border bg-surface px-6 py-5.5 transition-[border-color,box-shadow] duration-150 focus-visible:outline-none"
   [class]="
-    isFieldHighlighted()
-      ? 'border-highlight-medium'
-      : 'border-default shadow-[0_6px_18px_rgba(35,42,70,0.04)]'
+    isFieldSelected()
+      ? 'border-brand shadow-[0_0_0_1px_var(--p-primary-color),0_0_0_5px_var(--p-highlight-background)]'
+      : isHovered()
+        ? 'border-brand-bd'
+        : 'border-border'
   "
+  [attr.aria-current]="isFieldSelected() ? 'true' : null"
   tabindex="0"
   (click)="edit($event)"
   (keydown.enter)="edit($event)"
   (hovered)="isHovered.set($event)"
   appHoverState
 >
+  @if (isFieldSelected()) {
+    <span
+      class="absolute -top-2.75 left-3 flex h-5 items-center rounded-md bg-brand px-2 text-[11px] font-semibold text-on-brand"
+    >
+      {{ 'formBuilder.workspace.selected' | translate }}
+    </span>
+  }
+
   <app-builder-workspace-form-field-header
     [field]="field()"
     [isFieldHighlighted]="isFieldHighlighted()"
-  ></app-builder-workspace-form-field-header>
+  />
 
   @if (isContainerGroup()) {
-    <div class="flex flex-col gap-2 border rounded-lg border-gray-300 p-2">
+    <div class="flex flex-col gap-3">
       <div
         cdkDropListOrientation="mixed"
         [id]="field().id"
-        class="grid grid-cols-2 h-full min-h-32 gap-4 relative"
+        class="relative grid min-h-22 grid-cols-1 gap-3 sm:grid-cols-2"
         cdkDropList
         [cdkDropListConnectedTo]="formBuilderStore.dropListIds()"
         [cdkDropListData]="fieldGroup()"
         (cdkDropListDropped)="dropEmit.emit($event)"
-        [ngClass]="{
-          'justify-center items-center flex-row min-h-16 h-full': fieldGroup().length === 0,
-        }"
       >
         @for (field of fieldGroup(); track field) {
           <app-builder-workspace-form-field
             [field]="field"
             cdkDrag
             [cdkDragData]="field"
+            (cdkDragStarted)="dragState.isDragging.set(true)"
+            (cdkDragEnded)="dragState.isDragging.set(false)"
             (dropEmit)="dropEmit.emit($event)"
           />
         } @empty {
-          <app-builder-workspace-empty-state class="block w-full h-full absolute top-0" />
+          <div
+            class="col-span-full grid min-h-22 place-items-center rounded-[10px] border-2 border-dashed border-brand-bd bg-brand-soft px-4 text-center text-[13px] font-medium text-brand-text"
+          >
+            <span class="flex items-center gap-2">
+              <ng-icon name="lucidePlus" size="1rem" aria-hidden="true" />
+              {{ 'formBuilder.workspace.emptyContainer' | translate }}
+            </span>
+          </div>
         }
       </div>
       <app-builder-workspace-field-selector
         (fieldSelected)="addNewField($event.type, $event.label)"
-      ></app-builder-workspace-field-selector>
+      />
     </div>
   } @else {
     <formly-form [fields]="[field()]" class="pointer-events-none select-none" />
   }
 </article>
 
+<div *cdkDragPlaceholder class="builder-drop-indicator" aria-hidden="true"></div>
+
 <div
-  class="drag-placeholder"
-  *cdkDragPlaceholder
-  [style.--placeholder-text]="'common.actions.dragPlaceholder' | translate | json"
-></div>
+  *cdkDragPreview
+  class="flex min-w-56 items-center gap-2.5 rounded-menu border border-brand bg-surface-raised px-3 py-2 text-[13px] font-semibold text-text shadow-3 -rotate-2"
+>
+  <span
+    class="grid size-7 min-w-7 min-h-7 place-items-center rounded-lg border border-brand-bd bg-brand-soft text-brand-text"
+  >
+    <ng-icon [name]="previewIcon()" size="1rem" />
+  </span>
+  {{ previewText() }}
+  <ng-icon
+    name="lucideMousePointer2"
+    size="1rem"
+    class="ml-auto min-h-4 min-w-4 shrink-0 text-text-2"
+  />
+</div>

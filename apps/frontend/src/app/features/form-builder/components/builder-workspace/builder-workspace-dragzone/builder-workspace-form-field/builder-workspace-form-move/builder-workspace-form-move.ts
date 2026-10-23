@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 
 import { TranslatePipe } from '@ngx-translate/core';
@@ -7,12 +6,12 @@ import { SelectItemGroup } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { SelectModule } from 'primeng/select';
 
-import { FIELD_TYPE_ICONS } from '@/app/features/form-builder/formly/config/field-type-icons';
+import { FormBuilderStore } from '@/app/features/form-builder/services/form-builder-store';
+import { FIELD_TYPE_ICONS } from '@/app/formly/config/field-type-icons';
 import {
   AppFormlyFieldConfig,
   FormPageContainer,
-} from '@/app/features/form-builder/formly/interfaces/app-formly-field-config';
-import { FormBuilderStore } from '@/app/features/form-builder/services/form-builder-store';
+} from '@/app/formly/types/app-formly-field-config';
 import { Button } from '@/app/ui/components/button/button';
 import { TreeSelector } from '@/app/ui/components/tree-selector/tree-selector';
 
@@ -21,7 +20,7 @@ import type { TreeItem } from '../../../../../../../ui/types/tree';
 @Component({
   selector: 'app-builder-workspace-form-move',
   templateUrl: './builder-workspace-form-move.html',
-  imports: [CommonModule, Button, TranslatePipe, SelectModule, TreeSelector],
+  imports: [Button, TranslatePipe, SelectModule, TreeSelector],
   providers: [],
 })
 export class BuilderWorkspaceFormMove {

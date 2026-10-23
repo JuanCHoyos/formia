@@ -6,7 +6,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { AccordionModule } from 'primeng/accordion';
 import { SelectModule } from 'primeng/select';
 
-import type { MatrixFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
+import type { MatrixFieldProps } from '@/app/formly/types/field-types';
 import { OptionEditor } from '@/app/ui/components/option-editor/option-editor';
 
 import { CommonFieldConfigForm } from '../common-field-config-form/common-field-config-form';

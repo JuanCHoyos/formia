@@ -1,12 +1,19 @@
 <div
-  appDragDropZone
-  class="dropzone-spacer relative flex h-full place-content-center items-center justify-center rounded-lg text-sm text-muted-color transition-colors"
+  class="flex min-h-40 flex-col items-center justify-center gap-3 rounded-panel border-2 border-dashed px-6 py-8 text-center transition-colors duration-150"
+  [class]="
+    dragState.isDragging()
+      ? 'border-brand bg-brand-soft text-brand-text'
+      : 'border-border-strong bg-surface text-text-2'
+  "
 >
-  <div class="absolute text-center">
-    <h3 class="flex flex-col gap-1 text-lg font-bold">
-      <span class="text-xl text-primary"><ng-icon name="lucideCopy" /></span>
-      {{ 'formBuilder.workspace.preview' | translate }}
-    </h3>
+  <span
+    class="grid size-11 min-w-11 min-h-11 place-items-center rounded-[10px] bg-brand-soft text-brand-text"
+    aria-hidden="true"
+  >
+    <ng-icon name="lucidePlus" size="1.25rem" />
+  </span>
+  <span class="flex flex-col gap-1">
+    <span class="text-h3 text-text">{{ 'formBuilder.workspace.emptyTitle' | translate }}</span>
     <span class="text-sm">{{ dragAndDropMessage() | translate }}</span>
-  </div>
+  </span>
 </div>

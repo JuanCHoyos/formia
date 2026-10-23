@@ -2,7 +2,7 @@
   <div role="status" [attr.aria-busy]="true" class="flex h-dvh w-full flex-col overflow-hidden">
     <span class="sr-only">{{ 'formBuilder.page.loading' | translate }}</span>
     <div
-      class="flex h-16 shrink-0 items-center justify-between border-b border-[#d7dce5] px-4"
+      class="flex h-14 shrink-0 items-center justify-between border-b border-border bg-surface px-4"
       aria-hidden="true"
     >
       <div class="flex items-center gap-4">
@@ -15,19 +15,23 @@
       </div>
     </div>
     <div class="flex min-h-0 flex-1" aria-hidden="true">
-      <div class="flex w-80 shrink-0 flex-col gap-3 border-r border-[#d7dce5] p-4">
+      <div
+        class="hidden w-79 shrink-0 flex-col gap-3 border-r border-border bg-surface p-4 md:flex"
+      >
         <p-skeleton height="2.25rem" borderRadius="0.5rem" />
         <p-skeleton height="5rem" borderRadius="0.5rem" />
         <p-skeleton height="5rem" borderRadius="0.5rem" />
         <p-skeleton height="5rem" borderRadius="0.5rem" />
       </div>
-      <div class="flex min-w-0 flex-1 flex-col gap-4 p-6">
+      <div class="flex min-w-0 flex-1 flex-col gap-4 bg-bg p-6">
         <p-skeleton height="3rem" borderRadius="0.5rem" />
         <p-skeleton height="6rem" borderRadius="0.5rem" />
         <p-skeleton height="6rem" borderRadius="0.5rem" />
         <p-skeleton height="6rem" borderRadius="0.5rem" />
       </div>
-      <div class="flex w-96 shrink-0 flex-col gap-3 border-l border-[#d7dce5] p-4">
+      <div
+        class="hidden w-88 shrink-0 flex-col gap-3 border-l border-border bg-surface p-4 xl:flex"
+      >
         <p-skeleton width="50%" height="1.5rem" />
         <p-skeleton height="2.5rem" borderRadius="0.5rem" />
         <p-skeleton height="2.5rem" borderRadius="0.5rem" />
@@ -35,8 +39,11 @@
     </div>
   </div>
 } @else if (form.error()) {
-  <div role="alert" class="flex flex-col items-start gap-3 p-6">
-    <h2 class="font-medium">{{ 'formBuilder.page.error' | translate }}</h2>
+  <div
+    role="alert"
+    class="flex h-dvh flex-col items-center justify-center gap-4 bg-bg p-6 text-center"
+  >
+    <h2 class="text-h2">{{ 'formBuilder.page.error' | translate }}</h2>
     <app-button variant="outlined" (pressed)="form.reload()">
       {{ 'formBuilder.page.retry' | translate }}
     </app-button>
@@ -44,9 +51,9 @@
 } @else {
   <section
     [attr.aria-label]="'formBuilder.header.ariaLabel' | translate"
-    class="flex h-dvh min-h-0 w-full flex-col overflow-hidden"
+    class="relative flex h-dvh min-h-0 w-full flex-col overflow-hidden"
   >
-    <div class="h-16 w-full shrink-0 px-4 border-b border-[#d7dce5]">
+    <div class="h-14 w-full shrink-0 border-b border-border bg-surface pr-4 pl-3">
       <app-builder-header />
     </div>
 
@@ -56,11 +63,11 @@
           class="h-full min-h-0 shrink-0 transition-all duration-300 ease-in-out overflow-hidden"
           [class]="
             menuState.isLeftMenuOpen()
-              ? 'w-80 border-r border-[#d7dce5] opacity-100'
+              ? 'w-79 border-r border-border opacity-100'
               : 'w-0 border-r-0 border-transparent opacity-0'
           "
         >
-          <div class="h-full min-h-0 w-80 overflow-hidden">
+          <div class="h-full min-h-0 w-79 overflow-hidden bg-surface">
             <app-builder-sidebar class="block h-full min-h-0" />
           </div>
         </div>
@@ -75,11 +82,11 @@
           class="h-full min-h-0 shrink-0 transition-all duration-300 ease-in-out overflow-hidden"
           [class]="
             menuState.isRightMenuOpen()
-              ? 'w-96 border-l border-[#d7dce5] opacity-100'
+              ? 'w-88 border-l border-border opacity-100'
               : 'w-0 border-l-0 border-transparent opacity-0'
           "
         >
-          <div class="h-full min-h-0 w-96 overflow-hidden">
+          <div class="h-full min-h-0 w-88 overflow-hidden bg-surface">
             <app-builder-properties-sidebar class="block h-full min-h-0" />
           </div>
         </div>

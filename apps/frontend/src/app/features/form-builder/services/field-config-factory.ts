@@ -4,11 +4,11 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { ulid } from 'ulid';
 
-import type { FieldTypeName } from '../formly/config/config-types';
+import type { FieldTypeName } from '../../../formly/config/config-types';
 import type {
   AppFormlyFieldConfig,
   FormPageContainer,
-} from '../formly/interfaces/app-formly-field-config';
+} from '../../../formly/types/app-formly-field-config';
 
 const createFieldIdentity = () => ({
   id: ulid(),

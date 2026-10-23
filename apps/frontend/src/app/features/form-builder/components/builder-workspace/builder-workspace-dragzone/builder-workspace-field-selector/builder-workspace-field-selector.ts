@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, model, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -15,7 +14,7 @@ import { APP_ICONS } from '@/app/ui/constants/icons';
 @Component({
   selector: 'app-builder-workspace-field-selector',
   templateUrl: './builder-workspace-field-selector.html',
-  imports: [CommonModule, FormsModule, SelectModule, NgIcon, TranslatePipe],
+  imports: [FormsModule, SelectModule, NgIcon, TranslatePipe],
   providers: [provideIcons(APP_ICONS)],
 })
 export class BuilderWorkspaceFieldSelector {

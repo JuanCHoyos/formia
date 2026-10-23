@@ -3,18 +3,16 @@
 } @else {
   <section
     [attr.aria-label]="'formBuilder.workspace.ariaLabel' | translate"
-    class="flex w-full h-full min-h-0 min-w-0 flex-col overflow-hidden bg-[radial-gradient(circle_at_top,#ffffff_0%,#f7f8fc_52%,#f1f3f8_100%)]"
+    class="flex h-full min-h-0 w-full min-w-0 flex-col overflow-hidden bg-bg"
   >
-    <app-builder-workspace-header class="block h-36 shrink-0 border-b border-[#d7dce5]" />
+    <app-builder-workspace-header class="block shrink-0" />
     <app-builder-workspace-dragzone
       cdkScrollable
-      class="dragzone block w-full min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain"
+      class="relative block min-h-0 w-full min-w-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain"
     />
 
     @if (formBuilderStore.selectedViewOption() !== 'form-scroll') {
-      <app-builder-workspace-footer
-        class="bg-white block h-18 shrink-0 border-t border-[#d7dce5]"
-      />
+      <app-builder-workspace-footer class="block shrink-0" />
     }
   </section>
 }

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, effect, inject, input, OnInit, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { form, FormField, max, min, validate } from '@angular/forms/signals';
@@ -8,7 +7,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { AccordionModule } from 'primeng/accordion';
 import { InputTextModule } from 'primeng/inputtext';
 
-import type { TextFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
+import type { TextFieldProps } from '@/app/formly/types/field-types';
 
 import { CommonFieldConfigForm } from '../common-field-config-form/common-field-config-form';
 
@@ -16,7 +15,6 @@ import { CommonFieldConfigForm } from '../common-field-config-form/common-field-
   selector: 'app-text-field-config-form',
   templateUrl: './text-field-config-form.html',
   imports: [
-    CommonModule,
     InputTextModule,
     AccordionModule,
     TranslatePipe,

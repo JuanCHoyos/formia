@@ -1,6 +1,6 @@
 <div class="relative w-full">
   <div class="absolute inset-0 z-40 flex items-center justify-center gap-3 pointer-events-none">
-    <div class="flex items-center gap-2 text-muted-color text-sm hover:text-primary">
+    <div class="flex items-center gap-2 text-text-3 text-sm hover:text-brand-text">
       <ng-icon name="lucidePlus"></ng-icon>
       <span>{{ 'formBuilder.workspace.addComponent' | translate }}</span>
     </div>
@@ -16,7 +16,7 @@
     [(ngModel)]="selectedcOMPONENT"
     [group]="true"
     size="large"
-    class="border-2 border-dashed border-primary/30 hover:border-primary w-full text-center"
+    class="border-2 border-dashed border-brand-bd hover:border-brand w-full text-center"
     [pt]="{ dropdown: { class: 'hidden!' } }"
   >
     <ng-template let-item #item>
@@ -24,13 +24,13 @@
 
       <div class="flex items-center select-none w-full p-2">
         <div
-          class="grid place-items-center text-lg size-8 min-w-8 bg-emphasis text-primary rounded-lg mr-2"
+          class="grid place-items-center text-lg size-8 min-h-8 min-w-8 bg-surface-sunken text-brand-text rounded-lg mr-2"
         >
           <ng-icon [name]="field.icon"></ng-icon>
         </div>
         <h4 class="flex flex-col gap-1">
           <span class="text-xs font-bold">{{ field.label | translate }}</span>
-          <span class="text-xs text-gray-500">{{ field.description | translate }}</span>
+          <span class="text-xs text-text-3">{{ field.description | translate }}</span>
         </h4>
       </div>
     </ng-template>

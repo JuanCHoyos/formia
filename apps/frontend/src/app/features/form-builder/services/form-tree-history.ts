@@ -2,7 +2,7 @@ import { computed, signal, type Signal, type WritableSignal } from '@angular/cor
 
 import { ulid } from 'ulid';
 
-import type { FormFieldConfiguration } from '../formly/interfaces/app-formly-field-config';
+import type { FormFieldConfiguration } from '../../../formly/types/app-formly-field-config';
 import type { FormTreeVersion } from '../types/form-tree-version';
 
 const HISTORY_LIMIT = 50;

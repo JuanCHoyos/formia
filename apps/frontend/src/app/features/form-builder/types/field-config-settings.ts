@@ -5,7 +5,7 @@ import type {
   BaseFieldProps,
   DividerFieldProps,
   HeadingFieldProps,
-} from '../formly/interfaces/field-types';
+} from '../../../formly/types/field-types';
 
 export type AlertFieldSettings = Omit<AlertFieldProps, 'closable' | 'size'> & {
   size: 'default' | 'large' | 'small';

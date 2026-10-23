@@ -1,4 +1,4 @@
-import type { FormFieldConfiguration } from '../formly/interfaces/app-formly-field-config';
+import type { FormFieldConfiguration } from '../../../formly/types/app-formly-field-config';
 
 export interface FormTreeVersion {
   id: string;

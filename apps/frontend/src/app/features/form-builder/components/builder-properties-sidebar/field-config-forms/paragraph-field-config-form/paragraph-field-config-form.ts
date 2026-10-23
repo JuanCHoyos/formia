@@ -6,7 +6,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { AccordionModule } from 'primeng/accordion';
 import { TextareaModule } from 'primeng/textarea';
 
-import type { ParagraphFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
+import type { ParagraphFieldProps } from '@/app/formly/types/field-types';
 import { TextEditor } from '@/app/ui/components/text-editor/text-editor';
 
 @Component({

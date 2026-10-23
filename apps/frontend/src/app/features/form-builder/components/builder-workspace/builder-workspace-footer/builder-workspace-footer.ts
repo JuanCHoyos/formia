@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 
 import { TranslatePipe } from '@ngx-translate/core';
@@ -12,7 +11,7 @@ import { FormBuilderStore } from '../../../services/form-builder-store';
 @Component({
   selector: 'app-builder-workspace-footer',
   templateUrl: './builder-workspace-footer.html',
-  imports: [CommonModule, Button, ProgressBarModule, TranslatePipe],
+  imports: [Button, ProgressBarModule, TranslatePipe],
 })
 export class BuilderWorkspaceFooter {
   readonly formBuilderStore = inject(FormBuilderStore);

@@ -1,21 +1,23 @@
 <header
   [attr.aria-label]="'formBuilder.header.ariaLabel' | translate"
-  class="h-full flex items-center justify-between"
+  class="flex h-full items-center gap-2.5"
 >
-  <div class="flex items-center gap-4">
+  <div class="flex min-w-0 items-center gap-1.5">
     <app-button icon="lucideArrowLeft" variant="text" size="small" (pressed)="goToForms()">
-      {{ 'formBuilder.header.myForms' | translate }}
+      <span class="hidden lg:inline">{{ 'formBuilder.header.myForms' | translate }}</span>
     </app-button>
-    <div class="border-l pl-4 border-gray-300">
-      <app-form-title-editor />
-    </div>
+    <span class="mx-1.5 h-8 w-px bg-border" aria-hidden="true"></span>
+    <app-form-title-editor />
   </div>
+
+  <span class="flex-1"></span>
 
   <div class="flex items-center gap-2">
     <app-save-status />
     <app-button
       [icon]="formPreviewState.previewIcon()"
       variant="outlined"
+      severity="secondary"
       (pressed)="formPreviewState.togglePreviewMode()"
     >
       {{ formPreviewState.previewText() | translate }}

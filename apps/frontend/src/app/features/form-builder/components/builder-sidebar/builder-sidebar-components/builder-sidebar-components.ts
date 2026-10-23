@@ -1,5 +1,4 @@
 import { CdkDropList } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
 import { Component, computed, inject, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -11,7 +10,6 @@ import type { AccordionValue } from 'primeng/accordion';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
-import { Options } from 'sortablejs';
 
 import type {
   FieldPaletteGroup,
@@ -27,7 +25,6 @@ import { BuilderSidebarComponentItem } from '../builder-sidebar-component-item/b
   selector: 'app-builder-sidebar-components',
   templateUrl: './builder-sidebar-components.html',
   imports: [
-    CommonModule,
     FormsModule,
     AccordionModule,
     InputTextModule,
@@ -68,13 +65,4 @@ export class BuilderSidebarComponents {
   accordionValue = computed(() =>
     this.searchTerm().trim() ? this.filteredGroups().map((group) => group.value) : this.value(),
   );
-
-  readonly sortableOptions = signal<Options>({
-    group: {
-      name: 'form-fields',
-      pull: 'clone',
-      put: false,
-    },
-    sort: false,
-  });
 }

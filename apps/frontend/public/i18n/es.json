@@ -296,7 +296,8 @@
         "retry": "Reintentar"
       },
       "titleTooShort": "El título debe tener al menos {{min}} caracteres.",
-      "discardChanges": "Descartar cambios"
+      "discardChanges": "Descartar cambios",
+      "titlePlaceholder": "Título del formulario"
     },
     "history": {
       "ariaLabel": "Historial de versiones del formulario",
@@ -324,7 +325,7 @@
       "title": "PROPIEDADES",
       "close": "Cerrar el panel derecho",
       "editing": "Campo de edición",
-      "emptySelection": "Selecciona un campo para editar sus propiedades.",
+      "emptySelection": "Selecciona un campo del lienzo para editar su etiqueta, opciones y validaciones.",
       "sections": {
         "general": {
           "title": "Información básica",
@@ -490,7 +491,9 @@
         "form": {
           "error": "No se guardarán los cambios hasta que corrijas los campos con errores. Revisa los mensajes de validación e inténtalo de nuevo."
         }
-      }
+      },
+      "location": "Página {{page}} · posición {{position}}",
+      "emptyTitle": "Ningún campo seleccionado"
     },
     "workspace": {
       "ariaLabel": "Área de trabajo del formulario",
@@ -508,7 +511,19 @@
       "copyField": "Duplicar campo",
       "moveOrCopyField": "Mover o copiar campo",
       "deleteField": "Eliminar campo",
-      "unknownFieldType": "Tipo de campo desconocido"
+      "unknownFieldType": "Tipo de campo desconocido",
+      "selected": "Seleccionado",
+      "emptyContainer": "Contenedor vacío · suelta campos aquí para agruparlos",
+      "emptyTitle": "Esta página está vacía",
+      "dragHint": "Suelta para colocar el campo",
+      "fieldActions": {
+        "label": "Acciones del campo",
+        "drag": "Arrastrar para mover",
+        "duplicate": "Duplicar",
+        "move": "Mover a otra página",
+        "delete": "Eliminar",
+        "more": "Más acciones"
+      }
     },
     "transfer": {
       "title": "Mover o copiar campo",
@@ -891,6 +906,14 @@
     "respondent": {
       "label": "Responder formularios",
       "description": "Contesta formularios compartidos contigo."
+    }
+  },
+  "formly": {
+    "errors": {
+      "required": "Este campo es obligatorio.",
+      "minLength": "Escribe al menos {{min}} caracteres.",
+      "maxLength": "Escribe como máximo {{max}} caracteres.",
+      "invalid": "Revisa el valor de este campo."
     }
   }
 }

@@ -6,7 +6,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { AccordionModule } from 'primeng/accordion';
 import { InputTextModule } from 'primeng/inputtext';
 
-import type { ImageFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
+import type { ImageFieldProps } from '@/app/formly/types/field-types';
 
 @Component({
   selector: 'app-image-field-config-form',

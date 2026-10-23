@@ -6,7 +6,7 @@ import { apiClient } from '@/app/core/api/api-client';
 import { apiResult } from '@/app/core/api/api-result';
 import { Notifications } from '@/app/ui/services/notifications';
 
-import { FormFieldConfigurationSchema } from '../formly/interfaces/app-formly-field-config';
+import { FormFieldConfigurationSchema } from '../../../formly/types/app-formly-field-config';
 import type { FormSettings } from '../types/form-settings';
 import type { DraftPatch, PersistedDraft, PublishedVersion, SaveState } from '../types/form-sync';
 import { FormBuilderStore } from './form-builder-store';

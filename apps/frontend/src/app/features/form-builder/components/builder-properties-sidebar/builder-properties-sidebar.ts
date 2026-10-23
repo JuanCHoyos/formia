@@ -7,13 +7,11 @@ import { MessageModule } from 'primeng/message';
 
 import { Button } from '@/app/ui/components/button/button';
 import { APP_ICONS } from '@/app/ui/constants/icons';
-import { AppIcon } from '@/app/ui/types/icons';
 
-import { FIELD_PALETTE } from '../../constants/field-palette-group';
 import type {
   AppFormlyFieldConfig,
   FormPageContainer,
-} from '../../formly/interfaces/app-formly-field-config';
+} from '../../../../formly/types/app-formly-field-config';
 import type {
   AlertFieldProps,
   CheckboxFieldProps,
@@ -30,9 +28,11 @@ import type {
   SelectFieldProps,
   TextareaFieldProps,
   TextFieldProps,
-} from '../../formly/interfaces/field-types';
+} from '../../../../formly/types/field-types';
+import { FIELD_PALETTE } from '../../constants/field-palette-group';
 import { BuilderMenuState } from '../../services/builder-menu-state';
 import { FormBuilderStore } from '../../services/form-builder-store';
+import type { SelectedFieldSummary } from '../../types/selected-field-summary';
 import { AlertFieldConfigForm } from './field-config-forms/alert-field-config-form/alert-field-config-form';
 import { CheckboxFieldConfigForm } from './field-config-forms/checkbox-field-config-form/checkbox-field-config-form';
 import { ContainerFieldConfigForm } from './field-config-forms/container-field-config-form/container-field-config-form';
@@ -79,13 +79,42 @@ export class BuilderPropertiesSidebar {
   readonly formBuilderStore = inject(FormBuilderStore);
   private readonly translate = inject(TranslateService);
 
-  selectedFieldProperties = computed<{ label: string; icon: AppIcon }>(() => {
+  selectedFieldProperties = computed<SelectedFieldSummary>(() => {
     const field = this.formBuilderStore.selectedField();
-    const fieldOptions = FIELD_PALETTE.flatMap((group) => group.items);
-    if (!field) return { label: '', icon: 'lucideAlertOctagon' };
-    const fieldOption = fieldOptions.find((option) => option.type === field.type);
-    if (!fieldOption) return { label: field.type, icon: 'lucideAlertOctagon' };
-    return { label: this.translate.instant(fieldOption.label), icon: fieldOption.icon };
+    const fallback: SelectedFieldSummary = {
+      label: field?.type ?? '',
+      icon: 'lucideAlertOctagon',
+      iconClass: 'bg-brand-soft text-brand-text',
+    };
+    if (!field) return fallback;
+    const fieldOption = FIELD_PALETTE.flatMap((group) => group.items).find(
+      (option) => option.type === field.type,
+    );
+    if (!fieldOption) return fallback;
+    return {
+      label: this.translate.instant(fieldOption.label) as string,
+      icon: fieldOption.icon,
+      iconClass: `${fieldOption.bgIcon} ${fieldOption.colorIcon}`,
+    };
+  });
+
+  selectedFieldLocation = computed(() => {
+    const selectedId = this.formBuilderStore.selectedField()?.id;
+    if (!selectedId) return null;
+
+    const pages = this.formBuilderStore.fields().fieldGroup;
+    for (const [pageIndex, page] of pages.entries()) {
+      const position = page.fieldGroup.findIndex(
+        (field) =>
+          field.id === selectedId ||
+          (field.type === 'container-group' &&
+            field.fieldGroup.some(({ id }) => id === selectedId)),
+      );
+      if (position !== -1) {
+        return { page: pageIndex + 1, position: position + 1 };
+      }
+    }
+    return null;
   });
 
   onTextareaPropsChange(change: TextareaFieldProps): void {

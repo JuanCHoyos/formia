@@ -1,83 +1,89 @@
-<header class="w-full h-full">
-  <div class="h-2/4 flex items-center justify-between bg-background border-b border-gray-300 px-4">
-    <ul
-      class="flex items-center gap-2 p-0 m-0 divide-x divide-gray-500 [&>li]:px-2 [&>li:first-child]:pl-0 [&>li:last-child]:pr-0"
-    >
-      <li class="flex items-center gap-2 text-sm text-muted-color">
-        @if (!menuState.isLeftMenuOpen()) {
-          <app-button
-            icon="lucidePanelLeftOpen"
-            variant="text"
-            [iconOnly]="true"
-            severity="secondary"
-            [ariaLabel]="'formBuilder.sidebar.open' | translate"
-            customClass="p-0 max-w-fit text-lg"
-            (pressed)="menuState.openLeftMenu()"
-          ></app-button>
-        }
-        <span
-          class="block size-2 rounded-full"
-          [class]="sync.hasDraft() ? 'bg-warn' : 'bg-success'"
-        ></span>
-        {{ (sync.hasDraft() ? 'common.status.draft' : 'common.status.published') | translate }}
-      </li>
-      <li class="text-sm text-muted-color">
-        {{
-          (formBuilderStore.totalFieldCount() === 1
-            ? 'formBuilder.header.elementCount.one'
-            : 'formBuilder.header.elementCount.other'
-          ) | translate: { count: formBuilderStore.totalFieldCount() }
-        }}
-      </li>
-    </ul>
-    <div class="flex items-center gap-2">
+<header>
+  <div class="flex h-13 items-center gap-2.5 border-b border-border bg-surface px-4">
+    @if (!menuState.isLeftMenuOpen()) {
       <app-button
-        icon="lucideUndo2"
+        icon="lucidePanelLeftOpen"
         variant="text"
+        size="small"
+        severity="secondary"
         [iconOnly]="true"
-        [ariaLabel]="'formBuilder.header.undo' | translate"
-        [disabled]="!formBuilderStore.formTreeHistory.canUndo()"
-        (pressed)="formBuilderStore.formTreeHistory.undo()"
-      ></app-button>
-      <app-form-tree-history-menu />
-      <app-button
-        icon="lucideRedo2"
-        variant="text"
-        [iconOnly]="true"
-        [ariaLabel]="'formBuilder.header.redo' | translate"
-        [disabled]="!formBuilderStore.formTreeHistory.canRedo()"
-        (pressed)="formBuilderStore.formTreeHistory.redo()"
-      ></app-button>
-    </div>
-  </div>
-  <div class="h-2/4 flex items-center justify-between border-b border-gray-300 px-4 bg-white">
-    <div class="flex flex-col gap-1">
-      <span class="text-xs font-bold text-muted-color">
-        {{ 'formBuilder.workspace.structure' | translate }}
-      </span>
-      <span class="text-sm font-bold">
-        {{ 'formBuilder.workspace.displayMode' | translate }}
-      </span>
-    </div>
+        [ariaLabel]="'formBuilder.sidebar.open' | translate"
+        (pressed)="menuState.openLeftMenu()"
+      />
+    }
+    <span class="flex items-center gap-2 text-sm text-text-2">
+      <span
+        class="size-2 min-w-2 min-h-2 rounded-full"
+        [class]="sync.hasDraft() ? 'bg-warn' : 'bg-success'"
+        aria-hidden="true"
+      ></span>
+      {{ (sync.hasDraft() ? 'common.status.draft' : 'common.status.published') | translate }}
+    </span>
+    <span class="h-5 w-px bg-border" aria-hidden="true"></span>
+    <span class="text-sm text-text-2">
+      {{
+        (formBuilderStore.totalFieldCount() === 1
+          ? 'formBuilder.header.elementCount.one'
+          : 'formBuilder.header.elementCount.other'
+        ) | translate: { count: formBuilderStore.totalFieldCount() }
+      }}
+    </span>
 
-    <div class="flex items-center gap-2">
-      <div class="border-r border-gray-300 pr-4">
-        <app-create-page-dialog></app-create-page-dialog>
-      </div>
-      <div class="flex items-center gap-2">
-        <span class="text-sm text-muted-color font-bold">{{
-          'formBuilder.views.placeholder' | translate
-        }}</span>
-        <p-selectbutton
-          [options]="formBuilderStore.formViewOptions()"
-          [ngModel]="formBuilderStore.selectedViewOption()"
-          [allowEmpty]="false"
-          optionDisabled="disabled"
-          optionLabel="label"
-          optionValue="value"
-          (ngModelChange)="formBuilderStore.serFormViewOption($event)"
+    <span class="flex-1"></span>
+
+    @if (dragState.isDragging()) {
+      <span class="text-xs text-text-2" aria-live="polite">
+        {{ 'formBuilder.workspace.dragHint' | translate }}
+      </span>
+    } @else {
+      <div class="flex items-center gap-1">
+        <app-button
+          icon="lucideUndo2"
+          variant="text"
+          size="small"
+          [iconOnly]="true"
+          [ariaLabel]="'formBuilder.header.undo' | translate"
+          [disabled]="!formBuilderStore.formTreeHistory.canUndo()"
+          (pressed)="formBuilderStore.formTreeHistory.undo()"
+        />
+        <app-form-tree-history-menu />
+        <app-button
+          icon="lucideRedo2"
+          variant="text"
+          size="small"
+          [iconOnly]="true"
+          [ariaLabel]="'formBuilder.header.redo' | translate"
+          [disabled]="!formBuilderStore.formTreeHistory.canRedo()"
+          (pressed)="formBuilderStore.formTreeHistory.redo()"
         />
       </div>
+    }
+  </div>
+
+  <div
+    class="flex flex-wrap items-center gap-3 border-b border-border bg-surface px-4 py-3 xl:h-18 xl:flex-nowrap xl:py-0"
+  >
+    <div class="flex flex-col">
+      <span class="text-[11px] font-bold tracking-[0.04em] text-text-2 uppercase">
+        {{ 'formBuilder.workspace.structure' | translate }}
+      </span>
+      <span class="text-h3">{{ 'formBuilder.workspace.displayMode' | translate }}</span>
+    </div>
+
+    <span class="hidden flex-1 xl:block"></span>
+
+    <app-create-page-dialog />
+    <span class="hidden h-9 w-px bg-border sm:block" aria-hidden="true"></span>
+    <div class="flex items-center gap-2">
+      <span class="text-sm font-semibold text-text-2" id="builder-view-label">
+        {{ 'formBuilder.views.placeholder' | translate }}
+      </span>
+      <app-segmented-control
+        ariaLabelledBy="builder-view-label"
+        [options]="formBuilderStore.formViewOptions"
+        [value]="formBuilderStore.selectedViewOption()"
+        (selectionChange)="formBuilderStore.serFormViewOption($event.value)"
+      />
     </div>
   </div>
 </header>

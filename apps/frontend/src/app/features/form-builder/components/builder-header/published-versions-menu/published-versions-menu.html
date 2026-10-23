@@ -9,7 +9,7 @@
 <p-popover #versionsPopover [dismissable]="true">
   <section class="w-80" [attr.aria-label]="'formBuilder.versions.ariaLabel' | translate">
     <h2 class="mb-1 text-sm font-semibold">{{ 'formBuilder.versions.title' | translate }}</h2>
-    <p class="mb-3 text-xs text-muted-color">
+    <p class="mb-3 text-xs text-text-3">
       {{ 'formBuilder.versions.limitNotice' | translate: { count: maxPreviousVersions } }}
     </p>
 
@@ -20,7 +20,7 @@
             <span class="block truncate text-sm font-medium">
               {{ 'formBuilder.versions.version' | translate: { number: version.version } }}
             </span>
-            <span class="block text-xs text-muted-color">
+            <span class="block text-xs text-text-3">
               {{ version.publishedAt | date: 'medium' }}
             </span>
           </span>
@@ -33,7 +33,7 @@
           </app-button>
         </li>
       } @empty {
-        <li class="px-3 py-4 text-center text-sm text-muted-color">
+        <li class="px-3 py-4 text-center text-sm text-text-3">
           {{ 'formBuilder.versions.empty' | translate }}
         </li>
       }

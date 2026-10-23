@@ -6,9 +6,9 @@
         pInputText
         pSize="small"
         type="text"
-        class="w-64 text-sm font-bold"
+        class="w-64 text-[15px] font-semibold"
         placeholder="{{ 'formBuilder.header.titlePlaceholder' | translate }}"
-        [class]="titleTooShort() ? 'border-danger! text-danger' : ''"
+        [class.p-invalid]="titleTooShort()"
         [value]="draft()"
         [attr.aria-label]="'formBuilder.header.editTitle' | translate"
         [attr.aria-invalid]="titleTooShort()"
@@ -17,6 +17,11 @@
         (keydown.enter)="save()"
         (keydown.escape)="cancel()"
       />
+      @if (titleTooShort()) {
+        <span id="builder-title-error" class="sr-only" role="alert">
+          {{ 'formBuilder.header.titleTooShort' | translate: { min: minTitleLength } }}
+        </span>
+      }
     </div>
     <app-button
       icon="lucideCheck"
@@ -27,10 +32,11 @@
       (pressed)="save()"
     />
   } @else {
-    <span class="max-w-64 truncate text-sm font-bold" [title]="title()">{{ title() }}</span>
+    <span class="max-w-64 truncate text-[15px] font-semibold" [title]="title()">{{ title() }}</span>
     <app-button
       icon="lucidePencil"
       size="small"
+      variant="text"
       [iconOnly]="true"
       [ariaLabel]="'formBuilder.header.editTitle' | translate"
       (pressed)="startEditing()"

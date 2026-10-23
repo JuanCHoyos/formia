@@ -1,18 +1,27 @@
-import { CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDropList } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDragPlaceholder,
+  CdkDragPreview,
+  CdkDropList,
+} from '@angular/cdk/drag-drop';
 import { Component, computed, inject, input, output, signal } from '@angular/core';
 
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { FormlyForm } from '@ngx-formly/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
-import { FieldTypeName } from '@/app/features/form-builder/formly/config/config-types';
+import { FIELD_PALETTE } from '@/app/features/form-builder/constants/field-palette-group';
+import { BuilderDragState } from '@/app/features/form-builder/services/builder-drag-state';
 import { BuilderMenuState } from '@/app/features/form-builder/services/builder-menu-state';
 import { FieldConfigFactory } from '@/app/features/form-builder/services/field-config-factory';
 import { FormBuilderStore } from '@/app/features/form-builder/services/form-builder-store';
+import { FieldTypeName } from '@/app/formly/config/config-types';
+import { APP_ICONS } from '@/app/ui/constants/icons';
 import { HoverTrigger } from '@/app/ui/directives/hover-state';
+import type { AppIcon } from '@/app/ui/types/icons';
 
-import { type AppFormlyFieldConfig } from '../../../../formly/interfaces/app-formly-field-config';
-import { BuilderWorkspaceEmptyState } from '../builder-workspace-empty-state/builder-workspace-empty-state';
+import { type AppFormlyFieldConfig } from '../../../../../../formly/types/app-formly-field-config';
 import { BuilderWorkspaceFieldSelector } from '../builder-workspace-field-selector/builder-workspace-field-selector';
 import { BuilderWorkspaceFormFieldHeader } from './builder-workspace-form-field-header/builder-workspace-form-field-header';
 
@@ -20,17 +29,18 @@ import { BuilderWorkspaceFormFieldHeader } from './builder-workspace-form-field-
   selector: 'app-builder-workspace-form-field',
   templateUrl: './builder-workspace-form-field.html',
   imports: [
-    CommonModule,
     FormlyForm,
     BuilderWorkspaceFieldSelector,
-    BuilderWorkspaceEmptyState,
     BuilderWorkspaceFormFieldHeader,
     HoverTrigger,
     CdkDropList,
     CdkDrag,
     CdkDragPlaceholder,
+    CdkDragPreview,
+    NgIcon,
     TranslatePipe,
   ],
+  providers: [provideIcons(APP_ICONS)],
 })
 export class BuilderWorkspaceFormField {
   readonly field = input.required<AppFormlyFieldConfig>();
@@ -41,7 +51,19 @@ export class BuilderWorkspaceFormField {
   readonly builderMenuState = inject(BuilderMenuState);
   readonly translate = inject(TranslateService);
 
+  readonly dragState = inject(BuilderDragState);
+
   readonly isHovered = signal(false);
+
+  private readonly paletteItem = computed(() =>
+    FIELD_PALETTE.flatMap((group) => group.items).find(({ type }) => type === this.field().type),
+  );
+  readonly previewIcon = computed<AppIcon>(() => this.paletteItem()?.icon ?? 'lucideFile');
+  readonly previewText = computed(() => {
+    const props: object = this.field().props;
+    const label = 'label' in props && typeof props.label === 'string' ? props.label : '';
+    return label || (this.translate.instant(this.paletteItem()?.label ?? '') as string);
+  });
 
   isContainerGroup = computed<boolean>(() => this.field().type === 'container-group');
   fieldGroup = computed<AppFormlyFieldConfig[]>(() => {

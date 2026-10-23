@@ -5,16 +5,19 @@ import { TranslateService } from '@ngx-translate/core';
 import { ulid } from 'ulid';
 
 import { Notifications } from '@/app/ui/services/notifications';
+import type { SegmentedControlOption } from '@/app/ui/types/segmented-control-option';
 
-import type { FieldWrapperName } from '../formly/config/config-wrappers';
+import type { FieldWrapperName } from '../../../formly/config/config-wrappers';
 import type {
   AppFormlyFieldConfig,
   FormFieldConfiguration,
   FormPageContainer,
-} from '../formly/interfaces/app-formly-field-config';
+} from '../../../formly/types/app-formly-field-config';
 import type { FormSettings } from '../types/form-settings';
 import { FormTreeEditor } from './form-tree-editor';
 import { FormTreeHistory } from './form-tree-history';
+
+type FormViewWrapper = Exclude<FieldWrapperName, 'form-field-container' | 'form-field'>;
 
 export const DEFAULT_FORM_SETTINGS: FormSettings = {
   isPublic: false,
@@ -49,27 +52,15 @@ export class FormBuilderStore {
   readonly formTreeHistory = new FormTreeHistory(this.fields);
   readonly formTreeEditor = new FormTreeEditor(this.formTreeHistory, this.notifications);
 
-  formViewOptions = computed<
-    { label: string; value: FieldWrapperName | undefined; disabled?: boolean }[]
-  >(() => {
-    this.translate.currentLang();
-    return [
-      {
-        label: this.translate.instant('formBuilder.views.steps') as string,
-        value: 'form-steps',
-      },
-      {
-        label: this.translate.instant('formBuilder.views.scroll') as string,
-        value: 'form-scroll',
-      },
-      { label: this.translate.instant('formBuilder.views.tabs') as string, value: 'form-tabs' },
-    ];
-  });
+  readonly formViewOptions: readonly SegmentedControlOption<FormViewWrapper>[] = [
+    { value: 'form-steps', labelKey: 'formBuilder.views.steps' },
+    { value: 'form-scroll', labelKey: 'formBuilder.views.scroll' },
+    { value: 'form-tabs', labelKey: 'formBuilder.views.tabs' },
+  ];
 
-  selectedViewOption = computed<FieldWrapperName | undefined>(() => {
-    const mainWrappers = this.fields().wrappers;
-    if (!mainWrappers?.length) return undefined;
-    return mainWrappers[0];
+  selectedViewOption = computed<FormViewWrapper | undefined>(() => {
+    const mainWrapper = this.fields().wrappers?.[0];
+    return this.formViewOptions.find((option) => option.value === mainWrapper)?.value;
   });
 
   totalPageCount = computed<number>(() => {
@@ -143,7 +134,7 @@ export class FormBuilderStore {
     this.selectedField.set(null);
   }
 
-  serFormViewOption(view: Exclude<FieldWrapperName, 'form-field-container' | 'form-field'> | null) {
+  serFormViewOption(view: FormViewWrapper | null) {
     this.formTreeHistory.update((currentFieldState) => ({
       ...currentFieldState,
       wrappers: [view ?? 'form-steps'],

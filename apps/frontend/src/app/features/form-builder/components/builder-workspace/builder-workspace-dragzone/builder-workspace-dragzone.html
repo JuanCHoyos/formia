@@ -1,27 +1,26 @@
 <main
   [attr.aria-label]="'formBuilder.workspace.canvasAriaLabel' | translate"
-  class="flex min-h-full w-full items-stretch justify-center py-8"
+  class="flex min-h-full w-full justify-center px-4 py-6 lg:px-8"
 >
-  @if (formBuilderStore.selectedViewOption() !== 'form-scroll') {
-    <div class="flex flex-col gap-4 w-2/4 max-w-3xl">
-      <h2 class="text-xl font-bold mb-4">{{ formBuilderStore.currentPage().props.label }}</h2>
+  <div class="flex w-full max-w-148 flex-col gap-4">
+    @if (formBuilderStore.selectedViewOption() !== 'form-scroll') {
+      <h2 class="text-h2">{{ formBuilderStore.currentPage().props.label }}</h2>
       <app-builder-workspace-form-page
         [formFields]="formBuilderStore.currentPage().fieldGroup"
         [formPageId]="formBuilderStore.currentPage().id"
         class="w-full flex-1"
-      ></app-builder-workspace-form-page>
-    </div>
-  } @else {
-    <div class="flex flex-1 flex-col gap-4 w-2/4 max-w-3xl">
-      @for (page of formBuilderStore.fields().fieldGroup; track $index) {
-        <h2 class="text-xl font-bold mb-4">{{ page.props.label }}</h2>
-
-        <app-builder-workspace-form-page
-          [formFields]="page.fieldGroup"
-          [formPageId]="page.id"
-          class="w-full flex-1"
-        ></app-builder-workspace-form-page>
+      />
+    } @else {
+      @for (page of formBuilderStore.fields().fieldGroup; track page.id) {
+        <section class="flex flex-col gap-4" [attr.aria-label]="page.props.label">
+          <h2 class="text-h2">{{ page.props.label }}</h2>
+          <app-builder-workspace-form-page
+            [formFields]="page.fieldGroup"
+            [formPageId]="page.id"
+            class="w-full"
+          />
+        </section>
       }
-    </div>
-  }
+    }
+  </div>
 </main>

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, input } from '@angular/core';
 import { FormField } from '@angular/forms/signals';
 
@@ -16,7 +15,6 @@ import type { CommonFieldConfigTree } from '../../../../types/field-config-setti
   selector: 'app-common-field-config-form',
   templateUrl: './common-field-config-form.html',
   imports: [
-    CommonModule,
     FormField,
     InputTextModule,
     TextareaModule,

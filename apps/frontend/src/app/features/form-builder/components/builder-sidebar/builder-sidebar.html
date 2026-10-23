@@ -1,24 +1,22 @@
 <aside
   [attr.aria-label]="'formBuilder.sidebar.fieldsAriaLabel' | translate"
-  class="flex h-full min-h-0 flex-col overflow-hidden py-4"
+  class="flex h-full min-h-0 flex-col overflow-hidden"
 >
-  <header
-    class="flex shrink-0 items-center justify-between mb-4 pb-2 px-4 border-b border-gray-300"
-  >
-    <h3 class="text-xs font-bold text-muted-color">
+  <header class="flex h-14 shrink-0 items-center justify-between border-b border-border px-3">
+    <h2 class="text-xs font-bold tracking-[0.04em] text-text-2 uppercase">
       {{ 'formBuilder.sidebar.build' | translate }}
-    </h3>
+    </h2>
     <app-button
       icon="lucidePanelLeftClose"
       variant="text"
+      size="small"
       [iconOnly]="true"
       severity="secondary"
       [ariaLabel]="'formBuilder.sidebar.close' | translate"
-      customClass="p-0 max-w-fit text-lg"
       (pressed)="menuState.toggleLeftMenu()"
-    ></app-button>
+    />
   </header>
-  <section class="px-4 w-full h-full overflow-y-auto">
+  <section class="relative min-h-0 w-full flex-1 overflow-y-auto px-3 pt-3 pb-4">
     <p-tabs value="components">
       <p-tablist>
         <p-tab value="components">{{ 'formBuilder.sidebar.components' | translate }}</p-tab>

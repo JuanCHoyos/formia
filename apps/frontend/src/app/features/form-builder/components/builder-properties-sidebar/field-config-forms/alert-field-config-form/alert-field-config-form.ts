@@ -7,7 +7,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 
-import type { AlertFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
+import type { AlertFieldProps } from '@/app/formly/types/field-types';
 import { Checkbox } from '@/app/ui/components/checkbox/checkbox';
 
 import type { AlertFieldSettings } from '../../../../types/field-config-settings';

@@ -2,12 +2,12 @@ import { ulid } from 'ulid';
 
 import { Notifications } from '@/app/ui/services/notifications';
 
-import { FieldTypeName } from '../formly/config/config-types';
+import { FieldTypeName } from '../../../formly/config/config-types';
 import {
   AppFormlyFieldConfig,
   FormPageContainer,
-} from '../formly/interfaces/app-formly-field-config';
-import { ContainerFieldTypeConfig } from '../formly/interfaces/field-types/container-field';
+} from '../../../formly/types/app-formly-field-config';
+import { ContainerFieldTypeConfig } from '../../../formly/types/field-types/container-field';
 import { FormTreeHistory } from './form-tree-history';
 
 export class FormTreeEditor {

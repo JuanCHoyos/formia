@@ -1,15 +1,16 @@
-<footer class="w-full h-full">
+<footer class="bg-surface">
   <p-progressbar
     [value]="formBuilderStore.percentageOfCurrentPage()"
     [showValue]="false"
-    [style]="{ height: '4px' }"
+    class="block h-0.75!"
+    [attr.aria-label]="'formBuilder.workspace.pagination' | translate"
   />
-  <div class="w-full h-full flex items-center justify-between px-4">
-    <span class="flex flex-col gap-1 text-sm font-bold">
-      <span class="text-muted-color text-xs">
+  <div class="flex h-16 items-center gap-2.5 px-4">
+    <div class="flex flex-col">
+      <span class="text-[11px] font-bold tracking-[0.04em] text-text-2 uppercase">
         {{ 'formBuilder.workspace.pagination' | translate }}
       </span>
-      <span class="font-bold">
+      <span class="text-h3">
         {{
           'formBuilder.workspace.stepCounter'
             | translate
@@ -19,25 +20,28 @@
                 }
         }}
       </span>
-    </span>
-
-    <div class="flex items-center gap-2">
-      <app-button
-        severity="secondary"
-        [disabled]="formBuilderStore.currentFormPage() === 0"
-        (pressed)="updateFormPage(-1)"
-        >{{ 'common.actions.previous' | translate }}</app-button
-      >
-      <span class="text-sm text-muted-color font-bold"
-        >{{ formBuilderStore.currentFormPage() + 1 }} /
-        {{ formBuilderStore.totalPageCount() }}</span
-      >
-      <app-button
-        severity="secondary"
-        [disabled]="formBuilderStore.currentFormPage() + 1 === formBuilderStore.totalPageCount()"
-        (pressed)="updateFormPage(1)"
-        >{{ 'common.actions.next' | translate }}</app-button
-      >
     </div>
+
+    <span class="flex-1"></span>
+
+    <app-button
+      variant="text"
+      severity="secondary"
+      [disabled]="formBuilderStore.currentFormPage() === 0"
+      (pressed)="updateFormPage(-1)"
+    >
+      {{ 'common.actions.previous' | translate }}
+    </app-button>
+    <span class="text-sm font-semibold text-text-2 tabular-nums">
+      {{ formBuilderStore.currentFormPage() + 1 }} / {{ formBuilderStore.totalPageCount() }}
+    </span>
+    <app-button
+      variant="outlined"
+      severity="secondary"
+      [disabled]="formBuilderStore.currentFormPage() + 1 === formBuilderStore.totalPageCount()"
+      (pressed)="updateFormPage(1)"
+    >
+      {{ 'common.actions.next' | translate }}
+    </app-button>
   </div>
 </footer>

@@ -296,7 +296,8 @@
         "retry": "Retry"
       },
       "titleTooShort": "The title must be at least {{min}} characters.",
-      "discardChanges": "Discard changes"
+      "discardChanges": "Discard changes",
+      "titlePlaceholder": "Form title"
     },
     "history": {
       "ariaLabel": "Form version history",
@@ -324,7 +325,7 @@
       "title": "PROPERTIES",
       "close": "Close right panel",
       "editing": "Editing field",
-      "emptySelection": "Select a field to edit its properties.",
+      "emptySelection": "Select a field on the canvas to edit its label, options and validation.",
       "sections": {
         "general": {
           "title": "Basic information",
@@ -490,7 +491,9 @@
         "form": {
           "error": "Changes won't be saved until you fix the fields with errors. Check the validation messages and try again."
         }
-      }
+      },
+      "location": "Page {{page}} · position {{position}}",
+      "emptyTitle": "No field selected"
     },
     "workspace": {
       "ariaLabel": "Form workspace",
@@ -508,7 +511,19 @@
       "copyField": "Duplicate field",
       "moveOrCopyField": "Move or copy field",
       "deleteField": "Delete field",
-      "unknownFieldType": "Unknown field type"
+      "unknownFieldType": "Unknown field type",
+      "selected": "Selected",
+      "emptyContainer": "Empty container · drop fields here to group them",
+      "emptyTitle": "This page is empty",
+      "dragHint": "Drop to place the field",
+      "fieldActions": {
+        "label": "Field actions",
+        "drag": "Drag to move",
+        "duplicate": "Duplicate",
+        "move": "Move to another page",
+        "delete": "Delete",
+        "more": "More actions"
+      }
     },
     "transfer": {
       "title": "Move or copy field",
@@ -891,6 +906,14 @@
     "respondent": {
       "label": "Answer forms",
       "description": "Fill in forms shared with you."
+    }
+  },
+  "formly": {
+    "errors": {
+      "required": "This field is required.",
+      "minLength": "Enter at least {{min}} characters.",
+      "maxLength": "Enter at most {{max}} characters.",
+      "invalid": "Check the value of this field."
     }
   }
 }

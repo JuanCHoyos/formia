@@ -1,25 +1,25 @@
 <p-accordion [value]="['0', '1']" [multiple]="true" class="w-full">
   <p-accordion-panel value="0">
     <p-accordion-header>
-      <div class="flex flex-col gap-1">
-        <p class="text-sm font-bold">
+      <div class="flex flex-col gap-1.5">
+        <p class="text-sm font-semibold text-text">
           {{ 'formBuilder.properties.sections.general.title' | translate }}
         </p>
-        <small class="text-xs text-muted-color">
+        <small class="text-xs font-normal text-text-2">
           {{ 'formBuilder.properties.sections.general.description' | translate }}
         </small>
       </div>
     </p-accordion-header>
     <p-accordion-content>
       <div class="flex flex-col gap-3">
-        <div class="flex flex-col gap-1">
-          <label class="text-sm font-semibold text-muted-color" for="heading-text">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-sm font-semibold text-text-3" for="heading-text">
             {{ 'formBuilder.properties.heading.text' | translate }}
           </label>
           <input id="heading-text" pInputText [formField]="headingFieldSettingsForm.text" />
         </div>
-        <div class="flex flex-col gap-1">
-          <label class="text-sm font-semibold text-muted-color" for="heading-subheading">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-sm font-semibold text-text-3" for="heading-subheading">
             {{ 'formBuilder.properties.heading.subheading' | translate }}
           </label>
           <app-text-editor
@@ -32,19 +32,19 @@
   </p-accordion-panel>
   <p-accordion-panel value="1">
     <p-accordion-header>
-      <div class="flex flex-col gap-1">
-        <p class="text-sm font-bold">
+      <div class="flex flex-col gap-1.5">
+        <p class="text-sm font-semibold text-text">
           {{ 'formBuilder.properties.sections.preferences.title' | translate }}
         </p>
-        <small class="text-xs text-muted-color">
+        <small class="text-xs font-normal text-text-2">
           {{ 'formBuilder.properties.sections.preferences.description' | translate }}
         </small>
       </div>
     </p-accordion-header>
     <p-accordion-content>
       <div class="flex flex-col gap-3">
-        <div class="flex flex-col gap-1">
-          <label class="text-sm font-semibold text-muted-color" for="heading-level">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-sm font-semibold text-text-3" for="heading-level">
             {{ 'formBuilder.properties.heading.level' | translate }}
           </label>
           <p-select
@@ -56,8 +56,8 @@
             class="w-full"
           />
         </div>
-        <div class="flex flex-col gap-1">
-          <label class="text-sm font-semibold text-muted-color" for="heading-alignment">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-sm font-semibold text-text-3" for="heading-alignment">
             {{ 'formBuilder.properties.heading.alignment' | translate }}
           </label>
           <p-select

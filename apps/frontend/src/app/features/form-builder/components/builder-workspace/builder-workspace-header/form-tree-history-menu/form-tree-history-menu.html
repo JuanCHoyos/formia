@@ -29,24 +29,24 @@
         <li>
           <button
             type="button"
-            class="flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2 text-left border border-transparent hover:surface-highlight cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2"
-            [class.surface-highlight]="version.isCurrent"
+            class="flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2 text-left border border-transparent hover:bg-hover cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2"
+            [class.bg-brand-soft]="version.isCurrent"
             [attr.aria-pressed]="version.isCurrent"
             (click)="formBuilderStore.formTreeHistory.restore(version.id); historyPopover.hide()"
           >
             <span class="min-w-0">
               <span class="block truncate text-sm font-medium">{{ version.versionLabel }}</span>
-              <span class="block text-xs text-muted-color">{{ version.dateLabel }}</span>
+              <span class="block text-xs text-text-3">{{ version.dateLabel }}</span>
             </span>
             @if (version.isCurrent) {
-              <span class="shrink-0 text-xs text-primary">
+              <span class="shrink-0 text-xs text-brand-text">
                 {{ 'formBuilder.history.current' | translate }}
               </span>
             }
           </button>
         </li>
       } @empty {
-        <li class="px-3 py-4 text-center text-sm text-muted-color">
+        <li class="px-3 py-4 text-center text-sm text-text-3">
           {{ 'formBuilder.history.noResults' | translate }}
         </li>
       }

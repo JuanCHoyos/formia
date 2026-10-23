@@ -1,19 +1,45 @@
 <div
-  [cdkDragData]="item()"
   cdkDrag
-  class="flex items-center border-default rounded-lg p-2 select-none cursor-grab hover:surface-highlight"
+  [cdkDragData]="item()"
+  class="flex cursor-grab items-start gap-3 rounded-menu border border-border bg-surface p-3 transition-[border-color,box-shadow] duration-150 select-none hover:border-brand-bd hover:shadow-1 active:cursor-grabbing"
+  (cdkDragStarted)="dragState.isDragging.set(true)"
+  (cdkDragEnded)="dragState.isDragging.set(false)"
 >
-  <div
-    class="grid place-items-center text-lg size-8 min-w-8 rounded-lg mr-2"
-    [ngClass]="[item().bgIcon || 'bg-primary/10', item().colorIcon || 'text-primary']"
+  <span
+    class="grid size-8 shrink-0 place-items-center rounded-lg"
+    [class]="(item().bgIcon || 'bg-brand-soft') + ' ' + (item().colorIcon || 'text-brand-text')"
+    aria-hidden="true"
   >
-    <ng-icon [name]="item().icon"></ng-icon>
-  </div>
-  <h4 class="flex flex-col gap-1">
-    <span class="text-xs font-bold">{{ item().label | translate }}</span>
-    <span class="text-xs text-gray-500">{{ item().description | translate }}</span>
-  </h4>
-  <div class="ml-auto text-gray-500">
-    <ng-icon name="lucideGripVertical"></ng-icon>
+    <ng-icon [name]="item().icon" size="1.125rem" />
+  </span>
+  <span class="flex min-w-0 flex-col gap-0.5">
+    <span class="text-[13px] leading-[18px] font-semibold text-text">
+      {{ item().label | translate }}
+    </span>
+    <span class="text-xs text-text-2">{{ item().description | translate }}</span>
+  </span>
+  <ng-icon
+    name="lucideGripVertical"
+    size="1rem"
+    class="ml-auto shrink-0 self-center text-text-3"
+    aria-hidden="true"
+  />
+
+  <div *cdkDragPlaceholder class="builder-drop-indicator" aria-hidden="true"></div>
+  <div
+    *cdkDragPreview
+    class="flex min-w-56 items-center gap-2.5 rounded-menu border border-brand bg-surface-raised px-3 py-2 text-[13px] font-semibold text-text shadow-3 -rotate-2"
+  >
+    <span
+      class="grid size-7 min-w-7 min-h-7 place-items-center rounded-lg border border-brand-bd bg-brand-soft text-brand-text"
+    >
+      <ng-icon [name]="item().icon" size="1rem" />
+    </span>
+    {{ item().label | translate }}
+    <ng-icon
+      name="lucideMousePointer2"
+      size="1rem"
+      class="ml-auto min-h-4 min-w-4 shrink-0 text-text-2"
+    />
   </div>
 </div>

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -9,12 +8,12 @@ import { TabsModule } from 'primeng/tabs';
 import { TreeSelector } from '@/app/ui/components/tree-selector/tree-selector';
 import { Button } from '@ui/components/button/button';
 
-import type { TreeItem, TreeSortableItem } from '../../../../ui/types/tree';
-import { FIELD_TYPE_ICONS } from '../../formly/config/field-type-icons';
+import { FIELD_TYPE_ICONS } from '../../../../formly/config/field-type-icons';
 import {
   AppFormlyFieldConfig,
   FormPageContainer,
-} from '../../formly/interfaces/app-formly-field-config';
+} from '../../../../formly/types/app-formly-field-config';
+import type { TreeItem, TreeSortableItem } from '../../../../ui/types/tree';
 import { BuilderMenuState } from '../../services/builder-menu-state';
 import { FormBuilderStore } from '../../services/form-builder-store';
 import { BuilderSidebarComponents } from './builder-sidebar-components/builder-sidebar-components';
@@ -22,15 +21,7 @@ import { BuilderSidebarComponents } from './builder-sidebar-components/builder-s
 @Component({
   selector: 'app-builder-sidebar',
   templateUrl: './builder-sidebar.html',
-  imports: [
-    CommonModule,
-    FormsModule,
-    Button,
-    TabsModule,
-    TranslatePipe,
-    BuilderSidebarComponents,
-    TreeSelector,
-  ],
+  imports: [FormsModule, Button, TabsModule, TranslatePipe, BuilderSidebarComponents, TreeSelector],
 })
 export class BuilderSidebar {
   readonly menuState = inject(BuilderMenuState);

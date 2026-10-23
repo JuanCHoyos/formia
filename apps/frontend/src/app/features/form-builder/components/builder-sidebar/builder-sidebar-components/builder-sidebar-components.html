@@ -1,18 +1,17 @@
-<div class="flex flex-col gap-2">
+<div class="flex flex-col gap-3">
   <p-iconfield>
     <input
-      id=""
       pInputText
+      type="search"
       [ngModel]="searchTerm()"
       (ngModelChange)="searchTerm.set($event)"
-      variant="filled"
       [placeholder]="'formBuilder.sidebar.searchPlaceholder' | translate"
       [attr.aria-label]="'formBuilder.sidebar.searchAriaLabel' | translate"
       class="w-full"
     />
 
-    <p-inputicon style="cursor: pointer">
-      <svg data-p-icon="search"></svg>
+    <p-inputicon>
+      <svg data-p-icon="search" aria-hidden="true"></svg>
     </p-inputicon>
   </p-iconfield>
 
@@ -30,7 +29,6 @@
           </p-accordion-header>
           <p-accordion-content>
             <div
-              class="flex flex-col gap-2"
               cdkDropList
               [cdkDropListData]="group.items"
               [cdkDropListConnectedTo]="formBuilderStore.dropListIds()"
@@ -50,6 +48,8 @@
       }
     </p-accordion>
   } @else {
-    <p class="text-sm text-gray-500">{{ 'formBuilder.sidebar.noComponents' | translate }}</p>
+    <p class="py-6 text-center text-sm text-text-3">
+      {{ 'formBuilder.sidebar.noComponents' | translate }}
+    </p>
   }
 </div>

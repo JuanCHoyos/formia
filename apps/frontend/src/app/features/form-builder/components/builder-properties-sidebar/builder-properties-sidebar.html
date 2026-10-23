@@ -1,37 +1,42 @@
 <aside
   [attr.aria-label]="'formBuilder.properties.ariaLabel' | translate"
-  class="flex h-full w-full flex-col"
+  class="flex h-full min-h-0 w-full flex-col"
 >
-  <header class="flex items-center justify-between border-b border-gray-300 px-4 py-3">
-    <h3 class="text-xs font-bold text-muted-color">
+  <header class="flex h-14 shrink-0 items-center justify-between border-b border-border px-3">
+    <h2 class="text-xs font-bold tracking-[0.04em] text-text-2 uppercase">
       {{ 'formBuilder.properties.title' | translate }}
-    </h3>
+    </h2>
     <app-button
       icon="lucidePanelRightClose"
       variant="text"
+      size="small"
       [iconOnly]="true"
       severity="secondary"
       [ariaLabel]="'formBuilder.properties.close' | translate"
-      customClass="p-0 max-w-fit text-lg"
       (pressed)="menuState.toggleRightMenu()"
-    ></app-button>
+    />
   </header>
-  <div class="flex flex-1 flex-col gap-4 p-4 overflow-y-auto">
-    @if (formBuilderStore.selectedField(); as field) {
-      <div class="flex items-center gap-4 surface-default p-2 rounded-lg">
-        <div
-          class="min-w-8 min-h-8 w-8 h-8 grid place-content-center rounded-lg surface-highlight border-highlight-medium text-primary"
-        >
-          <ng-icon [name]="selectedFieldProperties().icon"> </ng-icon>
-        </div>
-        <p class="flex flex-col gap-1">
-          <span class="text-muted-color text-xs font-bold capitalize">
-            {{ 'formBuilder.properties.editing' | translate }}
+  @if (formBuilderStore.selectedField(); as field) {
+    <div class="flex shrink-0 items-center gap-2.5 border-b border-border px-4 py-3.5">
+      <span
+        class="grid size-8 shrink-0 place-items-center rounded-lg"
+        [class]="selectedFieldProperties().iconClass"
+        aria-hidden="true"
+      >
+        <ng-icon [name]="selectedFieldProperties().icon" size="1.125rem" />
+      </span>
+      <span class="flex min-w-0 flex-col">
+        <span class="truncate text-h3">{{ selectedFieldProperties().label }}</span>
+        @if (selectedFieldLocation(); as location) {
+          <span class="text-xs text-text-3">
+            {{ 'formBuilder.properties.location' | translate: location }}
           </span>
-          <span class="font-bold text-sm">{{ selectedFieldProperties().label }}</span>
-        </p>
-      </div>
-
+        }
+      </span>
+    </div>
+  }
+  <div class="relative flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto p-4">
+    @if (formBuilderStore.selectedField(); as field) {
       @if (formBuilderStore.selectedField(); as configurableField) {
         @switch (configurableField.type) {
           @case ('heading') {
@@ -127,9 +132,20 @@
         }
       }
     } @else {
-      <p class="text-sm text-muted-color">
-        {{ 'formBuilder.properties.emptySelection' | translate }}
-      </p>
+      <div class="flex flex-1 flex-col items-center justify-center gap-3 px-6 py-12 text-center">
+        <span
+          class="grid size-12 min-w-12 min-h-12 place-items-center rounded-[10px] bg-brand-soft text-brand-text"
+          aria-hidden="true"
+        >
+          <ng-icon name="lucideMousePointer2" size="1.375rem" />
+        </span>
+        <span class="flex flex-col gap-1">
+          <span class="text-h3">{{ 'formBuilder.properties.emptyTitle' | translate }}</span>
+          <span class="max-w-60 text-sm text-text-2">
+            {{ 'formBuilder.properties.emptySelection' | translate }}
+          </span>
+        </span>
+      </div>
     }
   </div>
 </aside>

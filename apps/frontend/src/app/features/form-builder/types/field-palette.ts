@@ -1,5 +1,5 @@
-import type { FieldTypeName } from '../formly/config/config-types';
-import type { FIELD_TYPE_ICONS } from '../formly/config/field-type-icons';
+import type { FieldTypeName } from '../../../formly/config/config-types';
+import type { FIELD_TYPE_ICONS } from '../../../formly/config/field-type-icons';
 
 export type FieldPaletteFieldItem = {
   [Type in FieldTypeName]: {

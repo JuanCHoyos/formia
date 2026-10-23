@@ -1,19 +1,19 @@
 import { CdkDrag, CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { provideIcons } from '@ng-icons/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { FieldTypeName } from '@/app/features/form-builder/formly/config/config-types';
+import { BuilderDragState } from '@/app/features/form-builder/services/builder-drag-state';
 import { BuilderMenuState } from '@/app/features/form-builder/services/builder-menu-state';
 import { FieldConfigFactory } from '@/app/features/form-builder/services/field-config-factory';
 import { FormBuilderStore } from '@/app/features/form-builder/services/form-builder-store';
 import { FieldPaletteFieldItem } from '@/app/features/form-builder/types/field-palette';
+import { FieldTypeName } from '@/app/formly/config/config-types';
 import { APP_ICONS } from '@/app/ui/constants/icons';
 
-import { type AppFormlyFieldConfig } from '../../../../formly/interfaces/app-formly-field-config';
+import { type AppFormlyFieldConfig } from '../../../../../../formly/types/app-formly-field-config';
 import { BuilderWorkspaceEmptyState } from '../builder-workspace-empty-state/builder-workspace-empty-state';
 import { BuilderWorkspaceFormField } from '../builder-workspace-form-field/builder-workspace-form-field';
 
@@ -21,7 +21,6 @@ import { BuilderWorkspaceFormField } from '../builder-workspace-form-field/build
   selector: 'app-builder-workspace-form-page',
   templateUrl: './builder-workspace-form-page.html',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     BuilderWorkspaceFormField,
     BuilderWorkspaceEmptyState,
@@ -38,8 +37,7 @@ export class BuilderWorkspaceFormPage {
   readonly fieldConfigFactory = inject(FieldConfigFactory);
   readonly builderMenuState = inject(BuilderMenuState);
   readonly translate = inject(TranslateService);
-
-  whileDragging = signal<boolean>(false);
+  readonly dragState = inject(BuilderDragState);
 
   addNewField(type: FieldTypeName, label: string, newIndex: number = 0) {
     const newFieldType = this.fieldConfigFactory.createFormFieldConf(

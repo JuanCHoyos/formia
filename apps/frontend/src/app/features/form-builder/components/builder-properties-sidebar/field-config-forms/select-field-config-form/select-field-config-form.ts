@@ -8,7 +8,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 
-import type { SelectFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
+import type { SelectFieldProps } from '@/app/formly/types/field-types';
 import { Checkbox } from '@/app/ui/components/checkbox/checkbox';
 import { OptionEditor } from '@/app/ui/components/option-editor/option-editor';
 

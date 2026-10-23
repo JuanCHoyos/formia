@@ -7,7 +7,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 
-import type { DividerFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
+import type { DividerFieldProps } from '@/app/formly/types/field-types';
 
 import type { DividerFieldSettings } from '../../../../types/field-config-settings';
 

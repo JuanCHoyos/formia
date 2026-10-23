@@ -1,5 +1,4 @@
 import { CdkDragHandle } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
 import { Component, computed, inject, input, signal } from '@angular/core';
 
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -9,10 +8,8 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { MenuModule } from 'primeng/menu';
 
 import { FIELD_PALETTE } from '@/app/features/form-builder/constants/field-palette-group';
-import { AppFormlyFieldConfig } from '@/app/features/form-builder/formly/interfaces/app-formly-field-config';
-import { BuilderMenuState } from '@/app/features/form-builder/services/builder-menu-state';
-import { FieldConfigFactory } from '@/app/features/form-builder/services/field-config-factory';
 import { FormBuilderStore } from '@/app/features/form-builder/services/form-builder-store';
+import { AppFormlyFieldConfig } from '@/app/formly/types/app-formly-field-config';
 import { Button } from '@/app/ui/components/button/button';
 import { APP_ICONS } from '@/app/ui/constants/icons';
 import { AppIcon } from '@/app/ui/types/icons';
@@ -23,15 +20,7 @@ import { BuilderWorkspaceFormMove } from '../builder-workspace-form-move/builder
   selector: 'app-builder-workspace-form-field-header',
   templateUrl: './builder-workspace-form-field-header.html',
   styleUrls: ['./builder-workspace-form-field-header.scss'],
-  imports: [
-    CommonModule,
-    Button,
-    TranslatePipe,
-    DynamicDialogModule,
-    MenuModule,
-    NgIcon,
-    CdkDragHandle,
-  ],
+  imports: [Button, TranslatePipe, DynamicDialogModule, MenuModule, NgIcon, CdkDragHandle],
   providers: [provideIcons(APP_ICONS), DialogService],
 })
 export class BuilderWorkspaceFormFieldHeader {
@@ -40,30 +29,28 @@ export class BuilderWorkspaceFormFieldHeader {
 
   readonly dialogService = inject(DialogService);
   readonly formBuilderStore = inject(FormBuilderStore);
-  readonly fieldConfigFactory = inject(FieldConfigFactory);
-  readonly builderMenuState = inject(BuilderMenuState);
   readonly translate = inject(TranslateService);
   readonly menuActionItems = signal<MenuActionItem[]>([
     {
-      label: 'Copy',
+      label: 'formBuilder.workspace.fieldActions.duplicate',
       icon: 'lucideCopy',
-      severity: 'contrast',
-      command: () => this.cloned(),
-      customClass: 'text-slate-500',
+      severity: 'secondary',
+      command: () => this.duplicate(),
+      customClass: 'text-text-2',
     },
     {
-      label: 'Move Field',
+      label: 'formBuilder.workspace.fieldActions.move',
       icon: 'lucideArrowRightLeft',
-      severity: 'contrast',
+      severity: 'secondary',
       command: () => this.move(),
-      customClass: 'text-slate-500',
+      customClass: 'text-text-2',
     },
     {
-      label: 'Delete',
+      label: 'formBuilder.workspace.fieldActions.delete',
       icon: 'lucideTrash2',
       severity: 'danger',
       command: () => this.delete(),
-      customClass: 'text-slate-500 hover:bg-red-50 hover:text-danger',
+      customClass: 'text-danger-text',
     },
   ]);
 
@@ -79,12 +66,8 @@ export class BuilderWorkspaceFormFieldHeader {
     return { label: selectedFieldPalette.label, icon: selectedFieldPalette.icon };
   });
 
-  cloned(): void {
-    //this.fieldConfigFactory.duplicate(field, index);
-  }
-
-  copyContainerField(_field: AppFormlyFieldConfig): void {
-    //this.fieldConfigFactory.duplicate(field, this.formBuilderStore.currentPageFields().length);
+  duplicate(): void {
+    this.formBuilderStore.formTreeEditor.duplicateElement(this.field().id);
   }
 
   delete(): void {

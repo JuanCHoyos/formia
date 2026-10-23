@@ -8,7 +8,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 
-import type { RatingFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
+import type { RatingFieldProps } from '@/app/formly/types/field-types';
 import { Checkbox } from '@/app/ui/components/checkbox/checkbox';
 
 import type { RatingFieldSettings } from '../../../../types/field-config-settings';

@@ -5,7 +5,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { AccordionModule } from 'primeng/accordion';
 
-import type { RadioImageFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
+import type { RadioImageFieldProps } from '@/app/formly/types/field-types';
 import { ImageOptionEditor } from '@/app/ui/components/image-option-editor/image-option-editor';
 
 import { CommonFieldConfigForm } from '../common-field-config-form/common-field-config-form';

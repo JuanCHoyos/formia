@@ -7,7 +7,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 
-import type { HeadingFieldProps } from '@/app/features/form-builder/formly/interfaces/field-types';
+import type { HeadingFieldProps } from '@/app/formly/types/field-types';
 import { TextEditor } from '@/app/ui/components/text-editor/text-editor';
 
 import type { HeadingFieldSettings } from '../../../../types/field-config-settings';

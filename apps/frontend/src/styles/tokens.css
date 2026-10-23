@@ -25,6 +25,29 @@
   --app-info-border: light-dark(#bae6fd, #1e4a63);
   --app-info-solid: light-dark(#0ea5e9, #38bdf8);
 
+  --app-cat-sky: light-dark(#0284c7, #7dd3fc);
+  --app-cat-sky-bg: light-dark(#e0f2fe, #0f2a38);
+  --app-cat-blue: light-dark(#2563eb, #93c5fd);
+  --app-cat-blue-bg: light-dark(#dbeafe, #14233f);
+  --app-cat-emerald: light-dark(#059669, #6ee7b7);
+  --app-cat-emerald-bg: light-dark(#d1fae5, #10291f);
+  --app-cat-violet: light-dark(#7c3aed, #c4b5fd);
+  --app-cat-violet-bg: light-dark(#ede9fe, #251b3f);
+  --app-cat-indigo: light-dark(#4f46e5, #a5b4fc);
+  --app-cat-indigo-bg: light-dark(#e0e7ff, #1f1e3f);
+  --app-cat-amber: light-dark(#d97706, #fcd34d);
+  --app-cat-amber-bg: light-dark(#fef3c7, #2d2210);
+  --app-cat-purple: light-dark(#9333ea, #d8b4fe);
+  --app-cat-purple-bg: light-dark(#f3e8ff, #2a1a3a);
+  --app-cat-rose: light-dark(#e11d48, #fda4af);
+  --app-cat-rose-bg: light-dark(#ffe4e6, #331820);
+  --app-cat-slate: light-dark(#334155, #d4d4d4);
+  --app-cat-slate-bg: light-dark(#f1f5f9, #262626);
+  --app-cat-orange: light-dark(#ea580c, #fdba74);
+  --app-cat-orange-bg: light-dark(#ffedd5, #33200f);
+  --app-cat-cyan: light-dark(#0e7490, #67e8f9);
+  --app-cat-cyan-bg: light-dark(#cffafe, #0f2a2e);
+
   --app-shadow-1: 0 1px 2px light-dark(rgba(15, 23, 42, 0.05), rgba(0, 0, 0, 0.5));
   --app-shadow-2:
     0 10px 24px -6px light-dark(rgba(15, 23, 42, 0.14), rgba(0, 0, 0, 0.7)),
@@ -83,6 +106,29 @@
   --color-info-border: var(--app-info-border);
 
   --color-background: var(--p-content-background);
+
+  --color-cat-sky: var(--app-cat-sky);
+  --color-cat-sky-bg: var(--app-cat-sky-bg);
+  --color-cat-blue: var(--app-cat-blue);
+  --color-cat-blue-bg: var(--app-cat-blue-bg);
+  --color-cat-emerald: var(--app-cat-emerald);
+  --color-cat-emerald-bg: var(--app-cat-emerald-bg);
+  --color-cat-violet: var(--app-cat-violet);
+  --color-cat-violet-bg: var(--app-cat-violet-bg);
+  --color-cat-indigo: var(--app-cat-indigo);
+  --color-cat-indigo-bg: var(--app-cat-indigo-bg);
+  --color-cat-amber: var(--app-cat-amber);
+  --color-cat-amber-bg: var(--app-cat-amber-bg);
+  --color-cat-purple: var(--app-cat-purple);
+  --color-cat-purple-bg: var(--app-cat-purple-bg);
+  --color-cat-rose: var(--app-cat-rose);
+  --color-cat-rose-bg: var(--app-cat-rose-bg);
+  --color-cat-slate: var(--app-cat-slate);
+  --color-cat-slate-bg: var(--app-cat-slate-bg);
+  --color-cat-orange: var(--app-cat-orange);
+  --color-cat-orange-bg: var(--app-cat-orange-bg);
+  --color-cat-cyan: var(--app-cat-cyan);
+  --color-cat-cyan-bg: var(--app-cat-cyan-bg);
 
   --radius-control: 6px;
   --radius-menu: 10px;

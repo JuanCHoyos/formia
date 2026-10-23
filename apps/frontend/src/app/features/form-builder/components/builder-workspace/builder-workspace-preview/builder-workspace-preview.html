@@ -1,9 +1,9 @@
 <section
   [attr.aria-label]="'formBuilder.workspace.preview' | translate"
-  class="flex h-full min-h-0 w-full flex-col overflow-y-auto bg-[#f4f6fa] p-4 md:p-8"
+  class="relative flex h-full min-h-0 w-full flex-col overflow-y-auto bg-bg p-4 md:p-8"
 >
   <div
-    class="m-auto w-full max-w-3xl rounded-xl border border-[#d7dce5] bg-white p-6 shadow-sm md:p-10"
+    class="m-auto w-full max-w-3xl rounded-panel border border-border bg-surface p-6 shadow-1 md:p-10"
   >
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <formly-form [form]="form" [fields]="[fields()]" [model]="model" />

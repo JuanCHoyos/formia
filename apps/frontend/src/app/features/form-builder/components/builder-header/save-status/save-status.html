@@ -11,7 +11,11 @@
     @case ('saved') {
       <p-tag severity="success" rounded>
         <span class="flex items-center gap-1.5 px-1 font-medium">
-          <ng-icon name="lucideCheckCircle2" class="size-3.5" aria-hidden="true" />
+          <ng-icon
+            name="lucideCheckCircle2"
+            class="size-3.5 min-w-3.5 min-h-3.5"
+            aria-hidden="true"
+          />
           {{ 'formBuilder.header.saveState.saved' | translate }}
         </span>
       </p-tag>
@@ -19,7 +23,11 @@
     @case ('error') {
       <p-tag severity="danger" rounded>
         <span class="flex items-center gap-1.5 px-1 font-medium">
-          <ng-icon name="lucideAlertTriangle" class="size-3.5" aria-hidden="true" />
+          <ng-icon
+            name="lucideAlertTriangle"
+            class="size-3.5 min-w-3.5 min-h-3.5"
+            aria-hidden="true"
+          />
           {{ 'formBuilder.header.saveState.error' | translate }}
         </span>
       </p-tag>
