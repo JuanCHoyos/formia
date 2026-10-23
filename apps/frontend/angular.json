@@ -78,7 +78,11 @@
           "configurations": {
             "coverage": {
               "coverage": true,
-              "coverageInclude": ["src/app/core/auth/**", "src/app/features/auth/**"],
+              "coverageInclude": [
+                "src/app/core/auth/**",
+                "src/app/features/auth/**",
+                "src/app/ui/components/**"
+              ],
               "coverageReporters": ["text", "html", "lcov"],
               "coverageThresholds": {
                 "statements": 90,
