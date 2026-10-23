@@ -74,13 +74,39 @@ export class FormBuilderStore {
   );
 
   currentFormPage = signal<number>(0);
-  selectedField = signal<AppFormlyFieldConfig | FormPageContainer | null>(null);
+  /**
+   * The selection is kept as an id: every edit rebuilds the field objects, so a stored object would
+   * go stale. Canvas, tree and properties panel all read the live field through `selectedField`.
+   */
+  private readonly selectedFieldId = signal<string | null>(null);
+  readonly selectedField = computed<AppFormlyFieldConfig | FormPageContainer | null>(() => {
+    const id = this.selectedFieldId();
+    return id === null ? null : this.findFieldById(this.fields().fieldGroup, id);
+  });
 
   currentPage = computed(() => this.fields().fieldGroup[this.currentFormPage()]);
 
   percentageOfCurrentPage = computed<number>(() => {
     return ((this.currentFormPage() + 1) / this.totalPageCount()) * 100;
   });
+
+  selectField(field: Pick<AppFormlyFieldConfig | FormPageContainer, 'id'> | null): void {
+    this.selectedFieldId.set(field?.id ?? null);
+  }
+
+  private findFieldById(
+    fields: readonly (AppFormlyFieldConfig | FormPageContainer)[],
+    id: string,
+  ): AppFormlyFieldConfig | FormPageContainer | null {
+    for (const field of fields) {
+      if (field.id === id) return field;
+      if ('fieldGroup' in field && field.fieldGroup) {
+        const nested = this.findFieldById(field.fieldGroup, id);
+        if (nested) return nested;
+      }
+    }
+    return null;
+  }
 
   private countFields(fields: AppFormlyFieldConfig[]): number {
     return fields.reduce(
@@ -100,7 +126,7 @@ export class FormBuilderStore {
     this.settings.set({ ...settings });
     this.formTreeHistory.reset(fields ?? this.createDefaultFields());
     this.currentFormPage.set(0);
-    this.selectedField.set(null);
+    this.selectField(null);
   }
 
   private defaultTitle(): string {
@@ -131,7 +157,7 @@ export class FormBuilderStore {
       ...currentFieldState,
       fieldGroup: [...currentFieldState.fieldGroup, page],
     }));
-    this.selectedField.set(null);
+    this.selectField(null);
   }
 
   serFormViewOption(view: FormViewWrapper | null) {

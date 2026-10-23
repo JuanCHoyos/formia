@@ -337,7 +337,7 @@ export class FormBuilderSync implements OnDestroy {
   /** Loads a published version into the editor; it becomes the draft until published again. */
   restoreVersion(version: PublishedVersion): void {
     this.store.formTreeHistory.update(() => structuredClone(version.fields));
-    this.store.selectedField.set(null);
+    this.store.selectField(null);
     this.store.currentFormPage.set(0);
   }
 

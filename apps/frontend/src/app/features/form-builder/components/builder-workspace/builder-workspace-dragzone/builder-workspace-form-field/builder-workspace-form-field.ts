@@ -101,7 +101,7 @@ export class BuilderWorkspaceFormField {
       return;
     }
 
-    this.formBuilderStore.selectedField.set(this.field());
+    this.formBuilderStore.selectField(this.field());
     this.builderMenuState.openRightMenu();
   }
 }

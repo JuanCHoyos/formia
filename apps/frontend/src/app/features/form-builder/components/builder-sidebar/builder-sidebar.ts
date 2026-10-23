@@ -61,7 +61,7 @@ export class BuilderSidebar {
   }
 
   edit(field: AppFormlyFieldConfig | FormPageContainer | null): void {
-    this.formBuilderStore.selectedField.set(field);
+    this.formBuilderStore.selectField(field);
     this.menuState.openRightMenu();
   }
 

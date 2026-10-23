@@ -431,6 +431,44 @@ describe('TreeSelector', () => {
       expect(scrollIntoView.mock.contexts.at(-1)).toBe(node(element, 'phone'));
     });
 
+    it('does not scroll again when the items are rebuilt with the same selection', async () => {
+      tree.selectedItem.set('phone');
+      await render();
+      expect(scrollIntoView).toHaveBeenCalledOnce();
+
+      fixture.componentRef.setInput('items', buildItems());
+      await render();
+
+      expect(scrollIntoView).toHaveBeenCalledOnce();
+    });
+
+    it('reveals the selection again when a rebuild leaves it inside a collapsed container', async () => {
+      tree.selectedItem.set('phone');
+      await render();
+      tree.toggle('g1');
+      await render();
+      expect(tree.isExpanded('g1')).toBe(false);
+
+      fixture.componentRef.setInput('items', buildItems());
+      await render();
+
+      expect(tree.isExpanded('g1')).toBe(true);
+      expect(scrollIntoView).toHaveBeenCalledTimes(2);
+    });
+
+    it('reveals the selection once its item shows up in the tree', async () => {
+      fixture.componentRef.setInput('items', []);
+      tree.selectedItem.set('phone');
+      await render();
+      expect(scrollIntoView).not.toHaveBeenCalled();
+
+      fixture.componentRef.setInput('items', buildItems());
+      const element = await render();
+
+      expect(row(element, 'phone').getAttribute('aria-current')).toBe('true');
+      expect(scrollIntoView).toHaveBeenCalledOnce();
+    });
+
     it('ignores outside selections that are not in the tree', async () => {
       await render();
 

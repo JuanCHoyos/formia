@@ -77,6 +77,7 @@ export class TreeSelector<T> implements TreeSelectorContext<T>, OnDestroy {
   private readonly isDragging = signal(false);
   readonly dragging = this.isDragging.asReadonly();
   private pointer: { x: number; y: number } | null = null;
+  private revealedId: string | null = null;
   private stopTrackingPointer: (() => void) | null = null;
 
   private readonly query = computed(() =>
@@ -112,11 +113,19 @@ export class TreeSelector<T> implements TreeSelectorContext<T>, OnDestroy {
   constructor() {
     effect(() => {
       const selected = this.selectedItem();
-      if (selected === null) return;
+      const path = selected === null ? null : this.findPath(this.items(), selected, []);
+      if (!path) {
+        this.revealedId = null;
+        return;
+      }
 
-      const path = untracked(() => this.findPath(this.items(), selected, []));
-      if (!path) return;
+      // The selected value is rebuilt on every edit; only reveal it again when the selection
+      // moves to another item or when it ends up hidden inside a collapsed container.
+      const collapsed = untracked(() => this.collapsedIds());
+      const hidden = path.ancestorIds.some((id) => collapsed.has(id));
+      if (path.id === this.revealedId && !hidden) return;
 
+      this.revealedId = path.id;
       untracked(() => this.expandAll(path.ancestorIds));
       afterNextRender(() => this.scrollToItem(path.id), { injector: this.injector });
     });

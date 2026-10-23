@@ -220,6 +220,5 @@ export class BuilderPropertiesSidebar {
     } as T;
 
     this.formBuilderStore.formTreeEditor.updateElement(field.id, updatedField);
-    this.formBuilderStore.selectedField.set(updatedField);
   }
 }
