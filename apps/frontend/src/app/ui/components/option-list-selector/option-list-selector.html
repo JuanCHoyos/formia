@@ -1,0 +1,40 @@
+<div
+  class="flex flex-col gap-2"
+  [attr.role]="multiple() ? 'group' : 'radiogroup'"
+  [attr.aria-label]="ariaLabel()"
+>
+  @for (option of options(); track option.value) {
+    <label
+      class="group flex min-h-13 items-center gap-3 rounded-menu border border-border px-4 py-2 text-sm text-text transition-colors has-checked:border-brand has-checked:bg-brand-soft has-focus-visible:focus-ring has-disabled:cursor-not-allowed has-disabled:opacity-60 has-enabled:cursor-pointer has-enabled:hover:border-border-hover has-enabled:hover:bg-hover has-enabled:has-checked:hover:border-brand has-enabled:has-checked:hover:bg-brand-soft"
+    >
+      <input
+        class="sr-only"
+        [type]="multiple() ? 'checkbox' : 'radio'"
+        [name]="groupName"
+        [checked]="isSelected(option.value)"
+        [disabled]="disabled()"
+        (change)="select(option.value)"
+      />
+
+      @if (multiple()) {
+        <span
+          class="flex size-[18px] shrink-0 items-center justify-center rounded-[4px] border border-border-strong bg-surface text-on-brand transition-colors group-has-checked:border-brand group-has-checked:bg-brand"
+          aria-hidden="true"
+        >
+          <ng-icon
+            name="lucideCheck"
+            size="0.75rem"
+            class="scale-50 opacity-0 transition-[opacity,transform] duration-150 group-has-checked:scale-100 group-has-checked:opacity-100"
+          />
+        </span>
+      } @else {
+        <span
+          class="size-[18px] shrink-0 rounded-full border border-border-strong bg-surface transition-[border-width,border-color] group-has-checked:border-[5px] group-has-checked:border-brand"
+          aria-hidden="true"
+        ></span>
+      }
+
+      <span class="flex-1">{{ option.label }}</span>
+    </label>
+  }
+</div>

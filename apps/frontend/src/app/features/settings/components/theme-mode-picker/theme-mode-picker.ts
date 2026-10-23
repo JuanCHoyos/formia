@@ -1,19 +1,19 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, input, output } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
+import { PreviewCardSelector } from '@/app/ui/components/preview-card-selector/preview-card-selector';
+import { PreviewCardTemplate } from '@/app/ui/components/preview-card-selector/preview-card-template';
 import { THEME_MODE_OPTIONS } from '@/app/ui/constants/appearance-options';
-import { APP_ICONS } from '@/app/ui/constants/icons';
 import type { OptionSelection } from '@/app/ui/types/option-selection';
+import type { PreviewCardSelectorOption } from '@/app/ui/types/preview-card-selector-option';
 
 import type { ThemeMode } from '../../../../core/theme/types/theme-mode';
 
 @Component({
   selector: 'app-theme-mode-picker',
-  imports: [NgTemplateOutlet, NgIcon, TranslatePipe],
-  providers: [provideIcons(APP_ICONS)],
+  imports: [NgTemplateOutlet, TranslatePipe, PreviewCardSelector, PreviewCardTemplate],
   templateUrl: './theme-mode-picker.html',
   styles: `
     .mode-preview[data-scheme='light'] {
@@ -32,8 +32,17 @@ import type { ThemeMode } from '../../../../core/theme/types/theme-mode';
   `,
 })
 export class ThemeModePicker {
+  private readonly translate = inject(TranslateService);
+
   readonly value = input.required<ThemeMode>();
   readonly selectionChange = output<OptionSelection<ThemeMode>>();
 
-  protected readonly options = THEME_MODE_OPTIONS;
+  protected readonly options = computed<PreviewCardSelectorOption<ThemeMode>[]>(() => {
+    this.translate.currentLang();
+    return THEME_MODE_OPTIONS.map((option) => ({
+      value: option.value,
+      icon: option.icon,
+      label: this.translate.instant(option.labelKey) as string,
+    }));
+  });
 }

@@ -1,0 +1,15 @@
+<div class="flex flex-wrap items-center gap-2" role="group" [attr.aria-label]="ariaLabel()">
+  @for (step of steps(); track step) {
+    <button
+      pButton
+      type="button"
+      class="size-8 hover:scale-105"
+      [variant]="step <= (value() ?? 0) ? undefined : 'outlined'"
+      [disabled]="disabled()"
+      [attr.aria-pressed]="step === value()"
+      (click)="select(step)"
+    >
+      {{ step }}
+    </button>
+  }
+</div>

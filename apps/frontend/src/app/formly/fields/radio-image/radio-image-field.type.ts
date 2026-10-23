@@ -1,18 +1,15 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideCheck } from '@ng-icons/lucide';
 import { FieldType } from '@ngx-formly/core';
 
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { PreviewCardSelector } from '@/app/ui/components/preview-card-selector/preview-card-selector';
+import { PreviewCardTemplate } from '@/app/ui/components/preview-card-selector/preview-card-template';
 
 import type { RadioImageFieldTypeConfig } from '../../types/field-types/radio-image-field';
 
 @Component({
   selector: 'formly-field-radio-image',
   templateUrl: './radio-image-field.type.html',
-  imports: [ReactiveFormsModule, RadioButtonModule, NgIcon],
-  providers: [provideIcons({ lucideCheck })],
+  imports: [PreviewCardSelector, PreviewCardTemplate],
 })
 export class RadioImageFieldType extends FieldType<RadioImageFieldTypeConfig> {}

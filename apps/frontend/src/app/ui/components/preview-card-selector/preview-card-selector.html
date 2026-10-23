@@ -1,0 +1,39 @@
+<div
+  role="radiogroup"
+  class="grid gap-3"
+  [style.grid-template-columns]="gridTemplateColumns()"
+  [attr.aria-label]="ariaLabel()"
+>
+  @for (option of options(); track option.value) {
+    <label
+      #item
+      class="group relative flex flex-col overflow-hidden rounded-panel border border-border bg-surface transition-[border-color,box-shadow] duration-150 has-checked:border-brand has-checked:shadow-[0_0_0_1px_var(--p-primary-color)] has-focus-visible:focus-ring has-disabled:cursor-not-allowed has-disabled:opacity-60 has-enabled:cursor-pointer has-enabled:hover:border-border-hover has-enabled:has-checked:hover:border-brand"
+    >
+      <input
+        type="radio"
+        class="sr-only"
+        [name]="groupName"
+        [checked]="option.value === value()"
+        [disabled]="disabled()"
+        (change)="select(option.value, item)"
+      />
+
+      @if (preview()?.template; as previewTemplate) {
+        <span class="relative aspect-video w-full overflow-hidden border-b border-border">
+          <ng-container *ngTemplateOutlet="previewTemplate; context: { $implicit: option }" />
+        </span>
+      }
+
+      <span class="flex items-center gap-2 px-3 py-2.5">
+        <span
+          class="size-4 shrink-0 rounded-full border border-border-strong bg-surface transition-[border-width,border-color] group-has-checked:border-[5px] group-has-checked:border-brand"
+          aria-hidden="true"
+        ></span>
+        <span class="flex-1 text-sm font-medium">{{ option.label }}</span>
+        @if (option.icon) {
+          <ng-icon [name]="option.icon" size="1rem" class="text-text-3" aria-hidden="true" />
+        }
+      </span>
+    </label>
+  }
+</div>

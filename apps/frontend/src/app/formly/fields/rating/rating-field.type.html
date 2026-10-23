@@ -5,17 +5,14 @@
     }
 
     @case ('number') {
-      <div class="flex items-center gap-2">
-        @for (star of stars(); track $index) {
-          <app-button
-            [variant]="star <= field.formControl.value ? undefined : 'outlined'"
-            customClass="size-8 hover:scale-105"
-            (pressed)="setValue(star)"
-          >
-            {{ star }}
-          </app-button>
-        }
-      </div>
+      <app-rating-scale
+        [count]="props.stars"
+        [value]="formControl.value"
+        [disabled]="formControl.disabled"
+        [ariaLabel]="props.label"
+        (valueChange)="formControl.setValue($event)"
+        (touch)="formControl.markAsTouched()"
+      />
     }
   }
 
